@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{DA5B813A-DF8C-081B-1132-4CC414989C70}</ProjectGuid>
+    <ProjectGuid>{3708B4FE-5947-A249-DC64-C125CD2F9761}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Quantum.Menu.Editor</AssemblyName>
@@ -1146,15 +1146,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Quantum.Menu.csproj">
-      <Project>{F11DEC49-6396-F7F4-7713-CAB99929BFAD}</Project>
+      <Project>{C08C8498-09AF-78AE-8CC7-92902B6122DC}</Project>
       <Name>Quantum.Menu</Name>
     </ProjectReference>
     <ProjectReference Include="Quantum.Simulation.csproj">
-      <Project>{D54BF9B0-0A78-DD26-80A6-5FA24F2A9180}</Project>
+      <Project>{F303EED8-2B7B-5D42-900C-FD6E96869F16}</Project>
       <Name>Quantum.Simulation</Name>
     </ProjectReference>
     <ProjectReference Include="Quantum.Unity.csproj">
-      <Project>{F1D4D333-92AE-7C31-D26D-D88CB8D77C59}</Project>
+      <Project>{00FFAB92-A38D-361C-53C0-8797DE838129}</Project>
       <Name>Quantum.Unity</Name>
     </ProjectReference>
   </ItemGroup>

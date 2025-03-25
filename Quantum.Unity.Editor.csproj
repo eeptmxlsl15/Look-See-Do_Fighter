@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>Quantum.Editor</RootNamespace>
-    <ProjectGuid>{DEB228DC-DD47-867D-DC8A-41751E0AF897}</ProjectGuid>
+    <ProjectGuid>{5BE774E8-6E97-C05C-109A-51F2240277C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Quantum.Unity.Editor</AssemblyName>
@@ -1180,19 +1180,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Photon.Realtime.csproj">
-      <Project>{95A000C3-95A7-929E-8F6E-C4314ABCD84C}</Project>
+      <Project>{A4652533-7C38-5BF7-F9FD-7CE0E56E1E9D}</Project>
       <Name>Photon.Realtime</Name>
     </ProjectReference>
     <ProjectReference Include="Quantum.Unity.csproj">
-      <Project>{F1D4D333-92AE-7C31-D26D-D88CB8D77C59}</Project>
+      <Project>{00FFAB92-A38D-361C-53C0-8797DE838129}</Project>
       <Name>Quantum.Unity</Name>
     </ProjectReference>
     <ProjectReference Include="Quantum.Simulation.csproj">
-      <Project>{D54BF9B0-0A78-DD26-80A6-5FA24F2A9180}</Project>
+      <Project>{F303EED8-2B7B-5D42-900C-FD6E96869F16}</Project>
       <Name>Quantum.Simulation</Name>
     </ProjectReference>
     <ProjectReference Include="Quantum.Unity.Editor.CodeGen.csproj">
-      <Project>{24C42F5F-C93D-19BE-7F0F-7AF9D1AE26B3}</Project>
+      <Project>{37BA55E1-1061-B134-4A2C-9297E00CE872}</Project>
       <Name>Quantum.Unity.Editor.CodeGen</Name>
     </ProjectReference>
   </ItemGroup>
