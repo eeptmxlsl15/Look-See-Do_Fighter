@@ -387,6 +387,7 @@
 "Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs"
 "Assets/Photon/Quantum/Simulation/SimulationConfig.cs"
 "Assets/Photon/Quantum/Simulation/SystemsConfig.cs"
+"Assets/QuantumUser/Simulation/AsteroidsShipSystem.cs"
 "Assets/QuantumUser/Simulation/CommandSetup.User.cs"
 "Assets/QuantumUser/Simulation/Frame.User.cs"
 "Assets/QuantumUser/Simulation/FrameContext.User.cs"

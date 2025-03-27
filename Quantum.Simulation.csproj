@@ -71,11 +71,13 @@
     <Compile Include="Assets\QuantumUser\Simulation\RuntimePlayer.User.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\FrameContext.User.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\SimulationConfig.User.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\AsteroidsShipSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\SystemSetup.User.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimeConfig.User.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Prototypes.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\QuantumUser\Simulation\Input.qtn" />
     <None Include="Assets\Photon\Quantum\Simulation\Quantum.Simulation.asmdef" />
     <None Include="Assets\QuantumUser\Simulation\Quantum.Simulation.asmref" />
   </ItemGroup>

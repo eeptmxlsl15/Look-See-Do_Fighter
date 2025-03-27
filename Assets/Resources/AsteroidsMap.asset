@@ -43,34 +43,34 @@ MonoBehaviour:
   StaticColliders3D: []
   MapEntities:
   - Components:
-    - rid: 7677242874685030400
-    - rid: 7677242874685030401
-    - rid: 7677242874685030402
-    - rid: 7677242874685030403
+    - rid: 2758788733388980224
+    - rid: 2758788733388980225
+    - rid: 2758788733388980226
+    - rid: 2758788733388980227
   SerializedTriangleDataUncompressedSize: 8
   references:
     version: 2
     RefIds:
-    - rid: 7677242874685030400
+    - rid: 2758788733388980224
       type: {class: Transform2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
           X:
             RawValue: 0
           Y:
-            RawValue: 0
+            RawValue: 500695
         Rotation:
           RawValue: 0
-    - rid: 7677242874685030401
+    - rid: 2758788733388980225
       type: {class: PhysicsCollider2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         ShapeConfig:
-          ShapeType: 1
+          ShapeType: 4
           PolygonCollider:
             Id:
               Value: 0
           CircleRadius:
-            RawValue: 72090
+            RawValue: 32768
           CapsuleSize:
             X:
               RawValue: 65536
@@ -80,9 +80,9 @@ MonoBehaviour:
             RawValue: 32768
           BoxExtents:
             X:
-              RawValue: 32768
+              RawValue: 45875
             Y:
-              RawValue: 32768
+              RawValue: 58982
           PositionOffset:
             X:
               RawValue: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
         PhysicsMaterial:
           Id:
             Value: 0
-    - rid: 7677242874685030402
+    - rid: 2758788733388980226
       type: {class: PhysicsBody2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Config:
@@ -154,7 +154,7 @@ MonoBehaviour:
           UserTag: 0
           IsPersistent: 1
           CompoundShapes: []
-    - rid: 7677242874685030403
+    - rid: 2758788733388980227
       type: {class: PhysicsCallbacks2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         CallbackFlags:
