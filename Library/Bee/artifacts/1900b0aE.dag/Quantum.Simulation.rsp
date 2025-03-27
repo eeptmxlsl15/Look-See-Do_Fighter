@@ -396,6 +396,7 @@
 "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Prototypes.cs"
 "Assets/QuantumUser/Simulation/RuntimeConfig.User.cs"
 "Assets/QuantumUser/Simulation/RuntimePlayer.User.cs"
+"Assets/QuantumUser/Simulation/ShipSpawnSystem.cs"
 "Assets/QuantumUser/Simulation/SimulationConfig.User.cs"
 "Assets/QuantumUser/Simulation/SystemSetup.User.cs"
 -langversion:9.0

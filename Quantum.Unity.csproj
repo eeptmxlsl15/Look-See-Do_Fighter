@@ -115,6 +115,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumAddRuntimePlayers.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\PhotonServerSettings.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumNavMeshRegion.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypePlayerLink.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerDeltaTime.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMeshCollection.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeNavMeshSteeringAgent.cs" />

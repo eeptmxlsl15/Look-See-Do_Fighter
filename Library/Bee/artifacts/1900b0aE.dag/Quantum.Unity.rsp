@@ -485,6 +485,7 @@
 "Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.AssemblyAttributes.cs"
 "Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs"
 "Assets/Photon/Quantum/Runtime/RuntimeConfigContainer.cs"
+"Assets/QuantumUser/View/Generated/QPrototypePlayerLink.cs"
 "Assets/QuantumUser/View/Generated/Quantum.CodeGen.UnityPrototypeAdapters.cs"
 -langversion:9.0
 /unsafe+

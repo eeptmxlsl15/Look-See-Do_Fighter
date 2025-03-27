@@ -67,6 +67,7 @@
     <Compile Include="Assets\Photon\Quantum\Simulation\QuantumSimulationCore.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Events.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\SimulationConfig.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\ShipSpawnSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Core.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimePlayer.User.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\FrameContext.User.cs" />
@@ -78,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\QuantumUser\Simulation\Input.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\PlayerLink.qtn" />
     <None Include="Assets\Photon\Quantum\Simulation\Quantum.Simulation.asmdef" />
     <None Include="Assets\QuantumUser\Simulation\Quantum.Simulation.asmref" />
   </ItemGroup>
