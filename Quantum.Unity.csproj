@@ -105,6 +105,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerPing.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticTerrainCollider3D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsJoints2D.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeAsteroidsShip.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumTaskRunnerJobs.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticPolygonCollider2D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerRenderTime.cs" />
