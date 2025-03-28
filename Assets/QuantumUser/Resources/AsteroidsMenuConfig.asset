@@ -21,7 +21,24 @@ MonoBehaviour:
   - eu
   - sa
   - us
-  _availableScenes: []
-  _machineId: {fileID: 0}
-  _codeGenerator: {fileID: 0}
+  _availableScenes:
+  - Name: Asteroids Gameplay
+    ScenePath: Assets/Scenes/AsteroidsGameplay.unity
+    Preview: {fileID: 0}
+    RuntimeConfig:
+      Seed: 0
+      Map:
+        Id:
+          Value: 518059910074224241
+      SimulationConfig:
+        Id:
+          Value: 350553322058597588
+      SystemsConfig:
+        Id:
+          Value: 285089243159414514
+      GameConfig:
+        Id:
+          Value: 342184689982775392
+  _machineId: {fileID: -755480892457977500, guid: fbd1d0c57fd428c44b08e505acb8d851, type: 3}
+  _codeGenerator: {fileID: 11400000, guid: e38f1fac5a1a5c94da2b4ef21bd48419, type: 2}
   DefaultScenePreview: {fileID: 0}

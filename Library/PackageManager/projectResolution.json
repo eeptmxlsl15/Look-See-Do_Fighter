@@ -95,6 +95,14 @@
       "version": "1.9.5",
       "source": "registry"
     },
+    "com.veriorpies.parrelsync@https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync": {
+      "name": "com.veriorpies.parrelsync",
+      "resolvedPath": "C:\\Users\\Admin\\Look-See-Do_Fighter\\Library\\PackageCache\\com.veriorpies.parrelsync",
+      "fingerprint": "256065af1fc7524b590b18830b21517b90e4e956",
+      "editorCompatibility": "2018.4.0a1",
+      "version": "1.5.2",
+      "source": "git"
+    },
     "com.unity.modules.accessibility@1.0.0": {
       "name": "com.unity.modules.accessibility",
       "resolvedPath": "C:\\Users\\Admin\\Look-See-Do_Fighter\\Library\\PackageCache\\com.unity.modules.accessibility",

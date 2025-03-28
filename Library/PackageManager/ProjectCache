@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638783961039602969
-    m_Hash: 2626087532
+      ticks: 638787617000154556
+    m_Hash: 1920607421
   m_LockFileStatus:
     m_FilePath: C:/Users/Admin/Look-See-Do_Fighter/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638783961039673066
-    m_Hash: 1650556554
+      ticks: 638787617000224621
+    m_Hash: 727868142
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -506,9 +506,11 @@ m_ResolvedPackages:
     - 2.0.20
     - 2.0.21
     - 2.0.22
+    - 2.0.23
     compatible:
     - 2.0.22
-    recommended: 2.0.22
+    - 2.0.23
+    recommended: 2.0.23
     deprecated: []
   dependencies:
   - name: com.unity.test-framework
@@ -1540,6 +1542,76 @@ m_ResolvedPackages:
     compatibilityLevel: 0
     minimumPackageVersion: 1.9.5
     minimumUnityVersion: 2021.3.0a1
+- packageId: com.veriorpies.parrelsync@https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync
+  testable: 0
+  isDirectDependency: 1
+  version: 1.5.2
+  source: 5
+  resolvedPath: C:\Users\Admin\Look-See-Do_Fighter\Library\PackageCache\com.veriorpies.parrelsync
+  assetPath: Packages/com.veriorpies.parrelsync
+  name: com.veriorpies.parrelsync
+  displayName: ParrelSync
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: 
+  description: ParrelSync is a Unity editor extension that allows users to test multiplayer
+    gameplay without building the project by having another Unity editor window opened
+    and mirror the changes from the original project.
+  errors: []
+  versions:
+    all: []
+    compatible: []
+    recommended: 
+    deprecated: []
+  dependencies: []
+  resolvedDependencies: []
+  keywords:
+  - Networking
+  - Utils
+  - Editor
+  - Extensions
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  entitlements:
+    licensingModel: 0
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: 
+  hasRepository: 0
+  repository:
+    type: 
+    url: 
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 
+    nextVersion: 
+    recommendedVersion: 
+    isDeprecated: 0
+    deprecationMessage: 
+  isDeprecated: 0
+  deprecationMessage: 
+  git:
+    hash: 610157ad762084380380148ba8ce14e266a6da97
+    revision: HEAD
+  upmReserved: 
+  assetStore:
+    productId: 
+  fingerprint: 256065af1fc7524b590b18830b21517b90e4e956
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 
+    minimumUnityVersion: 2018.4.0a1
 - packageId: com.unity.modules.accessibility@1.0.0
   testable: 0
   isDirectDependency: 1
@@ -4694,6 +4766,7 @@ m_ResolvedPackages:
     - 9.1.1
     - 9.1.2
     - 9.1.3
+    - 9.2.0
     - 10.0.0-pre.1
     - 10.0.0-pre.2
     - 10.0.0
@@ -4998,6 +5071,7 @@ m_ResolvedPackages:
     - 8.0.3
     - 8.0.4
     - 8.0.5
+    - 8.1.0
     - 9.0.0-pre.1
     - 9.0.0-pre.2
     - 9.0.0
@@ -5252,6 +5326,7 @@ m_ResolvedPackages:
     - 9.0.3
     - 9.0.4
     - 9.0.5
+    - 9.1.0
     - 10.0.0-pre.1
     - 10.0.0-pre.2
     - 10.0.0
@@ -6436,6 +6511,7 @@ m_ResolvedPackages:
     - 8.0.2
     - 8.0.3
     - 8.0.4
+    - 8.1.0
     - 9.0.0-pre.1
     - 9.0.0-pre.2
     - 9.0.0
