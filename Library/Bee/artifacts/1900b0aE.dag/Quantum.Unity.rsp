@@ -485,6 +485,8 @@
 "Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.AssemblyAttributes.cs"
 "Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs"
 "Assets/Photon/Quantum/Runtime/RuntimeConfigContainer.cs"
+"Assets/QuantumUser/View/Generated/QPrototypeAsteroidsAsteroid.cs"
+"Assets/QuantumUser/View/Generated/QPrototypeAsteroidsProjectile.cs"
 "Assets/QuantumUser/View/Generated/QPrototypeAsteroidsShip.cs"
 "Assets/QuantumUser/View/Generated/QPrototypePlayerLink.cs"
 "Assets/QuantumUser/View/Generated/Quantum.CodeGen.UnityPrototypeAdapters.cs"

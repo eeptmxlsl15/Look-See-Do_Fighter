@@ -1,3 +1,5 @@
 component AsteroidsShip
 {
+	AssetRef<AsteroidsShipConfig> ShipConfig;
+	FP FireInterval;
 }

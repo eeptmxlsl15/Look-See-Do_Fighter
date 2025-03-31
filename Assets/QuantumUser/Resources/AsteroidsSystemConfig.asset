@@ -61,3 +61,13 @@ MonoBehaviour:
     SystemName: 
     StartDisabled: 0
     Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.Asteroids.AsteroidsProjectileSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.Asteroids.AsteroidsCollisionsSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []

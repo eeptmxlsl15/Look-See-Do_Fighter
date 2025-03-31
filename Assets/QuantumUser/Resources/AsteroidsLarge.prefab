@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 919320896338094044}
   - component: {fileID: 4682577977082339605}
   - component: {fileID: 4718354305202558025}
+  - component: {fileID: -8440257425128896270}
   m_Layer: 0
-  m_Name: Asteroids
+  m_Name: AsteroidsLarge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +125,7 @@ MonoBehaviour:
     LayerSource: 0
     Layer: 0
     CallbackFlags:
-      Value: 0
+      Value: 2
   PhysicsBody:
     IsEnabled: 1
     Config2D: 116
@@ -294,6 +295,22 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-8440257425128896270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507017893235204893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6826a1bd89c219d44ab19a2566a7ecba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    ChildAsteroid:
+      Id:
+        Value: 1440379748479723379
 --- !u!1 &4626201152026986421
 GameObject:
   m_ObjectHideFlags: 0
