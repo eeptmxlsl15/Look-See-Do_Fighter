@@ -32,7 +32,7 @@
 *.app
 
 # Unity 관련 무시 항목
-[Li]ibrary/
+[Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
