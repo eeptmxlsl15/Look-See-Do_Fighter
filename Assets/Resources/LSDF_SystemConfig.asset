@@ -51,3 +51,18 @@ MonoBehaviour:
     SystemName: 
     StartDisabled: 0
     Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.Addons.Animator.AnimatorSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.Addons.Animator.AnimatorBehaviourSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.Addons.Animator.AnimatorTriggersSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []

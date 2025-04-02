@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7950548536672673240}
   - component: {fileID: 790781952498389381}
   - component: {fileID: 2121818815513157780}
+  - component: {fileID: 6165187188016615102}
+  - component: {fileID: -944139879733119049}
   m_Layer: 0
   m_Name: LSDF_Player
   m_TagString: Untagged
@@ -387,3 +389,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prototype:
     _empty_prototype_dummy_field_: 0
+--- !u!114 &6165187188016615102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196750081309688306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a491fe9141531254a8ecd6fbefc4683d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UtilizeFrameRate: 0
+  FrameRate: 60
+--- !u!114 &-944139879733119049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196750081309688306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30eb61f7a253804babb4495cad65792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Self: {fileID: 0}
+    AnimatorGraph:
+      Id:
+        Value: 321521408741102665
+    Layers: []
+    AnimatorVariables: []
