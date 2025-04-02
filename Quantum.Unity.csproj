@@ -91,6 +91,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticMeshCollider3D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsJoints3D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticCapsuleCollider3D.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeLSDF_Player.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerNetworkActivity.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumEntityPrototype.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumUnityInputSystemWithLegacyFallback.cs" />

@@ -70,6 +70,7 @@
     <Compile Include="Assets\Photon\Quantum\Simulation\SimulationConfig.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\ShipSpawnSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\BoundarySystem.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Core.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimePlayer.User.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\FrameContext.User.cs" />
@@ -86,8 +87,9 @@
     <Compile Include="Assets\QuantumUser\Simulation\AsteroidsShipConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\QuantumUser\Simulation\LSDF_Input.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_Player.qtn" />
     <None Include="Assets\QuantumUser\Simulation\AsteroidsProjectile.qtn" />
-    <None Include="Assets\QuantumUser\Simulation\Input.qtn" />
     <None Include="Assets\QuantumUser\Simulation\PlayerLink.qtn" />
     <None Include="Assets\QuantumUser\Simulation\AsteroidsCollisionSignals.qtn" />
     <None Include="Assets\QuantumUser\Simulation\AsteroidsAsteroid.qtn" />

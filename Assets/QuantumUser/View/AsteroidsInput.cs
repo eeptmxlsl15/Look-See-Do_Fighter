@@ -18,7 +18,7 @@ namespace Quantum.Asteroids
             i.Left = UnityEngine.Input.GetKey(KeyCode.A) || UnityEngine.Input.GetKey(KeyCode.LeftArrow);
             i.Right = UnityEngine.Input.GetKey(KeyCode.D) || UnityEngine.Input.GetKey(KeyCode.RightArrow);
             i.Up = UnityEngine.Input.GetKey(KeyCode.W) || UnityEngine.Input.GetKey(KeyCode.UpArrow);
-            i.Fire = UnityEngine.Input.GetKey(KeyCode.Space);
+           // i.Fire = UnityEngine.Input.GetKey(KeyCode.Space);
 
             callback.SetInput(i, DeterministicInputFlags.Repeatable);
         }

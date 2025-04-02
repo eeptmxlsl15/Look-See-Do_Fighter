@@ -54,7 +54,11 @@ namespace Quantum {
     Left = 1 << 0,
     Right = 1 << 1,
     Up = 1 << 2,
-    Fire = 1 << 3,
+    Down = 1 << 3,
+    LeftPunch = 1 << 4,
+    RightPunch = 1 << 5,
+    LeftKick = 1 << 6,
+    RightKick = 1 << 7,
   }
   public static unsafe partial class FlagsExtensions {
     public static Boolean IsFlagSet(this InputButtons self, InputButtons flag) {
@@ -515,23 +519,35 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
-    public const Int32 SIZE = 48;
+    public const Int32 SIZE = 96;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(12)]
     public Button Left;
-    [FieldOffset(24)]
+    [FieldOffset(48)]
     public Button Right;
-    [FieldOffset(36)]
+    [FieldOffset(84)]
     public Button Up;
     [FieldOffset(0)]
-    public Button Fire;
+    public Button Down;
+    [FieldOffset(36)]
+    public Button LeftPunch;
+    [FieldOffset(72)]
+    public Button RightPunch;
+    [FieldOffset(24)]
+    public Button LeftKick;
+    [FieldOffset(60)]
+    public Button RightKick;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 19249;
         hash = hash * 31 + Left.GetHashCode();
         hash = hash * 31 + Right.GetHashCode();
         hash = hash * 31 + Up.GetHashCode();
-        hash = hash * 31 + Fire.GetHashCode();
+        hash = hash * 31 + Down.GetHashCode();
+        hash = hash * 31 + LeftPunch.GetHashCode();
+        hash = hash * 31 + RightPunch.GetHashCode();
+        hash = hash * 31 + LeftKick.GetHashCode();
+        hash = hash * 31 + RightKick.GetHashCode();
         return hash;
       }
     }
@@ -543,7 +559,11 @@ namespace Quantum {
         case InputButtons.Left: return Left.IsDown;
         case InputButtons.Right: return Right.IsDown;
         case InputButtons.Up: return Up.IsDown;
-        case InputButtons.Fire: return Fire.IsDown;
+        case InputButtons.Down: return Down.IsDown;
+        case InputButtons.LeftPunch: return LeftPunch.IsDown;
+        case InputButtons.RightPunch: return RightPunch.IsDown;
+        case InputButtons.LeftKick: return LeftKick.IsDown;
+        case InputButtons.RightKick: return RightKick.IsDown;
         default: return false;
       }
     }
@@ -552,23 +572,31 @@ namespace Quantum {
         case InputButtons.Left: return Left.WasPressed;
         case InputButtons.Right: return Right.WasPressed;
         case InputButtons.Up: return Up.WasPressed;
-        case InputButtons.Fire: return Fire.WasPressed;
+        case InputButtons.Down: return Down.WasPressed;
+        case InputButtons.LeftPunch: return LeftPunch.WasPressed;
+        case InputButtons.RightPunch: return RightPunch.WasPressed;
+        case InputButtons.LeftKick: return LeftKick.WasPressed;
+        case InputButtons.RightKick: return RightKick.WasPressed;
         default: return false;
       }
     }
     static partial void SerializeCodeGen(void* ptr, FrameSerializer serializer) {
         var p = (Input*)ptr;
-        Button.Serialize(&p->Fire, serializer);
+        Button.Serialize(&p->Down, serializer);
         Button.Serialize(&p->Left, serializer);
+        Button.Serialize(&p->LeftKick, serializer);
+        Button.Serialize(&p->LeftPunch, serializer);
         Button.Serialize(&p->Right, serializer);
+        Button.Serialize(&p->RightKick, serializer);
+        Button.Serialize(&p->RightPunch, serializer);
         Button.Serialize(&p->Up, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 912;
+    public const Int32 SIZE = 1200;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(908)]
+    [FieldOffset(1196)]
     private fixed Byte _alignment_padding_[4];
     [FieldOffset(0)]
     public AssetRef<Map> Map;
@@ -592,14 +620,14 @@ namespace Quantum {
     public Int32 PlayerConnectedCount;
     [FieldOffset(604)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
-    private fixed Byte _input_[288];
-    [FieldOffset(896)]
+    private fixed Byte _input_[576];
+    [FieldOffset(1184)]
     public BitSet6 PlayerLastConnectionState;
-    [FieldOffset(904)]
+    [FieldOffset(1192)]
     public Int32 AsteroidsWaveCount;
     public FixedArray<Input> input {
       get {
-        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 48, 6); }
+        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 96, 6); }
       }
     }
     public override Int32 GetHashCode() {
@@ -705,6 +733,22 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct LSDF_Player : Quantum.IComponent {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    private fixed Byte _alignment_padding_[4];
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 9949;
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (LSDF_Player*)ptr;
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerLink : Quantum.IComponent {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
@@ -773,6 +817,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<CharacterController2D>();
       BuildSignalsArrayOnComponentAdded<CharacterController3D>();
       BuildSignalsArrayOnComponentRemoved<CharacterController3D>();
+      BuildSignalsArrayOnComponentAdded<Quantum.LSDF_Player>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_Player>();
       BuildSignalsArrayOnComponentAdded<MapEntityLink>();
       BuildSignalsArrayOnComponentRemoved<MapEntityLink>();
       BuildSignalsArrayOnComponentAdded<NavMeshAvoidanceAgent>();
@@ -816,7 +862,11 @@ namespace Quantum {
       i->Left = i->Left.Update(this.Number, input.Left);
       i->Right = i->Right.Update(this.Number, input.Right);
       i->Up = i->Up.Update(this.Number, input.Up);
-      i->Fire = i->Fire.Update(this.Number, input.Fire);
+      i->Down = i->Down.Update(this.Number, input.Down);
+      i->LeftPunch = i->LeftPunch.Update(this.Number, input.LeftPunch);
+      i->RightPunch = i->RightPunch.Update(this.Number, input.RightPunch);
+      i->LeftKick = i->LeftKick.Update(this.Number, input.LeftKick);
+      i->RightKick = i->RightKick.Update(this.Number, input.RightKick);
     }
     public Input* GetPlayerInput(PlayerRef player) {
       if ((int)player >= (int)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
@@ -932,6 +982,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(IntVector3), IntVector3.SIZE);
       typeRegistry.Register(typeof(Joint), Joint.SIZE);
       typeRegistry.Register(typeof(Joint3D), Joint3D.SIZE);
+      typeRegistry.Register(typeof(Quantum.LSDF_Player), Quantum.LSDF_Player.SIZE);
       typeRegistry.Register(typeof(LayerMask), LayerMask.SIZE);
       typeRegistry.Register(typeof(MapEntityId), MapEntityId.SIZE);
       typeRegistry.Register(typeof(MapEntityLink), MapEntityLink.SIZE);
@@ -973,11 +1024,12 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 4)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 5)
         .AddBuiltInComponents()
         .Add<Quantum.AsteroidsAsteroid>(Quantum.AsteroidsAsteroid.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.AsteroidsProjectile>(Quantum.AsteroidsProjectile.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.AsteroidsShip>(Quantum.AsteroidsShip.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.LSDF_Player>(Quantum.LSDF_Player.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
         .Finish();
     }

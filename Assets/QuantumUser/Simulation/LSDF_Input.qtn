@@ -1,0 +1,13 @@
+input{
+	button Left;
+	button Right;
+	button Up;
+	button Down;
+
+	button LeftPunch;
+	button RightPunch;
+	button LeftKick;
+	button RightKick;
+
+
+}

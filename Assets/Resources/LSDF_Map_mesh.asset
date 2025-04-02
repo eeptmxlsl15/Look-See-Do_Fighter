@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -263916522, guid: b156eeaae3f741b40af66649a4748430, type: 3}
-  m_Name: LSDFMap_mesh
+  m_Name: LSDF_Map_mesh
   m_EditorClassIdentifier: 
   Identifier:
-    Path: Resources/LSDFMap_mesh
+    Path: Resources/LSDF_Map_mesh
     Guid:
-      Value: 493181556405381178
+      Value: 401328457809459490
   Data: 0000000000000000
   IsCompressed: 0

@@ -104,13 +104,36 @@ namespace Quantum.Prototypes {
     public Button Left;
     public Button Right;
     public Button Up;
-    public Button Fire;
+    public Button Down;
+    public Button LeftPunch;
+    public Button RightPunch;
+    public Button LeftKick;
+    public Button RightKick;
     partial void MaterializeUser(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context = default) {
         result.Left = this.Left;
         result.Right = this.Right;
         result.Up = this.Up;
-        result.Fire = this.Fire;
+        result.Down = this.Down;
+        result.LeftPunch = this.LeftPunch;
+        result.RightPunch = this.RightPunch;
+        result.LeftKick = this.LeftKick;
+        result.RightKick = this.RightKick;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Player))]
+  public unsafe partial class LSDF_PlayerPrototype : ComponentPrototype<Quantum.LSDF_Player> {
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_Player component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context = default) {
         MaterializeUser(frame, ref result, in context);
     }
   }
