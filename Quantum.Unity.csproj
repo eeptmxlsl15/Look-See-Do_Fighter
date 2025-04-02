@@ -62,11 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGameGizmosSettingsScriptableObject.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\IAnimatorEntityViewComponent.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMapData.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumRunnerBehaviour.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerVerifiedFrames.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsBody2D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeTransform3D.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\AnimatorPlayables.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeTransform2DVertical.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerGC.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticCircleCollider2D.cs" />
@@ -99,7 +101,9 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumEntityView.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeCharacterController3D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\RuntimeConfigContainer.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\AnimatorViewUpdater.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumRunnerLocalReplay.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\AnimatorMecanim.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMemoryStats.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\CustomCallbacks.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsBody3D.cs" />
@@ -120,15 +124,18 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\PhotonServerSettings.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumNavMeshRegion.cs" />
     <Compile Include="Assets\QuantumUser\View\Generated\QPrototypePlayerLink.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\AnimationEventData.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerDeltaTime.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMeshCollection.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeNavMeshSteeringAgent.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeCharacterController2D.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\Generated\QPrototypeAnimatorComponent.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStats.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsCollider3D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsCallbacks2D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilingStatistics.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticBoxCollider3D.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\AnimatorStateBehaviourHolder.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumDeterministicSessionConfigAsset.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeView.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsCallbacks3D.cs" />
@@ -152,6 +159,7 @@
     <None Include="Assets\Photon\Quantum\Runtime\RuntimeAssets\QuantumDebugShader.shader" />
     <None Include="Assets\Photon\Quantum\Runtime\GraphProfilers\QuantumGraphShaderSeriesMarker.shader" />
     <None Include="Assets\Photon\Quantum\Runtime\Quantum.Unity.asmdef" />
+    <None Include="Assets\Photon\QuantumAddons\Animator\View\Quantum.Unity.Reference.asmref" />
     <None Include="Assets\Photon\Quantum\Runtime\GraphProfilers\QuantumGraphShaderSeriesValue.shader" />
     <None Include="Assets\QuantumUser\View\Generated\Quantum.Unity.asmref" />
   </ItemGroup>

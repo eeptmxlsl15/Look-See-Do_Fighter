@@ -61,35 +61,61 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.32f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorTimeWindowEventAsset.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorInstantEventAsset.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Frame.User.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Systems\AnimatorTriggersSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimeConfig.Asteroids.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\SystemsConfig.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorVariables.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorStateBehaviours\AnimatorStateBehaviour.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\ExampleTimeWindowEventAsset.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Systems\AnimatorSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\CommandSetup.User.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\QuantumSimulationCore.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Events.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSpawnSystem.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorRuntimeBlendData.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_GameConfig.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\SimulationConfig.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\ShipSpawnSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\BoundarySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorState.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Core.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimePlayer.User.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorData.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorGraph.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\FrameContext.User.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\ExampleInstantEventAsset.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\SimulationConfig.User.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorCondition.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\AsteroidsWaveSpawnerSystem.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorLayer.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\AsteroidsProjectileSystem.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEvent.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEventAsset.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\AsteroidsProjectileConfig.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\AnimatorStateBehaviourDebug.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorMotion.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorGraph.Serialization.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorTimeWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimeConfig.LDSF.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorInstantEvent.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorFrame.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\AsteroidsShipSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\AsteroidsCollisionSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\SystemSetup.User.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorDefinitions\AnimatorComponent.User.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\AsteroidsGameConfig.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Systems\AnimatorBehaviourSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimeConfig.User.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorTransition.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Prototypes.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\AsteroidsShipConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorDefinitions\AnimatorComponent.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Input.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Player.qtn" />
     <None Include="Assets\QuantumUser\Simulation\AsteroidsProjectile.qtn" />
@@ -100,6 +126,7 @@
     <None Include="Assets\QuantumUser\Simulation\AsteroidsShip.qtn" />
     <None Include="Assets\Photon\Quantum\Simulation\Quantum.Simulation.asmdef" />
     <None Include="Assets\QuantumUser\Simulation\Quantum.Simulation.asmref" />
+    <None Include="Assets\Photon\QuantumAddons\Animator\Simulation\Quantum.Simulation.Reference.asmref" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

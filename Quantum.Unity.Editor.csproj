@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumUnityDBImporter.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\Editor\AnimatorPlayablesEditor.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumEditorUtilityContainer.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumEditorShortcutsWindow.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumEditorSkin.cs" />
@@ -71,18 +72,24 @@
     <Compile Include="Assets\Photon\Quantum\Editor\Dotnet\QuantumConsoleRunner.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumStateInspector.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumEditorHubWindowSdk.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\Editor\AnimatorStateBehaviourHolderEditor.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\Editor\AnimatorMecanimEditor.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumDotnetBuildSettings.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\Editor\AnimatorUpdaterEditor.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumEditorSettings.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumUnityDBInspector.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\Editor\AnimatorGraphAssetEditor.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumEditorHubWindow.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumUnityEditor.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumEditorConfigImporter.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumTaskProfilerWindow.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumEditorHubPageSO.cs" />
     <Compile Include="Assets\Photon\Quantum\Editor\QuantumEntityPrototypeAssetObjectImporter.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\View\Editor\AnimatorGraphBaker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon\Quantum\Editor\Assemblies\Quantum.CodeGen.Qtn.dll" />
+    <None Include="Assets\Photon\QuantumAddons\Animator\View\Editor\PhotonQuantumEditorReference.asmref" />
     <None Include="Assets\Photon\Quantum\Editor\ScriptTemplates\QuantumScriptTemplateAssetScript.cs.txt" />
     <None Include="Assets\Photon\Quantum\Editor\ScriptTemplates\QuantumScriptTemplateInputScript.cs.txt" />
     <None Include="Assets\Photon\Quantum\Editor\Assemblies\Quantum.CodeGen.Qtn.xml" />

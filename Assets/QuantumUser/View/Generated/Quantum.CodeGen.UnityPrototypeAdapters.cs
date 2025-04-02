@@ -50,6 +50,28 @@ namespace Quantum.Prototypes.Unity {
   #endif //;
   
   [System.SerializableAttribute()]
+  public unsafe partial class AnimatorComponentPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.AnimatorComponentPrototype> {
+    [HideInInspector()]
+    public Quantum.QuantumEntityPrototype Self;
+    public AssetRef<AnimatorGraph> AnimatorGraph;
+    [HideInInspector()]
+    [DynamicCollectionAttribute()]
+    public Quantum.Prototypes.LayerDataPrototype[] Layers = {};
+    [HideInInspector()]
+    [DynamicCollectionAttribute()]
+    public Quantum.Prototypes.AnimatorRuntimeVariablePrototype[] AnimatorVariables = {};
+    partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.AnimatorComponentPrototype prototype);
+    public override Quantum.Prototypes.AnimatorComponentPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.AnimatorComponentPrototype();
+      converter.Convert(this.Self, out result.Self);
+      converter.Convert(this.AnimatorGraph, out result.AnimatorGraph);
+      converter.Convert(this.Layers, out result.Layers);
+      converter.Convert(this.AnimatorVariables, out result.AnimatorVariables);
+      ConvertUser(converter, ref result);
+      return result;
+    }
+  }
+  [System.SerializableAttribute()]
   public unsafe partial class AsteroidsProjectilePrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.AsteroidsProjectilePrototype> {
     public FP TTL;
     public Quantum.QuantumEntityPrototype Owner;
