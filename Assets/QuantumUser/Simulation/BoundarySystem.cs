@@ -14,14 +14,14 @@ namespace Quantum.Asteroids
 
         public override void Update(Frame f, ref Filter filter)
         {
-            AsteroidsGameConfig config = f.FindAsset(f.RuntimeConfig.GameConfig);
+            ////AsteroidsGameConfig config = f.FindAsset(f.RuntimeConfig.GameConfig);
 
 
-            if (IsOutOfBounds(filter.Transform->Position, config.MapExtends, out FPVector2 newPosition))
-            {
-                filter.Transform->Position = newPosition;
-                filter.Transform->Teleport(f, newPosition);
-            }
+            //if (IsOutOfBounds(filter.Transform->Position, config.MapExtends, out FPVector2 newPosition))
+            //{
+            //    filter.Transform->Position = newPosition;
+            //    filter.Transform->Teleport(f, newPosition);
+            //}
         }
 
         /// <summary>

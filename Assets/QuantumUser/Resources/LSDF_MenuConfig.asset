@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8f98ff78397bdc4a9886959982c466e, type: 3}
-  m_Name: AsteroidsMenuConfig
+  m_Name: LSDF_MenuConfig
   m_EditorClassIdentifier: 
   _maxPlayers: 6
   _adaptFramerateForMobilePlatform: 1
@@ -22,23 +22,23 @@ MonoBehaviour:
   - sa
   - us
   _availableScenes:
-  - Name: Asteroids Gameplay
-    ScenePath: Assets/Scenes/AsteroidsGameplay.unity
+  - Name: LSDF_Gameplay
+    ScenePath: Assets/Scenes/LSDFGameplay.unity
     Preview: {fileID: 0}
     RuntimeConfig:
       Seed: 0
       Map:
         Id:
-          Value: 518059910074224241
+          Value: 402201652699934461
       SimulationConfig:
         Id:
-          Value: 350553322058597588
+          Value: 468421123893260321
       SystemsConfig:
         Id:
-          Value: 285089243159414514
+          Value: 536336001698627310
       GameConfig:
         Id:
-          Value: 342184689982775392
+          Value: 431122747584170427
   _machineId: {fileID: -755480892457977500, guid: fbd1d0c57fd428c44b08e505acb8d851, type: 3}
   _codeGenerator: {fileID: 11400000, guid: e38f1fac5a1a5c94da2b4ef21bd48419, type: 2}
   DefaultScenePreview: {fileID: 0}

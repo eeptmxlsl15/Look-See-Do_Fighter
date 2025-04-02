@@ -8,25 +8,25 @@ namespace Quantum.Asteroids
     {
         public void SpawnAsteroid(Frame f, AssetRef<EntityPrototype> childPrototype, EntityRef parent)
         {
-            AsteroidsGameConfig config = f.FindAsset(f.RuntimeConfig.GameConfig);
-            EntityRef asteroid = f.Create(childPrototype);
-            Transform2D* asteroidTransform = f.Unsafe.GetPointer<Transform2D>(asteroid);
+            //AsteroidsGameConfig config = f.FindAsset(f.RuntimeConfig.GameConfig);
+            //EntityRef asteroid = f.Create(childPrototype);
+            //Transform2D* asteroidTransform = f.Unsafe.GetPointer<Transform2D>(asteroid);
 
-            if (parent == EntityRef.None)
-            {
-                asteroidTransform->Position = GetRandomEdgePointOnCircle(f, config.AsteroidSpawnDistanceToCenter);
-            }
-            else
-            {
-                asteroidTransform->Position = f.Get<Transform2D>(parent).Position;
-            }
-            asteroidTransform->Rotation = GetRandomRotation(f);
+            //if (parent == EntityRef.None)
+            //{
+            //    asteroidTransform->Position = GetRandomEdgePointOnCircle(f, config.AsteroidSpawnDistanceToCenter);
+            //}
+            //else
+            //{
+            //    asteroidTransform->Position = f.Get<Transform2D>(parent).Position;
+            //}
+            //asteroidTransform->Rotation = GetRandomRotation(f);
 
-            if (f.Unsafe.TryGetPointer<PhysicsBody2D>(asteroid, out var body))
-            {
-                body->Velocity = asteroidTransform->Up * config.AsteroidInitialSpeed;
-                body->AddTorque(f.RNG->Next(config.AsteroidInitialTorqueMin, config.AsteroidInitialTorqueMax));
-            }
+            //if (f.Unsafe.TryGetPointer<PhysicsBody2D>(asteroid, out var body))
+            //{
+            //    body->Velocity = asteroidTransform->Up * config.AsteroidInitialSpeed;
+            //    body->AddTorque(f.RNG->Next(config.AsteroidInitialTorqueMin, config.AsteroidInitialTorqueMax));
+            //}
         }
 
         public static FP GetRandomRotation(Frame f)
@@ -41,13 +41,13 @@ namespace Quantum.Asteroids
 
         private void SpawnAsteroidWave(Frame f)
         {
-            AsteroidsGameConfig config = f.FindAsset(f.RuntimeConfig.GameConfig);
-            for (int i = 0; i < f.Global->AsteroidsWaveCount + config.InitialAsteroidsCount; i++)
-            {
-                SpawnAsteroid(f, config.AsteroidPrototype,EntityRef.None);
-            }
+            //AsteroidsGameConfig config = f.FindAsset(f.RuntimeConfig.GameConfig);
+            //for (int i = 0; i < f.Global->AsteroidsWaveCount + config.InitialAsteroidsCount; i++)
+            //{
+            //    SpawnAsteroid(f, config.AsteroidPrototype,EntityRef.None);
+            //}
 
-            f.Global->AsteroidsWaveCount++;
+            //f.Global->AsteroidsWaveCount++;
         }
         public override void OnInit(Frame f)
         {

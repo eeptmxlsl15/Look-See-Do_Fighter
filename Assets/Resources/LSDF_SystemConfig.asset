@@ -42,6 +42,11 @@ MonoBehaviour:
     StartDisabled: 0
     Children: []
   - SystemType:
+      AssemblyQualifiedName: Quantum.LSDF.LSDF_PlayerSpawnSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
+  - SystemType:
       AssemblyQualifiedName: Quantum.LSDF.LSDF_PlayerSystem, Quantum.Simulation
     SystemName: 
     StartDisabled: 0
