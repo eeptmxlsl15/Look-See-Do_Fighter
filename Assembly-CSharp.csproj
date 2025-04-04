@@ -62,7 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\QuantumUser\View\LSDF_PlayerInput.cs" />
-    <Compile Include="Assets\QuantumUser\View\AsteroidsInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon\Quantum\Assemblies\Quantum.Deterministic.xml" />

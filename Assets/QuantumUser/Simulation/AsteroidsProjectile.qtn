@@ -1,9 +1,0 @@
-component AsteroidsProjectile
-{
-    FP TTL;
-    EntityRef Owner;
-    AssetRef<AsteroidsProjectileConfig> ProjectileConfig;
-
-
-}
-signal AsteroidsShipShoot(EntityRef owner, FPVector2 spawnPosition, AssetRef<EntityPrototype> projectilePrototype);

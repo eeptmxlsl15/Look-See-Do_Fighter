@@ -85,7 +85,6 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticSphereCollider3D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumUnityRuntime.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumRunnerLocalSavegame.cs" />
-    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeAsteroidsAsteroid.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeNavMeshAvoidanceObstacle.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMultiClientPlayerView.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumUnityDB.cs" />
@@ -111,9 +110,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerPing.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticTerrainCollider3D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsJoints2D.cs" />
-    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeAsteroidsShip.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumTaskRunnerJobs.cs" />
-    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeAsteroidsProjectile.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticPolygonCollider2D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerRenderTime.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeNavMeshAvoidanceAgent.cs" />
