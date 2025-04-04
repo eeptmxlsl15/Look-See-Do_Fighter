@@ -34,7 +34,7 @@ MonoBehaviour:
       CycleOffset:
         RawValue: 0
       Speed:
-        RawValue: 393216
+        RawValue: 65536
       Transitions:
       - Index: 0
         Name: MoveBack to Idle
@@ -949,7 +949,7 @@ MonoBehaviour:
       CycleOffset:
         RawValue: 0
       Speed:
-        RawValue: 393216
+        RawValue: 65536
       Transitions:
       - Index: 0
         Name: Idle to MoveBack
@@ -2284,7 +2284,7 @@ MonoBehaviour:
       CycleOffset:
         RawValue: 0
       Speed:
-        RawValue: 393216
+        RawValue: 65536
       Transitions:
       - Index: 0
         Name: MoveFront to Idle

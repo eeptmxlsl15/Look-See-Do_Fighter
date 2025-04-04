@@ -1207,6 +1207,7 @@ GameObject:
   - component: {fileID: 1535058703}
   - component: {fileID: 1535058702}
   - component: {fileID: 1535058705}
+  - component: {fileID: 1535058706}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1332,6 +1333,18 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1535058706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535058701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19fc8d6f8f545b44585c417099b025d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1748184485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,7 +1867,7 @@ MonoBehaviour:
   LocalPlayers:
   - PlayerAvatar:
       Id:
-        Value: 1502267863199495006
+        Value: 1427070570415858752
     PlayerNickname: 
   MaxPlayerCount: 0
   SimulationSpeedMultiplier: 1
