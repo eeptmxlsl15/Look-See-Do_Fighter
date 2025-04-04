@@ -1,4 +1,16 @@
+enum PlayerMoveState : Byte {
+  Idle,
+  WalkForward,
+  WalkBackward,
+  DashForward,
+  DashBackward,
+  Crouch
+}
+
+
 component LSDF_Player
 {	
-	
-}
+	PlayerMoveState MoveState;
+	int DashTapTimer;
+    bool DashReady;
+}	

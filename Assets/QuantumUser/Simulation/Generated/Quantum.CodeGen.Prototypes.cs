@@ -163,8 +163,9 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Player))]
   public unsafe partial class LSDF_PlayerPrototype : ComponentPrototype<Quantum.LSDF_Player> {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
+    public Quantum.QEnum8<PlayerMoveState> MoveState;
+    public Int32 DashTapTimer;
+    public QBoolean DashReady;
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_Player component = default;
@@ -172,6 +173,9 @@ namespace Quantum.Prototypes {
         return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context = default) {
+        result.MoveState = this.MoveState;
+        result.DashTapTimer = this.DashTapTimer;
+        result.DashReady = this.DashReady;
         MaterializeUser(frame, ref result, in context);
     }
   }

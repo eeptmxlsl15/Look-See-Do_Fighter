@@ -1,5 +1,5 @@
 using Photon.Deterministic;
-using Quantum.Asteroids;
+using Quantum;
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.Windows;
@@ -15,6 +15,7 @@ namespace Quantum.LSDF
             public Transform2D* Transform;
             public PhysicsBody2D* Body;
             public LSDF_Player* LSDF_Player;
+            public AnimatorComponent* Animator;
         }
 
         public override void Update(Frame f, ref Filter filter)
@@ -28,14 +29,15 @@ namespace Quantum.LSDF
             {
                 input = f.GetPlayerInput(playerLink->PlayerRef);
             }
-            
+
             UpdateMovement(f, ref filter, input);
-            
+
         }
         private void UpdateMovement(Frame f, ref Filter filter, Input* input)
         {
             //TODO 나중에 밖에서 설정 할 수 있게 빼야함
-            FP walkSpeed = 1;
+            FP walkSpeed = FP._0_50; ;
+            var player = filter.LSDF_Player;
 
             filter.Body->Velocity = FPVector2.Zero;
             //filter.Body->AddForce(filter.Transform->Up);
@@ -48,18 +50,28 @@ namespace Quantum.LSDF
                 //filter.Body->AddForce(filter.Transform->Up * 8);
                 Debug.Log("Parry");
             }
-
+            
             if (input->Left)
             {
                 filter.Body->Velocity.X = -walkSpeed;
+                AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", true);
+            }
+            else
+            {
+                AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", false);
             }
 
             if (input->Right)
             {
                 filter.Body->Velocity.X = walkSpeed;
+                AnimatorComponent.SetBoolean(f, filter.Animator, "MoveFront", true);
             }
-            
-            //filter.Body->AngularVelocity = FPMath.Clamp(filter.Body->AngularVelocity, -8, 8);
+            else
+            {
+                AnimatorComponent.SetBoolean(f, filter.Animator, "MoveFront", false);
+
+                //filter.Body->AngularVelocity = FPMath.Clamp(filter.Body->AngularVelocity, -8, 8);
+            }
         }
     }
 }
