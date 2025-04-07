@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -944139879733119049}
   - component: {fileID: 8697877538872355279}
   - component: {fileID: 7306140773381487482}
+  - component: {fileID: 7430869258309603518}
   m_Layer: 0
   m_Name: LSDF_Player
   m_TagString: Untagged
@@ -139,7 +140,7 @@ MonoBehaviour:
         X:
           RawValue: 6554
         Y:
-          RawValue: 6554
+          RawValue: 21421
       PositionOffset:
         X:
           RawValue: 0
@@ -456,3 +457,22 @@ MonoBehaviour:
   spriteRenderer: {fileID: 3991370849860641899}
   playerController: {fileID: 9100000, guid: fa99f6904629b5443a3f4c060f534fc0, type: 2}
   enemyController: {fileID: 9100000, guid: 568872a44a59ef44e87aaa11be5c4e05, type: 2}
+--- !u!114 &7430869258309603518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196750081309688306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a1ba3d0c27fb24ebd876a886c2fa64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    LastDirection:
+      Value: 0
+    PrevDirection:
+      Value: 0
+    LastInputTick: 0
+    DashInputWindow: 12

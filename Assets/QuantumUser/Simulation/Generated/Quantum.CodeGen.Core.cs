@@ -56,6 +56,11 @@ namespace Quantum {
     CurrentState,
     ToState,
   }
+  public enum DirectionType : int {
+    None,
+    Left,
+    Right,
+  }
   public enum PlayerMoveState : byte {
     Idle,
     WalkForward,
@@ -963,6 +968,40 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct DashInputBuffer : Quantum.IComponent {
+    public const Int32 SIZE = 20;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    public DirectionType LastDirection;
+    [FieldOffset(4)]
+    public DirectionType PrevDirection;
+    [FieldOffset(12)]
+    public Int32 LastInputTick;
+    [FieldOffset(8)]
+    public Int32 DashInputWindow;
+    [FieldOffset(16)]
+    public QBoolean LastInputPressed;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 8747;
+        hash = hash * 31 + (Int32)LastDirection;
+        hash = hash * 31 + (Int32)PrevDirection;
+        hash = hash * 31 + LastInputTick.GetHashCode();
+        hash = hash * 31 + DashInputWindow.GetHashCode();
+        hash = hash * 31 + LastInputPressed.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (DashInputBuffer*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->LastDirection);
+        serializer.Stream.Serialize((Int32*)&p->PrevDirection);
+        serializer.Stream.Serialize(&p->DashInputWindow);
+        serializer.Stream.Serialize(&p->LastInputTick);
+        QBoolean.Serialize(&p->LastInputPressed, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
     public const Int32 SIZE = 12;
     public const Int32 ALIGNMENT = 4;
@@ -1043,6 +1082,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<CharacterController2D>();
       BuildSignalsArrayOnComponentAdded<CharacterController3D>();
       BuildSignalsArrayOnComponentRemoved<CharacterController3D>();
+      BuildSignalsArrayOnComponentAdded<Quantum.DashInputBuffer>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.DashInputBuffer>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_Player>();
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_Player>();
       BuildSignalsArrayOnComponentAdded<MapEntityLink>();
@@ -1173,6 +1214,8 @@ namespace Quantum {
       typeRegistry.Register(typeof(ColorRGBA), ColorRGBA.SIZE);
       typeRegistry.Register(typeof(ComponentPrototypeRef), ComponentPrototypeRef.SIZE);
       typeRegistry.Register(typeof(ComponentTypeRef), ComponentTypeRef.SIZE);
+      typeRegistry.Register(typeof(Quantum.DashInputBuffer), Quantum.DashInputBuffer.SIZE);
+      typeRegistry.Register(typeof(Quantum.DirectionType), 4);
       typeRegistry.Register(typeof(DistanceJoint), DistanceJoint.SIZE);
       typeRegistry.Register(typeof(DistanceJoint3D), DistanceJoint3D.SIZE);
       typeRegistry.Register(typeof(EntityPrototypeRef), EntityPrototypeRef.SIZE);
@@ -1245,9 +1288,10 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 3)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 4)
         .AddBuiltInComponents()
         .Add<Quantum.AnimatorComponent>(Quantum.AnimatorComponent.Serialize, null, Quantum.AnimatorComponent.OnRemoved, ComponentFlags.None)
+        .Add<Quantum.DashInputBuffer>(Quantum.DashInputBuffer.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_Player>(Quantum.LSDF_Player.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
         .Finish();
@@ -1257,6 +1301,7 @@ namespace Quantum {
       FramePrinter.EnsureNotStripped();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AnimatorStateType>();
       FramePrinter.EnsurePrimitiveNotStripped<CallbackFlags>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.DirectionType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.PlayerMoveState>();
       FramePrinter.EnsurePrimitiveNotStripped<QueryOptions>();

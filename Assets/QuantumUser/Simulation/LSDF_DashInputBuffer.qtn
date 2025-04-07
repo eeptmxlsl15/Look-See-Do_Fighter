@@ -1,0 +1,13 @@
+component DashInputBuffer {
+  DirectionType LastDirection;
+  DirectionType PrevDirection;
+  int LastInputTick;
+  int DashInputWindow;
+  bool LastInputPressed;
+}
+
+enum DirectionType {
+  None,
+  Left,
+  Right
+}

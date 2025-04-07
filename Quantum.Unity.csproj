@@ -101,6 +101,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeCharacterController3D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\RuntimeConfigContainer.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\View\AnimatorViewUpdater.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeDashInputBuffer.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumRunnerLocalReplay.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\View\AnimatorMecanim.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMemoryStats.cs" />

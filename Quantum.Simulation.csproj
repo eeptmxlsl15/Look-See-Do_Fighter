@@ -77,6 +77,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSpawnSystem.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorRuntimeBlendData.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_GameConfig.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_DashSystem.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\SimulationConfig.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\BoundarySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
@@ -110,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorDefinitions\AnimatorComponent.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_DashInputBuffer.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Input.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Player.qtn" />
     <None Include="Assets\QuantumUser\Simulation\PlayerLink.qtn" />

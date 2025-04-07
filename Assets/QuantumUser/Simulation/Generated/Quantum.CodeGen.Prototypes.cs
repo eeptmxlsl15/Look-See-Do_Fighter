@@ -137,6 +137,29 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.DashInputBuffer))]
+  public unsafe partial class DashInputBufferPrototype : ComponentPrototype<Quantum.DashInputBuffer> {
+    public Quantum.QEnum32<DirectionType> LastDirection;
+    public Quantum.QEnum32<DirectionType> PrevDirection;
+    public Int32 LastInputTick;
+    public Int32 DashInputWindow;
+    public QBoolean LastInputPressed;
+    partial void MaterializeUser(Frame frame, ref Quantum.DashInputBuffer result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.DashInputBuffer component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.DashInputBuffer result, in PrototypeMaterializationContext context = default) {
+        result.LastDirection = this.LastDirection;
+        result.PrevDirection = this.PrevDirection;
+        result.LastInputTick = this.LastInputTick;
+        result.DashInputWindow = this.DashInputWindow;
+        result.LastInputPressed = this.LastInputPressed;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.Input))]
   public unsafe partial class InputPrototype : StructPrototype {
     public Button Left;
