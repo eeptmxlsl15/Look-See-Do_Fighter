@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6165187188016615102}
   - component: {fileID: -944139879733119049}
   - component: {fileID: 8697877538872355279}
+  - component: {fileID: 7306140773381487482}
   m_Layer: 0
   m_Name: LSDF_Player
   m_TagString: Untagged
@@ -150,7 +151,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
     Shape3D:
-      ShapeType: 0
+      ShapeType: 2
       SphereRadius:
         RawValue: 32768
       CapsuleRadius:
@@ -166,9 +167,9 @@ MonoBehaviour:
           RawValue: 0
       BoxExtents:
         X:
-          RawValue: 32768
+          RawValue: 7864
         Y:
-          RawValue: 32768
+          RawValue: 17039
         Z:
           RawValue: 32768
       RotationOffset:
@@ -439,3 +440,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43679b5f39cd5d74aaab02155e12fe89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7306140773381487482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196750081309688306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d02036c68f61a499e5b1106f966d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 790781952498389381}
+  playerController: {fileID: 9100000, guid: fa99f6904629b5443a3f4c060f534fc0, type: 2}
+  enemyController: {fileID: 9100000, guid: 568872a44a59ef44e87aaa11be5c4e05, type: 2}

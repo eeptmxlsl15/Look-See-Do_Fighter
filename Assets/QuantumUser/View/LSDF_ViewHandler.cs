@@ -1,39 +1,28 @@
 using Quantum;
+using System.Linq;
 using UnityEngine;
 
 public class LSDF_ViewHandler : QuantumEntityViewComponent
 {
-    public GameObject PlayerViewPrefab;
-    public GameObject EnemyViewPrefab;
+    public Animator animator;
 
-    private bool _replaced = false;
+    public RuntimeAnimatorController playerController;
+    public RuntimeAnimatorController enemyController;
 
-    public override void OnUpdateView()
+    public override void OnActivate(Frame f)
     {
-        //if (_replaced)
-        //    return;
+        if (animator == null || Game == null)
+            return;
 
-        //if (PredictedFrame.TryGetPointer<PlayerLink>(EntityRef, out var playerLink))
-        //{
-        //    var localPlayer = QuantumRunner.Default.Game.Player;
-        //    bool isMine = playerLink->PlayerRef == localPlayer;
+        if (!f.TryGet<PlayerLink>(EntityRef, out var playerLink))
+            return;
 
-        //    GameObject newView = GameObject.Instantiate(isMine ? PlayerRightViewPrefab : EnemyLeftViewPrefab);
+        var localPlayer = QuantumRunner.Default.Game.GetLocalPlayers().FirstOrDefault();
+        bool isMine = playerLink.PlayerRef == localPlayer;
 
-        //    var entityView = GetComponent<QuantumEntityView>();
-        //    var updater = GetComponentInParent<QuantumEntityViewUpdater>();
+        // 에니메이터 컨트롤러 바꾸기!
+        animator.runtimeAnimatorController = isMine ? playerController : enemyController;
 
-        //    // 연결 유지
-        //    entityView.EntityRef = this.EntityRef;
-        //    entityView.PredictedFrame = this.PredictedFrame;
-
-        //    newView.GetComponent<QuantumEntityView>().EntityRef = this.EntityRef;
-        //    newView.GetComponent<QuantumEntityView>().PredictedFrame = this.PredictedFrame;
-
-        //    // 현재 View 파괴
-        //    Destroy(gameObject);
-
-        //    _replaced = true;
-        //}
+        Debug.Log($"[AnimatorChange] Entity: {EntityRef}, IsMine: {isMine}, Controller: {animator.runtimeAnimatorController.name}");
     }
 }

@@ -145,6 +145,15 @@ namespace Quantum {
     /// <exception cref="Exception">Is raised when no map was found in the scene.</exception>
     public void StartWithFrame(int frameNumber = 0, byte[] frameData = null) {
       Log.Debug("### Starting quantum in local debug mode ###");
+      
+      if (LocalPlayers == null || LocalPlayers.Length == 0) {
+        LocalPlayers = new RuntimePlayer[] {
+        new RuntimePlayer {
+            
+            IsLocalPlayer = true     // 
+        }
+    };
+      }
 
       var mapdata = FindFirstObjectByType<QuantumMapData>();
       if (mapdata == null) {

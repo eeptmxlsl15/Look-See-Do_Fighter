@@ -150,7 +150,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
     Shape3D:
-      ShapeType: 0
+      ShapeType: 2
       SphereRadius:
         RawValue: 32768
       CapsuleRadius:
@@ -166,9 +166,9 @@ MonoBehaviour:
           RawValue: 0
       BoxExtents:
         X:
-          RawValue: 32768
+          RawValue: 7864
         Y:
-          RawValue: 32768
+          RawValue: 17039
         Z:
           RawValue: 32768
       RotationOffset:
