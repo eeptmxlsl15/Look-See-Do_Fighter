@@ -35,9 +35,10 @@ namespace Quantum.LSDF
         }
         private void UpdateMovement(Frame f, ref Filter filter, Input* input)
         {
+            var playerLink = f.Get<PlayerLink>(filter.Entity);
             //TODO 나중에 밖에서 설정 할 수 있게 빼야함
             FP walkSpeed = FP._0_50; ;
-            
+            int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
 
             filter.Body->Velocity = FPVector2.Zero;
 
@@ -58,7 +59,7 @@ namespace Quantum.LSDF
             
             if (input->Left)
             {
-                filter.Body->Velocity.X = -walkSpeed;
+                filter.Body->Velocity.X = -walkSpeed * flip;
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", true);
             }
             else
@@ -68,7 +69,7 @@ namespace Quantum.LSDF
 
             if (input->Right)
             {
-                filter.Body->Velocity.X = walkSpeed;
+                filter.Body->Velocity.X = walkSpeed * flip;
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveFront", true);
             }
             else
