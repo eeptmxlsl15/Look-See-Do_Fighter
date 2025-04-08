@@ -10,7 +10,7 @@ enum PlayerMoveState : Byte {
 
 component LSDF_Player
 {	
-	PlayerMoveState MoveState;
-	int DashTapTimer;
+	bool isDashBack;
+	bool isDashFront;
     bool DashReady;
 }	

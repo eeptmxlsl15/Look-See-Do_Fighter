@@ -30,13 +30,16 @@ namespace Quantum.LSDF
             {
                 input = f.GetPlayerInput(playerLink->PlayerRef);
             }
-            UpdateDash(f, ref filter, input);
+
+            
+            DetectDashCommand(f, ref filter, input);
             UpdateMovement(f, ref filter, input);
 
         }
         private void UpdateMovement(Frame f, ref Filter filter, Input* input)
         {
             var playerLink = f.Get<PlayerLink>(filter.Entity);
+            var playerState = f.Get<LSDF_Player>(filter.Entity);
 
             //TODO 나중에 밖에서 설정 할 수 있게 빼야함
             FP walkSpeed = FP._0_50; ;
@@ -64,9 +67,10 @@ namespace Quantum.LSDF
                 return;
             }
 
-            if (input->Left)
+            if (input->Left&& playerState.isDashBack == false)
             {
                 filter.Body->Velocity.X = -walkSpeed * flip;
+                Debug.Log("Walk");
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", true);
             }
             else
@@ -86,9 +90,14 @@ namespace Quantum.LSDF
                 //filter.Body->AngularVelocity = FPMath.Clamp(filter.Body->AngularVelocity, -8, 8);
             }
         }
-        private void UpdateDash(Frame f, ref Filter filter, Input* input)
+        private void DetectDashCommand(Frame f, ref Filter filter, Input* input)
         {
+            var playerLink = f.Get<PlayerLink>(filter.Entity);
 
+            FP walkSpeed = FP._0_50; ;
+
+            //두번째 플레이어일 경우 반전
+            int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
 
             var buffer = f.Unsafe.GetPointer<DashInputBuffer>(filter.Entity);
 
@@ -105,16 +114,16 @@ namespace Quantum.LSDF
                 // 같은 방향이 두 번 눌렸고, 입력 간 간격이 DashInputWindow 이내일 경우
                 if (buffer->LastDirection == dir && (now - buffer->LastInputTick) <= buffer->DashInputWindow)
                 {
-                    
+
                     // 여기에 대쉬 상태 세팅이나 애니메이션 트리거 넣기
                     if (dir == DirectionType.Right)
                     {
                         Debug.Log($"[DASH TRIGGERED] 방향: {dir}, Tick: {now}");
-                        AnimatorComponent.SetBoolean(f, filter.Animator, "DashFront",true);
+                        AnimatorComponent.SetBoolean(f, filter.Animator, "DashFront", true);
                     }
                     else
                     {
-                        Debug.Log($"[DASH TRIGGERED] 방향: {dir}, Tick: {now}");
+                        filter.Body->Velocity.X = -walkSpeed * 5 * flip;
                         AnimatorComponent.SetBoolean(f, filter.Animator, "DashBack", true);
                     }
 

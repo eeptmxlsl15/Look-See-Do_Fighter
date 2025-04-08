@@ -1005,26 +1005,26 @@ namespace Quantum {
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
     public const Int32 SIZE = 12;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(0)]
-    public PlayerMoveState MoveState;
     [FieldOffset(4)]
-    public Int32 DashTapTimer;
+    public QBoolean isDashBack;
     [FieldOffset(8)]
+    public QBoolean isDashFront;
+    [FieldOffset(0)]
     public QBoolean DashReady;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 9949;
-        hash = hash * 31 + (Byte)MoveState;
-        hash = hash * 31 + DashTapTimer.GetHashCode();
+        hash = hash * 31 + isDashBack.GetHashCode();
+        hash = hash * 31 + isDashFront.GetHashCode();
         hash = hash * 31 + DashReady.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (LSDF_Player*)ptr;
-        serializer.Stream.Serialize((Byte*)&p->MoveState);
-        serializer.Stream.Serialize(&p->DashTapTimer);
         QBoolean.Serialize(&p->DashReady, serializer);
+        QBoolean.Serialize(&p->isDashBack, serializer);
+        QBoolean.Serialize(&p->isDashFront, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]

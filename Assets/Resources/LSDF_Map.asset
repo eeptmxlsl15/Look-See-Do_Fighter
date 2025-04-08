@@ -87,6 +87,8 @@ MonoBehaviour:
   MapEntities:
   - Components:
     - rid: 7820791150700134400
+    - rid: 7820791150700134401
+    - rid: 7820791150700134402
   SerializedTriangleDataUncompressedSize: 8
   references:
     version: 2
@@ -101,3 +103,45 @@ MonoBehaviour:
             RawValue: -32768
         Rotation:
           RawValue: 0
+    - rid: 7820791150700134401
+      type: {class: PhysicsCollider2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        ShapeConfig:
+          ShapeType: 4
+          PolygonCollider:
+            Id:
+              Value: 0
+          CircleRadius:
+            RawValue: 3276800
+          CapsuleSize:
+            X:
+              RawValue: 6553600
+            Y:
+              RawValue: 131072
+          EdgeExtent:
+            RawValue: 3276800
+          BoxExtents:
+            X:
+              RawValue: 3276800
+            Y:
+              RawValue: 6554
+          PositionOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+          RotationOffset:
+            RawValue: 0
+          UserTag: 0
+          IsPersistent: 1
+          CompoundShapes: []
+        Layer: 0
+        IsTrigger: 0
+        PhysicsMaterial:
+          Id:
+            Value: 0
+    - rid: 7820791150700134402
+      type: {class: PhysicsCallbacks2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        CallbackFlags:
+          Value: 0
