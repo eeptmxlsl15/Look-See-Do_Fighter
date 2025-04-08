@@ -12,5 +12,7 @@ component LSDF_Player
 {	
 	bool isDashBack;
 	bool isDashFront;
-    bool DashReady;
+    bool isSit;
+	bool DashReady;
+
 }	

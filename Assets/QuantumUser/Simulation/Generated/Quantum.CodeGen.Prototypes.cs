@@ -188,6 +188,7 @@ namespace Quantum.Prototypes {
   public unsafe partial class LSDF_PlayerPrototype : ComponentPrototype<Quantum.LSDF_Player> {
     public QBoolean isDashBack;
     public QBoolean isDashFront;
+    public QBoolean isSit;
     public QBoolean DashReady;
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
@@ -198,6 +199,7 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context = default) {
         result.isDashBack = this.isDashBack;
         result.isDashFront = this.isDashFront;
+        result.isSit = this.isSit;
         result.DashReady = this.DashReady;
         MaterializeUser(frame, ref result, in context);
     }

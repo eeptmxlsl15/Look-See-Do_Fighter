@@ -8,7 +8,12 @@ public class MoveBackWindowEvent : AnimatorTimeWindowEventAsset
 {
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        Debug.Log($"[Quantum Animator ({f.Number})] OnEnter animator time window event.");
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
+
+        var entity = animatorComponent->Self;
+        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        player->isDashFront = false;
+
     }
 
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)

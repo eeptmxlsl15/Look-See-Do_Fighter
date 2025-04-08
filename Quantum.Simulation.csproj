@@ -70,11 +70,13 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorVariables.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorStateBehaviours\AnimatorStateBehaviour.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\ExampleTimeWindowEventAsset.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\DashFrontWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Systems\AnimatorSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\CommandSetup.User.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\QuantumSimulationCore.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Events.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSpawnSystem.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\SitingWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorRuntimeBlendData.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_GameConfig.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_DashSystem.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\MoveFrontWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorState.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\StandUpWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Core.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimePlayer.User.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorData.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\SimulationConfig.User.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorCondition.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\MoveBackWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\SitEnterWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorLayer.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEventAsset.cs" />

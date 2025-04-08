@@ -1,5 +1,6 @@
 using Photon.Deterministic;
 using Quantum;
+using System.Data;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Scripting;
@@ -41,6 +42,7 @@ namespace Quantum.LSDF
             var playerLink = f.Get<PlayerLink>(filter.Entity);
             var playerState = f.Get<LSDF_Player>(filter.Entity);
 
+            
             //TODO 나중에 밖에서 설정 할 수 있게 빼야함
             FP walkSpeed = FP._0_50; ;
 
@@ -52,6 +54,20 @@ namespace Quantum.LSDF
 
             //회전 고정
             filter.Transform->Rotation = FP._0;
+
+            if (input->Down || (input->Down && input->Left))
+            {
+                AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", true);
+                filter.LSDF_Player->isSit = true;
+            }
+            else
+            {
+                AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", false);
+                filter.LSDF_Player->isSit = false;
+            }
+
+            //앉아있는 동안 다른 움직임 불가능
+            if (filter.LSDF_Player->isSit == true) return;
 
             if (input->Left && input->Right)
             {
@@ -70,7 +86,7 @@ namespace Quantum.LSDF
             if (input->Left&& playerState.isDashBack == false)
             {
                 filter.Body->Velocity.X = -walkSpeed * flip;
-                Debug.Log("Walk");
+                
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", true);
             }
             else
@@ -78,7 +94,7 @@ namespace Quantum.LSDF
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", false);
             }
 
-            if (input->Right)
+            if (input->Right&& playerState.isDashFront == false)
             {
                 filter.Body->Velocity.X = walkSpeed * flip;
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveFront", true);
@@ -89,6 +105,8 @@ namespace Quantum.LSDF
 
                 //filter.Body->AngularVelocity = FPMath.Clamp(filter.Body->AngularVelocity, -8, 8);
             }
+
+            
         }
         private void DetectDashCommand(Frame f, ref Filter filter, Input* input)
         {
@@ -118,12 +136,12 @@ namespace Quantum.LSDF
                     // 여기에 대쉬 상태 세팅이나 애니메이션 트리거 넣기
                     if (dir == DirectionType.Right)
                     {
-                        Debug.Log($"[DASH TRIGGERED] 방향: {dir}, Tick: {now}");
+                        
                         AnimatorComponent.SetBoolean(f, filter.Animator, "DashFront", true);
                     }
                     else
                     {
-                        filter.Body->Velocity.X = -walkSpeed * 5 * flip;
+                        
                         AnimatorComponent.SetBoolean(f, filter.Animator, "DashBack", true);
                     }
 

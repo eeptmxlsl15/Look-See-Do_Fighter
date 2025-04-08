@@ -391,9 +391,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    MoveState:
+    isDashBack:
       Value: 0
-    DashTapTimer: 0
+    isDashFront:
+      Value: 0
     DashReady:
       Value: 0
 --- !u!114 &6165187188016615102
@@ -456,7 +457,7 @@ MonoBehaviour:
   animator: {fileID: 790781952498389381}
   spriteRenderer: {fileID: 3991370849860641899}
   playerController: {fileID: 9100000, guid: fa99f6904629b5443a3f4c060f534fc0, type: 2}
-  enemyController: {fileID: 9100000, guid: 568872a44a59ef44e87aaa11be5c4e05, type: 2}
+  enemyController: {fileID: 9100000, guid: f3b3e63cf31d1724da6833181bdc04ac, type: 2}
 --- !u!114 &7430869258309603518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,3 +477,5 @@ MonoBehaviour:
       Value: 0
     LastInputTick: 0
     DashInputWindow: 12
+    LastInputPressed:
+      Value: 0

@@ -26,7 +26,7 @@ public class DashBackWindowEvent : AnimatorTimeWindowEventAsset
         if (!f.TryGet<PlayerLink>(entity, out var playerLink)) return;
 
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
-        body->Velocity.X = -3 * flip;
+        body->Velocity.X = -2 * flip;
     }
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)

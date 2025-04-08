@@ -1003,12 +1003,14 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 12;
+    public const Int32 SIZE = 16;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(4)]
     public QBoolean isDashBack;
     [FieldOffset(8)]
     public QBoolean isDashFront;
+    [FieldOffset(12)]
+    public QBoolean isSit;
     [FieldOffset(0)]
     public QBoolean DashReady;
     public override Int32 GetHashCode() {
@@ -1016,6 +1018,7 @@ namespace Quantum {
         var hash = 9949;
         hash = hash * 31 + isDashBack.GetHashCode();
         hash = hash * 31 + isDashFront.GetHashCode();
+        hash = hash * 31 + isSit.GetHashCode();
         hash = hash * 31 + DashReady.GetHashCode();
         return hash;
       }
@@ -1025,6 +1028,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->DashReady, serializer);
         QBoolean.Serialize(&p->isDashBack, serializer);
         QBoolean.Serialize(&p->isDashFront, serializer);
+        QBoolean.Serialize(&p->isSit, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
