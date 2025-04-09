@@ -55,7 +55,7 @@ namespace Quantum.LSDF
             //회전 고정
             filter.Transform->Rotation = FP._0;
 
-            if (input->Down || (input->Down && input->Left))
+            if (input->Down || (input->Down && input->Left) || (input->Down && input->Right))
             {
                 AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", true);
                 filter.LSDF_Player->isSit = true;
