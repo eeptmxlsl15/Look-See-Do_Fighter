@@ -8,23 +8,24 @@ public class SitEnterWindowEvent : AnimatorTimeWindowEventAsset
 {
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
-        AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
-
+        Debug.Log("導晦 衛濛");
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
         player->isDashFront = false;
         player->isDashBack = false;
 
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
+
     }
 
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        Debug.Log($"[Quantum Animator ({f.Number})] Execute animator time window event.");
+        Debug.Log("導晦 褒ч");
     }
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        Debug.Log($"[Quantum Animator ({f.Number})] OnExit animator time window event.");
+        Debug.Log("導晦 部");
     }
 }

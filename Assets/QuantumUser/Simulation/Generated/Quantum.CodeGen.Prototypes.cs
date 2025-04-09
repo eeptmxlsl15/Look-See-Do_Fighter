@@ -190,6 +190,8 @@ namespace Quantum.Prototypes {
     public QBoolean isDashFront;
     public QBoolean isSit;
     public QBoolean DashReady;
+    [ArrayLengthAttribute(28)]
+    public Int32[] CommandSkillMap = new Int32[28];
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_Player component = default;
@@ -201,6 +203,9 @@ namespace Quantum.Prototypes {
         result.isDashFront = this.isDashFront;
         result.isSit = this.isSit;
         result.DashReady = this.DashReady;
+        for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {
+          result.CommandSkillMap[i] = this.CommandSkillMap[i];
+        }
         MaterializeUser(frame, ref result, in context);
     }
   }

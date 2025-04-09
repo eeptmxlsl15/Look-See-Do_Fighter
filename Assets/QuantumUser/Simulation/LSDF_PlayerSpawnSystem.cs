@@ -9,6 +9,7 @@ namespace Quantum.LSDF
     {
         public void OnPlayerAdded(Frame f, PlayerRef player, bool firstTime)
         {
+
             RuntimePlayer data = f.GetPlayerData(player);
             var entityPrototypeAsset = f.FindAsset<EntityPrototype>(data.PlayerAvatar);
             var playerEntity = f.Create(entityPrototypeAsset);
@@ -23,6 +24,14 @@ namespace Quantum.LSDF
             {
                 Position = spawnPos,
             });
+
+            //CommandSkillMap √ ±‚»≠
+            f.Unsafe.TryGetPointer<LSDF_Player>(playerEntity, out var playerCommandSkillMap);
+            for (int i = 0; i < 28; i++)
+            {
+                playerCommandSkillMap->CommandSkillMap[i] = 0;
+            }
+            
         }
     }
 }

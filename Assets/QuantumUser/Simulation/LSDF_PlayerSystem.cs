@@ -42,8 +42,10 @@ namespace Quantum.LSDF
             var playerLink = f.Get<PlayerLink>(filter.Entity);
             var playerState = f.Get<LSDF_Player>(filter.Entity);
 
+            //히트박스 크기
             
-            //TODO 나중에 밖에서 설정 할 수 있게 빼야함
+
+            //TODO 걷기 속도 나중에 밖에서 설정 할 수 있게 빼야함
             FP walkSpeed = FP._0_50; ;
 
             //두번째 플레이어일 경우 반전
@@ -57,14 +59,32 @@ namespace Quantum.LSDF
 
             if (input->Down || (input->Down && input->Left) || (input->Down && input->Right))
             {
-                AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", true);
-                filter.LSDF_Player->isSit = true;
+                //앉기 시작
+                //앉아잇는 콜라이더로
+                if (filter.LSDF_Player->isSit == false)
+                {
+                    
+                    AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", true);
+                    //싯엔터 온엔터 부분에 넣어야하는데 안되는 중
+                    filter.LSDF_Player->isDashFront = false;
+                    filter.LSDF_Player->isDashBack = false;
+
+                    AnimatorComponent.SetBoolean(f, filter.Animator, "DashFront", false);
+                    AnimatorComponent.SetBoolean(f, filter.Animator, "DashBack", false);
+                    //여기까지
+                    filter.LSDF_Player->isSit = true;
+                }
             }
             else
             {
+                //서기 시작
+                //서있는 콜라이더로 
                 AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", false);
                 filter.LSDF_Player->isSit = false;
             }
+
+            //충돌 크기 제어
+            CollisionControll(f,ref filter);
 
             //앉아있는 동안 다른 움직임 불가능
             if (filter.LSDF_Player->isSit == true) return;
@@ -108,6 +128,45 @@ namespace Quantum.LSDF
 
             
         }
+
+        private void CollisionControll(Frame f, ref Filter filter)
+        {
+            //크기
+            FPVector2 standingColliderExtents = new FPVector2(FP._0_10, FP._0_33);
+            FPVector2 sitColliderExtents = new FPVector2(FP._0_10, FP._0_25);
+
+            //위치
+            Transform2D standingColliderCenter = new Transform2D
+            {
+                Position = new FPVector2(FP._0, FP._0_01),
+                Rotation = FP._0
+            };
+            Transform2D crouchingColliderCenter = new Transform2D
+            {
+                Position = new FPVector2(FP._0, FP._0_25 - FP._0_33 + FP._0_02),
+                Rotation = FP._0
+            };
+
+            
+
+            f.Unsafe.TryGetPointer<PhysicsCollider2D>(filter.Entity, out var collider);
+            
+            //현재 크기와 위치
+            var currentExtents = collider->Shape.Box.Extents;
+            var currentCenter = collider->Shape.LocalTransform;
+
+            //앉기,서기에 따라 크기와 위치 변경
+            FPVector2 targetExtents = filter.LSDF_Player->isSit ? sitColliderExtents : standingColliderExtents;
+            Transform2D targetCenter = filter.LSDF_Player->isSit ? crouchingColliderCenter : standingColliderCenter;
+
+            //현재와 같으면 바꾸지 않음
+            if (!currentExtents.Equals(targetExtents))
+            {
+                collider->Shape.Box.Extents = targetExtents;
+                collider->Shape.LocalTransform = targetCenter;
+            }
+        }
+
         private void DetectDashCommand(Frame f, ref Filter filter, Input* input)
         {
             var playerLink = f.Get<PlayerLink>(filter.Entity);
@@ -120,6 +179,7 @@ namespace Quantum.LSDF
             var buffer = f.Unsafe.GetPointer<DashInputBuffer>(filter.Entity);
 
             DirectionType dir = DirectionType.None;
+
             if (input->Left) dir = DirectionType.Left;
             else if (input->Right) dir = DirectionType.Right;
 

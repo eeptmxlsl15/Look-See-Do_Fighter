@@ -15,4 +15,6 @@ component LSDF_Player
     bool isSit;
 	bool DashReady;
 
+	array<int>[28] CommandSkillMap;
+	
 }	

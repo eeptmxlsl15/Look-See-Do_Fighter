@@ -8,6 +8,7 @@ public class MoveBackWindowEvent : AnimatorTimeWindowEventAsset
 {
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
+        
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
 
         var entity = animatorComponent->Self;
@@ -18,11 +19,11 @@ public class MoveBackWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        Debug.Log($"[Quantum Animator ({f.Number})] Execute animator time window event.");
+        
     }
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        Debug.Log($"[Quantum Animator ({f.Number})] OnExit animator time window event.");
+        Debug.Log("µÚ·Î °È±â ³¡");
     }
 }

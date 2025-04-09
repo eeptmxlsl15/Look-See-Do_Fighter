@@ -395,6 +395,8 @@ MonoBehaviour:
       Value: 0
     isDashFront:
       Value: 0
+    isSit:
+      Value: 0
     DashReady:
       Value: 0
 --- !u!114 &6165187188016615102

@@ -1003,16 +1003,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 16;
+    public const Int32 SIZE = 128;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(4)]
+    [FieldOffset(116)]
     public QBoolean isDashBack;
-    [FieldOffset(8)]
+    [FieldOffset(120)]
     public QBoolean isDashFront;
-    [FieldOffset(12)]
+    [FieldOffset(124)]
     public QBoolean isSit;
-    [FieldOffset(0)]
+    [FieldOffset(112)]
     public QBoolean DashReady;
+    [FieldOffset(0)]
+    public fixed Int32 CommandSkillMap[28];
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 9949;
@@ -1020,11 +1022,13 @@ namespace Quantum {
         hash = hash * 31 + isDashFront.GetHashCode();
         hash = hash * 31 + isSit.GetHashCode();
         hash = hash * 31 + DashReady.GetHashCode();
+        fixed (Int32* p = CommandSkillMap) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 28);
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (LSDF_Player*)ptr;
+        serializer.Stream.SerializeBuffer(&p->CommandSkillMap[0], 28);
         QBoolean.Serialize(&p->DashReady, serializer);
         QBoolean.Serialize(&p->isDashBack, serializer);
         QBoolean.Serialize(&p->isDashFront, serializer);

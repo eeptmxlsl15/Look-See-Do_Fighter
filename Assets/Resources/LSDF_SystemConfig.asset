@@ -76,3 +76,8 @@ MonoBehaviour:
     SystemName: 
     StartDisabled: 0
     Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.LSDF.LSDF_CommandSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
