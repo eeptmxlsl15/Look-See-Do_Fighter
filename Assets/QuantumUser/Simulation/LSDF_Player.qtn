@@ -13,7 +13,7 @@ component LSDF_Player
 	bool isDashBack;
 	bool isDashFront;
     bool isSit;
-	bool DashReady;
+	bool isAttack;
 
 	array<int>[28] CommandSkillMap;
 	

@@ -1,0 +1,2 @@
+signal OnTriggerNormalHit(TriggerInfo2D info, LSDF_Player* player, TickToDestroy* hitbox);
+

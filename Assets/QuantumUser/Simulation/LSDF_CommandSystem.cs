@@ -80,7 +80,7 @@ namespace Quantum.LSDF
         private void TryTriggerSkill(Frame f, bool buttonPressed, CommandButton button, CommandDirection direction, LSDF_Player* player, AnimatorComponent* animator)
         {
             if (!buttonPressed) return;
-            Debug.Log("¿©±â;");
+            
             AnimatorComponent.SetInteger(f, animator, "CommandNum", (int)direction);
 
             int index = ((int)direction * 4) + (int)button;

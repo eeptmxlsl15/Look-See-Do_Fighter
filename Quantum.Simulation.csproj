@@ -61,6 +61,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.32f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_CollisionDestroySystem.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorTimeWindowEventAsset.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorInstantEventAsset.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Frame.User.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\MoveBackWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\SitEnterWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorLayer.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_CollisionSystem.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEventAsset.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\AnimatorStateBehaviourDebug.cs" />
@@ -122,7 +124,9 @@
     <None Include="Assets\QuantumUser\Simulation\LSDF_DashInputBuffer.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Input.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Player.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_CollisionSignals.qtn" />
     <None Include="Assets\QuantumUser\Simulation\PlayerLink.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\TickToDestroy.qtn" />
     <None Include="Assets\QuantumUser\Simulation\Global.qtn" />
     <None Include="Assets\Photon\Quantum\Simulation\Quantum.Simulation.asmdef" />
     <None Include="Assets\QuantumUser\Simulation\Quantum.Simulation.asmref" />

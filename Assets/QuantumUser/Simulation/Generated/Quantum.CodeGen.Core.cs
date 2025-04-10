@@ -1012,7 +1012,7 @@ namespace Quantum {
     [FieldOffset(124)]
     public QBoolean isSit;
     [FieldOffset(112)]
-    public QBoolean DashReady;
+    public QBoolean isAttack;
     [FieldOffset(0)]
     public fixed Int32 CommandSkillMap[28];
     public override Int32 GetHashCode() {
@@ -1021,7 +1021,7 @@ namespace Quantum {
         hash = hash * 31 + isDashBack.GetHashCode();
         hash = hash * 31 + isDashFront.GetHashCode();
         hash = hash * 31 + isSit.GetHashCode();
-        hash = hash * 31 + DashReady.GetHashCode();
+        hash = hash * 31 + isAttack.GetHashCode();
         fixed (Int32* p = CommandSkillMap) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 28);
         return hash;
       }
@@ -1029,7 +1029,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (LSDF_Player*)ptr;
         serializer.Stream.SerializeBuffer(&p->CommandSkillMap[0], 28);
-        QBoolean.Serialize(&p->DashReady, serializer);
+        QBoolean.Serialize(&p->isAttack, serializer);
         QBoolean.Serialize(&p->isDashBack, serializer);
         QBoolean.Serialize(&p->isDashFront, serializer);
         QBoolean.Serialize(&p->isSit, serializer);
@@ -1053,6 +1053,24 @@ namespace Quantum {
         PlayerRef.Serialize(&p->PlayerRef, serializer);
     }
   }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct TickToDestroy : Quantum.IComponent {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    public Int32 TickToDestroyAt;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 1567;
+        hash = hash * 31 + TickToDestroyAt.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (TickToDestroy*)ptr;
+        serializer.Stream.Serialize(&p->TickToDestroyAt);
+    }
+  }
   public unsafe partial interface ISignalOnAnimatorStateEnter : ISignal {
     void OnAnimatorStateEnter(Frame f, EntityRef entity, AnimatorComponent* animator, AnimatorGraph graph, Addons.Animator.AnimatorState state);
   }
@@ -1062,12 +1080,16 @@ namespace Quantum {
   public unsafe partial interface ISignalOnAnimatorStateExit : ISignal {
     void OnAnimatorStateExit(Frame f, EntityRef entity, AnimatorComponent* animator, AnimatorGraph graph, Addons.Animator.AnimatorState state);
   }
+  public unsafe partial interface ISignalOnTriggerNormalHit : ISignal {
+    void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, TickToDestroy* hitbox);
+  }
   public static unsafe partial class Constants {
   }
   public unsafe partial class Frame {
     private ISignalOnAnimatorStateEnter[] _ISignalOnAnimatorStateEnterSystems;
     private ISignalOnAnimatorStateUpdate[] _ISignalOnAnimatorStateUpdateSystems;
     private ISignalOnAnimatorStateExit[] _ISignalOnAnimatorStateExitSystems;
+    private ISignalOnTriggerNormalHit[] _ISignalOnTriggerNormalHitSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
     }
@@ -1082,6 +1104,7 @@ namespace Quantum {
       _ISignalOnAnimatorStateEnterSystems = BuildSignalsArray<ISignalOnAnimatorStateEnter>();
       _ISignalOnAnimatorStateUpdateSystems = BuildSignalsArray<ISignalOnAnimatorStateUpdate>();
       _ISignalOnAnimatorStateExitSystems = BuildSignalsArray<ISignalOnAnimatorStateExit>();
+      _ISignalOnTriggerNormalHitSystems = BuildSignalsArray<ISignalOnTriggerNormalHit>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<Quantum.AnimatorComponent>();
@@ -1122,6 +1145,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<PhysicsJoints3D>();
       BuildSignalsArrayOnComponentAdded<Quantum.PlayerLink>();
       BuildSignalsArrayOnComponentRemoved<Quantum.PlayerLink>();
+      BuildSignalsArrayOnComponentAdded<Quantum.TickToDestroy>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.TickToDestroy>();
       BuildSignalsArrayOnComponentAdded<Transform2D>();
       BuildSignalsArrayOnComponentRemoved<Transform2D>();
       BuildSignalsArrayOnComponentAdded<Transform2DVertical>();
@@ -1181,6 +1206,15 @@ namespace Quantum {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnAnimatorStateExit(_f, entity, animator, graph, state);
+          }
+        }
+      }
+      public void OnTriggerNormalHit(TriggerInfo2D info, LSDF_Player* player, TickToDestroy* hitbox) {
+        var array = _f._ISignalOnTriggerNormalHitSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnTriggerNormalHit(_f, info, player, hitbox);
           }
         }
       }
@@ -1289,6 +1323,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Shape3D), Shape3D.SIZE);
       typeRegistry.Register(typeof(SpringJoint), SpringJoint.SIZE);
       typeRegistry.Register(typeof(SpringJoint3D), SpringJoint3D.SIZE);
+      typeRegistry.Register(typeof(Quantum.TickToDestroy), Quantum.TickToDestroy.SIZE);
       typeRegistry.Register(typeof(Transform2D), Transform2D.SIZE);
       typeRegistry.Register(typeof(Transform2DVertical), Transform2DVertical.SIZE);
       typeRegistry.Register(typeof(Transform3D), Transform3D.SIZE);
@@ -1296,12 +1331,13 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 4)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 5)
         .AddBuiltInComponents()
         .Add<Quantum.AnimatorComponent>(Quantum.AnimatorComponent.Serialize, null, Quantum.AnimatorComponent.OnRemoved, ComponentFlags.None)
         .Add<Quantum.DashInputBuffer>(Quantum.DashInputBuffer.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_Player>(Quantum.LSDF_Player.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.TickToDestroy>(Quantum.TickToDestroy.Serialize, null, null, ComponentFlags.None)
         .Finish();
     }
     [Preserve()]

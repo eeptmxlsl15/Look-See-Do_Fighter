@@ -1016,7 +1016,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751248204529774
+          - rid: 6143751248204529864
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -1050,7 +1050,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 311296
+          RawValue: 62259
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -1068,7 +1068,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 311296
+          RawValue: 62259
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -1086,7 +1086,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 311296
+          RawValue: 62259
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -1104,7 +1104,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 311296
+          RawValue: 62259
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -1116,31 +1116,13 @@ MonoBehaviour:
         DestinationStateId: 762881753
         DestinationStateName: DashBack
       - Index: 4
-        Name: Idle to Sit Enter
-        Duration:
-          RawValue: 0
-        Offset:
-          RawValue: 0
-        ExitTime:
-          RawValue: 311296
-        HasExitTime: 0
-        CanTransitionToSelf: 0
-        Conditions:
-        - VariableName: IsSit
-          Mode: 1
-          ThresholdFp:
-            RawValue: 0
-          ThresholdInt: 0
-        DestinationStateId: -1016448012
-        DestinationStateName: Sit Enter
-      - Index: 5
         Name: Idle to Command Map
         Duration:
           RawValue: 0
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 311296
+          RawValue: 62259
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -1151,6 +1133,24 @@ MonoBehaviour:
           ThresholdInt: 0
         DestinationStateId: 1696407783
         DestinationStateName: Command Map
+      - Index: 5
+        Name: Idle to Sit Enter
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 62259
+        HasExitTime: 0
+        CanTransitionToSelf: 0
+        Conditions:
+        - VariableName: IsSit
+          Mode: 1
+          ThresholdFp:
+            RawValue: 0
+          ThresholdInt: 0
+        DestinationStateId: -1016448012
+        DestinationStateName: Sit Enter
       SerialisedMotions:
       - IsAnimation: 1
         Name: Idle
@@ -1158,9 +1158,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -3411,7 +3411,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751248204529775
+          - rid: 6143751248204529865
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -3943,7 +3943,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751248204529776
+          - rid: 6143751248204529866
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -4265,7 +4265,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751248204529777
+          - rid: 6143751248204529867
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -4528,7 +4528,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751248204529778
+          - rid: 6143751248204529868
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -6177,7 +6177,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -6195,7 +6195,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -6213,7 +6213,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -6231,9 +6231,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -7548,7 +7548,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -7566,7 +7566,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -7584,7 +7584,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -7602,7 +7602,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -7620,7 +7620,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -7638,7 +7638,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -7656,9 +7656,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -8955,9 +8955,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -10254,9 +10254,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -11553,9 +11553,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -13522,7 +13522,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751248204529779
+          - rid: 6143751248204529869
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -13556,7 +13556,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 245760
+          RawValue: 49152
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -13574,9 +13574,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -14873,9 +14873,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -16172,9 +16172,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -17471,9 +17471,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -18770,9 +18770,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -20069,9 +20069,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -21368,9 +21368,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -22667,7 +22667,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 311296
+          RawValue: 62259
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -22685,9 +22685,9 @@ MonoBehaviour:
           ClipName: Idle
           MotionId: 1266177044
           Length:
-            RawValue: 327680
+            RawValue: 65536
           Index: 0
-          FrameRate: 12
+          FrameRate: 60
           FrameCount: 60
           Frames:
           - Id: 0
@@ -24084,7 +24084,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6143751248204529774
+    - rid: 6143751248204529864
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -24094,7 +24094,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 43690
-    - rid: 6143751248204529775
+    - rid: 6143751248204529865
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -24104,7 +24104,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 218453
-    - rid: 6143751248204529776
+    - rid: 6143751248204529866
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -24114,7 +24114,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 21845
-    - rid: 6143751248204529777
+    - rid: 6143751248204529867
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -24124,7 +24124,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 10922
-    - rid: 6143751248204529778
+    - rid: 6143751248204529868
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -24134,7 +24134,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 10922
-    - rid: 6143751248204529779
+    - rid: 6143751248204529869
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:

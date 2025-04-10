@@ -5,11 +5,14 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Scripting;
 using UnityEngine.Windows;
+using static UnityEngine.EventSystems.EventTrigger;
+
+//플레이어 움직임,가드,히트
 
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>
+    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>,ISignalOnTriggerNormalHit
     {
         public struct Filter
         {
@@ -23,15 +26,25 @@ namespace Quantum.LSDF
         public override void Update(Frame f, ref Filter filter)
         {
             Input* input = default;
+
+            //공격중일 경우 리턴
+            f.Unsafe.TryGetPointer<LSDF_Player>(filter.Entity, out var player);
+            if (player->isAttack == true)
+            {
+                //Debug.Log("공격 중");
+                return;
+            }
+
+
             //Unsate.TryGetPointer는 값을 읽고 수정도 가능하다
             //f.Get<PlayerLink> 로 하면 읽는 것만 가능하다.
             //퀀텀은 TryGetPointer의 시간복잡도가 1이다. 희소집합 ECS 아키텍쳐기 때문에
             //TODO 희소집합 ECS 아키텍쳐 공부
+
             if (f.Unsafe.TryGetPointer(filter.Entity, out PlayerLink* playerLink))
             {
                 input = f.GetPlayerInput(playerLink->PlayerRef);
             }
-
             
             DetectDashCommand(f, ref filter, input);
             UpdateMovement(f, ref filter, input);
@@ -209,6 +222,11 @@ namespace Quantum.LSDF
 
             buffer->LastInputPressed = isPressed;
 
+        }
+
+        public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, TickToDestroy* hitbox)
+        {
+            Debug.Log("아야");
         }
     }
 }

@@ -189,7 +189,7 @@ namespace Quantum.Prototypes {
     public QBoolean isDashBack;
     public QBoolean isDashFront;
     public QBoolean isSit;
-    public QBoolean DashReady;
+    public QBoolean isAttack;
     [ArrayLengthAttribute(28)]
     public Int32[] CommandSkillMap = new Int32[28];
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context);
@@ -202,7 +202,7 @@ namespace Quantum.Prototypes {
         result.isDashBack = this.isDashBack;
         result.isDashFront = this.isDashFront;
         result.isSit = this.isSit;
-        result.DashReady = this.DashReady;
+        result.isAttack = this.isAttack;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {
           result.CommandSkillMap[i] = this.CommandSkillMap[i];
         }
@@ -310,6 +310,21 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Quantum.PlayerLink result, in PrototypeMaterializationContext context = default) {
         result.PlayerRef = this.PlayerRef;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.TickToDestroy))]
+  public unsafe partial class TickToDestroyPrototype : ComponentPrototype<Quantum.TickToDestroy> {
+    public Int32 TickToDestroyAt;
+    partial void MaterializeUser(Frame frame, ref Quantum.TickToDestroy result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.TickToDestroy component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.TickToDestroy result, in PrototypeMaterializationContext context = default) {
+        result.TickToDestroyAt = this.TickToDestroyAt;
         MaterializeUser(frame, ref result, in context);
     }
   }

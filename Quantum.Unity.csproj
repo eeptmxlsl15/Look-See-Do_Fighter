@@ -80,6 +80,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumEntityViewPool.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMultiClientPlayer.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumRunnerLocalDebug.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeTickToDestroy.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\GraphProfilers\QuantumUnityRuntime.GraphProfilers.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsCollider2D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticSphereCollider3D.cs" />

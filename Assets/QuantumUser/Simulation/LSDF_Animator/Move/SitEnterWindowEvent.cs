@@ -21,7 +21,7 @@ public class SitEnterWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        Debug.Log("¾É±â ½ÇÇà");
+        
     }
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
