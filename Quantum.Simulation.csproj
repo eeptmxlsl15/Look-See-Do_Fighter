@@ -109,6 +109,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\DashBackWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorFrame.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\SystemSetup.User.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Lp\JapWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorDefinitions\AnimatorComponent.User.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Systems\AnimatorBehaviourSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimeConfig.User.cs" />

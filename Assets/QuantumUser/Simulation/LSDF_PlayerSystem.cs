@@ -65,13 +65,7 @@ namespace Quantum.LSDF
                 {
                     
                     AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", true);
-                    //싯엔터 온엔터 부분에 넣어야하는데 안되는 중
-                    filter.LSDF_Player->isDashFront = false;
-                    filter.LSDF_Player->isDashBack = false;
-
-                    AnimatorComponent.SetBoolean(f, filter.Animator, "DashFront", false);
-                    AnimatorComponent.SetBoolean(f, filter.Animator, "DashBack", false);
-                    //여기까지
+                    
                     filter.LSDF_Player->isSit = true;
                 }
             }
