@@ -1,0 +1,15 @@
+enum HitboxAttackType
+{
+    High,   // 상단
+    Mid,    // 중단
+    Low     // 하단
+}
+
+component LSDF_HitboxInfo
+{	
+	HitboxAttackType AttackType;
+    int attackDamage;
+    int enemyGuardTime;
+    int enemyHitTime;
+	
+}	

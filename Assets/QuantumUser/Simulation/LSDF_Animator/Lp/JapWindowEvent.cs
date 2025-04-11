@@ -31,8 +31,8 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         {
             var entity = animatorComponent->Self;
 
-            // 히트박스 생성 예시 (Entity 구성은 네가 정의한 대로 커스터마이징 필요)
-            EntityRef hitbox = f.Create(); // 또는 프리팹에서 Create
+            
+            EntityRef hitbox = f.Create();
 
             f.Add(hitbox, new PhysicsCollider2D
             {
@@ -40,6 +40,17 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
                 //박스 크기
                 Shape = Shape2D.CreateBox(new FPVector2(FP._0_25/2, (FP._0_10 - FP._0_02)/2))
             });
+
+            //공격 정보
+            f.Add(hitbox, new LSDF_HitboxInfo
+            {
+                AttackType= HitboxAttackType.High,
+                
+                enemyGuardTime = 0,
+                enemyHitTime = 0,
+                attackDamage = 0,
+            });
+
 
             //2p일 경우 flip
             if (!f.TryGet<PlayerLink>(entity, out var playerLink)) return;
@@ -51,9 +62,10 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             f.Set(hitbox, new Transform2D
             {
                 //위치
-                Position = f.Get<Transform2D>(entity).Position +  new FPVector2(FP._0_25, FP._0_25)* flip,
+                Position = f.Get<Transform2D>(entity).Position +  new FPVector2(FP._0_25*flip, FP._0_25),
                 Rotation = FP._0
             });
+
             f.Add(hitbox, new TickToDestroy
             {
                 TickToDestroyAt = f.Number + 1

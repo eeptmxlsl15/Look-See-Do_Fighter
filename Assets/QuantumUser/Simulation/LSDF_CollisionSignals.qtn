@@ -1,2 +1,2 @@
-signal OnTriggerNormalHit(TriggerInfo2D info, LSDF_Player* player, TickToDestroy* hitbox);
+signal OnTriggerNormalHit(TriggerInfo2D info, LSDF_Player* player, LSDF_HitboxInfo* hitbox);
 

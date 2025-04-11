@@ -129,6 +129,7 @@
     <None Include="Assets\QuantumUser\Simulation\TickToDestroy.qtn" />
     <None Include="Assets\QuantumUser\Simulation\Global.qtn" />
     <None Include="Assets\Photon\Quantum\Simulation\Quantum.Simulation.asmdef" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_HitboxInfo.qtn" />
     <None Include="Assets\QuantumUser\Simulation\Quantum.Simulation.asmref" />
     <None Include="Assets\Photon\QuantumAddons\Animator\Simulation\Quantum.Simulation.Reference.asmref" />
   </ItemGroup>

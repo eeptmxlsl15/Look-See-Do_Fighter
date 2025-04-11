@@ -45,6 +45,9 @@ namespace Quantum.LSDF
             {
                 input = f.GetPlayerInput(playerLink->PlayerRef);
             }
+
+            //AnimatorComponent.GetBoolean(f, filter.Animator, "MoveBack");
+            
             
             DetectDashCommand(f, ref filter, input);
             UpdateMovement(f, ref filter, input);
@@ -224,7 +227,7 @@ namespace Quantum.LSDF
 
         }
 
-        public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, TickToDestroy* hitbox)
+        public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, LSDF_HitboxInfo* hitbox)
         {
             Debug.Log("¾Æ¾ß");
         }

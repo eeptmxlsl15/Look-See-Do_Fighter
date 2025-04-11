@@ -184,11 +184,33 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_HitboxInfo))]
+  public unsafe partial class LSDF_HitboxInfoPrototype : ComponentPrototype<Quantum.LSDF_HitboxInfo> {
+    public Quantum.QEnum32<HitboxAttackType> AttackType;
+    public Int32 attackDamage;
+    public Int32 enemyGuardTime;
+    public Int32 enemyHitTime;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_HitboxInfo result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_HitboxInfo component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_HitboxInfo result, in PrototypeMaterializationContext context = default) {
+        result.AttackType = this.AttackType;
+        result.attackDamage = this.attackDamage;
+        result.enemyGuardTime = this.enemyGuardTime;
+        result.enemyHitTime = this.enemyHitTime;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Player))]
   public unsafe partial class LSDF_PlayerPrototype : ComponentPrototype<Quantum.LSDF_Player> {
     public QBoolean isDashBack;
     public QBoolean isDashFront;
     public QBoolean isSit;
+    public QBoolean isStandUpGuard;
     public QBoolean isAttack;
     [ArrayLengthAttribute(28)]
     public Int32[] CommandSkillMap = new Int32[28];
@@ -202,6 +224,7 @@ namespace Quantum.Prototypes {
         result.isDashBack = this.isDashBack;
         result.isDashFront = this.isDashFront;
         result.isSit = this.isSit;
+        result.isStandUpGuard = this.isStandUpGuard;
         result.isAttack = this.isAttack;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {
           result.CommandSkillMap[i] = this.CommandSkillMap[i];

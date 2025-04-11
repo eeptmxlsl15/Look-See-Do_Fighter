@@ -15,6 +15,8 @@ public class MoveBackWindowEvent : AnimatorTimeWindowEventAsset
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
         player->isDashFront = false;
 
+        
+
     }
 
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
