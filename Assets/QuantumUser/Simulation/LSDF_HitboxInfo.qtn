@@ -11,5 +11,5 @@ component LSDF_HitboxInfo
     int attackDamage;
     int enemyGuardTime;
     int enemyHitTime;
-	
+	int enemyCountTime;
 }	

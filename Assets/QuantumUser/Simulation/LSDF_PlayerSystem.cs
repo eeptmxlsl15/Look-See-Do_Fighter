@@ -12,7 +12,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>,ISignalOnTriggerNormalHit
+    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard
     {
         public struct Filter
         {
@@ -34,7 +34,23 @@ namespace Quantum.LSDF
                 //Debug.Log("공격 중");
                 return;
             }
+            
+            //유저가 가드 중이면서 가드 프레임이 지나면 idle상태로 감
+            if (filter.LSDF_Player->isGuard && f.Number >= filter.LSDF_Player->DelayFrame)
+            {
+                AnimatorComponent.SetTrigger(f, filter.Animator, "DelayFrame"); // Idle로 전이하는 트리거
+                Debug.Log($"가드 상태 끝 프레임 : {f.Number}");
+                filter.LSDF_Player->isGuard = false;
+            }
+            //유저가 히트 중이면서 히트 프레임이 지나면 idle상태로 감
+            if (filter.LSDF_Player->isHit && f.Number >= filter.LSDF_Player->DelayFrame)
+            {
+                AnimatorComponent.SetTrigger(f, filter.Animator, "DelayFrame"); // Idle로 전이하는 트리거
+                Debug.Log($"히트 상태 끝 프레임 : {f.Number}");
+                filter.LSDF_Player->isHit = false;
+            }
 
+            
 
             //Unsate.TryGetPointer는 값을 읽고 수정도 가능하다
             //f.Get<PlayerLink> 로 하면 읽는 것만 가능하다.
@@ -47,8 +63,8 @@ namespace Quantum.LSDF
             }
 
             //AnimatorComponent.GetBoolean(f, filter.Animator, "MoveBack");
-            
-            
+
+
             DetectDashCommand(f, ref filter, input);
             UpdateMovement(f, ref filter, input);
 
@@ -59,7 +75,7 @@ namespace Quantum.LSDF
             var playerState = f.Get<LSDF_Player>(filter.Entity);
 
             //히트박스 크기
-            
+
 
             //TODO 걷기 속도 나중에 밖에서 설정 할 수 있게 빼야함
             FP walkSpeed = FP._0_50; ;
@@ -79,9 +95,9 @@ namespace Quantum.LSDF
                 //앉아잇는 콜라이더로
                 if (filter.LSDF_Player->isSit == false)
                 {
-                    
+
                     AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", true);
-                    
+
                     filter.LSDF_Player->isSit = true;
                 }
             }
@@ -94,7 +110,7 @@ namespace Quantum.LSDF
             }
 
             //충돌 크기 제어
-            CollisionControll(f,ref filter);
+            CollisionControll(f, ref filter);
 
             //앉아있는 동안 다른 움직임 불가능
             if (filter.LSDF_Player->isSit == true) return;
@@ -113,10 +129,10 @@ namespace Quantum.LSDF
                 return;
             }
 
-            if (input->Left&& playerState.isDashBack == false)
+            if (input->Left && playerState.isDashBack == false)
             {
                 filter.Body->Velocity.X = -walkSpeed * flip;
-                
+
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", true);
             }
             else
@@ -124,7 +140,7 @@ namespace Quantum.LSDF
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", false);
             }
 
-            if (input->Right&& playerState.isDashFront == false)
+            if (input->Right && playerState.isDashFront == false)
             {
                 filter.Body->Velocity.X = walkSpeed * flip;
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveFront", true);
@@ -136,7 +152,7 @@ namespace Quantum.LSDF
                 //filter.Body->AngularVelocity = FPMath.Clamp(filter.Body->AngularVelocity, -8, 8);
             }
 
-            
+
         }
 
         private void CollisionControll(Frame f, ref Filter filter)
@@ -157,10 +173,10 @@ namespace Quantum.LSDF
                 Rotation = FP._0
             };
 
-            
+
 
             f.Unsafe.TryGetPointer<PhysicsCollider2D>(filter.Entity, out var collider);
-            
+
             //현재 크기와 위치
             var currentExtents = collider->Shape.Box.Extents;
             var currentCenter = collider->Shape.LocalTransform;
@@ -206,12 +222,12 @@ namespace Quantum.LSDF
                     // 여기에 대쉬 상태 세팅이나 애니메이션 트리거 넣기
                     if (dir == DirectionType.Right)
                     {
-                        
+
                         AnimatorComponent.SetBoolean(f, filter.Animator, "DashFront", true);
                     }
                     else
                     {
-                        
+
                         AnimatorComponent.SetBoolean(f, filter.Animator, "DashBack", true);
                     }
 
@@ -227,9 +243,47 @@ namespace Quantum.LSDF
 
         }
 
-        public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, LSDF_HitboxInfo* hitbox)
+        public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
-            Debug.Log("아야");
+            //상단에 히트할 경유
+            if (hitbox->AttackType == HitboxAttackType.High)
+            {
+                Debug.Log($"히트 시작 프레임{f.Number}");
+                AnimatorComponent.SetTrigger(f, animator, "HighHit");
+                player->isHit = true;
+                player->DelayFrame = f.Number + hitbox->enemyHitTime;
+            }
+
+            else if(hitbox->AttackType == HitboxAttackType.Low)
+            {
+                Debug.Log($"히트 시작 프레임{f.Number}");
+                AnimatorComponent.SetTrigger(f, animator, "LowHit");
+                player->isHit = true;
+                player->DelayFrame = f.Number + hitbox->enemyHitTime;
+            }
+        }
+
+        public void OnTriggerGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox)
+        {
+            //하단을 가드할 경우
+            if (hitbox->AttackType == HitboxAttackType.Low)
+            {
+                Debug.Log($"가드 시작 프레임{f.Number}");
+                AnimatorComponent.SetTrigger(f, animator, "LowGuard");
+                player->isGuard = true;
+                player->DelayFrame = f.Number + hitbox->enemyGuardTime;
+
+            }
+            //상,중단을 가드할 경우
+            else
+            {
+                Debug.Log($"가드 시작 프레임{f.Number}");
+                AnimatorComponent.SetTrigger(f, animator, "StandGuard");
+                player->isGuard = true;
+                player->DelayFrame = f.Number + hitbox->enemyGuardTime;
+            }
+            
         }
     }
+
 }

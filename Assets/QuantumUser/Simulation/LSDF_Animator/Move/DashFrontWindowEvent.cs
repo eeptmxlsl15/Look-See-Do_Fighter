@@ -26,6 +26,7 @@ public class DashFrontWindowEvent : AnimatorTimeWindowEventAsset
     {
         var entity = animatorComponent->Self;
 
+        //ÀüÁø¼º
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         if (!f.TryGet<PlayerLink>(entity, out var playerLink)) return;
 

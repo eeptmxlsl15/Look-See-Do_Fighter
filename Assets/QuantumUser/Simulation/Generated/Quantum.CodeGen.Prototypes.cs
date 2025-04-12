@@ -190,6 +190,7 @@ namespace Quantum.Prototypes {
     public Int32 attackDamage;
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
+    public Int32 enemyCountTime;
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_HitboxInfo result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_HitboxInfo component = default;
@@ -201,6 +202,7 @@ namespace Quantum.Prototypes {
         result.attackDamage = this.attackDamage;
         result.enemyGuardTime = this.enemyGuardTime;
         result.enemyHitTime = this.enemyHitTime;
+        result.enemyCountTime = this.enemyCountTime;
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -212,6 +214,9 @@ namespace Quantum.Prototypes {
     public QBoolean isSit;
     public QBoolean isStandUpGuard;
     public QBoolean isAttack;
+    public QBoolean isHit;
+    public QBoolean isGuard;
+    public Int32 DelayFrame;
     [ArrayLengthAttribute(28)]
     public Int32[] CommandSkillMap = new Int32[28];
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context);
@@ -226,6 +231,9 @@ namespace Quantum.Prototypes {
         result.isSit = this.isSit;
         result.isStandUpGuard = this.isStandUpGuard;
         result.isAttack = this.isAttack;
+        result.isHit = this.isHit;
+        result.isGuard = this.isGuard;
+        result.DelayFrame = this.DelayFrame;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {
           result.CommandSkillMap[i] = this.CommandSkillMap[i];
         }

@@ -96,11 +96,11 @@ namespace Quantum.LSDF
     {
         Neutral,
         Left,
-        Right,
-        Down,
-        Up,
         DownLeft,
-        DownRight
+        Down,
+        DownRight,
+        Right,
+        Up,
     }
 
     public enum CommandButton

@@ -15,7 +15,10 @@ component LSDF_Player
     bool isSit;
 	bool isStandUpGuard;
 	bool isAttack;
-     
+    bool isHit;
+	bool isGuard;
+	int DelayFrame;
+
 	array<int>[28] CommandSkillMap;
 	
 }	
