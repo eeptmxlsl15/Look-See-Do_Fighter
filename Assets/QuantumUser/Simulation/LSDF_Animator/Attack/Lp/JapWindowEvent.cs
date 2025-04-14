@@ -8,8 +8,10 @@ using static UnityEngine.EventSystems.EventTrigger;
 [Serializable]
 public class JapWindowEvent : AnimatorTimeWindowEventAsset
 {
-    private const int TotalFrameCount = 30;
-    private const int HitFrame = 9; // 실제 발동 프레임보다 1 낮아야 다음 프레임에 히트 박스가 적용 된다
+
+    private int currentFrame;
+    private const int HitFrame = 10; // 실제 발동 프레임보다 1 낮아야 다음 프레임에 히트 박스가 적용 된다 = 이벤트 시작 위치때문에 -1
+    
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -28,7 +30,8 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        int currentFrame = (int)((layerData->Time / layerData->Length) * TotalFrameCount);
+
+        currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
 
         //전진성과 방향성
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
@@ -45,9 +48,9 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             body->Velocity.X = flip;
         }
 
-
+        Debug.Log("잽 Execute");
         //히트 박스 생성
-        if (currentFrame == HitFrame)
+        if (currentFrame == HitFrame-1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {
 
             EntityRef hitbox = f.Create();

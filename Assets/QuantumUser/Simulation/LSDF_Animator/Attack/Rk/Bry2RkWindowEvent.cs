@@ -8,8 +8,9 @@ using static UnityEngine.EventSystems.EventTrigger;
 [Serializable]
 public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 {
-    private const int HitFrame = 14; // 실제 발동 프레임보다 1 낮아야 다음 프레임에 히트 박스가 적용 된다
-    private const int TotalFrameCount = 35;//실제 발동 프레임 + 20
+    private int currentFrame;
+    private int HitFrame = 15; // 아래 관련 기술은 -1프레임ㅇ해줘야한다 애니메이션이 처음부터 재생은 되는데 2번째 프레임부터 OnEnter가 된다
+    //private const int TotalFrameCount = 34;//실제 발동 프레임 + 20
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -23,13 +24,15 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
-
+        
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        int currentFrame = (int)((layerData->Time / layerData->Length) * TotalFrameCount);
 
+
+        currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
+        Debug.Log($"현재 프레임 {currentFrame}");
         //전진성과 방향성
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->FreezeRotation = true;
@@ -47,7 +50,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 
         Debug.Log("2rk 공격 중");
         //히트 박스 생성
-        if (currentFrame == HitFrame)
+        if (currentFrame == HitFrame-1)
         {
 
             EntityRef hitbox = f.Create();

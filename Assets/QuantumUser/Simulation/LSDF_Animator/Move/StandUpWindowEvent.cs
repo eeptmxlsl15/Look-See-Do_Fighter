@@ -1,19 +1,24 @@
+using Quantum;
 using UnityEngine;
+using System;
+using Quantum.Addons.Animator;
 
-namespace Quantum
+[Serializable]
+public class StandUpWindowEvent : AnimatorTimeWindowEventAsset
 {
-    public class StandUpWindowEvent : MonoBehaviour
+    public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-        
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+        Debug.Log("Stand Up enter");
+    }
+
+    public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
+    {
+
+    }
+
+    public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
+    {
+        Debug.Log("Stand Up OnExit");
     }
 }

@@ -26,6 +26,7 @@ namespace Quantum.LSDF
 
             if (input->LeftPunch || input->RightPunch || input->LeftKick || input->RightKick)
             {
+                //Debug.Log($"공격 입력 프레임 : {f.Number}");
                 //애니메이터의 커맨드 맵 스테이트로 이동
                 AnimatorComponent.SetTrigger(f, filter.Animator, "InputCommand");
                 CheckCommand(f, filter.Entity, input, direction, filter.LSDF_Player, filter.Animator);
@@ -40,7 +41,7 @@ namespace Quantum.LSDF
             {
                 if (input->Left)
                 {
-                    Debug.Log("Left+Down");
+                    
                     return CommandDirection.DownLeft;
                 }
                 if (input->Right) return CommandDirection.DownRight;

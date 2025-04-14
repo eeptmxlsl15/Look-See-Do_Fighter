@@ -10,6 +10,7 @@ public class DashBackWindowEvent : AnimatorTimeWindowEventAsset
 {
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
+        
         var entity = animatorComponent->Self;
         if (f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player))
         {

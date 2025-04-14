@@ -16,16 +16,18 @@ public class SitEnterWindowEvent : AnimatorTimeWindowEventAsset
 
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
-
+        
     }
 
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        
+        Debug.Log("sit Execute");
     }
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        Debug.Log("¾É±â ³¡");
+        Debug.Log("sit OnExit");
+        AnimatorComponent.SetBoolean(f, animatorComponent, "Siting", true);
+
     }
 }
