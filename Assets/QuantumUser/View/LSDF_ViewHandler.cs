@@ -11,6 +11,8 @@ public class LSDF_ViewHandler : QuantumEntityViewComponent
     public RuntimeAnimatorController enemyController;
     private static GameObject cameraPlayer1;
     private static GameObject cameraPlayer2;
+    private static LSDF_ViewHandler player1;
+    private static LSDF_ViewHandler player2;
     public override void OnActivate(Frame f)
     {
         if (cameraPlayer1 == null)
@@ -30,6 +32,11 @@ public class LSDF_ViewHandler : QuantumEntityViewComponent
         // 에니메이터 컨트롤러 바꾸기!
         animator.runtimeAnimatorController = isMine ? playerController : enemyController;
         
+        if (playerLink.PlayerRef == (PlayerRef)0)
+            player1 = this;
+        else if (playerLink.PlayerRef == (PlayerRef)1)
+            player2 = this;
+
         if (localPlayer == (PlayerRef)0)
         {
             cameraPlayer1?.SetActive(true);
@@ -60,5 +67,45 @@ public class LSDF_ViewHandler : QuantumEntityViewComponent
         
         
     }
-   
+    public override void OnUpdateView()
+    {
+        
+        base.OnUpdateView();
+        
+        if (cameraPlayer1 != null && player1 != null && player2 != null)
+        {
+            var center = (player1.transform.position + player2.transform.position) * 0.5f;
+            //cameraPlayer1.transform.position = new Vector3(center.x, 0, cameraPlayer1.transform.position.z);
+
+            //거리계산
+            float distance = Vector3.Distance(player1.transform.position, player2.transform.position);
+            Debug.Log($"현재 거리 {distance}");
+
+            float baseZ = -0.8f;
+            float maxZoomOut = -1.45f;
+            float zoomFactor = -0.97857f;
+            float targetZ= -0.8f;
+
+            if (distance > 1)
+            {
+                targetZ = baseZ + zoomFactor * (distance - 1f);
+                targetZ = Mathf.Clamp(targetZ, maxZoomOut, baseZ); // 줌 인/아웃 제한
+            }
+            // 최종 위치 설정 (부드럽게 보간)
+            Vector3 targetPos = new Vector3(center.x, 0, targetZ);
+            
+            cameraPlayer1.transform.position = Vector3.Lerp(cameraPlayer1.transform.position, targetPos, Time.deltaTime * 5f);
+
+
+        }
+        else if (cameraPlayer2 != null && player1 != null && player2 != null)
+        {
+            var center = (player1.transform.position + player2.transform.position) * 0.5f;
+            cameraPlayer2.transform.position = new Vector3(center.x, 0, cameraPlayer2.transform.position.z);
+        }
+    }
+    
+
+
+
 }

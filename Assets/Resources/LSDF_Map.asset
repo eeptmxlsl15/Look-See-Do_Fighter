@@ -86,6 +86,14 @@ MonoBehaviour:
   StaticColliders3D: []
   MapEntities:
   - Components:
+    - rid: 4476329129809018880
+    - rid: 4476329129809018881
+    - rid: 4476329129809018882
+  - Components:
+    - rid: 8210023592692285440
+    - rid: 8210023592692285441
+    - rid: 8210023592692285442
+  - Components:
     - rid: 7820791150700134400
     - rid: 7820791150700134401
     - rid: 7820791150700134402
@@ -93,6 +101,37 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4476329129809018880
+      type: {class: Transform2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        Position:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        Rotation:
+          RawValue: 0
+    - rid: 4476329129809018881
+      type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        Position:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: -52428
+        Rotation:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+    - rid: 4476329129809018882
+      type: {class: LSDF_CameraInfoPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
+      data:
+        cameraNum: 0
     - rid: 7820791150700134400
       type: {class: Transform2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
@@ -145,3 +184,34 @@ MonoBehaviour:
       data:
         CallbackFlags:
           Value: 0
+    - rid: 8210023592692285440
+      type: {class: Transform2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        Position:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        Rotation:
+          RawValue: 0
+    - rid: 8210023592692285441
+      type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        Position:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 52428
+        Rotation:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 11796480
+          Z:
+            RawValue: 0
+    - rid: 8210023592692285442
+      type: {class: LSDF_CameraInfoPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
+      data:
+        cameraNum: 1

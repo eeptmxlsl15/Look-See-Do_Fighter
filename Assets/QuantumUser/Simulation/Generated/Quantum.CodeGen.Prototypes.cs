@@ -184,6 +184,21 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_CameraInfo))]
+  public unsafe partial class LSDF_CameraInfoPrototype : ComponentPrototype<Quantum.LSDF_CameraInfo> {
+    public Int32 cameraNum;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_CameraInfo result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_CameraInfo component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_CameraInfo result, in PrototypeMaterializationContext context = default) {
+        result.cameraNum = this.cameraNum;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_HitboxInfo))]
   public unsafe partial class LSDF_HitboxInfoPrototype : ComponentPrototype<Quantum.LSDF_HitboxInfo> {
     public Quantum.QEnum32<HitboxAttackType> AttackType;

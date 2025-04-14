@@ -91,6 +91,7 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorState.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\StandUpWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Core.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_CameraSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimePlayer.User.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorData.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorGraph.cs" />
@@ -124,6 +125,7 @@
     <None Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorDefinitions\AnimatorComponent.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_DashInputBuffer.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Input.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_CameraInfo.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Player.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_CollisionSignals.qtn" />
     <None Include="Assets\QuantumUser\Simulation\PlayerLink.qtn" />

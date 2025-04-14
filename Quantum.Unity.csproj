@@ -152,6 +152,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeNavMeshPathfinder.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumEntityViewUpdater.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerSimulationTime.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeLSDF_CameraInfo.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticEdgeCollider2D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumDebugInput.cs" />
   </ItemGroup>
