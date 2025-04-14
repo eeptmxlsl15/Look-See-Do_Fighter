@@ -364,7 +364,7 @@ Animator:
   m_GameObject: {fileID: 8196750081309688306}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f3b3e63cf31d1724da6833181bdc04ac, type: 2}
+  m_Controller: {fileID: 9100000, guid: 62b26264ceaecd9488df8fe742bc99c1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -393,8 +393,18 @@ MonoBehaviour:
       Value: 0
     isDashFront:
       Value: 0
-    DashReady:
+    isSit:
       Value: 0
+    isStandUpGuard:
+      Value: 0
+    isAttack:
+      Value: 0
+    isHit:
+      Value: 0
+    isGuard:
+      Value: 0
+    DelayFrame: 0
+    CommandSkillMap: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &6165187188016615102
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -467,7 +467,7 @@ MonoBehaviour:
   animator: {fileID: 790781952498389381}
   spriteRenderer: {fileID: 3991370849860641899}
   playerController: {fileID: 9100000, guid: fa99f6904629b5443a3f4c060f534fc0, type: 2}
-  enemyController: {fileID: 9100000, guid: f3b3e63cf31d1724da6833181bdc04ac, type: 2}
+  enemyController: {fileID: 9100000, guid: 62b26264ceaecd9488df8fe742bc99c1, type: 2}
 --- !u!114 &7430869258309603518
 MonoBehaviour:
   m_ObjectHideFlags: 0

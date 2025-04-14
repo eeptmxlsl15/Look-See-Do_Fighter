@@ -15,6 +15,7 @@ public class MoveBackWindowEvent : AnimatorTimeWindowEventAsset
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
         player->isDashFront = false;
 
+        Debug.Log("무브백 시작");
         
 
     }
