@@ -158,8 +158,8 @@ namespace Quantum.LSDF
         private void CollisionControll(Frame f, ref Filter filter)
         {
             //크기
-            FPVector2 standingColliderExtents = new FPVector2(FP._0_10, FP._0_33);
-            FPVector2 sitColliderExtents = new FPVector2(FP._0_10, FP._0_25);
+            FPVector2 standingColliderExtents = new FPVector2(FP._0_20-FP._0_02, FP._0_33);
+            FPVector2 sitColliderExtents = new FPVector2(FP._0_20 - FP._0_02, FP._0_25);
 
             //위치
             Transform2D standingColliderCenter = new Transform2D
@@ -250,17 +250,27 @@ namespace Quantum.LSDF
             {
                 Debug.Log($"히트 시작 프레임{f.Number}");
                 AnimatorComponent.SetTrigger(f, animator, "HighHit");
-                player->isHit = true;
-                player->DelayFrame = f.Number + hitbox->enemyHitTime;
+                
             }
-
+            //중단
+            else if (hitbox->AttackType == HitboxAttackType.Mid)
+            {
+                Debug.Log($"히트 시작 프레임{f.Number}");
+                AnimatorComponent.SetTrigger(f, animator, "MiddleHit");
+                
+            }
+            //하단
             else if(hitbox->AttackType == HitboxAttackType.Low)
             {
                 Debug.Log($"히트 시작 프레임{f.Number}");
                 AnimatorComponent.SetTrigger(f, animator, "LowHit");
-                player->isHit = true;
-                player->DelayFrame = f.Number + hitbox->enemyHitTime;
+                
             }
+            player->isHit = true;
+            player->DelayFrame = f.Number + hitbox->enemyHitTime;
+            player->playerHp -= hitbox->attackDamage;
+            Debug.Log($"현재 체력 : {player->playerHp}/170");
+
         }
 
         public void OnTriggerGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox)

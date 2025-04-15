@@ -59,7 +59,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             {
                 IsTrigger = true,
                 //박스 크기
-                Shape = Shape2D.CreateBox(new FPVector2(FP._0_25/2, (FP._0_10 - FP._0_02)/2))
+                Shape = Shape2D.CreateBox(new FPVector2(FP._0_20/2, (FP._0_10 - FP._0_02)/2))
             });
 
             //공격 정보
@@ -76,7 +76,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             f.Set(hitbox, new Transform2D
             {
                 //위치
-                Position = f.Get<Transform2D>(entity).Position +  new FPVector2(FP._0_25*flip, FP._0_25),
+                Position = f.Get<Transform2D>(entity).Position +  new FPVector2((FP._0_25+FP._0_05)*flip, FP._0_25),
                 Rotation = FP._0
             });
 

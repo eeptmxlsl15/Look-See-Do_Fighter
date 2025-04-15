@@ -1060,22 +1060,24 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 144;
+    public const Int32 SIZE = 148;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(120)]
-    public QBoolean isDashBack;
     [FieldOffset(124)]
-    public QBoolean isDashFront;
-    [FieldOffset(136)]
-    public QBoolean isSit;
-    [FieldOffset(140)]
-    public QBoolean isStandUpGuard;
-    [FieldOffset(116)]
-    public QBoolean isAttack;
-    [FieldOffset(132)]
-    public QBoolean isHit;
+    public QBoolean isDashBack;
     [FieldOffset(128)]
+    public QBoolean isDashFront;
+    [FieldOffset(140)]
+    public QBoolean isSit;
+    [FieldOffset(144)]
+    public QBoolean isStandUpGuard;
+    [FieldOffset(120)]
+    public QBoolean isAttack;
+    [FieldOffset(136)]
+    public QBoolean isHit;
+    [FieldOffset(132)]
     public QBoolean isGuard;
+    [FieldOffset(116)]
+    public Int32 playerHp;
     [FieldOffset(112)]
     public Int32 DelayFrame;
     [FieldOffset(0)]
@@ -1090,6 +1092,7 @@ namespace Quantum {
         hash = hash * 31 + isAttack.GetHashCode();
         hash = hash * 31 + isHit.GetHashCode();
         hash = hash * 31 + isGuard.GetHashCode();
+        hash = hash * 31 + playerHp.GetHashCode();
         hash = hash * 31 + DelayFrame.GetHashCode();
         fixed (Int32* p = CommandSkillMap) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 28);
         return hash;
@@ -1099,6 +1102,7 @@ namespace Quantum {
         var p = (LSDF_Player*)ptr;
         serializer.Stream.SerializeBuffer(&p->CommandSkillMap[0], 28);
         serializer.Stream.Serialize(&p->DelayFrame);
+        serializer.Stream.Serialize(&p->playerHp);
         QBoolean.Serialize(&p->isAttack, serializer);
         QBoolean.Serialize(&p->isDashBack, serializer);
         QBoolean.Serialize(&p->isDashFront, serializer);

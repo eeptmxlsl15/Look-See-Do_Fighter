@@ -54,11 +54,11 @@ AnimationClip:
       value: {fileID: 21300000, guid: 7fa9dc52c6eb15045aac6b6773c425e5, type: 3}
     - time: 0.26666668
       value: {fileID: 21300000, guid: 77ec03b5b982c1149b50404233e0b652, type: 3}
-    - time: 0.28333333
+    - time: 0.38333333
       value: {fileID: 21300000, guid: 9ce1566f59316f1458a0494f494389ee, type: 3}
-    - time: 0.3
+    - time: 0.43333334
       value: {fileID: 21300000, guid: e91554af4d1b1194192116909b919d30, type: 3}
-    - time: 0.31666666
+    - time: 0.48333332
       value: {fileID: 21300000, guid: be0719a389eb667488788a749855d591, type: 3}
     attribute: m_Sprite
     path: 
@@ -107,7 +107,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.33333334
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -134,7 +134,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.33333334
+  - time: 0.5
     functionName: QuantumAnimatorEvent
     data: 
     objectReferenceParameter: {fileID: 11400000, guid: f2a0884f30e4aa94d9240fa68851056d, type: 2}

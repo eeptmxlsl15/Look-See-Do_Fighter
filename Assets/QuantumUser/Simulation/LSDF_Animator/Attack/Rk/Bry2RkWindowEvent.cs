@@ -59,7 +59,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
             {
                 IsTrigger = true,
                 //박스 크기
-                Shape = Shape2D.CreateBox(new FPVector2(FP._0_25 / 2, (FP._0_10 - FP._0_02) / 2))
+                Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_10 - FP._0_02) / 2))
             });
 
             //공격 정보

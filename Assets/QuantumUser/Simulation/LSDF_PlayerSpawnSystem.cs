@@ -26,12 +26,17 @@ namespace Quantum.LSDF
             });
 
             //CommandSkillMap 초기화
-            f.Unsafe.TryGetPointer<LSDF_Player>(playerEntity, out var playerCommandSkillMap);
+            f.Unsafe.TryGetPointer<LSDF_Player>(playerEntity, out var LSDF_player);
             for (int i = 0; i < 28; i++)
             {
-                playerCommandSkillMap->CommandSkillMap[i] = 0;
+                LSDF_player->CommandSkillMap[i] = 0;
             }
-            
+
+            //체력 초기화
+            LSDF_player->playerHp = 170;
+
+
+
         }
     }
 }

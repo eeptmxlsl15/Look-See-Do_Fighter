@@ -231,6 +231,7 @@ namespace Quantum.Prototypes {
     public QBoolean isAttack;
     public QBoolean isHit;
     public QBoolean isGuard;
+    public Int32 playerHp;
     public Int32 DelayFrame;
     [ArrayLengthAttribute(28)]
     public Int32[] CommandSkillMap = new Int32[28];
@@ -248,6 +249,7 @@ namespace Quantum.Prototypes {
         result.isAttack = this.isAttack;
         result.isHit = this.isHit;
         result.isGuard = this.isGuard;
+        result.playerHp = this.playerHp;
         result.DelayFrame = this.DelayFrame;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {
           result.CommandSkillMap[i] = this.CommandSkillMap[i];

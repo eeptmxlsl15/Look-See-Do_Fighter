@@ -17,6 +17,8 @@ component LSDF_Player
 	bool isAttack;
     bool isHit;
 	bool isGuard;
+
+	int playerHp;
 	int DelayFrame;
 
 	array<int>[28] CommandSkillMap;

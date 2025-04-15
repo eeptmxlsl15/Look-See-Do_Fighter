@@ -71,7 +71,7 @@ namespace Quantum.LSDF
                             //상단 공격 히트
                             if (currentStateName == "Move Front" || currentStateName == "Dash Front")//카운터,딜캐 추가
                             {
-                                Debug.Log("상단 공격 히트됨");
+                                f.Signals.OnTriggerNormalHit(info, player, animator, hitbox);
                             }
                             //상단 공격 가드
                             else if (currentStateName == "Move Back" || currentStateName== "Dash Back" || currentStateName =="Idle" )
@@ -85,11 +85,11 @@ namespace Quantum.LSDF
                         case HitboxAttackType.Mid:
                             if (currentStateName == "Move Front" || currentStateName == "Dash Front"|| currentStateName =="Sit Enter"|| currentStateName =="Siting")//카운터,딜캐 추가
                             {
-                                Debug.Log("중단 공격 히트됨");
+                                f.Signals.OnTriggerNormalHit(info, player, animator, hitbox);
                             }
                             else if (currentStateName == "Move Back" || currentStateName == "Dash Back" || currentStateName == "Idle")
                             {
-                                Debug.Log("중단 공격 가드됨");
+                                f.Signals.OnTriggerGuard(info, player, animator, hitbox);
                             }
 
                             break;
@@ -98,7 +98,7 @@ namespace Quantum.LSDF
                             //여긴 히트,가드가 반대
                             if(currentStateName == "Sit Enter" || currentStateName == "Siting")
                             {
-                                Debug.Log("하단 공격 가드됨");
+                                f.Signals.OnTriggerGuard(info, player, animator, hitbox);
                             }
                             else
                             {
