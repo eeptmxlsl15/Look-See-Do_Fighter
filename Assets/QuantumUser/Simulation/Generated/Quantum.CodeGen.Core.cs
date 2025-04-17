@@ -56,6 +56,10 @@ namespace Quantum {
     CurrentState,
     ToState,
   }
+  public enum CountAttackType : int {
+    Normal,
+    Combo,
+  }
   public enum DirectionType : int {
     None,
     Left,
@@ -1026,22 +1030,25 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
-    public const Int32 SIZE = 20;
+    public const Int32 SIZE = 24;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(0)]
-    public HitboxAttackType AttackType;
     [FieldOffset(4)]
-    public Int32 attackDamage;
-    [FieldOffset(12)]
-    public Int32 enemyGuardTime;
-    [FieldOffset(16)]
-    public Int32 enemyHitTime;
+    public HitboxAttackType AttackType;
+    [FieldOffset(0)]
+    public CountAttackType CountType;
     [FieldOffset(8)]
+    public Int32 attackDamage;
+    [FieldOffset(16)]
+    public Int32 enemyGuardTime;
+    [FieldOffset(20)]
+    public Int32 enemyHitTime;
+    [FieldOffset(12)]
     public Int32 enemyCountTime;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
         hash = hash * 31 + (Int32)AttackType;
+        hash = hash * 31 + (Int32)CountType;
         hash = hash * 31 + attackDamage.GetHashCode();
         hash = hash * 31 + enemyGuardTime.GetHashCode();
         hash = hash * 31 + enemyHitTime.GetHashCode();
@@ -1051,6 +1058,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (LSDF_HitboxInfo*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->CountType);
         serializer.Stream.Serialize((Int32*)&p->AttackType);
         serializer.Stream.Serialize(&p->attackDamage);
         serializer.Stream.Serialize(&p->enemyCountTime);
@@ -1060,22 +1068,24 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 148;
+    public const Int32 SIZE = 152;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(124)]
-    public QBoolean isDashBack;
     [FieldOffset(128)]
-    public QBoolean isDashFront;
-    [FieldOffset(140)]
-    public QBoolean isSit;
-    [FieldOffset(144)]
-    public QBoolean isStandUpGuard;
-    [FieldOffset(120)]
-    public QBoolean isAttack;
-    [FieldOffset(136)]
-    public QBoolean isHit;
+    public QBoolean isDashBack;
     [FieldOffset(132)]
+    public QBoolean isDashFront;
+    [FieldOffset(144)]
+    public QBoolean isSit;
+    [FieldOffset(148)]
+    public QBoolean isStandUpGuard;
+    [FieldOffset(124)]
+    public QBoolean isAttack;
+    [FieldOffset(140)]
+    public QBoolean isHit;
+    [FieldOffset(136)]
     public QBoolean isGuard;
+    [FieldOffset(120)]
+    public QBoolean canCounter;
     [FieldOffset(116)]
     public Int32 playerHp;
     [FieldOffset(112)]
@@ -1092,6 +1102,7 @@ namespace Quantum {
         hash = hash * 31 + isAttack.GetHashCode();
         hash = hash * 31 + isHit.GetHashCode();
         hash = hash * 31 + isGuard.GetHashCode();
+        hash = hash * 31 + canCounter.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
         hash = hash * 31 + DelayFrame.GetHashCode();
         fixed (Int32* p = CommandSkillMap) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 28);
@@ -1103,6 +1114,7 @@ namespace Quantum {
         serializer.Stream.SerializeBuffer(&p->CommandSkillMap[0], 28);
         serializer.Stream.Serialize(&p->DelayFrame);
         serializer.Stream.Serialize(&p->playerHp);
+        QBoolean.Serialize(&p->canCounter, serializer);
         QBoolean.Serialize(&p->isAttack, serializer);
         QBoolean.Serialize(&p->isDashBack, serializer);
         QBoolean.Serialize(&p->isDashFront, serializer);
@@ -1160,6 +1172,9 @@ namespace Quantum {
   public unsafe partial interface ISignalOnTriggerNormalHit : ISignal {
     void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox);
   }
+  public unsafe partial interface ISignalOnTriggerCounterHit : ISignal {
+    void OnTriggerCounterHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox);
+  }
   public unsafe partial interface ISignalOnTriggerGuard : ISignal {
     void OnTriggerGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox);
   }
@@ -1170,6 +1185,7 @@ namespace Quantum {
     private ISignalOnAnimatorStateUpdate[] _ISignalOnAnimatorStateUpdateSystems;
     private ISignalOnAnimatorStateExit[] _ISignalOnAnimatorStateExitSystems;
     private ISignalOnTriggerNormalHit[] _ISignalOnTriggerNormalHitSystems;
+    private ISignalOnTriggerCounterHit[] _ISignalOnTriggerCounterHitSystems;
     private ISignalOnTriggerGuard[] _ISignalOnTriggerGuardSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
@@ -1186,6 +1202,7 @@ namespace Quantum {
       _ISignalOnAnimatorStateUpdateSystems = BuildSignalsArray<ISignalOnAnimatorStateUpdate>();
       _ISignalOnAnimatorStateExitSystems = BuildSignalsArray<ISignalOnAnimatorStateExit>();
       _ISignalOnTriggerNormalHitSystems = BuildSignalsArray<ISignalOnTriggerNormalHit>();
+      _ISignalOnTriggerCounterHitSystems = BuildSignalsArray<ISignalOnTriggerCounterHit>();
       _ISignalOnTriggerGuardSystems = BuildSignalsArray<ISignalOnTriggerGuard>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
@@ -1304,6 +1321,15 @@ namespace Quantum {
           }
         }
       }
+      public void OnTriggerCounterHit(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox) {
+        var array = _f._ISignalOnTriggerCounterHitSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnTriggerCounterHit(_f, info, player, animator, hitbox);
+          }
+        }
+      }
       public void OnTriggerGuard(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox) {
         var array = _f._ISignalOnTriggerGuardSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
@@ -1351,6 +1377,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(ColorRGBA), ColorRGBA.SIZE);
       typeRegistry.Register(typeof(ComponentPrototypeRef), ComponentPrototypeRef.SIZE);
       typeRegistry.Register(typeof(ComponentTypeRef), ComponentTypeRef.SIZE);
+      typeRegistry.Register(typeof(Quantum.CountAttackType), 4);
       typeRegistry.Register(typeof(Quantum.DashInputBuffer), Quantum.DashInputBuffer.SIZE);
       typeRegistry.Register(typeof(Quantum.DirectionType), 4);
       typeRegistry.Register(typeof(DistanceJoint), DistanceJoint.SIZE);
@@ -1445,6 +1472,7 @@ namespace Quantum {
       FramePrinter.EnsureNotStripped();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AnimatorStateType>();
       FramePrinter.EnsurePrimitiveNotStripped<CallbackFlags>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.CountAttackType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.DirectionType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.HitboxAttackType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();

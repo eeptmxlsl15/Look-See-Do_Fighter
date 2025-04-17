@@ -17,6 +17,7 @@ component LSDF_Player
 	bool isAttack;
     bool isHit;
 	bool isGuard;
+	bool canCounter;
 
 	int playerHp;
 	int DelayFrame;

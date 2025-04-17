@@ -23,7 +23,7 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
         player->isAttack = true;
         player->isDashFront = false;
         player->isDashBack = false;
-
+        player->canCounter = true;
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 
@@ -31,7 +31,7 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-
+        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
         currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
         
         //전진성과 방향성
@@ -90,7 +90,10 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
             {
                 TickToDestroyAt = f.Number + 1
             });
-
+            if (player->canCounter == true)
+            {
+                player->canCounter = false;
+            }
             Debug.Log($"왼어퍼 히트박스 생성된 프레임{f.Number}");
         }
     }

@@ -79,17 +79,17 @@ public class LSDF_ViewHandler : QuantumEntityViewComponent
 
             //거리계산
             float distance = Vector3.Distance(player1.transform.position, player2.transform.position);
-            Debug.Log($"현재 거리 {distance}");
+            //Debug.Log($"현재 거리 {distance}");
 
             float baseZ = -0.8f;
-            float maxZoomOut = -1.45f;
-            float zoomFactor = -0.97857f;
+            //float maxZoomOut = -1.45f;
+            float zoomFactor = -1f;
             float targetZ= -0.8f;
 
             if (distance > 1)
             {
                 targetZ = baseZ + zoomFactor * (distance - 1f);
-                targetZ = Mathf.Clamp(targetZ, maxZoomOut, baseZ); // 줌 인/아웃 제한
+                //targetZ = Mathf.Clamp(targetZ, maxZoomOut, baseZ); // 줌 인/아웃 제한
             }
             // 최종 위치 설정 (부드럽게 보간)
             Vector3 targetPos = new Vector3(center.x, 0, targetZ);

@@ -1,4 +1,4 @@
 signal OnTriggerNormalHit(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
+signal OnTriggerCounterHit(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
 signal OnTriggerGuard(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
-
 

@@ -202,6 +202,7 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_HitboxInfo))]
   public unsafe partial class LSDF_HitboxInfoPrototype : ComponentPrototype<Quantum.LSDF_HitboxInfo> {
     public Quantum.QEnum32<HitboxAttackType> AttackType;
+    public Quantum.QEnum32<CountAttackType> CountType;
     public Int32 attackDamage;
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
@@ -214,6 +215,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Quantum.LSDF_HitboxInfo result, in PrototypeMaterializationContext context = default) {
         result.AttackType = this.AttackType;
+        result.CountType = this.CountType;
         result.attackDamage = this.attackDamage;
         result.enemyGuardTime = this.enemyGuardTime;
         result.enemyHitTime = this.enemyHitTime;
@@ -231,6 +233,7 @@ namespace Quantum.Prototypes {
     public QBoolean isAttack;
     public QBoolean isHit;
     public QBoolean isGuard;
+    public QBoolean canCounter;
     public Int32 playerHp;
     public Int32 DelayFrame;
     [ArrayLengthAttribute(28)]
@@ -249,6 +252,7 @@ namespace Quantum.Prototypes {
         result.isAttack = this.isAttack;
         result.isHit = this.isHit;
         result.isGuard = this.isGuard;
+        result.canCounter = this.canCounter;
         result.playerHp = this.playerHp;
         result.DelayFrame = this.DelayFrame;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {

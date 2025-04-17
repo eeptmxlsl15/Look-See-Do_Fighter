@@ -44,8 +44,13 @@ namespace Quantum.LSDF
                     
                     return CommandDirection.DownLeft;
                 }
-                if (input->Right) return CommandDirection.DownRight;
+                if (input->Right)
+                {
+                    return CommandDirection.DownRight;
+                }
                 return CommandDirection.Down;
+
+
             }
             if (input->Up) return CommandDirection.Up;
             if (input->Left) return CommandDirection.Left;
@@ -85,6 +90,7 @@ namespace Quantum.LSDF
             AnimatorComponent.SetInteger(f, animator, "CommandNum", (int)direction);
 
             int index = ((int)direction * 4) + (int)button;
+
             int skillId = player->CommandSkillMap[index];
 
 

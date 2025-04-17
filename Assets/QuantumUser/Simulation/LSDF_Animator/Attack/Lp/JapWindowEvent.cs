@@ -22,7 +22,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         player->isAttack = true;
         player->isDashFront = false;
         player->isDashBack = false;
-
+        player->canCounter = true;
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
         
@@ -30,6 +30,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
+        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
         currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
 
@@ -85,6 +86,10 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
                 TickToDestroyAt = f.Number + 1
             });
 
+            if(player->canCounter == true)
+            {
+                player->canCounter = false;
+            }
             Debug.Log($"잽 히트박스 생성된 프레임{f.Number}");
         }
     }

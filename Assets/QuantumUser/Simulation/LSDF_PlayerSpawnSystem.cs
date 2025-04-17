@@ -30,6 +30,7 @@ namespace Quantum.LSDF
             for (int i = 0; i < 28; i++)
             {
                 LSDF_player->CommandSkillMap[i] = 0;
+                
             }
 
             //체력 초기화

@@ -36,8 +36,16 @@ namespace Quantum.LSDF
                     //스트링으로 변환
                     
                     string currentStateName = currentState.Name;
-                    
-                    
+
+
+                    if (player->canCounter)
+                    {
+                       
+                        f.Signals.OnTriggerCounterHit(info, player, animator, hitbox);
+                        return;
+                    }
+
+
                 
                     //상단 공격
                     //

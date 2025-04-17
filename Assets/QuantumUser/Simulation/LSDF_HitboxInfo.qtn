@@ -5,9 +5,16 @@ enum HitboxAttackType
     Low     // го╢э
 }
 
+enum CountAttackType
+{
+    Normal,
+    Combo
+}
+
 component LSDF_HitboxInfo
 {	
 	HitboxAttackType AttackType;
+    CountAttackType CountType;
     int attackDamage;
     int enemyGuardTime;
     int enemyHitTime;

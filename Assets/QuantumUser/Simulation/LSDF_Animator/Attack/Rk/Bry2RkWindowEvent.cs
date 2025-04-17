@@ -21,7 +21,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
         player->isAttack = true;
         player->isDashFront = false;
         player->isDashBack = false;
-
+        player->canCounter = true;
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
         
@@ -29,7 +29,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-
+        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
         currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
         Debug.Log($"현재 프레임 {currentFrame}");
@@ -79,6 +79,11 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
                 Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, -(FP._0_25+FP._0_03)),
                 Rotation = FP._0
             });
+
+            if (player->canCounter == true)
+            {
+                player->canCounter = false;
+            }
 
             f.Add(hitbox, new TickToDestroy
             {

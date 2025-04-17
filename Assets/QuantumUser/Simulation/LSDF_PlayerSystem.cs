@@ -12,7 +12,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard
+    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit
     {
         public struct Filter
         {
@@ -272,7 +272,46 @@ namespace Quantum.LSDF
             Debug.Log($"현재 체력 : {player->playerHp}/170");
 
         }
+        public void OnTriggerCounterHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
+        {
+            //카운터 시 설정
+            player->canCounter = false;
+            player->isAttack = false;
 
+            if (hitbox->CountType==CountAttackType.Normal)
+            {
+                if (hitbox->AttackType == HitboxAttackType.High)
+                {
+                    Debug.Log($"히트 시작 프레임{f.Number}");
+                    AnimatorComponent.SetTrigger(f, animator, "HighHit");
+
+                }
+                //중단
+                else if (hitbox->AttackType == HitboxAttackType.Mid)
+                {
+                    Debug.Log($"히트 시작 프레임{f.Number}");
+                    AnimatorComponent.SetTrigger(f, animator, "MiddleHit");
+
+                }
+                //하단
+                else if (hitbox->AttackType == HitboxAttackType.Low)
+                {
+                    Debug.Log($"히트 시작 프레임{f.Number}");
+                    AnimatorComponent.SetTrigger(f, animator, "LowHit");
+
+                }
+                player->isHit = true;
+                player->DelayFrame = f.Number + hitbox->enemyCountTime;
+
+                player->playerHp -= hitbox->attackDamage;//여기서 데미지 보정
+                
+                Debug.Log($"현재 체력 : {player->playerHp}/170");
+            }
+            else
+            {
+                //떠서 때리는 애니메니션 
+            }
+        }
         public void OnTriggerGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox)
         {
             //하단을 가드할 경우
