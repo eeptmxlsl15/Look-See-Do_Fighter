@@ -12,7 +12,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit
+    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit , ISignalOnTriggerEnemyGuard
     {
         public struct Filter
         {
@@ -303,7 +303,7 @@ namespace Quantum.LSDF
                 player->isHit = true;
                 player->DelayFrame = f.Number + hitbox->enemyCountTime;
 
-                player->playerHp -= hitbox->attackDamage;//여기서 데미지 보정
+                player->playerHp -= (int)(hitbox->attackDamage *1.2f);//여기서 데미지 보정
                 
                 Debug.Log($"현재 체력 : {player->playerHp}/170");
             }
@@ -332,6 +332,11 @@ namespace Quantum.LSDF
                 player->DelayFrame = f.Number + hitbox->enemyGuardTime;
             }
             
+        }
+
+        public void OnTriggerEnemyGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
+        {
+
         }
     }
 

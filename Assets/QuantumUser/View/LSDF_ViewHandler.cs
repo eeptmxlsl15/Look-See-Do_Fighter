@@ -69,39 +69,33 @@ public class LSDF_ViewHandler : QuantumEntityViewComponent
     }
     public override void OnUpdateView()
     {
-        
+
         base.OnUpdateView();
-        
-        if (cameraPlayer1 != null && player1 != null && player2 != null)
+
+        if (player1 != null && player2 != null)
         {
+            // 현재 활성화된 카메라에 따라 flip 방향 결정
+            GameObject activeCamera = cameraPlayer1 != null && cameraPlayer1.activeSelf ? cameraPlayer1 : cameraPlayer2;
+            int flip = activeCamera == cameraPlayer1 ? 1 : -1;
+
             var center = (player1.transform.position + player2.transform.position) * 0.5f;
-            //cameraPlayer1.transform.position = new Vector3(center.x, 0, cameraPlayer1.transform.position.z);
-
-            //거리계산
             float distance = Vector3.Distance(player1.transform.position, player2.transform.position);
-            //Debug.Log($"현재 거리 {distance}");
 
-            float baseZ = -0.8f;
-            //float maxZoomOut = -1.45f;
-            float zoomFactor = -1f;
-            float targetZ= -0.8f;
+            float baseZ = -0.8f * flip;
+            float zoomFactor = -1f * flip;
+            float targetZ = baseZ;
 
             if (distance > 1)
             {
                 targetZ = baseZ + zoomFactor * (distance - 1f);
-                //targetZ = Mathf.Clamp(targetZ, maxZoomOut, baseZ); // 줌 인/아웃 제한
             }
-            // 최종 위치 설정 (부드럽게 보간)
+
             Vector3 targetPos = new Vector3(center.x, 0, targetZ);
-            
-            cameraPlayer1.transform.position = Vector3.Lerp(cameraPlayer1.transform.position, targetPos, Time.deltaTime * 5f);
 
-
-        }
-        else if (cameraPlayer2 != null && player1 != null && player2 != null)
-        {
-            var center = (player1.transform.position + player2.transform.position) * 0.5f;
-            cameraPlayer2.transform.position = new Vector3(center.x, 0, cameraPlayer2.transform.position.z);
+            if (activeCamera != null)
+            {
+                activeCamera.transform.position = Vector3.Lerp(activeCamera.transform.position, targetPos, Time.deltaTime * 5f);
+            }
         }
     }
     

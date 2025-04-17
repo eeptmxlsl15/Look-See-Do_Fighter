@@ -67,6 +67,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
             {
                 AttackType = HitboxAttackType.Low,
                 CountType = CountAttackType.Normal,
+                DelayGuardTpye = DelayGuardType.Stun,
                 enemyGuardTime = 10,
                 enemyHitTime = 20,
                 enemyCountTime = 20,

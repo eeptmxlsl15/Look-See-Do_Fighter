@@ -68,6 +68,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             {
                 AttackType= HitboxAttackType.High,
                 CountType=CountAttackType.Normal,
+                DelayGuardTpye=DelayGuardType.Normal,
                 enemyGuardTime = 21,
                 enemyHitTime = 28,
                 enemyCountTime = 28,

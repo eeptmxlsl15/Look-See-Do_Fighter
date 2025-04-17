@@ -60,6 +60,11 @@ namespace Quantum {
     Normal,
     Combo,
   }
+  public enum DelayGuardType : int {
+    Normal,
+    Stun,
+    Combo,
+  }
   public enum DirectionType : int {
     None,
     Left,
@@ -1030,25 +1035,28 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
-    public const Int32 SIZE = 24;
+    public const Int32 SIZE = 28;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public HitboxAttackType AttackType;
     [FieldOffset(0)]
     public CountAttackType CountType;
-    [FieldOffset(8)]
-    public Int32 attackDamage;
-    [FieldOffset(16)]
-    public Int32 enemyGuardTime;
-    [FieldOffset(20)]
-    public Int32 enemyHitTime;
+    [FieldOffset(4)]
+    public DelayGuardType DelayGuardTpye;
     [FieldOffset(12)]
+    public Int32 attackDamage;
+    [FieldOffset(20)]
+    public Int32 enemyGuardTime;
+    [FieldOffset(24)]
+    public Int32 enemyHitTime;
+    [FieldOffset(16)]
     public Int32 enemyCountTime;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
         hash = hash * 31 + (Int32)AttackType;
         hash = hash * 31 + (Int32)CountType;
+        hash = hash * 31 + (Int32)DelayGuardTpye;
         hash = hash * 31 + attackDamage.GetHashCode();
         hash = hash * 31 + enemyGuardTime.GetHashCode();
         hash = hash * 31 + enemyHitTime.GetHashCode();
@@ -1059,6 +1067,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (LSDF_HitboxInfo*)ptr;
         serializer.Stream.Serialize((Int32*)&p->CountType);
+        serializer.Stream.Serialize((Int32*)&p->DelayGuardTpye);
         serializer.Stream.Serialize((Int32*)&p->AttackType);
         serializer.Stream.Serialize(&p->attackDamage);
         serializer.Stream.Serialize(&p->enemyCountTime);
@@ -1178,6 +1187,9 @@ namespace Quantum {
   public unsafe partial interface ISignalOnTriggerGuard : ISignal {
     void OnTriggerGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox);
   }
+  public unsafe partial interface ISignalOnTriggerEnemyGuard : ISignal {
+    void OnTriggerEnemyGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox);
+  }
   public static unsafe partial class Constants {
   }
   public unsafe partial class Frame {
@@ -1187,6 +1199,7 @@ namespace Quantum {
     private ISignalOnTriggerNormalHit[] _ISignalOnTriggerNormalHitSystems;
     private ISignalOnTriggerCounterHit[] _ISignalOnTriggerCounterHitSystems;
     private ISignalOnTriggerGuard[] _ISignalOnTriggerGuardSystems;
+    private ISignalOnTriggerEnemyGuard[] _ISignalOnTriggerEnemyGuardSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
     }
@@ -1204,6 +1217,7 @@ namespace Quantum {
       _ISignalOnTriggerNormalHitSystems = BuildSignalsArray<ISignalOnTriggerNormalHit>();
       _ISignalOnTriggerCounterHitSystems = BuildSignalsArray<ISignalOnTriggerCounterHit>();
       _ISignalOnTriggerGuardSystems = BuildSignalsArray<ISignalOnTriggerGuard>();
+      _ISignalOnTriggerEnemyGuardSystems = BuildSignalsArray<ISignalOnTriggerEnemyGuard>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<Quantum.AnimatorComponent>();
@@ -1339,6 +1353,15 @@ namespace Quantum {
           }
         }
       }
+      public void OnTriggerEnemyGuard(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox) {
+        var array = _f._ISignalOnTriggerEnemyGuardSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnTriggerEnemyGuard(_f, info, player, animator, hitbox);
+          }
+        }
+      }
     }
   }
   public unsafe partial class Statics {
@@ -1379,6 +1402,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(ComponentTypeRef), ComponentTypeRef.SIZE);
       typeRegistry.Register(typeof(Quantum.CountAttackType), 4);
       typeRegistry.Register(typeof(Quantum.DashInputBuffer), Quantum.DashInputBuffer.SIZE);
+      typeRegistry.Register(typeof(Quantum.DelayGuardType), 4);
       typeRegistry.Register(typeof(Quantum.DirectionType), 4);
       typeRegistry.Register(typeof(DistanceJoint), DistanceJoint.SIZE);
       typeRegistry.Register(typeof(DistanceJoint3D), DistanceJoint3D.SIZE);
@@ -1473,6 +1497,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AnimatorStateType>();
       FramePrinter.EnsurePrimitiveNotStripped<CallbackFlags>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.CountAttackType>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.DelayGuardType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.DirectionType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.HitboxAttackType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();

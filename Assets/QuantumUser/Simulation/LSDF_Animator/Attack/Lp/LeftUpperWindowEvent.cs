@@ -72,6 +72,7 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
             {
                 AttackType = HitboxAttackType.Mid,
                 CountType = CountAttackType.Normal,
+                DelayGuardTpye = DelayGuardType.Normal,
                 enemyGuardTime = 19,
                 enemyHitTime = 25,
                 enemyCountTime = 25,

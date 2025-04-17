@@ -11,10 +11,17 @@ enum CountAttackType
     Combo
 }
 
+enum DelayGuardType
+{
+    Normal,
+    Stun,
+    Combo
+}
 component LSDF_HitboxInfo
 {	
 	HitboxAttackType AttackType;
     CountAttackType CountType;
+    DelayGuardType DelayGuardTpye;
     int attackDamage;
     int enemyGuardTime;
     int enemyHitTime;
