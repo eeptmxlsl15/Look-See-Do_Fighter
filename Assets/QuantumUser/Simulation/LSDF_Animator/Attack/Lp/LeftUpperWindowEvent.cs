@@ -71,7 +71,7 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
             f.Add(hitbox, new LSDF_HitboxInfo
             {
                 AttackType = HitboxAttackType.Mid,
-
+                CountType = CountAttackType.Normal,
                 enemyGuardTime = 19,
                 enemyHitTime = 25,
                 enemyCountTime = 25,

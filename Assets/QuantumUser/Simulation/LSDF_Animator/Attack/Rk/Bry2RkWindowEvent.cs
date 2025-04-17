@@ -66,7 +66,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
             f.Add(hitbox, new LSDF_HitboxInfo
             {
                 AttackType = HitboxAttackType.Low,
-
+                CountType = CountAttackType.Normal,
                 enemyGuardTime = 10,
                 enemyHitTime = 20,
                 enemyCountTime = 20,

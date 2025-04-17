@@ -67,7 +67,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             f.Add(hitbox, new LSDF_HitboxInfo
             {
                 AttackType= HitboxAttackType.High,
-                
+                CountType=CountAttackType.Normal,
                 enemyGuardTime = 21,
                 enemyHitTime = 28,
                 enemyCountTime = 28,
