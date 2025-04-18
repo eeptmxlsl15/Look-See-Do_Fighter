@@ -75,6 +75,8 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
             //공격 정보
             f.Add(hitbox, new LSDF_HitboxInfo
             {
+                startFrame = HitFrame,
+                AttackerEntity = entity,
                 AttackType = HitboxAttackType.Mid,
                 CountType = CountAttackType.Normal,
                 DelayGuardTpye = DelayGuardType.Normal,

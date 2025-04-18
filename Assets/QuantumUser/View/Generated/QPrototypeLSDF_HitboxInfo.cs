@@ -18,15 +18,17 @@ namespace Quantum {
     partial void CreatePrototypeUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.LSDF_HitboxInfoPrototype prototype);
     [DrawInline()]
     [ReadOnly(InEditMode = false)]
-    public Quantum.Prototypes.LSDF_HitboxInfoPrototype Prototype;
+    public Quantum.Prototypes.Unity.LSDF_HitboxInfoPrototype Prototype;
     public override System.Type ComponentType {
       get {
         return typeof(Quantum.LSDF_HitboxInfo);
       }
     }
     public override ComponentPrototype CreatePrototype(Quantum.QuantumEntityPrototypeConverter converter) {
-      CreatePrototypeUser(converter, ref Prototype);
-      return Prototype;
+      Quantum.Prototypes.LSDF_HitboxInfoPrototype result;
+      converter.Convert(Prototype, out result);
+      CreatePrototypeUser(converter, ref result);
+      return result;
     }
   }
 }

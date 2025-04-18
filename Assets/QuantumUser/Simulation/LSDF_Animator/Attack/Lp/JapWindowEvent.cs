@@ -62,6 +62,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
 
             f.Add(hitbox, new PhysicsCollider2D
             {
+
                 IsTrigger = true,
                 //박스 크기
                 Shape = Shape2D.CreateBox(new FPVector2(FP._0_20/2, (FP._0_10 - FP._0_02)/2))
@@ -70,7 +71,9 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             //공격 정보
             f.Add(hitbox, new LSDF_HitboxInfo
             {
-                AttackType= HitboxAttackType.High,
+                startFrame = HitFrame,
+                AttackerEntity = entity,
+                AttackType = HitboxAttackType.High,
                 CountType=CountAttackType.Normal,
                 DelayGuardTpye=DelayGuardType.Normal,
                 enemyGuardTime = 21,

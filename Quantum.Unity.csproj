@@ -88,6 +88,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumRunnerLocalSavegame.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeNavMeshAvoidanceObstacle.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMultiClientPlayerView.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeLSDF_TestEnemy.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumUnityDB.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerFrameTime.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticMeshCollider3D.cs" />

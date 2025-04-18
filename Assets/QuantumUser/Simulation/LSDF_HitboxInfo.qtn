@@ -19,9 +19,11 @@ enum DelayGuardType
 }
 component LSDF_HitboxInfo
 {	
+    EntityRef AttackerEntity;
 	HitboxAttackType AttackType;
     CountAttackType CountType;
     DelayGuardType DelayGuardTpye;
+    int startFrame;
     int attackDamage;
     int enemyGuardTime;
     int enemyHitTime;

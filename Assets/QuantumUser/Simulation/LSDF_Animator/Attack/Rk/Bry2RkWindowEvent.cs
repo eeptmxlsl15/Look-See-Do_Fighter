@@ -36,7 +36,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
         currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
-        Debug.Log($"현재 프레임 {currentFrame}");
+        //Debug.Log($"현재 프레임 {currentFrame}");
         //전진성과 방향성
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->FreezeRotation = true;
@@ -69,10 +69,12 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
             //공격 정보
             f.Add(hitbox, new LSDF_HitboxInfo
             {
+                startFrame = HitFrame,
+                AttackerEntity = entity,
                 AttackType = HitboxAttackType.Low,
                 CountType = CountAttackType.Normal,
                 DelayGuardTpye = DelayGuardType.Stun,
-                enemyGuardTime = 10,
+                enemyGuardTime = 10,//후딜이 20이므로 상대 가드 타임이 10 이면 10프레임 여유가 생김
                 enemyHitTime = 20,
                 enemyCountTime = 20,
                 attackDamage = 13,

@@ -71,6 +71,37 @@ namespace Quantum.Prototypes.Unity {
       return result;
     }
   }
+  [System.SerializableAttribute()]
+  public unsafe partial class LSDF_HitboxInfoPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.LSDF_HitboxInfoPrototype> {
+    public Quantum.QuantumEntityPrototype AttackerEntity;
+    public Quantum.QEnum32<HitboxAttackType> AttackType;
+    public Quantum.QEnum32<CountAttackType> CountType;
+    public Quantum.QEnum32<DelayGuardType> DelayGuardTpye;
+    public Int32 startFrame;
+    public Int32 attackDamage;
+    public Int32 enemyGuardTime;
+    public Int32 enemyHitTime;
+    public Int32 enemyCountTime;
+    public QBoolean launcher;
+    public QBoolean homing;
+    partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.LSDF_HitboxInfoPrototype prototype);
+    public override Quantum.Prototypes.LSDF_HitboxInfoPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.LSDF_HitboxInfoPrototype();
+      converter.Convert(this.AttackerEntity, out result.AttackerEntity);
+      converter.Convert(this.AttackType, out result.AttackType);
+      converter.Convert(this.CountType, out result.CountType);
+      converter.Convert(this.DelayGuardTpye, out result.DelayGuardTpye);
+      converter.Convert(this.startFrame, out result.startFrame);
+      converter.Convert(this.attackDamage, out result.attackDamage);
+      converter.Convert(this.enemyGuardTime, out result.enemyGuardTime);
+      converter.Convert(this.enemyHitTime, out result.enemyHitTime);
+      converter.Convert(this.enemyCountTime, out result.enemyCountTime);
+      converter.Convert(this.launcher, out result.launcher);
+      converter.Convert(this.homing, out result.homing);
+      ConvertUser(converter, ref result);
+      return result;
+    }
+  }
 }
 #pragma warning restore 0109
 #pragma warning restore 1591

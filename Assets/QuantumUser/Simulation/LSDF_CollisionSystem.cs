@@ -1,4 +1,4 @@
-using UnityEngine.Scripting;
+ï»¿using UnityEngine.Scripting;
 using UnityEngine;
 using Quantum.Collections;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -9,129 +9,90 @@ namespace Quantum.LSDF
     {
         public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
         {
-            
-            //ÇÃ·¹ÀÌ¾î°¡ ¸Â¾ÒÀ»¶§
-            if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Entity, out var player))
+            // í”¼ê²©ì
+            if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Entity, out var defender))
             {
-
-
-                //±âÁØ(ÇÃ·¹ÀÌ¾î) ¸»°í ´Ù¸¥°Ô °ø°İÆÇÁ¤ÀÏ ¶§
+                // íˆíŠ¸ë°•ìŠ¤ì— ê³µê²©ì ì •ë³´ í¬í•¨
                 if (f.Unsafe.TryGetPointer<LSDF_HitboxInfo>(info.Other, out var hitbox))
                 {
-                    //¾Ö´Ï¸ŞÀÌÅÍ °¡Á®¿À±â
-                    f.Unsafe.TryGetPointer<AnimatorComponent>(info.Entity, out var animator);
+                    // í”¼ê²©ìì˜ ì• ë‹ˆë©”ì´í„°
+                    f.Unsafe.TryGetPointer<AnimatorComponent>(info.Entity, out var defenderAnimator);
+
+                    //  ìƒíƒœ í™•ì¸
+                    string stateName = f.FindAsset<AnimatorGraph>(defenderAnimator->AnimatorGraph)
+                        .GetState(f.ResolveList(defenderAnimator->Layers).GetPointer(0)->CurrentStateId)
+                        .Name;
 
 
-                    //¾Ö´Ï¸ŞÀÌÅÍ ±×·¡ÇÁ Ã£¾Æ¿Í¼­ Ã¹¹øÂ° ·¹ÀÌ¾î¿¡¼­ 
-                    var animatorGraph = f.FindAsset<AnimatorGraph>(animator->AnimatorGraph);
-                    var layerDataList = f.ResolveList<LayerData>(animator->Layers);
-
-                    //ÇöÀç »óÅÂ ¾ÆÀÌµğ °¡Á®¿È
-                    var currentLayer = layerDataList.GetPointer(0); // Ã¹ ¹øÂ° ·¹ÀÌ¾î ±âÁØ
-                    var currentStateId = currentLayer->CurrentStateId;
-
-                    
-                    var currentState = animatorGraph.GetState(currentStateId);
-
-                    //½ºÆ®¸µÀ¸·Î º¯È¯
-                    
-                    string currentStateName = currentState.Name;
-
-
-                    if (player->canCounter)
+                    if (defender->canCounter)
                     {
-                       
-                        f.Signals.OnTriggerCounterHit(info, player, animator, hitbox);
+
+                        f.Signals.OnTriggerCounterHit(info, defender, defenderAnimator, hitbox);
+                        return;
+                    }
+                    //10í”„ë ˆì„ í™•ì • ë”œìº ìƒí™©ì¼ë•Œ
+                    if (stateName=="Stun")
+                    {
+                        //10í”„ë ˆì„ì´ë©´ ë¬´ì¡°ê±´ ë§ê³ 
+                        if (hitbox->startFrame <= 10)
+                        {
+                            f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
+                        }
+
+
+                        else if (hitbox->AttackType == HitboxAttackType.High || hitbox->AttackType == HitboxAttackType.Mid)
+                        {
+                            f.Signals.OnTriggerGuard(info, defender, defenderAnimator, hitbox);
+                        }
+                        else if (hitbox->AttackType == HitboxAttackType.Low)
+                        {
+                            if (defender->isSit == true)
+                            {
+                                f.Signals.OnTriggerGuard(info, defender, defenderAnimator, hitbox);
+                            }
+                            else if (defender->isSit == false)
+                            {
+                                f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
+                            }
+                        }
                         return;
                     }
 
+                    bool isGuard = ShouldGuard(hitbox->AttackType, stateName);
 
-                
-                    //»ó´Ü °ø°İ
-                    //
-                    //¸Â´Â °æ¿ì
-                    //MoveFront,DashFront,±â¼ú ÀÔ·Â ÈÄ ¹ßµ¿ Àü(Ä«¿îÅÍ),±â¼ú ¹ßµ¿ ÈÄ ³¡³ª±â Àü(µôÄ³, ÇêÄ£°Å)
-                    //
-                    //¾È¸Â´Â °æ¿ì
-                    //Idle,MoveBack,DashBack
-
-                    //Áß´Ü °ø°İ
-                    //
-                    //¸Â´Â °æ¿ì
-                    //»ó´Ü°ú µ¿ÀÏ + ¾É¾ÆÀÖÀ» ¶§
-                    //
-                    //¾È¸Â´Â °æ¿ì
-                    //»ó´Ü°ú µ¿ÀÏ
-
-                    //ÇÏ´Ü °ø°İ
-                    //
-                    //¸Â´Â°æ¿ì
-                    //¾ÉÁö ¾Ê¾ÒÀ» ¶§
-                    //
-                    //¸·´Â °æ¿ì
-                    //¾É¾Æ ÀÖÀ» ¶§
-
-                    switch (hitbox->AttackType)
+                    if (isGuard)
                     {
-                        
+                        f.Signals.OnTriggerGuard(info, defender, defenderAnimator, hitbox);
 
-                        case HitboxAttackType.High:
-                            //»ó´Ü °ø°İ È÷Æ®
-                            if (currentStateName == "Move Front" || currentStateName == "Dash Front")//Ä«¿îÅÍ,µôÄ³ Ãß°¡
-                            {
-                                f.Signals.OnTriggerNormalHit(info, player, animator, hitbox);
-                            }
-                            //»ó´Ü °ø°İ °¡µå
-                            else if (currentStateName == "Move Back" || currentStateName== "Dash Back" || currentStateName =="Idle" )
-                            {
-                                f.Signals.OnTriggerGuard(info, player, animator, hitbox);
-                                //AnimatorComponent.SetTrigger(f, animator, "StandGuard");
-                            }
+                        //  ê³µê²©ì íœ˜ì²­
+                        if (hitbox->AttackerEntity.IsValid && hitbox->DelayGuardTpye != DelayGuardType.Normal)
+                        {
+                            f.Unsafe.TryGetPointer<LSDF_Player>(hitbox->AttackerEntity, out var attackerPlayer);
+                            f.Unsafe.TryGetPointer<AnimatorComponent>(hitbox->AttackerEntity, out var attackerAnimator);
                             
-                            break;
+                            f.Signals.OnTriggerEnemyGuard(info, attackerPlayer, attackerAnimator, hitbox);
 
-                        case HitboxAttackType.Mid:
-                            if (currentStateName == "Move Front" || currentStateName == "Dash Front"|| currentStateName =="Sit Enter"|| currentStateName =="Siting")//Ä«¿îÅÍ,µôÄ³ Ãß°¡
-                            {
-                                f.Signals.OnTriggerNormalHit(info, player, animator, hitbox);
-                            }
-                            else if (currentStateName == "Move Back" || currentStateName == "Dash Back" || currentStateName == "Idle")
-                            {
-                                f.Signals.OnTriggerGuard(info, player, animator, hitbox);
-                            }
-
-                            break;
-
-                        case HitboxAttackType.Low:
-                            //¿©±ä È÷Æ®,°¡µå°¡ ¹İ´ë
-                            if(currentStateName == "Sit Enter" || currentStateName == "Siting")
-                            {
-                                f.Signals.OnTriggerGuard(info, player, animator, hitbox);
-                            }
-                            else
-                            {
-                                f.Signals.OnTriggerNormalHit(info, player, animator, hitbox);
-                            }
-                            break;
-
+                        }
                     }
-
-                    //Ä«¿îÅÍ ÀÏ¶§
-                    //»ó´Ü
-                    //Áß´Ü
-                    //ÇÏ´Ü
-
-                    //³ë¸ÖÈ÷Æ® ÀÏ¶§
-                    //f.Signals.OnTriggerNormalHit(info,player, hitbox);
-                    //»ó´Ü
-                    //Áß´Ü
-                    //ÇÏ´Ü
-
-                    //°¡µå µÆÀ»¶§
-                    //»ó´Ü
-                    //Áß´Ü
-                    //ÇÏ´Ü
+                    else
+                    {
+                        f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
+                    }
                 }
+            }
+        }
+        private bool ShouldGuard(HitboxAttackType attackType, string state)
+        {
+            switch (attackType)
+            {
+                case HitboxAttackType.High:
+
+                case HitboxAttackType.Mid:
+                    return state == "Idle" || state == "Move Back" || state == "Dash Back";
+                case HitboxAttackType.Low:
+                    return state == "Sit Enter" || state == "Siting";
+                default:
+                    return false;
             }
         }
     }

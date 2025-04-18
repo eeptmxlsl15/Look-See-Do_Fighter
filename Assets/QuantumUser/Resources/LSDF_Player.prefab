@@ -140,12 +140,12 @@ MonoBehaviour:
         X:
           RawValue: 11796
         Y:
-          RawValue: 21421
+          RawValue: 21627
       PositionOffset:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: -1311
       RotationOffset:
         RawValue: 0
       UserTag: 0
@@ -405,6 +405,11 @@ MonoBehaviour:
       Value: 0
     isGuard:
       Value: 0
+    canCounter:
+      Value: 0
+    isJump:
+      Value: 0
+    playerHp: 0
     DelayFrame: 0
     CommandSkillMap: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &6165187188016615102

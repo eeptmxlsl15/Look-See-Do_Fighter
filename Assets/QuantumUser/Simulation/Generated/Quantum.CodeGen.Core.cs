@@ -1035,14 +1035,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
-    public const Int32 SIZE = 36;
-    public const Int32 ALIGNMENT = 4;
+    public const Int32 SIZE = 48;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(40)]
+    public EntityRef AttackerEntity;
     [FieldOffset(8)]
     public HitboxAttackType AttackType;
     [FieldOffset(0)]
     public CountAttackType CountType;
     [FieldOffset(4)]
     public DelayGuardType DelayGuardTpye;
+    [FieldOffset(28)]
+    public Int32 startFrame;
     [FieldOffset(12)]
     public Int32 attackDamage;
     [FieldOffset(20)]
@@ -1051,16 +1055,18 @@ namespace Quantum {
     public Int32 enemyHitTime;
     [FieldOffset(16)]
     public Int32 enemyCountTime;
-    [FieldOffset(32)]
+    [FieldOffset(36)]
     public QBoolean launcher;
-    [FieldOffset(28)]
+    [FieldOffset(32)]
     public QBoolean homing;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
+        hash = hash * 31 + AttackerEntity.GetHashCode();
         hash = hash * 31 + (Int32)AttackType;
         hash = hash * 31 + (Int32)CountType;
         hash = hash * 31 + (Int32)DelayGuardTpye;
+        hash = hash * 31 + startFrame.GetHashCode();
         hash = hash * 31 + attackDamage.GetHashCode();
         hash = hash * 31 + enemyGuardTime.GetHashCode();
         hash = hash * 31 + enemyHitTime.GetHashCode();
@@ -1079,8 +1085,10 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->enemyCountTime);
         serializer.Stream.Serialize(&p->enemyGuardTime);
         serializer.Stream.Serialize(&p->enemyHitTime);
+        serializer.Stream.Serialize(&p->startFrame);
         QBoolean.Serialize(&p->homing, serializer);
         QBoolean.Serialize(&p->launcher, serializer);
+        EntityRef.Serialize(&p->AttackerEntity, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1143,6 +1151,22 @@ namespace Quantum {
         QBoolean.Serialize(&p->isJump, serializer);
         QBoolean.Serialize(&p->isSit, serializer);
         QBoolean.Serialize(&p->isStandUpGuard, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct LSDF_TestEnemy : Quantum.IComponent {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    private fixed Byte _alignment_padding_[4];
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 16979;
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (LSDF_TestEnemy*)ptr;
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1246,6 +1270,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_HitboxInfo>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_Player>();
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_Player>();
+      BuildSignalsArrayOnComponentAdded<Quantum.LSDF_TestEnemy>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_TestEnemy>();
       BuildSignalsArrayOnComponentAdded<MapEntityLink>();
       BuildSignalsArrayOnComponentRemoved<MapEntityLink>();
       BuildSignalsArrayOnComponentAdded<NavMeshAvoidanceAgent>();
@@ -1448,6 +1474,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum.LSDF_CameraInfo), Quantum.LSDF_CameraInfo.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_HitboxInfo), Quantum.LSDF_HitboxInfo.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_Player), Quantum.LSDF_Player.SIZE);
+      typeRegistry.Register(typeof(Quantum.LSDF_TestEnemy), Quantum.LSDF_TestEnemy.SIZE);
       typeRegistry.Register(typeof(Quantum.LayerData), Quantum.LayerData.SIZE);
       typeRegistry.Register(typeof(LayerMask), LayerMask.SIZE);
       typeRegistry.Register(typeof(MapEntityId), MapEntityId.SIZE);
@@ -1492,13 +1519,14 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 7)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 8)
         .AddBuiltInComponents()
         .Add<Quantum.AnimatorComponent>(Quantum.AnimatorComponent.Serialize, null, Quantum.AnimatorComponent.OnRemoved, ComponentFlags.None)
         .Add<Quantum.DashInputBuffer>(Quantum.DashInputBuffer.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_CameraInfo>(Quantum.LSDF_CameraInfo.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_HitboxInfo>(Quantum.LSDF_HitboxInfo.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_Player>(Quantum.LSDF_Player.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.LSDF_TestEnemy>(Quantum.LSDF_TestEnemy.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.TickToDestroy>(Quantum.TickToDestroy.Serialize, null, null, ComponentFlags.None)
         .Finish();

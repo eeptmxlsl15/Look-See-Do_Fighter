@@ -1,6 +1,7 @@
 using Photon.Deterministic;
 using Quantum;
 using System.Data;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Scripting;
@@ -29,6 +30,10 @@ namespace Quantum.LSDF
             CollisionControll(f, ref filter);
             //공격중일 경우 리턴
             f.Unsafe.TryGetPointer<LSDF_Player>(filter.Entity, out var player);
+
+            
+
+
             if (player->isAttack == true)
             {
                 //Debug.Log("공격 중");
@@ -42,6 +47,10 @@ namespace Quantum.LSDF
                 Debug.Log($"가드 상태 끝 프레임 : {f.Number}");
                 filter.LSDF_Player->isGuard = false;
             }
+            else
+            {
+                Debug.Log($"IsGuard{filter.LSDF_Player->isHit}/현재 프레임{f.Number}/가드 딜레이 프레임{filter.LSDF_Player->DelayFrame}");
+            }
             //유저가 히트 중이면서 히트 프레임이 지나면 idle상태로 감
             if (filter.LSDF_Player->isHit && f.Number >= filter.LSDF_Player->DelayFrame)
             {
@@ -49,7 +58,10 @@ namespace Quantum.LSDF
                 Debug.Log($"히트 상태 끝 프레임 : {f.Number}");
                 filter.LSDF_Player->isHit = false;
             }
-
+            else
+            {
+                Debug.Log($"IsHit:{filter.LSDF_Player->isHit}/현재 프레임{f.Number}/히트 딜레이 프레임{filter.LSDF_Player->DelayFrame}");
+            }
             
 
             //Unsate.TryGetPointer는 값을 읽고 수정도 가능하다
@@ -60,6 +72,20 @@ namespace Quantum.LSDF
             if (f.Unsafe.TryGetPointer(filter.Entity, out PlayerLink* playerLink))
             {
                 input = f.GetPlayerInput(playerLink->PlayerRef);
+            }
+
+            //2p에 대한 실험
+
+            //bool shouldAttack = true;
+            bool shouldAttack = f.Number % 120 == 0;
+            if (playerLink->PlayerRef == (PlayerRef)1)
+            {
+                if (shouldAttack)
+                {
+                    input->Down = true;
+                    input->RightKick = true;
+
+                }
             }
 
             //AnimatorComponent.GetBoolean(f, filter.Animator, "MoveBack");
@@ -318,8 +344,7 @@ namespace Quantum.LSDF
             {
                 Debug.Log($"가드 시작 프레임{f.Number}");
                 AnimatorComponent.SetTrigger(f, animator, "LowGuard");
-                player->isGuard = true;
-                player->DelayFrame = f.Number + hitbox->enemyGuardTime;
+                
 
             }
             //상,중단을 가드할 경우
@@ -327,16 +352,22 @@ namespace Quantum.LSDF
             {
                 Debug.Log($"가드 시작 프레임{f.Number}");
                 AnimatorComponent.SetTrigger(f, animator, "StandGuard");
-                player->isGuard = true;
-                player->DelayFrame = f.Number + hitbox->enemyGuardTime;
+               
             }
-            
+            player->isGuard = true;
+            player->DelayFrame = f.Number + hitbox->enemyGuardTime;
+
         }
 
         public void OnTriggerEnemyGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
             if(hitbox->DelayGuardTpye == DelayGuardType.Stun)
             {
+                AnimatorComponent.SetTrigger(f, animator, "Stun");
+
+                // 필요 시 상태값도 세팅 가능
+                
+                
                 //10프레임만 맞음 상태 30프레임
             }
             else if(hitbox->DelayGuardTpye == DelayGuardType.Combo)

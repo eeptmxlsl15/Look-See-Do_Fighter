@@ -200,33 +200,35 @@ namespace Quantum.Prototypes {
   }
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_HitboxInfo))]
-  public unsafe partial class LSDF_HitboxInfoPrototype : ComponentPrototype<Quantum.LSDF_HitboxInfo> {
+  public unsafe class LSDF_HitboxInfoPrototype : ComponentPrototype<Quantum.LSDF_HitboxInfo> {
+    public MapEntityId AttackerEntity;
     public Quantum.QEnum32<HitboxAttackType> AttackType;
     public Quantum.QEnum32<CountAttackType> CountType;
     public Quantum.QEnum32<DelayGuardType> DelayGuardTpye;
+    public Int32 startFrame;
     public Int32 attackDamage;
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
     public Int32 enemyCountTime;
     public QBoolean launcher;
     public QBoolean homing;
-    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_HitboxInfo result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_HitboxInfo component = default;
         Materialize((Frame)f, ref component, in context);
         return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Quantum.LSDF_HitboxInfo result, in PrototypeMaterializationContext context = default) {
+        PrototypeValidator.FindMapEntity(this.AttackerEntity, in context, out result.AttackerEntity);
         result.AttackType = this.AttackType;
         result.CountType = this.CountType;
         result.DelayGuardTpye = this.DelayGuardTpye;
+        result.startFrame = this.startFrame;
         result.attackDamage = this.attackDamage;
         result.enemyGuardTime = this.enemyGuardTime;
         result.enemyHitTime = this.enemyHitTime;
         result.enemyCountTime = this.enemyCountTime;
         result.launcher = this.launcher;
         result.homing = this.homing;
-        MaterializeUser(frame, ref result, in context);
     }
   }
   [System.SerializableAttribute()]
@@ -266,6 +268,21 @@ namespace Quantum.Prototypes {
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {
           result.CommandSkillMap[i] = this.CommandSkillMap[i];
         }
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_TestEnemy))]
+  public unsafe partial class LSDF_TestEnemyPrototype : ComponentPrototype<Quantum.LSDF_TestEnemy> {
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_TestEnemy result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_TestEnemy component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_TestEnemy result, in PrototypeMaterializationContext context = default) {
         MaterializeUser(frame, ref result, in context);
     }
   }

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6165187188016615102}
   - component: {fileID: -944139879733119049}
   - component: {fileID: 8697877538872355279}
+  - component: {fileID: 7741370386651163451}
   m_Layer: 0
   m_Name: LSDF_Enemy
   m_TagString: Untagged
@@ -403,6 +404,11 @@ MonoBehaviour:
       Value: 0
     isGuard:
       Value: 0
+    canCounter:
+      Value: 0
+    isJump:
+      Value: 0
+    playerHp: 0
     DelayFrame: 0
     CommandSkillMap: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &6165187188016615102
@@ -450,3 +456,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43679b5f39cd5d74aaab02155e12fe89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7741370386651163451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196750081309688306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075ee79f7ed493c49a5041bef89fd5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    _empty_prototype_dummy_field_: 0
