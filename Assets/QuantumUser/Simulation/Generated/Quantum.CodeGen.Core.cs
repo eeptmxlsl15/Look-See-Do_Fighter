@@ -1035,7 +1035,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
-    public const Int32 SIZE = 28;
+    public const Int32 SIZE = 36;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(8)]
     public HitboxAttackType AttackType;
@@ -1051,6 +1051,10 @@ namespace Quantum {
     public Int32 enemyHitTime;
     [FieldOffset(16)]
     public Int32 enemyCountTime;
+    [FieldOffset(32)]
+    public QBoolean launcher;
+    [FieldOffset(28)]
+    public QBoolean homing;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
@@ -1061,6 +1065,8 @@ namespace Quantum {
         hash = hash * 31 + enemyGuardTime.GetHashCode();
         hash = hash * 31 + enemyHitTime.GetHashCode();
         hash = hash * 31 + enemyCountTime.GetHashCode();
+        hash = hash * 31 + launcher.GetHashCode();
+        hash = hash * 31 + homing.GetHashCode();
         return hash;
       }
     }
@@ -1073,19 +1079,21 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->enemyCountTime);
         serializer.Stream.Serialize(&p->enemyGuardTime);
         serializer.Stream.Serialize(&p->enemyHitTime);
+        QBoolean.Serialize(&p->homing, serializer);
+        QBoolean.Serialize(&p->launcher, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 152;
+    public const Int32 SIZE = 156;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(128)]
     public QBoolean isDashBack;
     [FieldOffset(132)]
     public QBoolean isDashFront;
-    [FieldOffset(144)]
-    public QBoolean isSit;
     [FieldOffset(148)]
+    public QBoolean isSit;
+    [FieldOffset(152)]
     public QBoolean isStandUpGuard;
     [FieldOffset(124)]
     public QBoolean isAttack;
@@ -1095,6 +1103,8 @@ namespace Quantum {
     public QBoolean isGuard;
     [FieldOffset(120)]
     public QBoolean canCounter;
+    [FieldOffset(144)]
+    public QBoolean isJump;
     [FieldOffset(116)]
     public Int32 playerHp;
     [FieldOffset(112)]
@@ -1112,6 +1122,7 @@ namespace Quantum {
         hash = hash * 31 + isHit.GetHashCode();
         hash = hash * 31 + isGuard.GetHashCode();
         hash = hash * 31 + canCounter.GetHashCode();
+        hash = hash * 31 + isJump.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
         hash = hash * 31 + DelayFrame.GetHashCode();
         fixed (Int32* p = CommandSkillMap) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 28);
@@ -1129,6 +1140,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->isDashFront, serializer);
         QBoolean.Serialize(&p->isGuard, serializer);
         QBoolean.Serialize(&p->isHit, serializer);
+        QBoolean.Serialize(&p->isJump, serializer);
         QBoolean.Serialize(&p->isSit, serializer);
         QBoolean.Serialize(&p->isStandUpGuard, serializer);
     }

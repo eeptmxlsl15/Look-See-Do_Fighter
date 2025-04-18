@@ -208,6 +208,8 @@ namespace Quantum.Prototypes {
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
     public Int32 enemyCountTime;
+    public QBoolean launcher;
+    public QBoolean homing;
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_HitboxInfo result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_HitboxInfo component = default;
@@ -222,6 +224,8 @@ namespace Quantum.Prototypes {
         result.enemyGuardTime = this.enemyGuardTime;
         result.enemyHitTime = this.enemyHitTime;
         result.enemyCountTime = this.enemyCountTime;
+        result.launcher = this.launcher;
+        result.homing = this.homing;
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -236,6 +240,7 @@ namespace Quantum.Prototypes {
     public QBoolean isHit;
     public QBoolean isGuard;
     public QBoolean canCounter;
+    public QBoolean isJump;
     public Int32 playerHp;
     public Int32 DelayFrame;
     [ArrayLengthAttribute(28)]
@@ -255,6 +260,7 @@ namespace Quantum.Prototypes {
         result.isHit = this.isHit;
         result.isGuard = this.isGuard;
         result.canCounter = this.canCounter;
+        result.isJump = this.isJump;
         result.playerHp = this.playerHp;
         result.DelayFrame = this.DelayFrame;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {

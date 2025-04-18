@@ -26,4 +26,7 @@ component LSDF_HitboxInfo
     int enemyGuardTime;
     int enemyHitTime;
 	int enemyCountTime;
+    bool launcher;//콤보 시동기
+    bool homing;//패링가능한지
+    
 }	

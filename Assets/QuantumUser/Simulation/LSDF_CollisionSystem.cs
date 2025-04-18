@@ -84,12 +84,7 @@ namespace Quantum.LSDF
                             //상단 공격 가드
                             else if (currentStateName == "Move Back" || currentStateName== "Dash Back" || currentStateName =="Idle" )
                             {
-                                if (hitbox->DelayGuardTpye != DelayGuardType.Normal)
-                                {
-                                    f.Signals.OnTriggerEnemyGuard(info, player, animator, hitbox);
-                                }
-                                else
-                                    f.Signals.OnTriggerGuard(info, player,animator, hitbox);
+                                f.Signals.OnTriggerGuard(info, player, animator, hitbox);
                                 //AnimatorComponent.SetTrigger(f, animator, "StandGuard");
                             }
                             
@@ -102,12 +97,7 @@ namespace Quantum.LSDF
                             }
                             else if (currentStateName == "Move Back" || currentStateName == "Dash Back" || currentStateName == "Idle")
                             {
-                                if (hitbox->DelayGuardTpye != DelayGuardType.Normal)
-                                {
-                                    f.Signals.OnTriggerEnemyGuard(info, player, animator, hitbox);
-                                }
-                                else
-                                    f.Signals.OnTriggerGuard(info, player, animator, hitbox);
+                                f.Signals.OnTriggerGuard(info, player, animator, hitbox);
                             }
 
                             break;
@@ -116,12 +106,7 @@ namespace Quantum.LSDF
                             //여긴 히트,가드가 반대
                             if(currentStateName == "Sit Enter" || currentStateName == "Siting")
                             {
-                                if (hitbox->DelayGuardTpye != DelayGuardType.Normal)
-                                {
-                                    f.Signals.OnTriggerEnemyGuard(info, player, animator, hitbox);
-                                }
-                                else
-                                    f.Signals.OnTriggerGuard(info, player, animator, hitbox);
+                                f.Signals.OnTriggerGuard(info, player, animator, hitbox);
                             }
                             else
                             {

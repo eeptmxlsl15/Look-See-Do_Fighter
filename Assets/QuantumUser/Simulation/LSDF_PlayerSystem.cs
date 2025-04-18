@@ -26,7 +26,7 @@ namespace Quantum.LSDF
         public override void Update(Frame f, ref Filter filter)
         {
             Input* input = default;
-
+            CollisionControll(f, ref filter);
             //공격중일 경우 리턴
             f.Unsafe.TryGetPointer<LSDF_Player>(filter.Entity, out var player);
             if (player->isAttack == true)
@@ -109,8 +109,7 @@ namespace Quantum.LSDF
                 filter.LSDF_Player->isSit = false;
             }
 
-            //충돌 크기 제어
-            CollisionControll(f, ref filter);
+            
 
             //앉아있는 동안 다른 움직임 불가능
             if (filter.LSDF_Player->isSit == true) return;
@@ -336,7 +335,14 @@ namespace Quantum.LSDF
 
         public void OnTriggerEnemyGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
-
+            if(hitbox->DelayGuardTpye == DelayGuardType.Stun)
+            {
+                //10프레임만 맞음 상태 30프레임
+            }
+            else if(hitbox->DelayGuardTpye == DelayGuardType.Combo)
+            {
+                //그냥 노가드 상태 30프레임
+            }
         }
     }
 

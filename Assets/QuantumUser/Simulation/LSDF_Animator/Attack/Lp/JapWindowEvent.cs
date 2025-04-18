@@ -23,6 +23,10 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         player->isDashFront = false;
         player->isDashBack = false;
         player->canCounter = true;
+        //앉은 자세 여부
+        player->isSit = false;
+
+
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
         
