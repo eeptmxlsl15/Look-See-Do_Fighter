@@ -1093,25 +1093,29 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 156;
+    public const Int32 SIZE = 164;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(128)]
-    public QBoolean isDashBack;
     [FieldOffset(132)]
+    public QBoolean isDashBack;
+    [FieldOffset(136)]
     public QBoolean isDashFront;
-    [FieldOffset(148)]
-    public QBoolean isSit;
     [FieldOffset(152)]
+    public QBoolean isSit;
+    [FieldOffset(156)]
     public QBoolean isStandUpGuard;
     [FieldOffset(124)]
     public QBoolean isAttack;
-    [FieldOffset(140)]
+    [FieldOffset(144)]
     public QBoolean isHit;
-    [FieldOffset(136)]
+    [FieldOffset(140)]
     public QBoolean isGuard;
+    [FieldOffset(160)]
+    public QBoolean isStun;
+    [FieldOffset(128)]
+    public QBoolean isCombo;
     [FieldOffset(120)]
     public QBoolean canCounter;
-    [FieldOffset(144)]
+    [FieldOffset(148)]
     public QBoolean isJump;
     [FieldOffset(116)]
     public Int32 playerHp;
@@ -1129,6 +1133,8 @@ namespace Quantum {
         hash = hash * 31 + isAttack.GetHashCode();
         hash = hash * 31 + isHit.GetHashCode();
         hash = hash * 31 + isGuard.GetHashCode();
+        hash = hash * 31 + isStun.GetHashCode();
+        hash = hash * 31 + isCombo.GetHashCode();
         hash = hash * 31 + canCounter.GetHashCode();
         hash = hash * 31 + isJump.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
@@ -1144,6 +1150,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->playerHp);
         QBoolean.Serialize(&p->canCounter, serializer);
         QBoolean.Serialize(&p->isAttack, serializer);
+        QBoolean.Serialize(&p->isCombo, serializer);
         QBoolean.Serialize(&p->isDashBack, serializer);
         QBoolean.Serialize(&p->isDashFront, serializer);
         QBoolean.Serialize(&p->isGuard, serializer);
@@ -1151,6 +1158,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->isJump, serializer);
         QBoolean.Serialize(&p->isSit, serializer);
         QBoolean.Serialize(&p->isStandUpGuard, serializer);
+        QBoolean.Serialize(&p->isStun, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]

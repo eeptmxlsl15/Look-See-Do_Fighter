@@ -55,6 +55,7 @@ namespace Quantum.LSDF
                                 f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
                             }
                         }
+                        defender->isStun = false;
                         return;
                     }
 

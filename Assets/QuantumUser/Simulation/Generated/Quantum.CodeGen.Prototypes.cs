@@ -241,6 +241,8 @@ namespace Quantum.Prototypes {
     public QBoolean isAttack;
     public QBoolean isHit;
     public QBoolean isGuard;
+    public QBoolean isStun;
+    public QBoolean isCombo;
     public QBoolean canCounter;
     public QBoolean isJump;
     public Int32 playerHp;
@@ -261,6 +263,8 @@ namespace Quantum.Prototypes {
         result.isAttack = this.isAttack;
         result.isHit = this.isHit;
         result.isGuard = this.isGuard;
+        result.isStun = this.isStun;
+        result.isCombo = this.isCombo;
         result.canCounter = this.canCounter;
         result.isJump = this.isJump;
         result.playerHp = this.playerHp;

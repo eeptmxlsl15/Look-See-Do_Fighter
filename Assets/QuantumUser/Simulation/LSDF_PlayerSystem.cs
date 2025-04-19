@@ -4,6 +4,7 @@ using System.Data;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Rendering;
 using UnityEngine.Scripting;
 using UnityEngine.Windows;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -34,35 +35,44 @@ namespace Quantum.LSDF
             
 
 
-            if (player->isAttack == true)
+            if (player->isAttack == true || player->isStun==true)
             {
                 //Debug.Log("공격 중");
                 return;
             }
             
+                
             //유저가 가드 중이면서 가드 프레임이 지나면 idle상태로 감
             if (filter.LSDF_Player->isGuard && f.Number >= filter.LSDF_Player->DelayFrame)
             {
                 AnimatorComponent.SetTrigger(f, filter.Animator, "DelayFrame"); // Idle로 전이하는 트리거
                 Debug.Log($"가드 상태 끝 프레임 : {f.Number}");
+                
+              
+                
                 filter.LSDF_Player->isGuard = false;
             }
             else
             {
-                Debug.Log($"IsGuard{filter.LSDF_Player->isHit}/현재 프레임{f.Number}/가드 딜레이 프레임{filter.LSDF_Player->DelayFrame}");
+                
+                //Debug.Log($"IsGuard{filter.LSDF_Player->isHit}/현재 프레임{f.Number}/가드 딜레이 프레임{filter.LSDF_Player->DelayFrame}");
             }
             //유저가 히트 중이면서 히트 프레임이 지나면 idle상태로 감
             if (filter.LSDF_Player->isHit && f.Number >= filter.LSDF_Player->DelayFrame)
             {
                 AnimatorComponent.SetTrigger(f, filter.Animator, "DelayFrame"); // Idle로 전이하는 트리거
                 Debug.Log($"히트 상태 끝 프레임 : {f.Number}");
+                
+                
+                
                 filter.LSDF_Player->isHit = false;
             }
             else
             {
-                Debug.Log($"IsHit:{filter.LSDF_Player->isHit}/현재 프레임{f.Number}/히트 딜레이 프레임{filter.LSDF_Player->DelayFrame}");
+               
+                //Debug.Log($"IsHit:{filter.LSDF_Player->isHit}/현재 프레임{f.Number}/히트 딜레이 프레임{filter.LSDF_Player->DelayFrame}");
             }
-            
+
 
             //Unsate.TryGetPointer는 값을 읽고 수정도 가능하다
             //f.Get<PlayerLink> 로 하면 읽는 것만 가능하다.
@@ -72,25 +82,38 @@ namespace Quantum.LSDF
             if (f.Unsafe.TryGetPointer(filter.Entity, out PlayerLink* playerLink))
             {
                 input = f.GetPlayerInput(playerLink->PlayerRef);
+                
+                    
             }
 
             //2p에 대한 실험
 
             //bool shouldAttack = true;
-            bool shouldAttack = f.Number % 120 == 0;
+            
+            bool shouldAttack = f.Number % 60 < 30;
             if (playerLink->PlayerRef == (PlayerRef)1)
             {
                 if (shouldAttack)
                 {
                     input->Down = true;
-                    input->RightKick = true;
+                    //input->RightKick = true;
 
                 }
+                else
+                {
+                    input->LeftPunch = true;
+                }
             }
+            
 
+
+            //if (playerLink->PlayerRef == (PlayerRef)0)
+            //{
+
+            //}
             //AnimatorComponent.GetBoolean(f, filter.Animator, "MoveBack");
 
-
+            
             DetectDashCommand(f, ref filter, input);
             UpdateMovement(f, ref filter, input);
 
@@ -115,13 +138,16 @@ namespace Quantum.LSDF
             //회전 고정
             filter.Transform->Rotation = FP._0;
 
+            
+
             if (input->Down || (input->Down && input->Left) || (input->Down && input->Right))
             {
+                
                 //앉기 시작
                 //앉아잇는 콜라이더로
                 if (filter.LSDF_Player->isSit == false)
                 {
-
+                    
                     AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", true);
 
                     filter.LSDF_Player->isSit = true;
@@ -131,6 +157,7 @@ namespace Quantum.LSDF
             {
                 //서기 시작
                 //서있는 콜라이더로 
+                
                 AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", false);
                 filter.LSDF_Player->isSit = false;
             }
@@ -139,9 +166,10 @@ namespace Quantum.LSDF
 
             //앉아있는 동안 다른 움직임 불가능
             if (filter.LSDF_Player->isSit == true) return;
-
+            
             if (input->Left && input->Right)
             {
+                
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", false);
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveFront", false);
                 return;
@@ -270,6 +298,7 @@ namespace Quantum.LSDF
 
         public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
+            player->isAttack = false;
             //상단에 히트할 경유
             if (hitbox->AttackType == HitboxAttackType.High)
             {

@@ -20,7 +20,10 @@ public class StunWindowEvent : AnimatorTimeWindowEventAsset
 
         //앉은 자세 여부
         player->isSit = false;
+        player->isAttack = false;
+        Debug.Log("스턴 시작");
 
+        player->isStun = true;
 
         //AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         //AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
@@ -54,6 +57,16 @@ public class StunWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        Debug.Log("끝");
+        var entity = animatorComponent->Self;
+        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+
+        AnimatorComponent.SetBoolean(f, animatorComponent, "MoveFront", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "MoveBack", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
+        //앉은 자세 여부
+        //player->isSit = false;
+        Debug.Log("스턴 끝");
+        player->isStun = false;
     }
 }
