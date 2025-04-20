@@ -59,6 +59,13 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 
             EntityRef hitbox = f.Create();
 
+            f.Add(hitbox, new Transform2D
+            {
+                //위치
+                Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, -(FP._0_25 + FP._0_03)),
+                Rotation = FP._0
+            });
+
             f.Add(hitbox, new PhysicsCollider2D
             {
                 IsTrigger = true,
@@ -71,21 +78,23 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
             {
                 startFrame = HitFrame,
                 AttackerEntity = entity,
+
                 AttackType = HitboxAttackType.Low,
                 CountType = CountAttackType.Normal,
                 DelayGuardTpye = DelayGuardType.Stun,
+                HomingReturnType = HomingType.Stun,
+
+                jumpAttack = false,
+                dodgeHigh = false,
+
+
                 enemyGuardTime = 10,//후딜이 20이므로 상대 가드 타임이 10 이면 10프레임 여유가 생김
                 enemyHitTime = 20,
                 enemyCountTime = 20,
                 attackDamage = 13,
             });
 
-            f.Set(hitbox, new Transform2D
-            {
-                //위치
-                Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, -(FP._0_25+FP._0_03)),
-                Rotation = FP._0
-            });
+            
 
             if (player->canCounter == true)
             {

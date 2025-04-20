@@ -77,13 +77,15 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.QEnum32<HitboxAttackType> AttackType;
     public Quantum.QEnum32<CountAttackType> CountType;
     public Quantum.QEnum32<DelayGuardType> DelayGuardTpye;
+    public Quantum.QEnum32<HomingType> HomingReturnType;
     public Int32 startFrame;
     public Int32 attackDamage;
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
     public Int32 enemyCountTime;
     public QBoolean launcher;
-    public QBoolean homing;
+    public QBoolean dodgeHigh;
+    public QBoolean jumpAttack;
     partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.LSDF_HitboxInfoPrototype prototype);
     public override Quantum.Prototypes.LSDF_HitboxInfoPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.LSDF_HitboxInfoPrototype();
@@ -91,13 +93,15 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.AttackType, out result.AttackType);
       converter.Convert(this.CountType, out result.CountType);
       converter.Convert(this.DelayGuardTpye, out result.DelayGuardTpye);
+      converter.Convert(this.HomingReturnType, out result.HomingReturnType);
       converter.Convert(this.startFrame, out result.startFrame);
       converter.Convert(this.attackDamage, out result.attackDamage);
       converter.Convert(this.enemyGuardTime, out result.enemyGuardTime);
       converter.Convert(this.enemyHitTime, out result.enemyHitTime);
       converter.Convert(this.enemyCountTime, out result.enemyCountTime);
       converter.Convert(this.launcher, out result.launcher);
-      converter.Convert(this.homing, out result.homing);
+      converter.Convert(this.dodgeHigh, out result.dodgeHigh);
+      converter.Convert(this.jumpAttack, out result.jumpAttack);
       ConvertUser(converter, ref result);
       return result;
     }

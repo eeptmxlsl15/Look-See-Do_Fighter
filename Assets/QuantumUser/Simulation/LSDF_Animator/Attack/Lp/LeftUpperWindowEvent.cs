@@ -63,6 +63,14 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
 
             EntityRef hitbox = f.Create();
 
+            f.Add(hitbox, new Transform2D
+            {
+                //Change
+                //위치
+                Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, 0),
+                Rotation = FP._0
+            });
+
             f.Add(hitbox, new PhysicsCollider2D
             {
                 IsTrigger = true,
@@ -77,22 +85,22 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
             {
                 startFrame = HitFrame,
                 AttackerEntity = entity,
+
                 AttackType = HitboxAttackType.Mid,
                 CountType = CountAttackType.Normal,
-                DelayGuardTpye = DelayGuardType.Stun,
+                DelayGuardTpye = DelayGuardType.Normal,
+                HomingReturnType = HomingType.Stun,
+
+                jumpAttack = false,
+                dodgeHigh = false,
+
                 enemyGuardTime = 19,
                 enemyHitTime = 25,
                 enemyCountTime = 25,
                 attackDamage = 12,
             });
 
-            f.Set(hitbox, new Transform2D
-            {
-                //Change
-                //위치
-                Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, 0),
-                Rotation = FP._0
-            });
+            
 
             f.Add(hitbox, new TickToDestroy
             {

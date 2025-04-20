@@ -3,4 +3,4 @@ signal OnTriggerCounterHit(TriggerInfo2D info, LSDF_Player* player, AnimatorComp
 signal OnTriggerGuard(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
 
 signal OnTriggerEnemyGuard(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
-
+signal OnTriggerEnemyParring(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);

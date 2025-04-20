@@ -86,12 +86,14 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorRuntimeBlendData.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_GameConfig.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_DashSystem.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\ParringWindowEvent.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\SimulationConfig.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\BoundarySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\MoveFrontWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorState.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\StandUpWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\ParringStartWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Core.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_CameraSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimePlayer.User.cs" />

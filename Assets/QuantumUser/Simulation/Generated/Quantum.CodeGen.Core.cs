@@ -75,6 +75,11 @@ namespace Quantum {
     Mid,
     Low,
   }
+  public enum HomingType : int {
+    Stun,
+    Combo,
+    Homing,
+  }
   public enum PlayerMoveState : byte {
     Idle,
     WalkForward,
@@ -1035,9 +1040,9 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
-    public const Int32 SIZE = 48;
+    public const Int32 SIZE = 56;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(40)]
+    [FieldOffset(48)]
     public EntityRef AttackerEntity;
     [FieldOffset(8)]
     public HitboxAttackType AttackType;
@@ -1045,20 +1050,24 @@ namespace Quantum {
     public CountAttackType CountType;
     [FieldOffset(4)]
     public DelayGuardType DelayGuardTpye;
-    [FieldOffset(28)]
-    public Int32 startFrame;
     [FieldOffset(12)]
-    public Int32 attackDamage;
-    [FieldOffset(20)]
-    public Int32 enemyGuardTime;
-    [FieldOffset(24)]
-    public Int32 enemyHitTime;
-    [FieldOffset(16)]
-    public Int32 enemyCountTime;
-    [FieldOffset(36)]
-    public QBoolean launcher;
+    public HomingType HomingReturnType;
     [FieldOffset(32)]
-    public QBoolean homing;
+    public Int32 startFrame;
+    [FieldOffset(16)]
+    public Int32 attackDamage;
+    [FieldOffset(24)]
+    public Int32 enemyGuardTime;
+    [FieldOffset(28)]
+    public Int32 enemyHitTime;
+    [FieldOffset(20)]
+    public Int32 enemyCountTime;
+    [FieldOffset(44)]
+    public QBoolean launcher;
+    [FieldOffset(36)]
+    public QBoolean dodgeHigh;
+    [FieldOffset(40)]
+    public QBoolean jumpAttack;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
@@ -1066,13 +1075,15 @@ namespace Quantum {
         hash = hash * 31 + (Int32)AttackType;
         hash = hash * 31 + (Int32)CountType;
         hash = hash * 31 + (Int32)DelayGuardTpye;
+        hash = hash * 31 + (Int32)HomingReturnType;
         hash = hash * 31 + startFrame.GetHashCode();
         hash = hash * 31 + attackDamage.GetHashCode();
         hash = hash * 31 + enemyGuardTime.GetHashCode();
         hash = hash * 31 + enemyHitTime.GetHashCode();
         hash = hash * 31 + enemyCountTime.GetHashCode();
         hash = hash * 31 + launcher.GetHashCode();
-        hash = hash * 31 + homing.GetHashCode();
+        hash = hash * 31 + dodgeHigh.GetHashCode();
+        hash = hash * 31 + jumpAttack.GetHashCode();
         return hash;
       }
     }
@@ -1081,27 +1092,29 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->CountType);
         serializer.Stream.Serialize((Int32*)&p->DelayGuardTpye);
         serializer.Stream.Serialize((Int32*)&p->AttackType);
+        serializer.Stream.Serialize((Int32*)&p->HomingReturnType);
         serializer.Stream.Serialize(&p->attackDamage);
         serializer.Stream.Serialize(&p->enemyCountTime);
         serializer.Stream.Serialize(&p->enemyGuardTime);
         serializer.Stream.Serialize(&p->enemyHitTime);
         serializer.Stream.Serialize(&p->startFrame);
-        QBoolean.Serialize(&p->homing, serializer);
+        QBoolean.Serialize(&p->dodgeHigh, serializer);
+        QBoolean.Serialize(&p->jumpAttack, serializer);
         QBoolean.Serialize(&p->launcher, serializer);
         EntityRef.Serialize(&p->AttackerEntity, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 164;
+    public const Int32 SIZE = 168;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(132)]
     public QBoolean isDashBack;
     [FieldOffset(136)]
     public QBoolean isDashFront;
-    [FieldOffset(152)]
-    public QBoolean isSit;
     [FieldOffset(156)]
+    public QBoolean isSit;
+    [FieldOffset(160)]
     public QBoolean isStandUpGuard;
     [FieldOffset(124)]
     public QBoolean isAttack;
@@ -1109,10 +1122,12 @@ namespace Quantum {
     public QBoolean isHit;
     [FieldOffset(140)]
     public QBoolean isGuard;
-    [FieldOffset(160)]
+    [FieldOffset(164)]
     public QBoolean isStun;
     [FieldOffset(128)]
     public QBoolean isCombo;
+    [FieldOffset(152)]
+    public QBoolean isParring;
     [FieldOffset(120)]
     public QBoolean canCounter;
     [FieldOffset(148)]
@@ -1135,6 +1150,7 @@ namespace Quantum {
         hash = hash * 31 + isGuard.GetHashCode();
         hash = hash * 31 + isStun.GetHashCode();
         hash = hash * 31 + isCombo.GetHashCode();
+        hash = hash * 31 + isParring.GetHashCode();
         hash = hash * 31 + canCounter.GetHashCode();
         hash = hash * 31 + isJump.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
@@ -1156,6 +1172,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->isGuard, serializer);
         QBoolean.Serialize(&p->isHit, serializer);
         QBoolean.Serialize(&p->isJump, serializer);
+        QBoolean.Serialize(&p->isParring, serializer);
         QBoolean.Serialize(&p->isSit, serializer);
         QBoolean.Serialize(&p->isStandUpGuard, serializer);
         QBoolean.Serialize(&p->isStun, serializer);
@@ -1234,6 +1251,9 @@ namespace Quantum {
   public unsafe partial interface ISignalOnTriggerEnemyGuard : ISignal {
     void OnTriggerEnemyGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox);
   }
+  public unsafe partial interface ISignalOnTriggerEnemyParring : ISignal {
+    void OnTriggerEnemyParring(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox);
+  }
   public static unsafe partial class Constants {
   }
   public unsafe partial class Frame {
@@ -1244,6 +1264,7 @@ namespace Quantum {
     private ISignalOnTriggerCounterHit[] _ISignalOnTriggerCounterHitSystems;
     private ISignalOnTriggerGuard[] _ISignalOnTriggerGuardSystems;
     private ISignalOnTriggerEnemyGuard[] _ISignalOnTriggerEnemyGuardSystems;
+    private ISignalOnTriggerEnemyParring[] _ISignalOnTriggerEnemyParringSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
     }
@@ -1262,6 +1283,7 @@ namespace Quantum {
       _ISignalOnTriggerCounterHitSystems = BuildSignalsArray<ISignalOnTriggerCounterHit>();
       _ISignalOnTriggerGuardSystems = BuildSignalsArray<ISignalOnTriggerGuard>();
       _ISignalOnTriggerEnemyGuardSystems = BuildSignalsArray<ISignalOnTriggerEnemyGuard>();
+      _ISignalOnTriggerEnemyParringSystems = BuildSignalsArray<ISignalOnTriggerEnemyParring>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<Quantum.AnimatorComponent>();
@@ -1408,6 +1430,15 @@ namespace Quantum {
           }
         }
       }
+      public void OnTriggerEnemyParring(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox) {
+        var array = _f._ISignalOnTriggerEnemyParringSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnTriggerEnemyParring(_f, info, player, animator, hitbox);
+          }
+        }
+      }
     }
   }
   public unsafe partial class Statics {
@@ -1470,6 +1501,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Hit), Hit.SIZE);
       typeRegistry.Register(typeof(Hit3D), Hit3D.SIZE);
       typeRegistry.Register(typeof(Quantum.HitboxAttackType), 4);
+      typeRegistry.Register(typeof(Quantum.HomingType), 4);
       typeRegistry.Register(typeof(Quantum.Input), Quantum.Input.SIZE);
       typeRegistry.Register(typeof(Quantum.InputButtons), 4);
       typeRegistry.Register(typeof(InputDirection), InputDirection.SIZE);
@@ -1548,6 +1580,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.DelayGuardType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.DirectionType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.HitboxAttackType>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.HomingType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.PlayerMoveState>();
       FramePrinter.EnsurePrimitiveNotStripped<QueryOptions>();

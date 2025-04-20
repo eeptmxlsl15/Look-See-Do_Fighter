@@ -205,13 +205,15 @@ namespace Quantum.Prototypes {
     public Quantum.QEnum32<HitboxAttackType> AttackType;
     public Quantum.QEnum32<CountAttackType> CountType;
     public Quantum.QEnum32<DelayGuardType> DelayGuardTpye;
+    public Quantum.QEnum32<HomingType> HomingReturnType;
     public Int32 startFrame;
     public Int32 attackDamage;
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
     public Int32 enemyCountTime;
     public QBoolean launcher;
-    public QBoolean homing;
+    public QBoolean dodgeHigh;
+    public QBoolean jumpAttack;
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_HitboxInfo component = default;
         Materialize((Frame)f, ref component, in context);
@@ -222,13 +224,15 @@ namespace Quantum.Prototypes {
         result.AttackType = this.AttackType;
         result.CountType = this.CountType;
         result.DelayGuardTpye = this.DelayGuardTpye;
+        result.HomingReturnType = this.HomingReturnType;
         result.startFrame = this.startFrame;
         result.attackDamage = this.attackDamage;
         result.enemyGuardTime = this.enemyGuardTime;
         result.enemyHitTime = this.enemyHitTime;
         result.enemyCountTime = this.enemyCountTime;
         result.launcher = this.launcher;
-        result.homing = this.homing;
+        result.dodgeHigh = this.dodgeHigh;
+        result.jumpAttack = this.jumpAttack;
     }
   }
   [System.SerializableAttribute()]
@@ -243,6 +247,7 @@ namespace Quantum.Prototypes {
     public QBoolean isGuard;
     public QBoolean isStun;
     public QBoolean isCombo;
+    public QBoolean isParring;
     public QBoolean canCounter;
     public QBoolean isJump;
     public Int32 playerHp;
@@ -265,6 +270,7 @@ namespace Quantum.Prototypes {
         result.isGuard = this.isGuard;
         result.isStun = this.isStun;
         result.isCombo = this.isCombo;
+        result.isParring = this.isParring;
         result.canCounter = this.canCounter;
         result.isJump = this.isJump;
         result.playerHp = this.playerHp;

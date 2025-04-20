@@ -60,6 +60,13 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
 
             EntityRef hitbox = f.Create();
 
+            f.Add(hitbox, new Transform2D
+            {
+                //위치
+                Position = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25 + FP._0_05) * flip, FP._0_25),
+                Rotation = FP._0
+            });
+
             f.Add(hitbox, new PhysicsCollider2D
             {
 
@@ -73,21 +80,22 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             {
                 startFrame = HitFrame,
                 AttackerEntity = entity,
+                
                 AttackType = HitboxAttackType.High,
                 CountType=CountAttackType.Normal,
                 DelayGuardTpye=DelayGuardType.Normal,
+                HomingReturnType = HomingType.Stun,
+                
+                jumpAttack = false,
+                dodgeHigh = false,
+
                 enemyGuardTime = 21,
                 enemyHitTime = 28,
                 enemyCountTime = 28,
                 attackDamage = 7,
             });
 
-            f.Set(hitbox, new Transform2D
-            {
-                //위치
-                Position = f.Get<Transform2D>(entity).Position +  new FPVector2((FP._0_25+FP._0_05)*flip, FP._0_25),
-                Rotation = FP._0
-            });
+            
 
             f.Add(hitbox, new TickToDestroy
             {

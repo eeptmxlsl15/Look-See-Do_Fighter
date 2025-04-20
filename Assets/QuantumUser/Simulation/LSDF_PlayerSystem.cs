@@ -14,7 +14,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit , ISignalOnTriggerEnemyGuard
+    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit , ISignalOnTriggerEnemyGuard , ISignalOnTriggerEnemyParring
     {
         public struct Filter
         {
@@ -101,11 +101,22 @@ namespace Quantum.LSDF
                 }
                 else
                 {
-                    input->LeftPunch = true;
+                    input->Down = true;
+                    input->RightKick = true;
                 }
-            }
-            
 
+            }
+
+            //패링 중 윗키 뗄 시 패링 취소
+            if (!input->Up)
+            {
+                player->isParring = false;
+            }
+            //패링 중 공격 시 패링 취소
+            if (input->LeftPunch || input->RightPunch || input->LeftKick || input->RightKick)
+            {
+                player->isParring = false;
+            }
 
             //if (playerLink->PlayerRef == (PlayerRef)0)
             //{
@@ -113,7 +124,7 @@ namespace Quantum.LSDF
             //}
             //AnimatorComponent.GetBoolean(f, filter.Animator, "MoveBack");
 
-            
+
             DetectDashCommand(f, ref filter, input);
             UpdateMovement(f, ref filter, input);
 
@@ -138,16 +149,24 @@ namespace Quantum.LSDF
             //회전 고정
             filter.Transform->Rotation = FP._0;
 
-            
 
+            if (input->Up)
+            {
+                AnimatorComponent.SetBoolean(f, filter.Animator, "Parring", true);
+                return;
+            }
+            else
+            {
+                AnimatorComponent.SetBoolean(f, filter.Animator, "Parring", false);
+            }
             if (input->Down || (input->Down && input->Left) || (input->Down && input->Right))
             {
-                
+
                 //앉기 시작
                 //앉아잇는 콜라이더로
                 if (filter.LSDF_Player->isSit == false)
                 {
-                    
+
                     AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", true);
 
                     filter.LSDF_Player->isSit = true;
@@ -157,10 +176,11 @@ namespace Quantum.LSDF
             {
                 //서기 시작
                 //서있는 콜라이더로 
-                
+
                 AnimatorComponent.SetBoolean(f, filter.Animator, "IsSit", false);
                 filter.LSDF_Player->isSit = false;
             }
+            
 
             
 
@@ -175,12 +195,7 @@ namespace Quantum.LSDF
                 return;
             }
 
-            if (input->Up)
-            {
-                //filter.Body->AddForce(filter.Transform->Up * 8);
-                Debug.Log("Parry");
-                return;
-            }
+            
 
             if (input->Left && playerState.isDashBack == false)
             {
@@ -403,6 +418,25 @@ namespace Quantum.LSDF
             {
                 //그냥 노가드 상태 30프레임
             }
+        }
+
+        public void OnTriggerEnemyParring(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
+        {
+
+            if (hitbox->HomingReturnType == HomingType.Stun)
+            {
+                AnimatorComponent.SetTrigger(f, animator, "Stun");
+
+                // 필요 시 상태값도 세팅 가능
+
+
+                //10프레임만 맞음 상태 30프레임
+            }
+            else if (hitbox->HomingReturnType == HomingType.Combo)
+            {
+                //그냥 노가드 상태 30프레임
+            }
+
         }
     }
 

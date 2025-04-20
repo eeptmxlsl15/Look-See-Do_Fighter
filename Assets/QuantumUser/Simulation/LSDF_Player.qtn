@@ -19,6 +19,7 @@ component LSDF_Player
 	bool isGuard;
 	bool isStun;
 	bool isCombo;
+	bool isParring;
 	bool canCounter;
 	bool isJump;
 	int playerHp;

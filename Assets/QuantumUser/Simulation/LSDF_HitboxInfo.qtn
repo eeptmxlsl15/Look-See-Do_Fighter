@@ -17,18 +17,30 @@ enum DelayGuardType
     Stun,
     Combo
 }
+
+enum HomingType
+{
+    Stun,
+    Combo,
+    Homing
+}
 component LSDF_HitboxInfo
 {	
     EntityRef AttackerEntity;
 	HitboxAttackType AttackType;
     CountAttackType CountType;
     DelayGuardType DelayGuardTpye;
+    HomingType HomingReturnType;
+
     int startFrame;
+
     int attackDamage;
     int enemyGuardTime;
     int enemyHitTime;
 	int enemyCountTime;
+
     bool launcher;//콤보 시동기
-    bool homing;//패링가능한지
+    bool dodgeHigh;
+    bool jumpAttack;
     
 }	

@@ -2,14 +2,17 @@
 using UnityEngine;
 using Quantum.Collections;
 using static UnityEngine.EventSystems.EventTrigger;
+using System.Net.Http.Headers;
 namespace Quantum.LSDF
 {
     [Preserve]
     public unsafe class LSDF_CollisionSystem : SystemSignalsOnly, ISignalOnTriggerEnter2D
     {
+        static public bool isGuard;
         public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
         {
-            // 피격자
+            // 내가 맞는 상황이다 내가 defender
+            // 피격자 
             if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Entity, out var defender))
             {
                 // 히트박스에 공격자 정보 포함
@@ -23,13 +26,14 @@ namespace Quantum.LSDF
                         .GetState(f.ResolveList(defenderAnimator->Layers).GetPointer(0)->CurrentStateId)
                         .Name;
 
-
+                    //카운터 여부
                     if (defender->canCounter)
                     {
 
                         f.Signals.OnTriggerCounterHit(info, defender, defenderAnimator, hitbox);
                         return;
                     }
+                    
                     //10프레임 확정 딜캐 상황일때
                     if (stateName=="Stun")
                     {
@@ -39,29 +43,20 @@ namespace Quantum.LSDF
                             f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
                         }
 
-
+                        //그 외에 가드
                         else if (hitbox->AttackType == HitboxAttackType.High || hitbox->AttackType == HitboxAttackType.Mid)
                         {
                             f.Signals.OnTriggerGuard(info, defender, defenderAnimator, hitbox);
                         }
                         else if (hitbox->AttackType == HitboxAttackType.Low)
                         {
-                            if (defender->isSit == true)
-                            {
-                                f.Signals.OnTriggerGuard(info, defender, defenderAnimator, hitbox);
-                            }
-                            else if (defender->isSit == false)
-                            {
-                                f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
-                            }
+                            f.Signals.OnTriggerGuard(info, defender, defenderAnimator, hitbox);
                         }
                         defender->isStun = false;
                         return;
                     }
-
-                    bool isGuard = ShouldGuard(hitbox->AttackType, stateName);
-
-                    if (isGuard)
+                    //그 외에 움직이는 경우(앉기 , 서기 , 앞, 뒤 )
+                    else if (isGuard = ShouldGuard(hitbox->AttackType, stateName))
                     {
                         f.Signals.OnTriggerGuard(info, defender, defenderAnimator, hitbox);
 
@@ -73,6 +68,26 @@ namespace Quantum.LSDF
                             
                             f.Signals.OnTriggerEnemyGuard(info, attackerPlayer, attackerAnimator, hitbox);
 
+                        }
+                    }
+                    //내가 패링중일때
+                    else if(stateName == "Parring")
+                    {
+                        switch (hitbox->HomingReturnType)
+                        {
+                            case HomingType.Homing:
+                                f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
+                                break;
+
+                            case HomingType.Stun:
+                                
+                            case HomingType.Combo:
+                                f.Unsafe.TryGetPointer<LSDF_Player>(hitbox->AttackerEntity, out var attackerPlayer);
+                                f.Unsafe.TryGetPointer<AnimatorComponent>(hitbox->AttackerEntity, out var attackerAnimator);
+
+                                f.Signals.OnTriggerEnemyParring(info, attackerPlayer, attackerAnimator, hitbox);
+                                break;
+                        
                         }
                     }
                     else
@@ -96,5 +111,7 @@ namespace Quantum.LSDF
                     return false;
             }
         }
+
+        
     }
 }

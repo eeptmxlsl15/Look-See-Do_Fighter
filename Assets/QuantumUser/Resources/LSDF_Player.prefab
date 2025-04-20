@@ -405,6 +405,10 @@ MonoBehaviour:
       Value: 0
     isGuard:
       Value: 0
+    isStun:
+      Value: 0
+    isCombo:
+      Value: 0
     canCounter:
       Value: 0
     isJump:
