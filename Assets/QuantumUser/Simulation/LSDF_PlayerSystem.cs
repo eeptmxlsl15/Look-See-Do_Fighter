@@ -88,22 +88,23 @@ namespace Quantum.LSDF
 
             //2p에 대한 실험
 
-            //bool shouldAttack = true;
+            bool shouldAttack = true;
             
-            bool shouldAttack = f.Number % 60 < 30;
+            //bool shouldAttack = f.Number % 60 < 30;
             if (playerLink->PlayerRef == (PlayerRef)1)
             {
                 if (shouldAttack)
                 {
                     input->Down = true;
+                    input->LeftPunch = true;
                     //input->RightKick = true;
 
                 }
-                else
-                {
-                    input->Down = true;
-                    input->RightKick = true;
-                }
+                //else
+                //{
+                //    input->Down = true;
+                //    input->RightKick = true;
+                //}
 
             }
 

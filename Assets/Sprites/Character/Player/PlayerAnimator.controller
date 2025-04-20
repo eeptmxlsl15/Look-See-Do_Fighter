@@ -206,32 +206,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-8503552767968686973
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: HighHit
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c454e49265ce0dd449614734ca2bfc46, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1102 &-8405557455348045300
 AnimatorState:
   serializedVersion: 6
@@ -1403,9 +1377,6 @@ AnimatorStateMachine:
     m_State: {fileID: -7575856120575965163}
     m_Position: {x: -270, y: -320, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -8503552767968686973}
-    m_Position: {x: -235, y: -255, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 8657383118585152006}
     m_Position: {x: 550, y: -630, z: 0}
   - serializedVersion: 1
@@ -1624,7 +1595,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7968074347454264795}
   m_Solo: 0
-  m_Mute: 0
+  m_Mute: 1
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0

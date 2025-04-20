@@ -89,7 +89,7 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
                 AttackType = HitboxAttackType.Mid,
                 CountType = CountAttackType.Normal,
                 DelayGuardTpye = DelayGuardType.Normal,
-                HomingReturnType = HomingType.Stun,
+                HomingReturnType = HomingType.Homing,
 
                 jumpAttack = false,
                 dodgeHigh = false,

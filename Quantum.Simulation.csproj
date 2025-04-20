@@ -108,12 +108,14 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorLayer.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_CollisionSystem.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\GuardWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEventAsset.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\AnimatorStateBehaviourDebug.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorMotion.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorGraph.Serialization.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorTimeWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimeConfig.LDSF.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\HitWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorInstantEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\DashBackWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorFrame.cs" />

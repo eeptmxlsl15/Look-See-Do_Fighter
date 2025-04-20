@@ -25,8 +25,8 @@ public class StunWindowEvent : AnimatorTimeWindowEventAsset
 
         player->isStun = true;
 
-        //AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
-        //AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 
     }
 
