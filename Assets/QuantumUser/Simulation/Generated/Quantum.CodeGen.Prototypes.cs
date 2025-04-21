@@ -236,6 +236,36 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_InputBuffer))]
+  public unsafe partial class LSDF_InputBufferPrototype : ComponentPrototype<Quantum.LSDF_InputBuffer> {
+    public Int32 count;
+    [ArrayLengthAttribute(10)]
+    public Int32[] bufferedFrames = new Int32[10];
+    [ArrayLengthAttribute(10)]
+    public Int32[] directions = new Int32[10];
+    [ArrayLengthAttribute(10)]
+    public Int32[] buttons = new Int32[10];
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_InputBuffer result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_InputBuffer component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_InputBuffer result, in PrototypeMaterializationContext context = default) {
+        result.count = this.count;
+        for (int i = 0, count = PrototypeValidator.CheckLength(bufferedFrames, 10, in context); i < count; ++i) {
+          result.bufferedFrames[i] = this.bufferedFrames[i];
+        }
+        for (int i = 0, count = PrototypeValidator.CheckLength(directions, 10, in context); i < count; ++i) {
+          result.directions[i] = this.directions[i];
+        }
+        for (int i = 0, count = PrototypeValidator.CheckLength(buttons, 10, in context); i < count; ++i) {
+          result.buttons[i] = this.buttons[i];
+        }
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Player))]
   public unsafe partial class LSDF_PlayerPrototype : ComponentPrototype<Quantum.LSDF_Player> {
     public QBoolean isDashBack;

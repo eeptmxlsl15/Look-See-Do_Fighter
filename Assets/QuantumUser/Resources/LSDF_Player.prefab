@@ -409,6 +409,8 @@ MonoBehaviour:
       Value: 0
     isCombo:
       Value: 0
+    isParring:
+      Value: 0
     canCounter:
       Value: 0
     isJump:

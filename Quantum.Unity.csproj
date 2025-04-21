@@ -74,6 +74,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumStaticCircleCollider2D.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMapLoader.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerUserScripts.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeLSDF_InputBuffer.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerMarkers.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumMultiClientRunner.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumSimpleConnectionGUI.cs" />

@@ -23,6 +23,7 @@ namespace Quantum.LSDF
             public PhysicsBody2D* Body;
             public LSDF_Player* LSDF_Player;
             public AnimatorComponent* Animator;
+            public LSDF_InputBuffer* InputBuffer;
         }
 
         public override void Update(Frame f, ref Filter filter)
@@ -31,8 +32,18 @@ namespace Quantum.LSDF
             CollisionControll(f, ref filter);
             //공격중일 경우 리턴
             f.Unsafe.TryGetPointer<LSDF_Player>(filter.Entity, out var player);
-
-            
+            //f.Unsafe.R
+            //if (player->isStun || player->isGuard || player->isHit)
+            //{
+            //    if (inputBuffer->Count < 5)
+            //    {
+            //        int index = inputBuffer->Count;
+            //        inputBuffer->BufferedFrames[index] = f.Number;
+            //        inputBuffer->Directions[index] = (byte)GetDirection(input); // 예: 1~9 방향키
+            //        inputBuffer->Buttons[index] = EncodeButtonInput(input);     // 예: 1 = LP, 2 = RP 등
+            //        inputBuffer->Count++;
+            //    }
+            //}
 
 
             if (player->isAttack == true || player->isStun==true)

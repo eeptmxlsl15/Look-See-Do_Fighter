@@ -1,0 +1,6 @@
+component LSDF_InputBuffer {
+  int count;
+  array<int>[10] bufferedFrames;
+  array<int>[10] directions;
+  array<int>[10] buttons;
+}
