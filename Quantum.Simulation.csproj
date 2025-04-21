@@ -136,6 +136,7 @@
     <None Include="Assets\QuantumUser\Simulation\LSDF_Player.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_CollisionSignals.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_TestEnemy.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_InputBuffer.qtn" />
     <None Include="Assets\QuantumUser\Simulation\PlayerLink.qtn" />
     <None Include="Assets\QuantumUser\Simulation\TickToDestroy.qtn" />
     <None Include="Assets\QuantumUser\Simulation\Global.qtn" />
