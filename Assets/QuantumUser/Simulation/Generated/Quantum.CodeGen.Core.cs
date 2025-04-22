@@ -1105,36 +1105,6 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
-  public unsafe partial struct LSDF_InputBuffer : Quantum.IComponent {
-    public const Int32 SIZE = 124;
-    public const Int32 ALIGNMENT = 4;
-    [FieldOffset(80)]
-    public Int32 count;
-    [FieldOffset(0)]
-    public fixed Int32 bufferedFrames[10];
-    [FieldOffset(84)]
-    public fixed Int32 directions[10];
-    [FieldOffset(40)]
-    public fixed Int32 buttons[10];
-    public override Int32 GetHashCode() {
-      unchecked { 
-        var hash = 9767;
-        hash = hash * 31 + count.GetHashCode();
-        fixed (Int32* p = bufferedFrames) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 10);
-        fixed (Int32* p = directions) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 10);
-        fixed (Int32* p = buttons) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 10);
-        return hash;
-      }
-    }
-    public static void Serialize(void* ptr, FrameSerializer serializer) {
-        var p = (LSDF_InputBuffer*)ptr;
-        serializer.Stream.SerializeBuffer(&p->bufferedFrames[0], 10);
-        serializer.Stream.SerializeBuffer(&p->buttons[0], 10);
-        serializer.Stream.Serialize(&p->count);
-        serializer.Stream.SerializeBuffer(&p->directions[0], 10);
-    }
-  }
-  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
     public const Int32 SIZE = 168;
     public const Int32 ALIGNMENT = 4;
@@ -1328,8 +1298,6 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_CameraInfo>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_HitboxInfo>();
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_HitboxInfo>();
-      BuildSignalsArrayOnComponentAdded<Quantum.LSDF_InputBuffer>();
-      BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_InputBuffer>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_Player>();
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_Player>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_TestEnemy>();
@@ -1545,7 +1513,6 @@ namespace Quantum {
       typeRegistry.Register(typeof(Joint3D), Joint3D.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_CameraInfo), Quantum.LSDF_CameraInfo.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_HitboxInfo), Quantum.LSDF_HitboxInfo.SIZE);
-      typeRegistry.Register(typeof(Quantum.LSDF_InputBuffer), Quantum.LSDF_InputBuffer.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_Player), Quantum.LSDF_Player.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_TestEnemy), Quantum.LSDF_TestEnemy.SIZE);
       typeRegistry.Register(typeof(Quantum.LayerData), Quantum.LayerData.SIZE);
@@ -1592,13 +1559,12 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 9)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 8)
         .AddBuiltInComponents()
         .Add<Quantum.AnimatorComponent>(Quantum.AnimatorComponent.Serialize, null, Quantum.AnimatorComponent.OnRemoved, ComponentFlags.None)
         .Add<Quantum.DashInputBuffer>(Quantum.DashInputBuffer.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_CameraInfo>(Quantum.LSDF_CameraInfo.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_HitboxInfo>(Quantum.LSDF_HitboxInfo.Serialize, null, null, ComponentFlags.None)
-        .Add<Quantum.LSDF_InputBuffer>(Quantum.LSDF_InputBuffer.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_Player>(Quantum.LSDF_Player.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_TestEnemy>(Quantum.LSDF_TestEnemy.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)

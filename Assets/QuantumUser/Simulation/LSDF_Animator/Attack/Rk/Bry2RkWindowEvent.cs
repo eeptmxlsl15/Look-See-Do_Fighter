@@ -81,14 +81,14 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 
                 AttackType = HitboxAttackType.Low,
                 CountType = CountAttackType.Normal,
-                DelayGuardTpye = DelayGuardType.Stun,
+                DelayGuardTpye = DelayGuardType.Combo,
                 HomingReturnType = HomingType.Stun,
 
                 jumpAttack = false,
                 dodgeHigh = false,
 
 
-                enemyGuardTime = 10,//후딜이 20이므로 상대 가드 타임이 10 이면 10프레임 여유가 생김
+                enemyGuardTime = 0,//후딜이 20이므로 상대 가드 타임이 10 이면 10프레임 여유가 생김
                 enemyHitTime = 20,
                 enemyCountTime = 20,
                 attackDamage = 13,

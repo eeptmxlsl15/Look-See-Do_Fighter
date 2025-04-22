@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\QuantumUser\View\LSDF_PlayerInput.cs" />
+    <Compile Include="Assets\QuantumUser\View\LSDF_IngameUI.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_ViewHandler.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,7 @@ namespace Quantum.LSDF
             public PhysicsBody2D* Body;
             public LSDF_Player* LSDF_Player;
             public AnimatorComponent* Animator;
-            public LSDF_InputBuffer* InputBuffer;
+            
         }
 
         public override void Update(Frame f, ref Filter filter)
@@ -46,7 +46,7 @@ namespace Quantum.LSDF
             //}
 
 
-            if (player->isAttack == true || player->isStun==true)
+            if (player->isAttack == true || player->isStun==true || player->isCombo == true)
             {
                 //Debug.Log("공격 중");
                 return;
@@ -99,16 +99,16 @@ namespace Quantum.LSDF
 
             //2p에 대한 실험
 
-            bool shouldAttack = true;
+            //bool shouldAttack = true;
             
-            //bool shouldAttack = f.Number % 60 < 30;
+            bool shouldAttack = f.Number % 60 < 30;
             if (playerLink->PlayerRef == (PlayerRef)1)
             {
                 if (shouldAttack)
                 {
                     input->Down = true;
-                    input->LeftPunch = true;
-                    //input->RightKick = true;
+                    //input->LeftPunch = true;
+                    input->RightKick = true;
 
                 }
                 //else
@@ -197,7 +197,7 @@ namespace Quantum.LSDF
             
 
             //앉아있는 동안 다른 움직임 불가능
-            if (filter.LSDF_Player->isSit == true) return;
+            if (filter.LSDF_Player->isSit == true || filter.LSDF_Player->isHit || filter.LSDF_Player->isGuard) return;
             
             if (input->Left && input->Right)
             {
@@ -429,6 +429,7 @@ namespace Quantum.LSDF
             else if(hitbox->DelayGuardTpye == DelayGuardType.Combo)
             {
                 //그냥 노가드 상태 30프레임
+                AnimatorComponent.SetTrigger(f, animator, "Combo");
             }
         }
 
@@ -447,6 +448,7 @@ namespace Quantum.LSDF
             else if (hitbox->HomingReturnType == HomingType.Combo)
             {
                 //그냥 노가드 상태 30프레임
+                AnimatorComponent.SetTrigger(f, animator, "Combo");
             }
 
         }

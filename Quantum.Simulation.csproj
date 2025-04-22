@@ -74,6 +74,7 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\ExampleTimeWindowEventAsset.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\DashFrontWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Systems\AnimatorSystem.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\ComboWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_CommandSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_TestEnemySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\CommandSetup.User.cs" />
@@ -136,7 +137,6 @@
     <None Include="Assets\QuantumUser\Simulation\LSDF_Player.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_CollisionSignals.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_TestEnemy.qtn" />
-    <None Include="Assets\QuantumUser\Simulation\LSDF_InputBuffer.qtn" />
     <None Include="Assets\QuantumUser\Simulation\PlayerLink.qtn" />
     <None Include="Assets\QuantumUser\Simulation\TickToDestroy.qtn" />
     <None Include="Assets\QuantumUser\Simulation\Global.qtn" />

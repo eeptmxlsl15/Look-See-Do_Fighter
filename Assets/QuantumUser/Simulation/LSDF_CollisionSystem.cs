@@ -55,6 +55,14 @@ namespace Quantum.LSDF
                         defender->isStun = false;
                         return;
                     }
+                    //막히고 뜨는 경우 
+                    else if(stateName == "Combo")
+                    {
+                        f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
+
+                        defender->isCombo = false;
+                        return;
+                    }
                     //그 외에 움직이는 경우(앉기 , 서기 , 앞, 뒤 )
                     else if (isGuard = ShouldGuard(hitbox->AttackType, stateName))
                     {
