@@ -14,7 +14,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit , ISignalOnTriggerEnemyGuard , ISignalOnTriggerEnemyParring
+    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit , ISignalOnTriggerEnemyGuard , ISignalOnTriggerEnemyParring , ISignalOnTriggerLauncherHit
     {
         public struct Filter
         {
@@ -44,9 +44,11 @@ namespace Quantum.LSDF
             //        inputBuffer->Count++;
             //    }
             //}
+            //회전 고정
+            filter.Transform->Rotation = FP._0;
 
 
-            if (player->isAttack == true || player->isStun==true || player->isCombo == true)
+            if (player->isAttack == true || player->isStun==true || player->isCombo == true || player ->isAir)
             {
                 //Debug.Log("공격 중");
                 return;
@@ -100,22 +102,25 @@ namespace Quantum.LSDF
             //2p에 대한 실험
 
             //bool shouldAttack = true;
-            
+
             bool shouldAttack = f.Number % 60 < 30;
             if (playerLink->PlayerRef == (PlayerRef)1)
             {
                 if (shouldAttack)
                 {
-                    input->Down = true;
+                    input->Right = true;
+                    //input->Down = true;
                     //input->LeftPunch = true;
-                    input->RightKick = true;
+                    //input->RightKick = true;
+                    //input->Up = true;
 
                 }
-                //else
-                //{
-                //    input->Down = true;
-                //    input->RightKick = true;
-                //}
+                else
+                {
+                    //input->Left = true;
+                    input->Down = true;
+                    input->RightKick = true;
+                }
 
             }
 
@@ -158,9 +163,7 @@ namespace Quantum.LSDF
             //아무 입력 없을 때 가만히 있음
             filter.Body->Velocity = FPVector2.Zero;
 
-            //회전 고정
-            filter.Transform->Rotation = FP._0;
-
+            
 
             if (input->Up)
             {
@@ -327,7 +330,42 @@ namespace Quantum.LSDF
         {
             player->isAttack = false;
             //상단에 히트할 경유
-            if (hitbox->AttackType == HitboxAttackType.High)
+            if (hitbox->launcher == true)
+            {
+                Debug.Log("콤보 : 런쳐 힛");
+                //앉아서 노멀 히트 할때 안뜨는 어퍼라면 히트만 함
+                if (hitbox->notSitLauncher == true && player->isSit)
+                {
+                    Debug.Log("콤보 : 앉아서 맞아서 안 뜸");
+                    AnimatorComponent.SetTrigger(f, animator, "MiddleHit");
+
+                }
+                else
+                {
+
+                    Debug.Log("콤보 : 뜸");
+                    //그게 아니면 띄움
+                    AnimatorComponent.SetTrigger(f, animator, "Air");
+                    player->isAir = true;
+
+                    if (f.Unsafe.TryGetPointer<PhysicsBody2D>(info.Entity, out var body))
+                    {
+                        body->Velocity.Y = FP._4; // 원하는 점프 세기로 조절
+                        body->Velocity.X = FP._1;    // 필요시 좌우도 밀 수 있음
+                    }
+                    //떠서 때리는 애니메니션 
+                }
+            }
+            else if (player->isAir)
+            {
+                Debug.Log("콤보 맞는 중");
+                if (f.Unsafe.TryGetPointer<PhysicsBody2D>(info.Entity, out var body))
+                {
+                    body->Velocity.Y = FP._4; // 원하는 점프 세기로 조절
+                    body->Velocity.X = FP._1;    // 필요시 좌우도 밀 수 있음
+                }
+            }
+            else if (hitbox->AttackType == HitboxAttackType.High)
             {
                 Debug.Log($"히트 시작 프레임{f.Number}");
                 AnimatorComponent.SetTrigger(f, animator, "HighHit");
@@ -347,6 +385,8 @@ namespace Quantum.LSDF
                 AnimatorComponent.SetTrigger(f, animator, "LowHit");
                 
             }
+            
+
             player->isHit = true;
             player->DelayFrame = f.Number + hitbox->enemyHitTime;
             player->playerHp -= hitbox->attackDamage;
@@ -388,8 +428,17 @@ namespace Quantum.LSDF
                 
                 Debug.Log($"현재 체력 : {player->playerHp}/170");
             }
-            else
+            //콤보 상황일 경우 띄움
+            else if(hitbox->CountType == CountAttackType.Combo)
             {
+                AnimatorComponent.SetTrigger(f, animator, "Air");
+                player->isAir = true;
+
+                if (f.Unsafe.TryGetPointer<PhysicsBody2D>(info.Entity, out var body))
+                {
+                    body->Velocity.Y = 10 * FP._4; // 원하는 점프 세기로 조절
+                    body->Velocity.X = FP._0;    // 필요시 좌우도 밀 수 있음
+                }
                 //떠서 때리는 애니메니션 
             }
         }
@@ -434,6 +483,26 @@ namespace Quantum.LSDF
         }
 
         public void OnTriggerEnemyParring(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
+        {
+
+            if (hitbox->HomingReturnType == HomingType.Stun)
+            {
+                AnimatorComponent.SetTrigger(f, animator, "Stun");
+
+                // 필요 시 상태값도 세팅 가능
+
+
+                //10프레임만 맞음 상태 30프레임
+            }
+            else if (hitbox->HomingReturnType == HomingType.Combo)
+            {
+                //그냥 노가드 상태 30프레임
+                AnimatorComponent.SetTrigger(f, animator, "Combo");
+            }
+
+        }
+
+        public void OnTriggerLauncherHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
 
             if (hitbox->HomingReturnType == HomingType.Stun)

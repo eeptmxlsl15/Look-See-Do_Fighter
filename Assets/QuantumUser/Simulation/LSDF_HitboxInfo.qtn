@@ -42,5 +42,6 @@ component LSDF_HitboxInfo
     bool launcher;//ÄÞº¸ ½Ãµ¿±â
     bool dodgeHigh;
     bool jumpAttack;
+    bool notSitLauncher;//¾ÉÀº °æ¿ì ¸ø ¶ç¿ò
     
 }	

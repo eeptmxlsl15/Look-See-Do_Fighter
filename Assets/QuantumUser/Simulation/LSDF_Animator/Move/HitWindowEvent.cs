@@ -21,6 +21,7 @@ public class HitWindowEvent : AnimatorTimeWindowEventAsset
         //앉은 자세 여부
         player->isSit = false;
         player->isAttack = false;
+        player->isParring = false;
         Debug.Log("힛 시작");
 
         

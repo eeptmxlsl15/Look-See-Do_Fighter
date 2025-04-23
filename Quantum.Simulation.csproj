@@ -92,6 +92,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\BoundarySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\MoveFrontWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\RisingWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorState.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\StandUpWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\ParringStartWindowEvent.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\ExampleInstantEventAsset.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\SimulationConfig.User.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorCondition.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Attack\Rp\LawRightUpperWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\MoveBackWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\SitEnterWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorLayer.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\DashBackWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorFrame.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\SystemSetup.User.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\AirWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorDefinitions\AnimatorComponent.User.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Systems\AnimatorBehaviourSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimeConfig.User.cs" />

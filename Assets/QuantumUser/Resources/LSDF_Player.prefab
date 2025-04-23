@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8697877538872355279}
   - component: {fileID: 7306140773381487482}
   - component: {fileID: 7430869258309603518}
+  - component: {fileID: 1581555270196190203}
   m_Layer: 0
   m_Name: LSDF_Player
   m_TagString: Untagged
@@ -415,6 +416,10 @@ MonoBehaviour:
       Value: 0
     isJump:
       Value: 0
+    isAir:
+      Value: 0
+    isWall:
+      Value: 0
     playerHp: 170
     DelayFrame: 0
     CommandSkillMap: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -500,3 +505,15 @@ MonoBehaviour:
     DashInputWindow: 12
     LastInputPressed:
       Value: 0
+--- !u!114 &1581555270196190203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196750081309688306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b3888416629e624ba4ecb1cf8cb2319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

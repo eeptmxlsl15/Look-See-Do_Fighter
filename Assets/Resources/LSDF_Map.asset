@@ -90,8 +90,6 @@ MonoBehaviour:
     - rid: 4476329129809018881
     - rid: 4476329129809018882
   - Components:
-    - rid: 8245657375126585344
-  - Components:
     - rid: 8210023592692285440
     - rid: 8210023592692285441
     - rid: 8210023592692285442
@@ -217,13 +215,3 @@ MonoBehaviour:
       type: {class: LSDF_CameraInfoPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         cameraNum: 1
-    - rid: 8245657375126585344
-      type: {class: Transform2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
-      data:
-        Position:
-          X:
-            RawValue: 62914560
-          Y:
-            RawValue: 35389440
-        Rotation:
-          RawValue: 0

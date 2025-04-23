@@ -86,6 +86,7 @@ namespace Quantum.Prototypes.Unity {
     public QBoolean launcher;
     public QBoolean dodgeHigh;
     public QBoolean jumpAttack;
+    public QBoolean notSitLauncher;
     partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.LSDF_HitboxInfoPrototype prototype);
     public override Quantum.Prototypes.LSDF_HitboxInfoPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.LSDF_HitboxInfoPrototype();
@@ -102,6 +103,7 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.launcher, out result.launcher);
       converter.Convert(this.dodgeHigh, out result.dodgeHigh);
       converter.Convert(this.jumpAttack, out result.jumpAttack);
+      converter.Convert(this.notSitLauncher, out result.notSitLauncher);
       ConvertUser(converter, ref result);
       return result;
     }

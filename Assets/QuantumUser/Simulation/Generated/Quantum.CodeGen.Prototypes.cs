@@ -214,6 +214,7 @@ namespace Quantum.Prototypes {
     public QBoolean launcher;
     public QBoolean dodgeHigh;
     public QBoolean jumpAttack;
+    public QBoolean notSitLauncher;
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_HitboxInfo component = default;
         Materialize((Frame)f, ref component, in context);
@@ -233,6 +234,7 @@ namespace Quantum.Prototypes {
         result.launcher = this.launcher;
         result.dodgeHigh = this.dodgeHigh;
         result.jumpAttack = this.jumpAttack;
+        result.notSitLauncher = this.notSitLauncher;
     }
   }
   [System.SerializableAttribute()]
@@ -250,6 +252,8 @@ namespace Quantum.Prototypes {
     public QBoolean isParring;
     public QBoolean canCounter;
     public QBoolean isJump;
+    public QBoolean isAir;
+    public QBoolean isWall;
     public Int32 playerHp;
     public Int32 DelayFrame;
     [ArrayLengthAttribute(28)]
@@ -273,6 +277,8 @@ namespace Quantum.Prototypes {
         result.isParring = this.isParring;
         result.canCounter = this.canCounter;
         result.isJump = this.isJump;
+        result.isAir = this.isAir;
+        result.isWall = this.isWall;
         result.playerHp = this.playerHp;
         result.DelayFrame = this.DelayFrame;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {

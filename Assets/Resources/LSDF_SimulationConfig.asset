@@ -26,7 +26,7 @@ MonoBehaviour:
       X:
         RawValue: 0
       Y:
-        RawValue: -1310720
+        RawValue: -655360
       Z:
         RawValue: 0
     SolverType: 1

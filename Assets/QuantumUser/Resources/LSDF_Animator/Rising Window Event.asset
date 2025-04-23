@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9749662b1f8c8244682341e14275cd3b, type: 3}
+  m_Name: Rising Window Event
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/LSDF_Animator/Rising Window Event
+    Guid:
+      Value: 484647599754141827
+  IsMuted: 0

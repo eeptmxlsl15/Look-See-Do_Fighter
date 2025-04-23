@@ -29,7 +29,7 @@ namespace Quantum.LSDF
                     //카운터 여부
                     if (defender->canCounter)
                     {
-
+                        
                         f.Signals.OnTriggerCounterHit(info, defender, defenderAnimator, hitbox);
                         return;
                     }

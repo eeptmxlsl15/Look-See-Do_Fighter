@@ -18,10 +18,13 @@ component LSDF_Player
     bool isHit;
 	bool isGuard;
 	bool isStun;
-	bool isCombo;
+	bool isCombo;// 나락 막히고다리 부러지는거
 	bool isParring;
 	bool canCounter;
 	bool isJump;
+	bool isAir;//공중 콤보
+	bool isWall;
+
 	int playerHp;
 	int DelayFrame;
 

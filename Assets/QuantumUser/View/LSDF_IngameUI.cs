@@ -5,13 +5,41 @@ using UnityEngine.UI;
 
 public class LSDF_IngameUI : QuantumEntityViewComponent
 {
-    public Image LeftHpGage;
-    public Image RightHpGage;
+    private Image LeftHpGage;
+    private Image RightHpGage;
 
     private EntityRef myPlayerEntity;
     private EntityRef opponentEntity;
     private bool initialized = false;
 
+    public override void OnActivate(Frame frame)
+    {
+        base.OnActivate(frame);
+        
+        var myRef = QuantumRunner.Default.Game.GetLocalPlayers().FirstOrDefault();
+
+        // 어떤 플레이어인지 확인
+        string canvasName = (myRef == (PlayerRef)0) ? "Player1 Canvas" : "Player2 Canvas";
+        var canvas = GameObject.Find(canvasName);
+
+        if (canvas == null)
+        {
+            Debug.LogError($"[{name}] Canvas '{canvasName}'를 찾을 수 없습니다.");
+            return;
+        }
+
+        // 자신의 UI 루트에서 HP 게이지 가져오기
+        var left = canvas.transform.Find("Player1 UI/Left Current Health");
+        var right = canvas.transform.Find("Player2 UI/Right Current Health");
+
+        if (left != null) LeftHpGage = left.GetComponent<Image>();
+        if (right != null) RightHpGage = right.GetComponent<Image>();
+
+        if (LeftHpGage == null || RightHpGage == null)
+        {
+            Debug.LogError("HP 게이지 컴포넌트를 찾을 수 없습니다.");
+        }
+    }
     public override void OnUpdateView()
     {
         var game = QuantumRunner.Default.Game;
