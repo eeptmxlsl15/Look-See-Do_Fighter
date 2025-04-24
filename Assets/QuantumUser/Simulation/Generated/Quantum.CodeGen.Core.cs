@@ -1052,7 +1052,7 @@ namespace Quantum {
     public DelayGuardType DelayGuardTpye;
     [FieldOffset(12)]
     public HomingType HomingReturnType;
-    [FieldOffset(32)]
+    [FieldOffset(36)]
     public Int32 startFrame;
     [FieldOffset(16)]
     public Int32 attackDamage;
@@ -1062,13 +1062,15 @@ namespace Quantum {
     public Int32 enemyHitTime;
     [FieldOffset(20)]
     public Int32 enemyCountTime;
-    [FieldOffset(44)]
-    public QBoolean launcher;
-    [FieldOffset(36)]
-    public QBoolean dodgeHigh;
-    [FieldOffset(40)]
-    public QBoolean jumpAttack;
+    [FieldOffset(32)]
+    public Int32 forceBack;
     [FieldOffset(48)]
+    public QBoolean launcher;
+    [FieldOffset(40)]
+    public QBoolean dodgeHigh;
+    [FieldOffset(44)]
+    public QBoolean jumpAttack;
+    [FieldOffset(52)]
     public QBoolean notSitLauncher;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -1083,6 +1085,7 @@ namespace Quantum {
         hash = hash * 31 + enemyGuardTime.GetHashCode();
         hash = hash * 31 + enemyHitTime.GetHashCode();
         hash = hash * 31 + enemyCountTime.GetHashCode();
+        hash = hash * 31 + forceBack.GetHashCode();
         hash = hash * 31 + launcher.GetHashCode();
         hash = hash * 31 + dodgeHigh.GetHashCode();
         hash = hash * 31 + jumpAttack.GetHashCode();
@@ -1100,6 +1103,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->enemyCountTime);
         serializer.Stream.Serialize(&p->enemyGuardTime);
         serializer.Stream.Serialize(&p->enemyHitTime);
+        serializer.Stream.Serialize(&p->forceBack);
         serializer.Stream.Serialize(&p->startFrame);
         QBoolean.Serialize(&p->dodgeHigh, serializer);
         QBoolean.Serialize(&p->jumpAttack, serializer);

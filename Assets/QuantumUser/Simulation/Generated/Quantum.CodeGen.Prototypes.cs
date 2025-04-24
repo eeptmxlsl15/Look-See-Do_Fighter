@@ -211,6 +211,7 @@ namespace Quantum.Prototypes {
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
     public Int32 enemyCountTime;
+    public Int32 forceBack;
     public QBoolean launcher;
     public QBoolean dodgeHigh;
     public QBoolean jumpAttack;
@@ -231,6 +232,7 @@ namespace Quantum.Prototypes {
         result.enemyGuardTime = this.enemyGuardTime;
         result.enemyHitTime = this.enemyHitTime;
         result.enemyCountTime = this.enemyCountTime;
+        result.forceBack = this.forceBack;
         result.launcher = this.launcher;
         result.dodgeHigh = this.dodgeHigh;
         result.jumpAttack = this.jumpAttack;

@@ -83,6 +83,7 @@ namespace Quantum.Prototypes.Unity {
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
     public Int32 enemyCountTime;
+    public Int32 forceBack;
     public QBoolean launcher;
     public QBoolean dodgeHigh;
     public QBoolean jumpAttack;
@@ -100,6 +101,7 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.enemyGuardTime, out result.enemyGuardTime);
       converter.Convert(this.enemyHitTime, out result.enemyHitTime);
       converter.Convert(this.enemyCountTime, out result.enemyCountTime);
+      converter.Convert(this.forceBack, out result.forceBack);
       converter.Convert(this.launcher, out result.launcher);
       converter.Convert(this.dodgeHigh, out result.dodgeHigh);
       converter.Convert(this.jumpAttack, out result.jumpAttack);

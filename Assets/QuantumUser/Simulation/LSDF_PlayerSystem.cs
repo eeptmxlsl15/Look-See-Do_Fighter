@@ -47,27 +47,26 @@ namespace Quantum.LSDF
             //회전 고정
             filter.Transform->Rotation = FP._0;
 
-
-            if (player->isAttack == true || player->isStun==true || player->isCombo == true || player ->isAir)
+            if (player->isAttack == true || player->isStun == true || player->isCombo == true || player->isAir)
             {
                 //Debug.Log("공격 중");
                 return;
             }
-            
-                
+
+
             //유저가 가드 중이면서 가드 프레임이 지나면 idle상태로 감
             if (filter.LSDF_Player->isGuard && f.Number >= filter.LSDF_Player->DelayFrame)
             {
                 AnimatorComponent.SetTrigger(f, filter.Animator, "DelayFrame"); // Idle로 전이하는 트리거
                 Debug.Log($"가드 상태 끝 프레임 : {f.Number}");
-                
-              
-                
+
+
+
                 filter.LSDF_Player->isGuard = false;
             }
             else
             {
-                
+
                 //Debug.Log($"IsGuard{filter.LSDF_Player->isHit}/현재 프레임{f.Number}/가드 딜레이 프레임{filter.LSDF_Player->DelayFrame}");
             }
             //유저가 히트 중이면서 히트 프레임이 지나면 idle상태로 감
@@ -75,14 +74,14 @@ namespace Quantum.LSDF
             {
                 AnimatorComponent.SetTrigger(f, filter.Animator, "DelayFrame"); // Idle로 전이하는 트리거
                 Debug.Log($"히트 상태 끝 프레임 : {f.Number}");
-                
-                
-                
+
+
+
                 filter.LSDF_Player->isHit = false;
             }
             else
             {
-               
+
                 //Debug.Log($"IsHit:{filter.LSDF_Player->isHit}/현재 프레임{f.Number}/히트 딜레이 프레임{filter.LSDF_Player->DelayFrame}");
             }
 
@@ -95,24 +94,24 @@ namespace Quantum.LSDF
             if (f.Unsafe.TryGetPointer(filter.Entity, out PlayerLink* playerLink))
             {
                 input = f.GetPlayerInput(playerLink->PlayerRef);
-                
-                    
+
+
             }
 
             //2p에 대한 실험
 
-            //bool shouldAttack = true;
+            bool shouldAttack = true;
 
-            bool shouldAttack = f.Number % 60 < 30;
+            //bool shouldAttack = f.Number % 60 < 30;
             if (playerLink->PlayerRef == (PlayerRef)1)
             {
                 if (shouldAttack)
                 {
-                    input->Right = true;
+                    //input->Right = true;
                     //input->Down = true;
                     //input->LeftPunch = true;
                     //input->RightKick = true;
-                    //input->Up = true;
+                    input->Up = true;
 
                 }
                 else
@@ -146,6 +145,7 @@ namespace Quantum.LSDF
             UpdateMovement(f, ref filter, input);
 
         }
+        
         private void UpdateMovement(Frame f, ref Filter filter, Input* input)
         {
             var playerLink = f.Get<PlayerLink>(filter.Entity);
@@ -348,11 +348,11 @@ namespace Quantum.LSDF
                     AnimatorComponent.SetTrigger(f, animator, "Air");
                     player->isAir = true;
 
-                    if (f.Unsafe.TryGetPointer<PhysicsBody2D>(info.Entity, out var body))
-                    {
-                        body->Velocity.Y = FP._4; // 원하는 점프 세기로 조절
-                        body->Velocity.X = FP._1;    // 필요시 좌우도 밀 수 있음
-                    }
+                    //if (f.Unsafe.TryGetPointer<PhysicsBody2D>(info.Entity, out var body))
+                    //{
+                        
+                    //    body->Velocity.X =hitbox->forceBack;    // 필요시 좌우도 밀 수 있음
+                    //}
                     //떠서 때리는 애니메니션 
                 }
             }

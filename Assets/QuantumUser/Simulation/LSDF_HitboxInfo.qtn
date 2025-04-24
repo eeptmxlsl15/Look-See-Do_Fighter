@@ -38,10 +38,11 @@ component LSDF_HitboxInfo
     int enemyGuardTime;
     int enemyHitTime;
 	int enemyCountTime;
+    int forceBack; //히트, 가드 시 뒤로 미는 힘
 
     bool launcher;//콤보 시동기
-    bool dodgeHigh;
-    bool jumpAttack;
+    bool dodgeHigh;//상단을 피하는 공격인가? controlcollision 에서 앉은자세일때도 그 크기, 이때도 그 크기로 하기
+    bool jumpAttack;//하단을 피하는 점프 공격인가?
     bool notSitLauncher;//앉은 경우 못 띄움
     
 }	
