@@ -20,11 +20,12 @@ component LSDF_Player
 	bool isStun;
 	bool isCombo;// 나락 막히고다리 부러지는거
 	bool isParring;
-	bool canCounter;
-	bool isJump;
-	bool isAir;//공중 콤보
-	bool isWall;
-
+	bool canCounter;//카운터가 발생할 수 있는 타이밍인지()
+	bool isJump;//점프 공격중인지
+	bool isAir;//공중 콤보 
+	bool isWall;//벽꽝인지
+	
+	int hitCount; //공중에서 맞은 횟수
 	int playerHp;
 	int DelayFrame;
 

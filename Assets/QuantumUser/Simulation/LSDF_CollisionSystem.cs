@@ -64,7 +64,7 @@ namespace Quantum.LSDF
                         return;
                     }
                     //그 외에 움직이는 경우(앉기 , 서기 , 앞, 뒤 )
-                    else if (isGuard = ShouldGuard(hitbox->AttackType, stateName))
+                    else if (isGuard = ShouldGuard(hitbox->AttackType, stateName,defender->isSit))
                     {
                         f.Signals.OnTriggerGuard(info, defender, defenderAnimator, hitbox);
 
@@ -105,16 +105,16 @@ namespace Quantum.LSDF
                 }
             }
         }
-        private bool ShouldGuard(HitboxAttackType attackType, string state)
+        private bool ShouldGuard(HitboxAttackType attackType, string state, bool isSit)
         {
             switch (attackType)
             {
                 case HitboxAttackType.High:
 
                 case HitboxAttackType.Mid:
-                    return state == "Idle" || state == "Move Back" || state == "Dash Back";
+                    return state == "Idle" || state == "Move Back" || state == "Dash Back" || state == "Rising"; //일어날때 상하단 가드
                 case HitboxAttackType.Low:
-                    return state == "Sit Enter" || state == "Siting";
+                    return state == "Sit Enter" || state == "Siting" || isSit;//일어날때 앉은자세면 가드
                 default:
                     return false;
             }

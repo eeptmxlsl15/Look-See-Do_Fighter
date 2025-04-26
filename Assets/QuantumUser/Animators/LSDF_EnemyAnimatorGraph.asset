@@ -1070,7 +1070,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813738
+          - rid: 6143751612744860158
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -4050,7 +4050,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813739
+          - rid: 6143751612744860159
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -4390,7 +4390,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813740
+          - rid: 6143751612744860160
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -4689,7 +4689,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813741
+          - rid: 6143751612744860161
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -6043,7 +6043,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813742
+          - rid: 6143751612744860162
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -6342,7 +6342,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813743
+          - rid: 6143751612744860163
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -13970,7 +13970,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813744
+          - rid: 6143751612744860164
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -25194,7 +25194,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813745
+          - rid: 6143751612744860165
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -25882,7 +25882,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813746
+          - rid: 6143751612744860166
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -26570,7 +26570,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813747
+          - rid: 6143751612744860167
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -27258,7 +27258,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813748
+          - rid: 6143751612744860168
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -27946,7 +27946,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813749
+          - rid: 6143751612744860169
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -48273,7 +48273,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813750
+          - rid: 6143751612744860170
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -49019,7 +49019,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813751
+          - rid: 6143751612744860171
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -59220,7 +59220,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813752
+          - rid: 6143751612744860172
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -59383,7 +59383,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813753
+          - rid: 6143751612744860173
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -61826,7 +61826,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813754
+          - rid: 6143751612744860174
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -62614,7 +62614,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813755
+          - rid: 6143751612744860175
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -62649,9 +62649,14 @@ MonoBehaviour:
           RawValue: 0
         ExitTime:
           RawValue: 65536
-        HasExitTime: 1
+        HasExitTime: 0
         CanTransitionToSelf: 0
-        Conditions: []
+        Conditions:
+        - VariableName: YZero
+          Mode: 1
+          ThresholdFp:
+            RawValue: 0
+          ThresholdInt: 0
         DestinationStateId: 1921142892
         DestinationStateName: Rising
       SerialisedMotions:
@@ -63927,7 +63932,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813756
+          - rid: 6143751612744860176
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -64400,7 +64405,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 6143751546975813757
+          - rid: 6143751612744860177
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -64745,6 +64750,13 @@ MonoBehaviour:
       RawValue: 0
     DefaultInt: 0
     DefaultBool: 0
+  - Name: YZero
+    Index: 24
+    Type: 2
+    DefaultFp:
+      RawValue: 0
+    DefaultInt: 0
+    DefaultBool: 0
   AllowFadeToTransitions: 1
   RootMotion: 0
   RootMotionAppliesPhysics: 0
@@ -64755,7 +64767,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6143751546975813738
+    - rid: 6143751612744860158
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64765,7 +64777,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 43690
-    - rid: 6143751546975813739
+    - rid: 6143751612744860159
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64775,7 +64787,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 21845
-    - rid: 6143751546975813740
+    - rid: 6143751612744860160
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64785,7 +64797,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 10922
-    - rid: 6143751546975813741
+    - rid: 6143751612744860161
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64795,7 +64807,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 10922
-    - rid: 6143751546975813742
+    - rid: 6143751612744860162
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64805,7 +64817,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 65536
-    - rid: 6143751546975813743
+    - rid: 6143751612744860163
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64815,7 +64827,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 10922
-    - rid: 6143751546975813744
+    - rid: 6143751612744860164
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64825,7 +64837,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 32768
-    - rid: 6143751546975813745
+    - rid: 6143751612744860165
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64835,7 +64847,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 6143751546975813746
+    - rid: 6143751612744860166
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64845,7 +64857,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 6143751546975813747
+    - rid: 6143751612744860167
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64855,7 +64867,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 6143751546975813748
+    - rid: 6143751612744860168
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64865,7 +64877,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 6143751546975813749
+    - rid: 6143751612744860169
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64875,7 +64887,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 6143751546975813750
+    - rid: 6143751612744860170
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64885,7 +64897,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 38229
-    - rid: 6143751546975813751
+    - rid: 6143751612744860171
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64895,7 +64907,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 36044
-    - rid: 6143751546975813752
+    - rid: 6143751612744860172
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64905,7 +64917,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 54613
-    - rid: 6143751546975813753
+    - rid: 6143751612744860173
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64915,7 +64927,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 5461
-    - rid: 6143751546975813754
+    - rid: 6143751612744860174
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64925,7 +64937,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 54613
-    - rid: 6143751546975813755
+    - rid: 6143751612744860175
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64935,7 +64947,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 38229
-    - rid: 6143751546975813756
+    - rid: 6143751612744860176
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -64945,7 +64957,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 65536
-    - rid: 6143751546975813757
+    - rid: 6143751612744860177
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:

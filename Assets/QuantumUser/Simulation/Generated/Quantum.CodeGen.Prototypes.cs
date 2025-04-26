@@ -256,6 +256,7 @@ namespace Quantum.Prototypes {
     public QBoolean isJump;
     public QBoolean isAir;
     public QBoolean isWall;
+    public Int32 hitCount;
     public Int32 playerHp;
     public Int32 DelayFrame;
     [ArrayLengthAttribute(28)]
@@ -281,6 +282,7 @@ namespace Quantum.Prototypes {
         result.isJump = this.isJump;
         result.isAir = this.isAir;
         result.isWall = this.isWall;
+        result.hitCount = this.hitCount;
         result.playerHp = this.playerHp;
         result.DelayFrame = this.DelayFrame;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {

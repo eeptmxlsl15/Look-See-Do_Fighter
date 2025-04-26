@@ -5,20 +5,20 @@ enum HitboxAttackType
     Low     // 하단
 }
 
-enum CountAttackType
+enum CountAttackType //카운터시 콤보 이행되는지, 추후 확정타 추가
 {
     Normal,
     Combo
 }
 
-enum DelayGuardType
+enum DelayGuardType //노딜,이득, 10딜캐, 뜸
 {
     Normal,
     Stun,
     Combo
 }
 
-enum HomingType
+enum HomingType //패링에 잘 걸리는가? 아니면 10프레임 맞으면 콤보 패링을 잡으면 호밍
 {
     Stun,
     Combo,

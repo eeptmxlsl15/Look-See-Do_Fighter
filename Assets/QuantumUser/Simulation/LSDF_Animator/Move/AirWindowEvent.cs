@@ -14,8 +14,14 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
+        var entity = animatorComponent->Self;
+        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
         Debug.Log($"air 시작 프레임 : {f.Number}");
+        player->hitCount++;
+        player->isAir = true;
+        //player->isAir = true;
+        //Debug.Log($"히트 카운트 : {player->hitCount}");
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -28,7 +34,11 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
 
         if(currentFrame <= 10)
         {
-            body->Velocity.Y = 2;
+            if(player->hitCount>2)
+                body->Velocity.Y = FP._0_50;
+            else if(player->hitCount<=2)
+                body->Velocity.Y = 1;
+            
         }
         else if(currentFrame <= 30)
         {
@@ -40,11 +50,6 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
-
-        player->isAir = false;
-
-        Debug.Log($"air 끝 프레임 : {f.Number}");
+        
     }
 }
