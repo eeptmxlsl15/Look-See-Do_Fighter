@@ -18,11 +18,12 @@ namespace Quantum.LSDF
         public override void Update(Frame f, ref Filter filter)
         {
             if (!f.Unsafe.TryGetPointer<PlayerLink>(filter.Entity, out var playerLink)) return;
+            
             var input = f.GetPlayerInput(playerLink->PlayerRef);
 
             var direction = GetDirection(input);
 
-            
+            if(filter.LSDF_Player->isAttack) return;
 
             if (input->LeftPunch || input->RightPunch || input->LeftKick || input->RightKick)
             {

@@ -6,7 +6,7 @@ using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
 [Serializable]
-public class JapWindowEvent : AnimatorTimeWindowEventAsset
+public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
 {
 
     private int currentFrame;
@@ -15,7 +15,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        Debug.Log($"원잽 시작 프레임{f.Number}");
+        Debug.Log($"잽잽 시작 프레임{f.Number}");
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
@@ -25,21 +25,20 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         player->canCounter = true;
         //앉은 자세 여부
         player->isSit = false;
-        //버퍼 넥스트 초기화
-        bufferedNextAttack = false;
-        Debug.Log($"잽 현재 프레임 : {currentFrame}");
 
+        //콤보에 사용 되는 불린
+        
+
+        Debug.Log($"잽잽 현재 프레임 : {currentFrame}");
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        //플레이어 정보
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
-        //현재 프레임
         currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
 
         //전진성과 방향성
@@ -65,22 +64,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             //    AnimatorComponent.SetTrigger(f, animatorComponent, "Rp");
             //}
         }
-        if (5 <= currentFrame && currentFrame <= 20) // 연계 입력 받을 수 있는 구간
-        {
-            if (input->LeftPunch)
-            {
-                
-                bufferedNextAttack = true;  // 일단 예약만 함
-                Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
-            }
-        }
-        if (currentFrame >= 21&& bufferedNextAttack)
-        {
-            AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);
-           // AnimatorComponent.SetTrigger(f, animatorComponent, "Lp");
-
-            Debug.Log("예약된 Lp 발동");
-        }
+        
 
 
         //히트 박스 생성
@@ -135,18 +119,19 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             {
                 player->canCounter = false;
             }
-            Debug.Log($"잽 히트박스 생성된 프레임{f.Number}");
+            Debug.Log($"잽잽 히트박스 생성된 프레임{f.Number}");
         }
     }
 
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
+        AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
         player->isAttack = false;
 
-        Debug.Log($"원잽 끝 프레임 : {f.Number}");
+        Debug.Log($"잽잽 끝 프레임 : {f.Number}");
     }
 }
