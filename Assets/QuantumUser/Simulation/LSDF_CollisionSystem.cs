@@ -6,11 +6,36 @@ using System.Net.Http.Headers;
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_CollisionSystem : SystemSignalsOnly, ISignalOnTriggerEnter2D
+    public unsafe class LSDF_CollisionSystem : SystemSignalsOnly, ISignalOnTriggerEnter2D,ISignalOnCollisionEnter2D
     {
+
+        public void OnCollisionEnter2D(Frame f, CollisionInfo2D info) 
+        {
+            #region 벽에 부딪힐 경우
+            Debug.Log("벽 콜리전");
+            //벽에 부딪히는 경우if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Entity, out var player))
+            if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Other, out var player))
+            {
+                f.Unsafe.TryGetPointer<AnimatorComponent>(info.Other, out var defenderAnimator);
+                Debug.Log("벽앞");
+                // info.Entity가 플레이어
+                if (f.Unsafe.TryGetPointer<LSDF_Wall>(info.Entity, out var wall))
+                {
+                    // 벽에 부딪힘 처리
+                    f.Signals.OnCollisionWall(info,player, defenderAnimator, wall);
+                    Debug.Log("벽");
+                    return; // 벽 처리했으면 여기서 끝내기
+                }
+            }
+            #endregion
+
+        }
+
+
         static public bool isGuard;
         public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
         {
+
             // 내가 맞는 상황이다 내가 defender
             // 피격자 
             if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Entity, out var defender))

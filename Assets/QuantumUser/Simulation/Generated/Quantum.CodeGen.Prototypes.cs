@@ -199,6 +199,21 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Ground))]
+  public unsafe partial class LSDF_GroundPrototype : ComponentPrototype<Quantum.LSDF_Ground> {
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Ground result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_Ground component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_Ground result, in PrototypeMaterializationContext context = default) {
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_HitboxInfo))]
   public unsafe class LSDF_HitboxInfoPrototype : ComponentPrototype<Quantum.LSDF_HitboxInfo> {
     public MapEntityId AttackerEntity;
@@ -255,7 +270,8 @@ namespace Quantum.Prototypes {
     public QBoolean canCounter;
     public QBoolean isJump;
     public QBoolean isAir;
-    public QBoolean isWall;
+    public QBoolean isWallHit;
+    public QBoolean canWallHit;
     public Int32 hitCount;
     public Int32 playerHp;
     public Int32 DelayFrame;
@@ -281,7 +297,8 @@ namespace Quantum.Prototypes {
         result.canCounter = this.canCounter;
         result.isJump = this.isJump;
         result.isAir = this.isAir;
-        result.isWall = this.isWall;
+        result.isWallHit = this.isWallHit;
+        result.canWallHit = this.canWallHit;
         result.hitCount = this.hitCount;
         result.playerHp = this.playerHp;
         result.DelayFrame = this.DelayFrame;
@@ -303,6 +320,21 @@ namespace Quantum.Prototypes {
         return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Quantum.LSDF_TestEnemy result, in PrototypeMaterializationContext context = default) {
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Wall))]
+  public unsafe partial class LSDF_WallPrototype : ComponentPrototype<Quantum.LSDF_Wall> {
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Wall result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_Wall component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_Wall result, in PrototypeMaterializationContext context = default) {
         MaterializeUser(frame, ref result, in context);
     }
   }

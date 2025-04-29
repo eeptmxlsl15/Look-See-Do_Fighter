@@ -136,6 +136,7 @@
   <ItemGroup>
     <None Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorDefinitions\AnimatorComponent.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_DashInputBuffer.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_Ground.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Input.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_CameraInfo.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Player.qtn" />
@@ -143,6 +144,7 @@
     <None Include="Assets\QuantumUser\Simulation\LSDF_TestEnemy.qtn" />
     <None Include="Assets\QuantumUser\Simulation\PlayerLink.qtn" />
     <None Include="Assets\QuantumUser\Simulation\TickToDestroy.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_Wall.qtn" />
     <None Include="Assets\QuantumUser\Simulation\Global.qtn" />
     <None Include="Assets\Photon\Quantum\Simulation\Quantum.Simulation.asmdef" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_HitboxInfo.qtn" />

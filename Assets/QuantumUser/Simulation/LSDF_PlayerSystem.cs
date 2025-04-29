@@ -14,7 +14,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit , ISignalOnTriggerEnemyGuard , ISignalOnTriggerEnemyParring , ISignalOnTriggerLauncherHit
+    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit , ISignalOnTriggerEnemyGuard , ISignalOnTriggerEnemyParring , ISignalOnTriggerLauncherHit , ISignalOnCollisionWall
     {
         public struct Filter
         {
@@ -547,6 +547,12 @@ namespace Quantum.LSDF
                 AnimatorComponent.SetTrigger(f, animator, "Combo");
             }
 
+        }
+
+        public void OnCollisionWall(Frame f,CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall) 
+        {
+            Debug.Log("º®");
+        
         }
     }
 

@@ -15,7 +15,9 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
+        #region 필수 요소 
         Debug.Log($"원잽 시작 프레임{f.Number}");
+
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
@@ -25,12 +27,17 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         player->canCounter = true;
         //앉은 자세 여부
         player->isSit = false;
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "MoveFront", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "MoveBack", false);
+
+        #endregion
+        //---연타 기술 ---//
         //버퍼 넥스트 초기화
         bufferedNextAttack = false;
         Debug.Log($"잽 현재 프레임 : {currentFrame}");
 
-        AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
-        AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)

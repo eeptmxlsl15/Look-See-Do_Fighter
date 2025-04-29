@@ -17,6 +17,19 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
+        
+
+        player->isAttack = true;
+        player->isDashFront = false;
+        player->isDashBack = false;
+        player->canCounter = true;
+        
+        player->isSit = false;
+
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "MoveFront", false);
+        AnimatorComponent.SetBoolean(f, animatorComponent, "MoveBack", false);
         Debug.Log($"air 시작 프레임 : {f.Number}");
         player->hitCount++;
         player->isAir = true;
