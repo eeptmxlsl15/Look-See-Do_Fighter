@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 24034941}
   - component: {fileID: 24034940}
   - component: {fileID: 24034939}
-  - component: {fileID: 24034938}
   - component: {fileID: 24034943}
   m_Layer: 0
   m_Name: Wall
@@ -140,42 +139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &24034938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24034937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b488b62207097a04392bf63c707ab9c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 0}
-  Size:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 0
-  PositionOffset:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 0
-  RotationOffset:
-    RawValue: 0
-  Height:
-    RawValue: 0
-  Settings:
-    MutableMode: 0
-    PhysicsMaterial:
-      Id:
-        Value: 0
-    Asset:
-      Id:
-        Value: 0
-    Trigger: 0
 --- !u!114 &24034939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,7 +260,7 @@ MonoBehaviour:
     LayerSource: 0
     Layer: 0
     CallbackFlags:
-      Value: 0
+      Value: 2
   PhysicsBody:
     IsEnabled: 0
     Config2D: 116
@@ -2793,7 +2756,6 @@ GameObject:
   - component: {fileID: 1425651985}
   - component: {fileID: 1425651984}
   - component: {fileID: 1425651983}
-  - component: {fileID: 1425651982}
   - component: {fileID: 1425651987}
   m_Layer: 0
   m_Name: Ground
@@ -2802,42 +2764,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1425651982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425651981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b488b62207097a04392bf63c707ab9c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 0}
-  Size:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 0
-  PositionOffset:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 0
-  RotationOffset:
-    RawValue: 0
-  Height:
-    RawValue: 0
-  Settings:
-    MutableMode: 0
-    PhysicsMaterial:
-      Id:
-        Value: 0
-    Asset:
-      Id:
-        Value: 0
-    Trigger: 0
 --- !u!114 &1425651983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2959,7 +2885,7 @@ MonoBehaviour:
     LayerSource: 0
     Layer: 0
     CallbackFlags:
-      Value: 0
+      Value: 6
   PhysicsBody:
     IsEnabled: 0
     Config2D: 116
@@ -4203,9 +4129,7 @@ MonoBehaviour:
   Asset: {fileID: 11400000, guid: c738d82741b41a7439530f1d2d2cb0eb, type: 2}
   BakeAllMode: 112
   NavMeshSerializeType: 0
-  StaticCollider2DReferences:
-  - {fileID: 1425651982}
-  - {fileID: 24034938}
+  StaticCollider2DReferences: []
   StaticCollider3DReferences: []
   MapEntityReferences:
   - {fileID: 0}

@@ -3,14 +3,16 @@ using UnityEngine;
 using Quantum.Collections;
 using static UnityEngine.EventSystems.EventTrigger;
 using System.Net.Http.Headers;
+using UnityEngine.Rendering;
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_CollisionSystem : SystemSignalsOnly, ISignalOnTriggerEnter2D,ISignalOnCollisionEnter2D
+    public unsafe class LSDF_CollisionSystem : SystemSignalsOnly, ISignalOnTriggerEnter2D,ISignalOnCollisionEnter2D, ISignalOnCollisionExit2D
     {
 
         public void OnCollisionEnter2D(Frame f, CollisionInfo2D info) 
         {
+            
             #region 벽에 부딪힐 경우
             Debug.Log("벽 콜리전");
             //벽에 부딪히는 경우if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Entity, out var player))
@@ -21,14 +23,36 @@ namespace Quantum.LSDF
                 // info.Entity가 플레이어
                 if (f.Unsafe.TryGetPointer<LSDF_Wall>(info.Entity, out var wall))
                 {
-                    // 벽에 부딪힘 처리
-                    f.Signals.OnCollisionWall(info,player, defenderAnimator, wall);
-                    Debug.Log("벽");
-                    return; // 벽 처리했으면 여기서 끝내기
+                    if(player->isAir || player->canWallHit){
+                        // 벽에 부딪힘 처리
+                        f.Signals.OnCollisionWall(info,player, defenderAnimator, wall);
+                        Debug.Log("벽");
+                        
+
+                    }
+                }
+
+                //바닥에 들어올 경우
+                if(f.Unsafe.TryGetPointer<LSDF_Ground>(info.Entity, out var ground))
+                {
+                    f.Signals.OnCollisionGroundEnter(info, player, defenderAnimator, ground);
                 }
             }
             #endregion
 
+        }
+
+        public void OnCollisionExit2D(Frame f, ExitInfo2D info)
+        {
+            if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Other, out var player))
+            {
+                f.Unsafe.TryGetPointer<AnimatorComponent>(info.Other, out var defenderAnimator);
+
+                if (f.Unsafe.TryGetPointer<LSDF_Ground>(info.Entity, out var ground))
+                {
+                    f.Signals.OnCollisionGroundExit(info, player, defenderAnimator, ground);
+                }
+            }
         }
 
 
@@ -51,6 +75,20 @@ namespace Quantum.LSDF
                         .GetState(f.ResolveList(defenderAnimator->Layers).GetPointer(0)->CurrentStateId)
                         .Name;
 
+                    //벽꽝기 맞을때
+                    if(defender->canWallHit && defender->isWallHit)
+                    {
+
+                    }
+
+
+                    //벽콤 여부
+                    if (defender->isWallHit)
+                    {
+
+                        f.Signals.OnTriggerWallHit(info, defender, defenderAnimator, hitbox);
+                        return;
+                    }
                     //카운터 여부
                     if (defender->canCounter)
                     {

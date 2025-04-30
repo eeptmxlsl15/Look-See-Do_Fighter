@@ -14,7 +14,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 namespace Quantum.LSDF
 {
     [Preserve]
-    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit , ISignalOnTriggerEnemyGuard , ISignalOnTriggerEnemyParring , ISignalOnTriggerLauncherHit , ISignalOnCollisionWall
+    public unsafe class LSDF_PlayerSystem : SystemMainThreadFilter<LSDF_PlayerSystem.Filter>, ISignalOnTriggerNormalHit, ISignalOnTriggerGuard, ISignalOnTriggerCounterHit , ISignalOnTriggerEnemyGuard , ISignalOnTriggerEnemyParring , ISignalOnTriggerLauncherHit , ISignalOnCollisionWall , ISignalOnCollisionGroundEnter,ISignalOnCollisionGroundExit, ISignalOnTriggerWallHit
     {
         public struct Filter
         {
@@ -117,9 +117,9 @@ namespace Quantum.LSDF
                 if (shouldAttack)
                 {
                     input->Right = true;
-                    input->Down = true;
+                    //input->Down = true;
                     //input->LeftPunch = true;
-                    input->RightPunch = true;
+                    //input->RightPunch = true;
                     //input->Up = true;
 
                 }
@@ -334,7 +334,25 @@ namespace Quantum.LSDF
             buffer->LastInputPressed = isPressed;
 
         }
-
+        public void OnTriggerWallHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
+        {
+            Debug.Log($"플레이어 월 카운터 : {player->wallCount}");
+            if (player->isWallHit)
+            {
+                player->wallCount++;
+            }
+            if (player->wallCount < 3)
+            {
+                Debug.Log("첫번째 벽콤 애니메이션");
+                AnimatorComponent.SetTrigger(f, animator, "FirstWallHit");
+            }
+            else
+            {
+                Debug.Log("벽 부숴짐");
+                player->wallCount = 0;
+            }
+            player->playerHp -= (int)((hitbox->attackDamage)*0.2f);
+        }
         public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
             player->isAttack = false;
@@ -399,10 +417,7 @@ namespace Quantum.LSDF
             player->isHit = true;
             player->DelayFrame = f.Number + hitbox->enemyHitTime;
 
-            if(player->isWallHit)
-            {
-                player->wallCount++;
-            }
+            
             if (player->hitCount == 0)
             {
                 player->playerHp -= hitbox->attackDamage;
@@ -556,10 +571,22 @@ namespace Quantum.LSDF
 
         public void OnCollisionWall(Frame f,CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall) 
         {
-            Debug.Log("벽");
-            player->wallCount = 0;
+            
+            player->isWallHit = true;
 
-        
+            Debug.Log($"벽 isWallHit {player->isWallHit}");
+        }
+
+        public void OnCollisionGroundEnter(Frame f, CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Ground* ground)
+        {
+            player->isGround = true;
+            Debug.Log($"isGround 온: {player->isGround}");
+        }
+
+        public void OnCollisionGroundExit(Frame f, ExitInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Ground* ground)
+        {
+            player->isGround = false;
+            Debug.Log($"isGround 오프 : {player->isGround}");
         }
     }
 

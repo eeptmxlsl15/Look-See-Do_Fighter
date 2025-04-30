@@ -23,6 +23,7 @@ component LSDF_Player
 	bool canCounter;//카운터가 발생할 수 있는 타이밍인지()
 	bool isJump;//점프 공격중인지
 	bool isAir;//공중 콤보 
+	bool isGround;
 	bool isWallHit;//벽꽝중인지
 	bool canWallHit;//벽꽝 유발기인지
 	

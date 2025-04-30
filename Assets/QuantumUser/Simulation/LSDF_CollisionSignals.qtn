@@ -3,12 +3,13 @@ signal OnTriggerNormalHit(TriggerInfo2D info, LSDF_Player* player, AnimatorCompo
 signal OnTriggerCounterHit(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
 signal OnTriggerGuard(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
 signal OnTriggerLauncherHit(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
+signal OnTriggerWallHit(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
 
 //적 관련
 signal OnTriggerEnemyGuard(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
 signal OnTriggerEnemyParring(TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox);
 
-//벽관련 트리거가 아닌 콜리전
+// 콜리전 (벽,바닥)
 signal OnCollisionWall(CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_Wall* wall);
-
-
+signal OnCollisionGroundEnter(CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_Ground* ground);
+signal OnCollisionGroundExit(ExitInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_Ground* ground);
