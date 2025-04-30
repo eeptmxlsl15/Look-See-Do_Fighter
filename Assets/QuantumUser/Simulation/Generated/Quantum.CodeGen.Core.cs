@@ -1130,38 +1130,40 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 184;
+    public const Int32 SIZE = 188;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(144)]
-    public QBoolean isDashBack;
     [FieldOffset(148)]
-    public QBoolean isDashFront;
-    [FieldOffset(168)]
-    public QBoolean isSit;
-    [FieldOffset(172)]
-    public QBoolean isStandUpGuard;
-    [FieldOffset(136)]
-    public QBoolean isAttack;
-    [FieldOffset(156)]
-    public QBoolean isHit;
+    public QBoolean isDashBack;
     [FieldOffset(152)]
-    public QBoolean isGuard;
+    public QBoolean isDashFront;
+    [FieldOffset(172)]
+    public QBoolean isSit;
     [FieldOffset(176)]
-    public QBoolean isStun;
+    public QBoolean isStandUpGuard;
     [FieldOffset(140)]
-    public QBoolean isCombo;
-    [FieldOffset(164)]
-    public QBoolean isParring;
-    [FieldOffset(124)]
-    public QBoolean canCounter;
+    public QBoolean isAttack;
     [FieldOffset(160)]
-    public QBoolean isJump;
-    [FieldOffset(132)]
-    public QBoolean isAir;
+    public QBoolean isHit;
+    [FieldOffset(156)]
+    public QBoolean isGuard;
     [FieldOffset(180)]
-    public QBoolean isWallHit;
+    public QBoolean isStun;
+    [FieldOffset(144)]
+    public QBoolean isCombo;
+    [FieldOffset(168)]
+    public QBoolean isParring;
     [FieldOffset(128)]
+    public QBoolean canCounter;
+    [FieldOffset(164)]
+    public QBoolean isJump;
+    [FieldOffset(136)]
+    public QBoolean isAir;
+    [FieldOffset(184)]
+    public QBoolean isWallHit;
+    [FieldOffset(132)]
     public QBoolean canWallHit;
+    [FieldOffset(124)]
+    public Int32 wallCount;
     [FieldOffset(116)]
     public Int32 hitCount;
     [FieldOffset(120)]
@@ -1188,6 +1190,7 @@ namespace Quantum {
         hash = hash * 31 + isAir.GetHashCode();
         hash = hash * 31 + isWallHit.GetHashCode();
         hash = hash * 31 + canWallHit.GetHashCode();
+        hash = hash * 31 + wallCount.GetHashCode();
         hash = hash * 31 + hitCount.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
         hash = hash * 31 + DelayFrame.GetHashCode();
@@ -1201,6 +1204,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->DelayFrame);
         serializer.Stream.Serialize(&p->hitCount);
         serializer.Stream.Serialize(&p->playerHp);
+        serializer.Stream.Serialize(&p->wallCount);
         QBoolean.Serialize(&p->canCounter, serializer);
         QBoolean.Serialize(&p->canWallHit, serializer);
         QBoolean.Serialize(&p->isAir, serializer);

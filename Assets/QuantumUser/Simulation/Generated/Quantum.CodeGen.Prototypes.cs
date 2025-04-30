@@ -272,6 +272,7 @@ namespace Quantum.Prototypes {
     public QBoolean isAir;
     public QBoolean isWallHit;
     public QBoolean canWallHit;
+    public Int32 wallCount;
     public Int32 hitCount;
     public Int32 playerHp;
     public Int32 DelayFrame;
@@ -299,6 +300,7 @@ namespace Quantum.Prototypes {
         result.isAir = this.isAir;
         result.isWallHit = this.isWallHit;
         result.canWallHit = this.canWallHit;
+        result.wallCount = this.wallCount;
         result.hitCount = this.hitCount;
         result.playerHp = this.playerHp;
         result.DelayFrame = this.DelayFrame;
