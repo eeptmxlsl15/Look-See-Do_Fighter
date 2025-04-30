@@ -21,10 +21,12 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
+        //공격일 때만 초기화
         player->isAttack = true;
+        player->canCounter = true;
+
         player->isDashFront = false;
         player->isDashBack = false;
-        player->canCounter = true;
         //앉은 자세 여부
         player->isSit = false;
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);

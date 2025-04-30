@@ -25,7 +25,8 @@ component LSDF_Player
 	bool isAir;//공중 콤보 
 	bool isWallHit;//벽꽝중인지
 	bool canWallHit;//벽꽝 유발기인지
-
+	
+	int wallCount; //벽에서 맞은 횟수
 	int hitCount; //공중에서 맞은 횟수
 	int playerHp;
 	int DelayFrame;

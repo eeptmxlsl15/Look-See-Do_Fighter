@@ -398,6 +398,11 @@ namespace Quantum.LSDF
 
             player->isHit = true;
             player->DelayFrame = f.Number + hitbox->enemyHitTime;
+
+            if(player->isWallHit)
+            {
+                player->wallCount++;
+            }
             if (player->hitCount == 0)
             {
                 player->playerHp -= hitbox->attackDamage;
@@ -552,6 +557,8 @@ namespace Quantum.LSDF
         public void OnCollisionWall(Frame f,CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall) 
         {
             Debug.Log("º®");
+            player->wallCount = 0;
+
         
         }
     }

@@ -19,10 +19,12 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
 
         
 
-        player->isAttack = true;
+        //공격일 때만 초기화
+        //player->isAttack = true;
+        //player->canCounter = true;
+        
         player->isDashFront = false;
         player->isDashBack = false;
-        player->canCounter = true;
         
         player->isSit = false;
 
