@@ -260,7 +260,7 @@ MonoBehaviour:
     LayerSource: 0
     Layer: 0
     CallbackFlags:
-      Value: 2
+      Value: 6
   PhysicsBody:
     IsEnabled: 0
     Config2D: 116
@@ -853,7 +853,7 @@ MonoBehaviour:
     LayerSource: 0
     Layer: 0
     CallbackFlags:
-      Value: 2
+      Value: 6
   PhysicsBody:
     IsEnabled: 0
     Config2D: 116

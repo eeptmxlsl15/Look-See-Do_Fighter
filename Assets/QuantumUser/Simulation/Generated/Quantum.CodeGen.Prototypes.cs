@@ -231,6 +231,7 @@ namespace Quantum.Prototypes {
     public QBoolean dodgeHigh;
     public QBoolean jumpAttack;
     public QBoolean notSitLauncher;
+    public QBoolean wallLauncher;
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_HitboxInfo component = default;
         Materialize((Frame)f, ref component, in context);
@@ -252,6 +253,7 @@ namespace Quantum.Prototypes {
         result.dodgeHigh = this.dodgeHigh;
         result.jumpAttack = this.jumpAttack;
         result.notSitLauncher = this.notSitLauncher;
+        result.wallLauncher = this.wallLauncher;
     }
   }
   [System.SerializableAttribute()]
@@ -271,8 +273,9 @@ namespace Quantum.Prototypes {
     public QBoolean isJump;
     public QBoolean isAir;
     public QBoolean isGround;
+    public QBoolean isOnWall;
     public QBoolean isWallHit;
-    public QBoolean canWallHit;
+    public QBoolean hitWallLauncher;
     public Int32 wallCount;
     public Int32 hitCount;
     public Int32 playerHp;
@@ -300,8 +303,9 @@ namespace Quantum.Prototypes {
         result.isJump = this.isJump;
         result.isAir = this.isAir;
         result.isGround = this.isGround;
+        result.isOnWall = this.isOnWall;
         result.isWallHit = this.isWallHit;
-        result.canWallHit = this.canWallHit;
+        result.hitWallLauncher = this.hitWallLauncher;
         result.wallCount = this.wallCount;
         result.hitCount = this.hitCount;
         result.playerHp = this.playerHp;

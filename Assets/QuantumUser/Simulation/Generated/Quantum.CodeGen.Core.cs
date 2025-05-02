@@ -1056,9 +1056,9 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
-    public const Int32 SIZE = 64;
+    public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(56)]
+    [FieldOffset(64)]
     public EntityRef AttackerEntity;
     [FieldOffset(8)]
     public HitboxAttackType AttackType;
@@ -1088,6 +1088,8 @@ namespace Quantum {
     public QBoolean jumpAttack;
     [FieldOffset(52)]
     public QBoolean notSitLauncher;
+    [FieldOffset(56)]
+    public QBoolean wallLauncher;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
@@ -1106,6 +1108,7 @@ namespace Quantum {
         hash = hash * 31 + dodgeHigh.GetHashCode();
         hash = hash * 31 + jumpAttack.GetHashCode();
         hash = hash * 31 + notSitLauncher.GetHashCode();
+        hash = hash * 31 + wallLauncher.GetHashCode();
         return hash;
       }
     }
@@ -1125,20 +1128,21 @@ namespace Quantum {
         QBoolean.Serialize(&p->jumpAttack, serializer);
         QBoolean.Serialize(&p->launcher, serializer);
         QBoolean.Serialize(&p->notSitLauncher, serializer);
+        QBoolean.Serialize(&p->wallLauncher, serializer);
         EntityRef.Serialize(&p->AttackerEntity, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 192;
+    public const Int32 SIZE = 196;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(148)]
     public QBoolean isDashBack;
     [FieldOffset(152)]
     public QBoolean isDashFront;
-    [FieldOffset(176)]
-    public QBoolean isSit;
     [FieldOffset(180)]
+    public QBoolean isSit;
+    [FieldOffset(184)]
     public QBoolean isStandUpGuard;
     [FieldOffset(140)]
     public QBoolean isAttack;
@@ -1146,11 +1150,11 @@ namespace Quantum {
     public QBoolean isHit;
     [FieldOffset(160)]
     public QBoolean isGuard;
-    [FieldOffset(184)]
+    [FieldOffset(188)]
     public QBoolean isStun;
     [FieldOffset(144)]
     public QBoolean isCombo;
-    [FieldOffset(172)]
+    [FieldOffset(176)]
     public QBoolean isParring;
     [FieldOffset(128)]
     public QBoolean canCounter;
@@ -1160,10 +1164,12 @@ namespace Quantum {
     public QBoolean isAir;
     [FieldOffset(156)]
     public QBoolean isGround;
-    [FieldOffset(188)]
+    [FieldOffset(172)]
+    public QBoolean isOnWall;
+    [FieldOffset(192)]
     public QBoolean isWallHit;
     [FieldOffset(132)]
-    public QBoolean canWallHit;
+    public QBoolean hitWallLauncher;
     [FieldOffset(124)]
     public Int32 wallCount;
     [FieldOffset(116)]
@@ -1191,8 +1197,9 @@ namespace Quantum {
         hash = hash * 31 + isJump.GetHashCode();
         hash = hash * 31 + isAir.GetHashCode();
         hash = hash * 31 + isGround.GetHashCode();
+        hash = hash * 31 + isOnWall.GetHashCode();
         hash = hash * 31 + isWallHit.GetHashCode();
-        hash = hash * 31 + canWallHit.GetHashCode();
+        hash = hash * 31 + hitWallLauncher.GetHashCode();
         hash = hash * 31 + wallCount.GetHashCode();
         hash = hash * 31 + hitCount.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
@@ -1209,7 +1216,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->playerHp);
         serializer.Stream.Serialize(&p->wallCount);
         QBoolean.Serialize(&p->canCounter, serializer);
-        QBoolean.Serialize(&p->canWallHit, serializer);
+        QBoolean.Serialize(&p->hitWallLauncher, serializer);
         QBoolean.Serialize(&p->isAir, serializer);
         QBoolean.Serialize(&p->isAttack, serializer);
         QBoolean.Serialize(&p->isCombo, serializer);
@@ -1219,6 +1226,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->isGuard, serializer);
         QBoolean.Serialize(&p->isHit, serializer);
         QBoolean.Serialize(&p->isJump, serializer);
+        QBoolean.Serialize(&p->isOnWall, serializer);
         QBoolean.Serialize(&p->isParring, serializer);
         QBoolean.Serialize(&p->isSit, serializer);
         QBoolean.Serialize(&p->isStandUpGuard, serializer);
@@ -1324,8 +1332,14 @@ namespace Quantum {
   public unsafe partial interface ISignalOnTriggerEnemyParring : ISignal {
     void OnTriggerEnemyParring(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox);
   }
-  public unsafe partial interface ISignalOnCollisionWall : ISignal {
-    void OnCollisionWall(Frame f, CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall);
+  public unsafe partial interface ISignalOnCollisionEnterWall : ISignal {
+    void OnCollisionEnterWall(Frame f, CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall);
+  }
+  public unsafe partial interface ISignalOnCollisionExitWall : ISignal {
+    void OnCollisionExitWall(Frame f, ExitInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall);
+  }
+  public unsafe partial interface ISignalOnCollisionWallHitEnter : ISignal {
+    void OnCollisionWallHitEnter(Frame f, CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall);
   }
   public unsafe partial interface ISignalOnCollisionGroundEnter : ISignal {
     void OnCollisionGroundEnter(Frame f, CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Ground* ground);
@@ -1346,7 +1360,9 @@ namespace Quantum {
     private ISignalOnTriggerWallHit[] _ISignalOnTriggerWallHitSystems;
     private ISignalOnTriggerEnemyGuard[] _ISignalOnTriggerEnemyGuardSystems;
     private ISignalOnTriggerEnemyParring[] _ISignalOnTriggerEnemyParringSystems;
-    private ISignalOnCollisionWall[] _ISignalOnCollisionWallSystems;
+    private ISignalOnCollisionEnterWall[] _ISignalOnCollisionEnterWallSystems;
+    private ISignalOnCollisionExitWall[] _ISignalOnCollisionExitWallSystems;
+    private ISignalOnCollisionWallHitEnter[] _ISignalOnCollisionWallHitEnterSystems;
     private ISignalOnCollisionGroundEnter[] _ISignalOnCollisionGroundEnterSystems;
     private ISignalOnCollisionGroundExit[] _ISignalOnCollisionGroundExitSystems;
     partial void AllocGen() {
@@ -1370,7 +1386,9 @@ namespace Quantum {
       _ISignalOnTriggerWallHitSystems = BuildSignalsArray<ISignalOnTriggerWallHit>();
       _ISignalOnTriggerEnemyGuardSystems = BuildSignalsArray<ISignalOnTriggerEnemyGuard>();
       _ISignalOnTriggerEnemyParringSystems = BuildSignalsArray<ISignalOnTriggerEnemyParring>();
-      _ISignalOnCollisionWallSystems = BuildSignalsArray<ISignalOnCollisionWall>();
+      _ISignalOnCollisionEnterWallSystems = BuildSignalsArray<ISignalOnCollisionEnterWall>();
+      _ISignalOnCollisionExitWallSystems = BuildSignalsArray<ISignalOnCollisionExitWall>();
+      _ISignalOnCollisionWallHitEnterSystems = BuildSignalsArray<ISignalOnCollisionWallHitEnter>();
       _ISignalOnCollisionGroundEnterSystems = BuildSignalsArray<ISignalOnCollisionGroundEnter>();
       _ISignalOnCollisionGroundExitSystems = BuildSignalsArray<ISignalOnCollisionGroundExit>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
@@ -1550,12 +1568,30 @@ namespace Quantum {
           }
         }
       }
-      public void OnCollisionWall(CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall) {
-        var array = _f._ISignalOnCollisionWallSystems;
+      public void OnCollisionEnterWall(CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall) {
+        var array = _f._ISignalOnCollisionEnterWallSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.OnCollisionWall(_f, info, player, animator, wall);
+            s.OnCollisionEnterWall(_f, info, player, animator, wall);
+          }
+        }
+      }
+      public void OnCollisionExitWall(ExitInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall) {
+        var array = _f._ISignalOnCollisionExitWallSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnCollisionExitWall(_f, info, player, animator, wall);
+          }
+        }
+      }
+      public void OnCollisionWallHitEnter(CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall) {
+        var array = _f._ISignalOnCollisionWallHitEnterSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnCollisionWallHitEnter(_f, info, player, animator, wall);
           }
         }
       }

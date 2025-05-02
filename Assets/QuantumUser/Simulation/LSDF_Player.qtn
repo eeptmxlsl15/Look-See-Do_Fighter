@@ -24,8 +24,9 @@ component LSDF_Player
 	bool isJump;//점프 공격중인지
 	bool isAir;//공중 콤보 
 	bool isGround;
+	bool isOnWall;//벽에 닿아있는지
 	bool isWallHit;//벽꽝중인지
-	bool canWallHit;//벽꽝 유발기인지
+	bool hitWallLauncher;//벽꽝 유발기를 맞았는지
 	
 	int wallCount; //벽에서 맞은 횟수
 	int hitCount; //공중에서 맞은 횟수

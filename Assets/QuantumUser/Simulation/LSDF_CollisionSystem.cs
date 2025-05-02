@@ -14,20 +14,26 @@ namespace Quantum.LSDF
         {
             
             #region 벽에 부딪힐 경우
-            Debug.Log("벽 콜리전");
+            
+            Debug.Log(info);
             //벽에 부딪히는 경우if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Entity, out var player))
             if (f.Unsafe.TryGetPointer<LSDF_Player>(info.Other, out var player))
             {
                 f.Unsafe.TryGetPointer<AnimatorComponent>(info.Other, out var defenderAnimator);
-                Debug.Log("벽앞");
                 // info.Entity가 플레이어
+
+                //벽에 닿을 경우
                 if (f.Unsafe.TryGetPointer<LSDF_Wall>(info.Entity, out var wall))
                 {
-                    if(player->isAir || player->canWallHit){
+                    Debug.Log("벽앞");
+                    f.Signals.OnCollisionEnterWall(info,player, defenderAnimator, wall);
+
+                    
+                    if(player->isAir || player->hitWallLauncher){
                         // 벽에 부딪힘 처리
-                        f.Signals.OnCollisionWall(info,player, defenderAnimator, wall);
                         Debug.Log("벽");
-                        
+                        //여기서 벽 애니메이션 재생하는 시그널 만들어줘야함
+                        f.Signals.OnCollisionWallHitEnter(info, player, defenderAnimator, wall);
 
                     }
                 }
@@ -48,9 +54,16 @@ namespace Quantum.LSDF
             {
                 f.Unsafe.TryGetPointer<AnimatorComponent>(info.Other, out var defenderAnimator);
 
+                //땅에서 벗어날 경우
                 if (f.Unsafe.TryGetPointer<LSDF_Ground>(info.Entity, out var ground))
                 {
                     f.Signals.OnCollisionGroundExit(info, player, defenderAnimator, ground);
+                }
+
+                //벽에서 벗어날 경우
+                if(f.Unsafe.TryGetPointer<LSDF_Wall>(info.Entity, out var wall))
+                {
+                    f.Signals.OnCollisionExitWall(info, player, defenderAnimator, wall);
                 }
             }
         }
@@ -76,16 +89,17 @@ namespace Quantum.LSDF
                         .Name;
 
                     //벽꽝기 맞을때
-                    if(defender->canWallHit && defender->isWallHit)
+                    if(defender->hitWallLauncher && defender->isOnWall)
                     {
-
+                        f.Signals.OnTriggerWallHit(info, defender, defenderAnimator, hitbox);
+                        return;
                     }
 
 
                     //벽콤 여부
-                    if (defender->isWallHit)
+                    if (defender->isAir&& defender->isOnWall)
                     {
-
+                        Debug.Log("공중에서 벽으로 감");
                         f.Signals.OnTriggerWallHit(info, defender, defenderAnimator, hitbox);
                         return;
                     }

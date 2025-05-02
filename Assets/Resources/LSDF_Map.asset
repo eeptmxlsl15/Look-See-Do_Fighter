@@ -120,7 +120,7 @@ MonoBehaviour:
       type: {class: PhysicsCallbacks2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         CallbackFlags:
-          Value: 2
+          Value: 6
     - rid: 3977825141336834051
       type: {class: LSDF_WallPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
@@ -207,7 +207,7 @@ MonoBehaviour:
       type: {class: PhysicsCallbacks2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         CallbackFlags:
-          Value: 2
+          Value: 6
     - rid: 7349474601564372995
       type: {class: LSDF_WallPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:

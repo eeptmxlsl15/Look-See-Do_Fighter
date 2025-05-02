@@ -51,7 +51,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         //현재 프레임
         currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
 
-        //전진성과 방향성
+        //회전 고정
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->FreezeRotation = true;
 
@@ -74,6 +74,8 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             //    AnimatorComponent.SetTrigger(f, animatorComponent, "Rp");
             //}
         }
+
+        //연타 관련
         if (5 <= currentFrame && currentFrame <= 20) // 연계 입력 받을 수 있는 구간
         {
             if (input->LeftPunch)

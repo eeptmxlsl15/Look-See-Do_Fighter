@@ -22,6 +22,7 @@ public class HitWindowEvent : AnimatorTimeWindowEventAsset
         player->isSit = false;
         player->isAttack = false;
         player->isParring = false;
+        
         Debug.Log("Èı ½ÃÀÛ");
 
         
