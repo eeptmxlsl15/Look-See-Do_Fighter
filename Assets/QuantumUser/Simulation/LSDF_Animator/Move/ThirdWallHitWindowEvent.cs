@@ -6,9 +6,9 @@ using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
 [Serializable]
-public class SecondWallHitWindowEvent : AnimatorTimeWindowEventAsset
+public class ThirdWallHitWindowEvent : AnimatorTimeWindowEventAsset
 {
-   
+
 
 
 
@@ -34,13 +34,18 @@ public class SecondWallHitWindowEvent : AnimatorTimeWindowEventAsset
         AnimatorComponent.SetBoolean(f, animatorComponent, "MoveBack", false);
         Debug.Log($"air 시작 프레임 : {f.Number}");
 
-        player->isWallHit = true;
+        
+        player->isCantMove = true;
         player->isAir = false;
         Debug.Log($"히트 카운트 : {player->hitCount}");
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        
+        var entity = animatorComponent->Self;
+        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body);
+
+        body->Velocity.Y = -FP._0_50;
 
     }
 
@@ -49,8 +54,6 @@ public class SecondWallHitWindowEvent : AnimatorTimeWindowEventAsset
     {
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
-
-        player->isWallHit = false;
-        player->wallCount = 0;  
+        player->isCantMove = false;
     }
 }

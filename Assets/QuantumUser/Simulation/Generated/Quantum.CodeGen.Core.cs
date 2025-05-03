@@ -1134,42 +1134,44 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 196;
+    public const Int32 SIZE = 200;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(148)]
-    public QBoolean isDashBack;
     [FieldOffset(152)]
+    public QBoolean isDashBack;
+    [FieldOffset(156)]
     public QBoolean isDashFront;
-    [FieldOffset(180)]
-    public QBoolean isSit;
     [FieldOffset(184)]
+    public QBoolean isSit;
+    [FieldOffset(188)]
     public QBoolean isStandUpGuard;
     [FieldOffset(140)]
     public QBoolean isAttack;
-    [FieldOffset(164)]
+    [FieldOffset(168)]
     public QBoolean isHit;
-    [FieldOffset(160)]
+    [FieldOffset(164)]
     public QBoolean isGuard;
-    [FieldOffset(188)]
+    [FieldOffset(192)]
     public QBoolean isStun;
-    [FieldOffset(144)]
+    [FieldOffset(148)]
     public QBoolean isCombo;
-    [FieldOffset(176)]
+    [FieldOffset(180)]
     public QBoolean isParring;
     [FieldOffset(128)]
     public QBoolean canCounter;
-    [FieldOffset(168)]
+    [FieldOffset(172)]
     public QBoolean isJump;
     [FieldOffset(136)]
     public QBoolean isAir;
-    [FieldOffset(156)]
+    [FieldOffset(160)]
     public QBoolean isGround;
-    [FieldOffset(172)]
+    [FieldOffset(176)]
     public QBoolean isOnWall;
-    [FieldOffset(192)]
+    [FieldOffset(196)]
     public QBoolean isWallHit;
     [FieldOffset(132)]
     public QBoolean hitWallLauncher;
+    [FieldOffset(144)]
+    public QBoolean isCantMove;
     [FieldOffset(124)]
     public Int32 wallCount;
     [FieldOffset(116)]
@@ -1200,6 +1202,7 @@ namespace Quantum {
         hash = hash * 31 + isOnWall.GetHashCode();
         hash = hash * 31 + isWallHit.GetHashCode();
         hash = hash * 31 + hitWallLauncher.GetHashCode();
+        hash = hash * 31 + isCantMove.GetHashCode();
         hash = hash * 31 + wallCount.GetHashCode();
         hash = hash * 31 + hitCount.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
@@ -1219,6 +1222,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->hitWallLauncher, serializer);
         QBoolean.Serialize(&p->isAir, serializer);
         QBoolean.Serialize(&p->isAttack, serializer);
+        QBoolean.Serialize(&p->isCantMove, serializer);
         QBoolean.Serialize(&p->isCombo, serializer);
         QBoolean.Serialize(&p->isDashBack, serializer);
         QBoolean.Serialize(&p->isDashFront, serializer);

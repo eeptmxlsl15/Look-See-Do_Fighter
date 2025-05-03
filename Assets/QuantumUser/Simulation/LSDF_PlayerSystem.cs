@@ -62,7 +62,7 @@ namespace Quantum.LSDF
                 Debug.Log("와이제로");
             }
 
-            if (player->isAttack == true || player->isStun == true || player->isCombo == true || player->isAir)
+            if (player->isAttack == true || player->isStun == true || player->isCombo == true || player->isAir || player->isWallHit || player->isCantMove)
             {
                 //Debug.Log("공격 중");
                 return;
@@ -414,6 +414,7 @@ namespace Quantum.LSDF
                 if (f.Unsafe.TryGetPointer<PhysicsBody2D>(info.Entity, out var body))
                 {
                     // 필요시 좌우도 밀 수 있음
+
                     AnimatorComponent.SetTrigger(f, animator, "Air");
                 }
             }
@@ -634,7 +635,12 @@ namespace Quantum.LSDF
         }
         public void OnCollisionWallHitEnter(Frame f, CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall)
         {
-            AnimatorComponent.SetTrigger(f, animator, "SecondWallHit");
+            if (player->isAir)
+            {
+                AnimatorComponent.SetTrigger(f, animator, "FirstWallHit");
+            }
+            else
+                AnimatorComponent.SetTrigger(f, animator, "SecondWallHit");
         }
 
 

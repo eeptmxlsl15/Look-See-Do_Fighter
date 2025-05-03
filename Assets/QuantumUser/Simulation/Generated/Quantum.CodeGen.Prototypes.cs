@@ -276,6 +276,7 @@ namespace Quantum.Prototypes {
     public QBoolean isOnWall;
     public QBoolean isWallHit;
     public QBoolean hitWallLauncher;
+    public QBoolean isCantMove;
     public Int32 wallCount;
     public Int32 hitCount;
     public Int32 playerHp;
@@ -306,6 +307,7 @@ namespace Quantum.Prototypes {
         result.isOnWall = this.isOnWall;
         result.isWallHit = this.isWallHit;
         result.hitWallLauncher = this.hitWallLauncher;
+        result.isCantMove = this.isCantMove;
         result.wallCount = this.wallCount;
         result.hitCount = this.hitCount;
         result.playerHp = this.playerHp;

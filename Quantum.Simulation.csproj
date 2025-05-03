@@ -61,6 +61,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.32f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\ThirdWallHitWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Attack\Rp\AssultWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_CollisionDestroySystem.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorTimeWindowEventAsset.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_TestEnemySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\CommandSetup.User.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\QuantumSimulationCore.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\FirstWallHitWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Events.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSpawnSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Attack\Lp\LeftUpperWindowEvent.cs" />

@@ -6,9 +6,9 @@ using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
 [Serializable]
-public class SecondWallHitWindowEvent : AnimatorTimeWindowEventAsset
+public class FirstWallHitWindowEvent : AnimatorTimeWindowEventAsset
 {
-   
+
 
 
 
@@ -40,17 +40,17 @@ public class SecondWallHitWindowEvent : AnimatorTimeWindowEventAsset
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        
+        var entity = animatorComponent->Self;
+        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body);
+
+        body->Velocity.Y = -FP._0_50;
 
     }
 
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
-
-        player->isWallHit = false;
-        player->wallCount = 0;  
+        
     }
 }

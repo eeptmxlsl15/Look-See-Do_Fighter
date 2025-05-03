@@ -27,6 +27,7 @@ component LSDF_Player
 	bool isOnWall;//벽에 닿아있는지
 	bool isWallHit;//벽꽝중인지(= 벽콤 넣을 수 있는 지)
 	bool hitWallLauncher;//벽꽝 유발기를 맞았는지
+	bool isCantMove;//움직임이 입력 될 수 없는 상황(벽꽝되서)
 	
 	int wallCount; //벽에서 맞은 횟수
 	int hitCount; //공중에서 맞은 횟수
