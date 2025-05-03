@@ -19,7 +19,7 @@ namespace Quantum.LSDF
         ISignalOnTriggerEnemyGuard , ISignalOnTriggerGuard, 
         ISignalOnTriggerEnemyParring  ,
         ISignalOnCollisionGroundEnter,ISignalOnCollisionGroundExit,
-        ISignalOnCollisionEnterWall,ISignalOnCollisionExitWall , ISignalOnTriggerWallHit , ISignalOnCollisionWallHitEnter
+        ISignalOnCollisionEnterWall,ISignalOnCollisionExitWall  , ISignalOnCollisionWallHitEnter
     {
         public struct Filter
         {
@@ -346,11 +346,32 @@ namespace Quantum.LSDF
             player->isAttack = false;
             //상단에 히트할 경유
 
-            if (hitbox->wallLauncher == true)
+            //벽에서 벽꽝기 맞았을 때
+            if (hitbox->wallLauncher == true && player->isOnWall == true && player->isWallHit == false)
             {
-                player->hitWallLauncher = true;
+                AnimatorComponent.SetTrigger(f, animator, "SecondWallHit");
+                
             }
-            if (hitbox->launcher == true)
+            //벽콤 맞는 중일 떄
+            else if (player->isWallHit == true)
+            {
+                if (player->wallCount < 2 && hitbox->wallLauncher == false)
+                {
+                    AnimatorComponent.SetTrigger(f, animator, "SecondWallHit");
+                    player->wallCount++;
+                    Debug.Log("벽콤 카운터 : " + player->wallCount);
+                }
+                else if (hitbox->wallLauncher == true)
+                {
+                    Debug.Log("벽콤 벽 부숴짐");
+                }
+                else if(player->wallCount >= 2)
+                {
+                    Debug.Log("벽콤 벽 부숴짐");
+                }
+            }
+            //콤보 시동기 맞았을 때
+            else if (hitbox->launcher == true)
             {
                 Debug.Log("콤보 : 런쳐 힛");
                 //앉아서 노멀 히트 할때 안뜨는 어퍼라면 히트만 함
@@ -386,6 +407,7 @@ namespace Quantum.LSDF
                     //떠서 때리는 애니메니션 
                 }
             }
+            //공중 콤보를 맞는 중일때
             else if (player->isAir)
             {
                 Debug.Log("콤보 맞는 중");
@@ -395,6 +417,7 @@ namespace Quantum.LSDF
                     AnimatorComponent.SetTrigger(f, animator, "Air");
                 }
             }
+            //상단
             else if (hitbox->AttackType == HitboxAttackType.High)
             {
                 Debug.Log($"히트 시작 프레임{f.Number}");
@@ -575,12 +598,14 @@ namespace Quantum.LSDF
         public void OnCollisionGroundEnter(Frame f, CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Ground* ground)
         {
             player->isGround = true;
+            AnimatorComponent.SetBoolean(f, animator, "Ground", true);
             Debug.Log($"isGround 온: {player->isGround}");
         }
 
         public void OnCollisionGroundExit(Frame f, ExitInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Ground* ground)
         {
             player->isGround = false;
+            AnimatorComponent.SetBoolean(f, animator, "Ground", false);
             Debug.Log($"isGround 오프 : {player->isGround}");
         }
         #endregion
@@ -598,15 +623,14 @@ namespace Quantum.LSDF
             //{
             //    AnimatorComponent.SetTrigger(f, animator, "SecondWallHit");
             //}
-            Debug.Log($"벽 isWallHit {player->isOnWall}");
+            Debug.Log($"벽 isOnWall {player->isOnWall}");
         }
         public void OnCollisionExitWall(Frame f, ExitInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall)
         {
 
-            //player->isWallHit = false;
             player->isOnWall = false;
-
-            Debug.Log($"벽 isWallHit {player->isOnWall}");
+            
+            Debug.Log($"벽 isOnWall {player->isOnWall}");
         }
         public void OnCollisionWallHitEnter(Frame f, CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall)
         {
@@ -614,26 +638,8 @@ namespace Quantum.LSDF
         }
 
 
-        //벽콤 관련인데 다시 짜야함
-        public void OnTriggerWallHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
-        {
-            Debug.Log($"플레이어 월 카운터 : {player->wallCount}");
-            if (player->isWallHit)
-            {
-                player->wallCount++;
-            }
-            if (player->wallCount < 3)
-            {
-                Debug.Log("첫번째 벽콤 애니메이션");
-                AnimatorComponent.SetTrigger(f, animator, "FirstWallHit");
-            }
-            else
-            {
-                Debug.Log("벽 부숴짐");
-                player->wallCount = 0;
-            }
-            player->playerHp -= (int)((hitbox->attackDamage) * 0.2f);
-        }
+       
+        
 
         
 

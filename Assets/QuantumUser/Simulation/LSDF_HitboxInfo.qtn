@@ -44,6 +44,6 @@ component LSDF_HitboxInfo
     bool dodgeHigh;//상단을 피하는 공격인가? controlcollision 에서 앉은자세일때도 그 크기, 이때도 그 크기로 하기
     bool jumpAttack;//하단을 피하는 점프 공격인가?
     bool notSitLauncher;//앉은 경우 못 띄움
-    bool wallLauncher;//벽꽝기 인가?
+    bool wallLauncher;//벽꽝기 인가? 벽꽝기이면서 마지막 벽콤 기술일때
     
 }	

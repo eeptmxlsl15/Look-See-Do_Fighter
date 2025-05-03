@@ -167,7 +167,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6666666
+    m_StopTime: 0.6666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -186,4 +186,18 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.016666668
+    functionName: QuantumAnimatorEvent
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: 13e2e9273f1e046468d6247892a1a767, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: QuantumAnimatorEvent
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: 13e2e9273f1e046468d6247892a1a767, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

@@ -91,7 +91,7 @@ namespace Quantum.LSDF
                     //벽꽝기 맞을때
                     if(defender->hitWallLauncher && defender->isOnWall)
                     {
-                        f.Signals.OnTriggerWallHit(info, defender, defenderAnimator, hitbox);
+                        f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
                         return;
                     }
 
@@ -100,7 +100,7 @@ namespace Quantum.LSDF
                     if (defender->isAir&& defender->isOnWall)
                     {
                         Debug.Log("공중에서 벽으로 감");
-                        f.Signals.OnTriggerWallHit(info, defender, defenderAnimator, hitbox);
+                        f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
                         return;
                     }
                     //카운터 여부
