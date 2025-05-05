@@ -9,7 +9,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 {
     private int currentFrame;
-    private int HitFrame = 15; // 아래 관련 기술은 -1프레임ㅇ해줘야한다 애니메이션이 처음부터 재생은 되는데 2번째 프레임부터 OnEnter가 된다
+    private int HitFrame = 20; // 아래 관련 기술은 -1프레임ㅇ해줘야한다 애니메이션이 처음부터 재생은 되는데 2번째 프레임부터 OnEnter가 된다
     //private const int TotalFrameCount = 34;//실제 발동 프레임 + 20
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)

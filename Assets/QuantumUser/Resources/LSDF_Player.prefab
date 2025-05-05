@@ -416,10 +416,22 @@ MonoBehaviour:
       Value: 0
     isJump:
       Value: 0
+    isDodgeHigh:
+      Value: 0
     isAir:
       Value: 0
-    isWall:
+    isGround:
       Value: 0
+    isOnWall:
+      Value: 0
+    isWallHit:
+      Value: 0
+    hitWallLauncher:
+      Value: 0
+    isCantMove:
+      Value: 0
+    wallCount: 0
+    hitCount: 0
     playerHp: 170
     DelayFrame: 0
     CommandSkillMap: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

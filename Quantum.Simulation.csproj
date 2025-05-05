@@ -115,6 +115,7 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorLayer.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_CollisionSystem.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Attack\Rk\ShaheenCutKickWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\GuardWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEventAsset.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\AnimatorStateBehaviourDebug.cs" />

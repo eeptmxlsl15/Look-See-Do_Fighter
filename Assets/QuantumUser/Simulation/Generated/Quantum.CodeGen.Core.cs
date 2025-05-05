@@ -1134,39 +1134,41 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 200;
+    public const Int32 SIZE = 204;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(152)]
     public QBoolean isDashBack;
     [FieldOffset(156)]
     public QBoolean isDashFront;
-    [FieldOffset(184)]
-    public QBoolean isSit;
     [FieldOffset(188)]
+    public QBoolean isSit;
+    [FieldOffset(192)]
     public QBoolean isStandUpGuard;
     [FieldOffset(140)]
     public QBoolean isAttack;
-    [FieldOffset(168)]
+    [FieldOffset(172)]
     public QBoolean isHit;
-    [FieldOffset(164)]
+    [FieldOffset(168)]
     public QBoolean isGuard;
-    [FieldOffset(192)]
+    [FieldOffset(196)]
     public QBoolean isStun;
     [FieldOffset(148)]
     public QBoolean isCombo;
-    [FieldOffset(180)]
+    [FieldOffset(184)]
     public QBoolean isParring;
     [FieldOffset(128)]
     public QBoolean canCounter;
-    [FieldOffset(172)]
+    [FieldOffset(176)]
     public QBoolean isJump;
+    [FieldOffset(160)]
+    public QBoolean isDodgeHigh;
     [FieldOffset(136)]
     public QBoolean isAir;
-    [FieldOffset(160)]
+    [FieldOffset(164)]
     public QBoolean isGround;
-    [FieldOffset(176)]
+    [FieldOffset(180)]
     public QBoolean isOnWall;
-    [FieldOffset(196)]
+    [FieldOffset(200)]
     public QBoolean isWallHit;
     [FieldOffset(132)]
     public QBoolean hitWallLauncher;
@@ -1197,6 +1199,7 @@ namespace Quantum {
         hash = hash * 31 + isParring.GetHashCode();
         hash = hash * 31 + canCounter.GetHashCode();
         hash = hash * 31 + isJump.GetHashCode();
+        hash = hash * 31 + isDodgeHigh.GetHashCode();
         hash = hash * 31 + isAir.GetHashCode();
         hash = hash * 31 + isGround.GetHashCode();
         hash = hash * 31 + isOnWall.GetHashCode();
@@ -1226,6 +1229,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->isCombo, serializer);
         QBoolean.Serialize(&p->isDashBack, serializer);
         QBoolean.Serialize(&p->isDashFront, serializer);
+        QBoolean.Serialize(&p->isDodgeHigh, serializer);
         QBoolean.Serialize(&p->isGround, serializer);
         QBoolean.Serialize(&p->isGuard, serializer);
         QBoolean.Serialize(&p->isHit, serializer);

@@ -88,6 +88,20 @@ namespace Quantum.LSDF
                         .GetState(f.ResolveList(defenderAnimator->Layers).GetPointer(0)->CurrentStateId)
                         .Name;
 
+                    //상단 회피, 하단 회피
+                    if(defender->isDodgeHigh==true && hitbox->AttackType == HitboxAttackType.High)
+                    {
+                        Debug.Log("상단 회피");
+                        return;
+                    }
+                    else if(defender->isJump == true && hitbox->AttackType == HitboxAttackType.Low)
+                    {
+                        Debug.Log("하단 회피");
+                        return;
+                    }
+
+
+
                     //벽꽝기 맞을때
                     if(defender->hitWallLauncher && defender->isOnWall)
                     {

@@ -120,10 +120,10 @@ namespace Quantum.LSDF
             //bool shouldAttack = f.Number % 60 < 30;
             if (playerLink->PlayerRef == (PlayerRef)1)
             {
-                if (shouldAttack)
+                if (!shouldAttack)
                 {
                     input->Right = true;
-                    //input->Down = true;
+                    input->Down = true;
                     //input->LeftPunch = true;
                     //input->RightPunch = true;
                     //input->Up = true;
@@ -132,6 +132,7 @@ namespace Quantum.LSDF
                 else
                 {
                     //input->Left = true;
+                    //input->LeftPunch = true;
                     input->Down = true;
                     input->RightKick = true;
                 }
@@ -347,13 +348,7 @@ namespace Quantum.LSDF
             //상단에 히트할 경유
 
             //벽에서 벽꽝기 맞았을 때
-            if (hitbox->wallLauncher == true && player->isOnWall == true && player->isWallHit == false)
-            {
-                AnimatorComponent.SetTrigger(f, animator, "SecondWallHit");
-                
-            }
-            //벽콤 맞는 중일 떄
-            else if (player->isWallHit == true)
+            if (player->isWallHit == true)
             {
                 if (player->wallCount < 2 && hitbox->wallLauncher == false)
                 {
@@ -370,6 +365,13 @@ namespace Quantum.LSDF
                     Debug.Log("벽콤 벽 부숴짐");
                 }
             }
+            else if (hitbox->wallLauncher == true && player->isOnWall == true && player->isWallHit == false)
+            {
+                Debug.Log("벽콤 벽꽝기 맞음");
+                AnimatorComponent.SetTrigger(f, animator, "SecondWallHit");
+                
+            }
+            //벽콤 맞는 중일 떄
             //콤보 시동기 맞았을 때
             else if (hitbox->launcher == true)
             {

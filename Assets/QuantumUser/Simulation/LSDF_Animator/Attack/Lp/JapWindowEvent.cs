@@ -99,6 +99,11 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         {
 
             EntityRef hitbox = f.Create();
+            
+            //플레이어 상태 초기화
+            player->isJump = false;
+            player->isDodgeHigh = false;
+
 
             f.Add(hitbox, new Transform2D
             {
@@ -128,6 +133,9 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
 
                 jumpAttack = false,
                 dodgeHigh = false,
+                launcher = false,
+                wallLauncher = false,
+                notSitLauncher = false,
 
                 enemyGuardTime = 21,
                 enemyHitTime = 28,
