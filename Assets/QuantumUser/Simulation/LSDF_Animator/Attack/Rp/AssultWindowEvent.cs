@@ -110,6 +110,8 @@ public class AssultWindowEvent : AnimatorTimeWindowEventAsset
                 DelayGuardTpye = DelayGuardType.Normal,
                 HomingReturnType = HomingType.Combo,
 
+                forceBack = 25,
+
                 jumpAttack = false,
                 dodgeHigh = false,
                 wallLauncher = true,

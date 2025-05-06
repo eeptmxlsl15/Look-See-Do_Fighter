@@ -4,6 +4,7 @@ using Quantum.Collections;
 using static UnityEngine.EventSystems.EventTrigger;
 using System.Net.Http.Headers;
 using UnityEngine.Rendering;
+using Photon.Deterministic;
 namespace Quantum.LSDF
 {
     [Preserve]
@@ -106,6 +107,7 @@ namespace Quantum.LSDF
                     if(defender->hitWallLauncher && defender->isOnWall)
                     {
                         f.Signals.OnTriggerNormalHit(info, defender, defenderAnimator, hitbox);
+                        
                         return;
                     }
 

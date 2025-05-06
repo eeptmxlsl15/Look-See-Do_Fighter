@@ -120,13 +120,14 @@ namespace Quantum.LSDF
             //bool shouldAttack = f.Number % 60 < 30;
             if (playerLink->PlayerRef == (PlayerRef)1)
             {
-                if (!shouldAttack)
+                if (shouldAttack)
                 {
-                    input->Right = true;
-                    input->Down = true;
+                    //input->Right = true;
+                    //input->Down = true;
                     //input->LeftPunch = true;
                     //input->RightPunch = true;
                     //input->Up = true;
+                    input->Right = true;
 
                 }
                 else
@@ -471,6 +472,8 @@ namespace Quantum.LSDF
             
 
         }
+        
+
         public void OnTriggerCounterHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
             //카운터 시 설정
