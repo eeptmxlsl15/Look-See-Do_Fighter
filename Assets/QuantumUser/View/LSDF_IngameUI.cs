@@ -29,11 +29,11 @@ public class LSDF_IngameUI : QuantumEntityViewComponent
         }
 
         // 자신의 UI 루트에서 HP 게이지 가져오기
-        var left = canvas.transform.Find("Player1 UI/Left Current Health");
-        var right = canvas.transform.Find("Player2 UI/Right Current Health");
+        var leftHp = canvas.transform.Find("Player1 UI/Left Current Health");
+        var rightHp = canvas.transform.Find("Player2 UI/Right Current Health");
 
-        if (left != null) LeftHpGage = left.GetComponent<Image>();
-        if (right != null) RightHpGage = right.GetComponent<Image>();
+        if (leftHp != null) LeftHpGage = leftHp.GetComponent<Image>();
+        if (rightHp != null) RightHpGage = rightHp.GetComponent<Image>();
 
         if (LeftHpGage == null || RightHpGage == null)
         {

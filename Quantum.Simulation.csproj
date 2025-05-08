@@ -87,6 +87,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSpawnSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Attack\Lp\LeftUpperWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\SitingWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_GameUI.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Attack\Rk\Bry2RkWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorRuntimeBlendData.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_GameConfig.cs" />
