@@ -61,7 +61,20 @@ namespace Quantum.LSDF
                 AnimatorComponent.SetBoolean(f, filter.Animator, "YZero",true);
                 Debug.Log("와이제로");
             }
+            //인풋 등록
+            if (f.Unsafe.TryGetPointer(filter.Entity, out PlayerLink* playerLink))
+            {
+                input = f.GetPlayerInput(playerLink->PlayerRef);
 
+            }
+
+            //라운드가 끝났을때 못 움직임
+            if (f.Number < filter.LSDF_Player->tickToEnableMove)
+            {
+                input->Left=true;
+                return;
+            }
+            //그외에 못움직이는 경우
             if (player->isAttack == true || player->isStun == true || player->isCombo == true || player->isAir || player->isWallHit || player->isCantMove)
             {
                 //Debug.Log("공격 중");
@@ -106,12 +119,7 @@ namespace Quantum.LSDF
             //퀀텀은 TryGetPointer의 시간복잡도가 1이다. 희소집합 ECS 아키텍쳐기 때문에
             //TODO 희소집합 ECS 아키텍쳐 공부
 
-            if (f.Unsafe.TryGetPointer(filter.Entity, out PlayerLink* playerLink))
-            {
-                input = f.GetPlayerInput(playerLink->PlayerRef);
-
-
-            }
+            
 
             //2p에 대한 실험
 

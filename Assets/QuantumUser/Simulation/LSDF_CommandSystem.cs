@@ -22,8 +22,12 @@ namespace Quantum.LSDF
             var input = f.GetPlayerInput(playerLink->PlayerRef);
 
             var direction = GetDirection(input);
+            
+            //라운드가 끝났을때 못 움직임
+            if (f.Number < filter.LSDF_Player->tickToEnableMove)
+                return;
 
-            if(filter.LSDF_Player->isAttack) return;
+            if (filter.LSDF_Player->isAttack || filter.LSDF_Player->isCantMove) return;
 
             if (input->LeftPunch || input->RightPunch || input->LeftKick || input->RightKick)
             {

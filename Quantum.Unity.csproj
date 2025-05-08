@@ -123,6 +123,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphSeriesValue.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumNavMeshDebugDrawer.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumAddRuntimePlayers.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeLSDF_Timer.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\PhotonServerSettings.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumNavMeshRegion.cs" />
     <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeLSDF_HitboxInfo.cs" />

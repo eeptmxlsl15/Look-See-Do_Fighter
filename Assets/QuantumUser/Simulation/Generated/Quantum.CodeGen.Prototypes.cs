@@ -281,7 +281,9 @@ namespace Quantum.Prototypes {
     public Int32 wallCount;
     public Int32 hitCount;
     public Int32 playerHp;
+    public Int32 loseRound;
     public Int32 DelayFrame;
+    public Int32 tickToEnableMove;
     [ArrayLengthAttribute(28)]
     public Int32[] CommandSkillMap = new Int32[28];
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context);
@@ -313,7 +315,9 @@ namespace Quantum.Prototypes {
         result.wallCount = this.wallCount;
         result.hitCount = this.hitCount;
         result.playerHp = this.playerHp;
+        result.loseRound = this.loseRound;
         result.DelayFrame = this.DelayFrame;
+        result.tickToEnableMove = this.tickToEnableMove;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {
           result.CommandSkillMap[i] = this.CommandSkillMap[i];
         }
@@ -332,6 +336,21 @@ namespace Quantum.Prototypes {
         return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Quantum.LSDF_TestEnemy result, in PrototypeMaterializationContext context = default) {
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Timer))]
+  public unsafe partial class LSDF_TimerPrototype : ComponentPrototype<Quantum.LSDF_Timer> {
+    public Int32 currentTime;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Timer result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_Timer component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_Timer result, in PrototypeMaterializationContext context = default) {
+        result.currentTime = this.currentTime;
         MaterializeUser(frame, ref result, in context);
     }
   }

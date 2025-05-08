@@ -1134,54 +1134,58 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 204;
+    public const Int32 SIZE = 212;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(152)]
-    public QBoolean isDashBack;
-    [FieldOffset(156)]
-    public QBoolean isDashFront;
-    [FieldOffset(188)]
-    public QBoolean isSit;
-    [FieldOffset(192)]
-    public QBoolean isStandUpGuard;
-    [FieldOffset(140)]
-    public QBoolean isAttack;
-    [FieldOffset(172)]
-    public QBoolean isHit;
-    [FieldOffset(168)]
-    public QBoolean isGuard;
-    [FieldOffset(196)]
-    public QBoolean isStun;
-    [FieldOffset(148)]
-    public QBoolean isCombo;
-    [FieldOffset(184)]
-    public QBoolean isParring;
-    [FieldOffset(128)]
-    public QBoolean canCounter;
-    [FieldOffset(176)]
-    public QBoolean isJump;
     [FieldOffset(160)]
-    public QBoolean isDodgeHigh;
-    [FieldOffset(136)]
-    public QBoolean isAir;
+    public QBoolean isDashBack;
     [FieldOffset(164)]
-    public QBoolean isGround;
-    [FieldOffset(180)]
-    public QBoolean isOnWall;
+    public QBoolean isDashFront;
+    [FieldOffset(196)]
+    public QBoolean isSit;
     [FieldOffset(200)]
-    public QBoolean isWallHit;
-    [FieldOffset(132)]
-    public QBoolean hitWallLauncher;
+    public QBoolean isStandUpGuard;
+    [FieldOffset(148)]
+    public QBoolean isAttack;
+    [FieldOffset(180)]
+    public QBoolean isHit;
+    [FieldOffset(176)]
+    public QBoolean isGuard;
+    [FieldOffset(204)]
+    public QBoolean isStun;
+    [FieldOffset(156)]
+    public QBoolean isCombo;
+    [FieldOffset(192)]
+    public QBoolean isParring;
+    [FieldOffset(136)]
+    public QBoolean canCounter;
+    [FieldOffset(184)]
+    public QBoolean isJump;
+    [FieldOffset(168)]
+    public QBoolean isDodgeHigh;
     [FieldOffset(144)]
+    public QBoolean isAir;
+    [FieldOffset(172)]
+    public QBoolean isGround;
+    [FieldOffset(188)]
+    public QBoolean isOnWall;
+    [FieldOffset(208)]
+    public QBoolean isWallHit;
+    [FieldOffset(140)]
+    public QBoolean hitWallLauncher;
+    [FieldOffset(152)]
     public QBoolean isCantMove;
-    [FieldOffset(124)]
+    [FieldOffset(132)]
     public Int32 wallCount;
     [FieldOffset(116)]
     public Int32 hitCount;
-    [FieldOffset(120)]
+    [FieldOffset(124)]
     public Int32 playerHp;
+    [FieldOffset(120)]
+    public Int32 loseRound;
     [FieldOffset(112)]
     public Int32 DelayFrame;
+    [FieldOffset(128)]
+    public Int32 tickToEnableMove;
     [FieldOffset(0)]
     public fixed Int32 CommandSkillMap[28];
     public override Int32 GetHashCode() {
@@ -1209,7 +1213,9 @@ namespace Quantum {
         hash = hash * 31 + wallCount.GetHashCode();
         hash = hash * 31 + hitCount.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
+        hash = hash * 31 + loseRound.GetHashCode();
         hash = hash * 31 + DelayFrame.GetHashCode();
+        hash = hash * 31 + tickToEnableMove.GetHashCode();
         fixed (Int32* p = CommandSkillMap) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 28);
         return hash;
       }
@@ -1219,7 +1225,9 @@ namespace Quantum {
         serializer.Stream.SerializeBuffer(&p->CommandSkillMap[0], 28);
         serializer.Stream.Serialize(&p->DelayFrame);
         serializer.Stream.Serialize(&p->hitCount);
+        serializer.Stream.Serialize(&p->loseRound);
         serializer.Stream.Serialize(&p->playerHp);
+        serializer.Stream.Serialize(&p->tickToEnableMove);
         serializer.Stream.Serialize(&p->wallCount);
         QBoolean.Serialize(&p->canCounter, serializer);
         QBoolean.Serialize(&p->hitWallLauncher, serializer);
@@ -1256,6 +1264,24 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (LSDF_TestEnemy*)ptr;
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct LSDF_Timer : Quantum.IComponent {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    public Int32 currentTime;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 4159;
+        hash = hash * 31 + currentTime.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (LSDF_Timer*)ptr;
+        serializer.Stream.Serialize(&p->currentTime);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1419,6 +1445,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_Player>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_TestEnemy>();
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_TestEnemy>();
+      BuildSignalsArrayOnComponentAdded<Quantum.LSDF_Timer>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_Timer>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_Wall>();
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_Wall>();
       BuildSignalsArrayOnComponentAdded<MapEntityLink>();
@@ -1698,6 +1726,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum.LSDF_HitboxInfo), Quantum.LSDF_HitboxInfo.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_Player), Quantum.LSDF_Player.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_TestEnemy), Quantum.LSDF_TestEnemy.SIZE);
+      typeRegistry.Register(typeof(Quantum.LSDF_Timer), Quantum.LSDF_Timer.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_Wall), Quantum.LSDF_Wall.SIZE);
       typeRegistry.Register(typeof(Quantum.LayerData), Quantum.LayerData.SIZE);
       typeRegistry.Register(typeof(LayerMask), LayerMask.SIZE);
@@ -1743,7 +1772,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 10)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 11)
         .AddBuiltInComponents()
         .Add<Quantum.AnimatorComponent>(Quantum.AnimatorComponent.Serialize, null, Quantum.AnimatorComponent.OnRemoved, ComponentFlags.None)
         .Add<Quantum.DashInputBuffer>(Quantum.DashInputBuffer.Serialize, null, null, ComponentFlags.None)
@@ -1752,6 +1781,7 @@ namespace Quantum {
         .Add<Quantum.LSDF_HitboxInfo>(Quantum.LSDF_HitboxInfo.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_Player>(Quantum.LSDF_Player.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_TestEnemy>(Quantum.LSDF_TestEnemy.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.LSDF_Timer>(Quantum.LSDF_Timer.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_Wall>(Quantum.LSDF_Wall.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.TickToDestroy>(Quantum.TickToDestroy.Serialize, null, null, ComponentFlags.None)

@@ -119,6 +119,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Attack\Rk\ShaheenCutKickWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\GuardWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorEventAsset.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_IngameSystem.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\AnimatorStateBehaviourDebug.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorMotion.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorGraph.Serialization.cs" />
@@ -152,6 +153,7 @@
     <None Include="Assets\QuantumUser\Simulation\TickToDestroy.qtn" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Wall.qtn" />
     <None Include="Assets\QuantumUser\Simulation\Global.qtn" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_Timer.qtn" />
     <None Include="Assets\Photon\Quantum\Simulation\Quantum.Simulation.asmdef" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_HitboxInfo.qtn" />
     <None Include="Assets\QuantumUser\Simulation\Quantum.Simulation.asmref" />

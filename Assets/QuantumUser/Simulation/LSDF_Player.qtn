@@ -34,9 +34,15 @@ component LSDF_Player
 	
 	int wallCount; //벽에서 맞은 횟수
 	int hitCount; //공중에서 맞은 횟수
-	int playerHp;
+
+	int playerHp; //체력
+	int loseRound; //피가 0이 된 횟구
 	int DelayFrame;
 
+	//라운드 종료 후 움직일 수 없는 구간
+	int tickToEnableMove;
+
+	//스킬 맵
 	array<int>[28] CommandSkillMap;
 	
 }	
