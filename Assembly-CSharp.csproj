@@ -61,8 +61,8 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.32f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GameUI.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_PlayerInput.cs" />
-    <Compile Include="Assets\QuantumUser\View\LSDF_InGameUI1.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_IngameUI.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_ViewHandler.cs" />
   </ItemGroup>

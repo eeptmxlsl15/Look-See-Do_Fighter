@@ -10,8 +10,8 @@ public class LSDF_IngameUI : QuantumEntityViewComponent
     private Image RightHpGage;
     public TextMeshProUGUI TimerText;
 
-    private EntityRef myPlayerEntity;
-    private EntityRef opponentEntity;
+    public EntityRef myPlayerEntity;
+    public EntityRef opponentEntity;
 
     public Image[] LeftRoundWins = new Image[3];
     public Image[] RightRoundWins = new Image[3];

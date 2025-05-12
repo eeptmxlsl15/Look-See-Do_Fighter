@@ -49,13 +49,16 @@ namespace Quantum.LSDF
             var hp1 = f.Get<LSDF_Player>(p1).playerHp;
             var hp2 = f.Get<LSDF_Player>(p2).playerHp;
 
-            
 
 
 
-                // 한쪽이라도 죽었을 때
-                if (hp1 <= 0 || hp2 <= 0)
-                {
+
+            // 한쪽이라도 죽었을 때
+            if (hp1 <= 0 || hp2 <= 0)
+            {
+                
+
+
                     if (hp1 <= 0)
                     {
 
@@ -75,12 +78,12 @@ namespace Quantum.LSDF
                     // 양쪽 모두 리셋
                     ResetPlayer(f, p1, (PlayerRef)0);
                     ResetPlayer(f, p2, (PlayerRef)1);
+                
 
 
 
-
-
-                }
+            }
+            
             
 
         }
@@ -101,6 +104,8 @@ namespace Quantum.LSDF
             //못움직이고 3초후에 움직임
             player->tickToEnableMove = f.Number + CANT_MOVE_DURATION_FRAMES;
             body->Velocity.X = 0;
+
+            
 
 
 
