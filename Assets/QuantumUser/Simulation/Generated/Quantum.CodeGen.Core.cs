@@ -1134,41 +1134,43 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 212;
+    public const Int32 SIZE = 216;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(160)]
     public QBoolean isDashBack;
     [FieldOffset(164)]
     public QBoolean isDashFront;
-    [FieldOffset(196)]
-    public QBoolean isSit;
     [FieldOffset(200)]
+    public QBoolean isSit;
+    [FieldOffset(204)]
     public QBoolean isStandUpGuard;
     [FieldOffset(148)]
     public QBoolean isAttack;
-    [FieldOffset(180)]
+    [FieldOffset(184)]
     public QBoolean isHit;
     [FieldOffset(176)]
     public QBoolean isGuard;
-    [FieldOffset(204)]
+    [FieldOffset(208)]
     public QBoolean isStun;
     [FieldOffset(156)]
     public QBoolean isCombo;
-    [FieldOffset(192)]
+    [FieldOffset(196)]
     public QBoolean isParring;
     [FieldOffset(136)]
     public QBoolean canCounter;
-    [FieldOffset(184)]
+    [FieldOffset(188)]
     public QBoolean isJump;
     [FieldOffset(168)]
     public QBoolean isDodgeHigh;
+    [FieldOffset(180)]
+    public QBoolean isHealing;
     [FieldOffset(144)]
     public QBoolean isAir;
     [FieldOffset(172)]
     public QBoolean isGround;
-    [FieldOffset(188)]
+    [FieldOffset(192)]
     public QBoolean isOnWall;
-    [FieldOffset(208)]
+    [FieldOffset(212)]
     public QBoolean isWallHit;
     [FieldOffset(140)]
     public QBoolean hitWallLauncher;
@@ -1204,6 +1206,7 @@ namespace Quantum {
         hash = hash * 31 + canCounter.GetHashCode();
         hash = hash * 31 + isJump.GetHashCode();
         hash = hash * 31 + isDodgeHigh.GetHashCode();
+        hash = hash * 31 + isHealing.GetHashCode();
         hash = hash * 31 + isAir.GetHashCode();
         hash = hash * 31 + isGround.GetHashCode();
         hash = hash * 31 + isOnWall.GetHashCode();
@@ -1240,6 +1243,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->isDodgeHigh, serializer);
         QBoolean.Serialize(&p->isGround, serializer);
         QBoolean.Serialize(&p->isGuard, serializer);
+        QBoolean.Serialize(&p->isHealing, serializer);
         QBoolean.Serialize(&p->isHit, serializer);
         QBoolean.Serialize(&p->isJump, serializer);
         QBoolean.Serialize(&p->isOnWall, serializer);

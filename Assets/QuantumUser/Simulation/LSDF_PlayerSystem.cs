@@ -68,10 +68,24 @@ namespace Quantum.LSDF
 
             }
 
+            //힐 관련
+            if(player->isHealing == true)
+            {
+                player->playerHp++;
+                if(player->playerHp >= 170)
+                {
+                    player->playerHp = 170;
+                    player->isHealing= false;
+                }
+            }
             //라운드가 끝났을때 못 움직임
             if (f.Number < filter.LSDF_Player->tickToEnableMove)
             {
-                input->Left=true;
+                if(filter.LSDF_Player->tickToEnableMove-f.Number == 80)
+                {
+                    player->isHealing = true;
+                }
+                
                 return;
             }
             //그외에 못움직이는 경우

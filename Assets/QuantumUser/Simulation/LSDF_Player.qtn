@@ -24,7 +24,7 @@ component LSDF_Player
 
 	bool isJump;//점프 공격중인지
 	bool isDodgeHigh;//상단 회피 공격중인지
-
+	bool isHealing; // 라운드가 끝나고 피를 회복
 	bool isAir;//공중 콤보 
 	bool isGround;
 	bool isOnWall;//벽에 닿아있는지

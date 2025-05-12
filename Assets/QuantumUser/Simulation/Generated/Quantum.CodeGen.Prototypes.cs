@@ -272,6 +272,7 @@ namespace Quantum.Prototypes {
     public QBoolean canCounter;
     public QBoolean isJump;
     public QBoolean isDodgeHigh;
+    public QBoolean isHealing;
     public QBoolean isAir;
     public QBoolean isGround;
     public QBoolean isOnWall;
@@ -306,6 +307,7 @@ namespace Quantum.Prototypes {
         result.canCounter = this.canCounter;
         result.isJump = this.isJump;
         result.isDodgeHigh = this.isDodgeHigh;
+        result.isHealing = this.isHealing;
         result.isAir = this.isAir;
         result.isGround = this.isGround;
         result.isOnWall = this.isOnWall;
