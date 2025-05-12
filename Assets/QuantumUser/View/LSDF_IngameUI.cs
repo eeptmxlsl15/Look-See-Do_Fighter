@@ -1,4 +1,5 @@
 using Quantum;
+using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -16,8 +17,14 @@ public class LSDF_IngameUI : QuantumEntityViewComponent
     public Image[] LeftRoundWins = new Image[3];
     public Image[] RightRoundWins = new Image[3];
 
-    private bool initialized = false;
+    public GameObject RoundMessageRoot;
+    public TMP_Text RoundText;
+    public TMP_Text FightText;
 
+    private bool initialized = false;
+    private bool isRoundIntroPlaying = false;
+
+    
     public override void OnActivate(Frame frame)
     {
         base.OnActivate(frame);
@@ -53,22 +60,24 @@ public class LSDF_IngameUI : QuantumEntityViewComponent
                 LeftRoundWins[i].gameObject.SetActive(false);
             }
 
-                    
-            
-
             var oppRound = canvas.transform.Find($"Player2 UI/Round/{roundName}");
             if (oppRound != null)
             {
                 RightRoundWins[i] = oppRound.GetComponent<Image>();
                 RightRoundWins[i].gameObject.SetActive(false);
             }
-                
         }
 
-        if (LeftHpGage == null || RightHpGage == null || TimerText == null)
+        RoundMessageRoot = canvas.transform.Find("Round Text")?.gameObject;
+        RoundText = RoundMessageRoot?.transform.Find("Round")?.GetComponent<TMP_Text>();
+        FightText = RoundMessageRoot?.transform.Find("Fight")?.GetComponent<TMP_Text>();
+
+        if (LeftHpGage == null || RightHpGage == null || TimerText == null || RoundText == null || FightText == null)
         {
             Debug.LogError("UI 바운딩 누락!");
         }
+
+        RoundMessageRoot?.SetActive(false);
     }
 
     public override void OnUpdateView()
@@ -117,5 +126,44 @@ public class LSDF_IngameUI : QuantumEntityViewComponent
                     LeftRoundWins[i]?.gameObject.SetActive(true);
             }
         }
+
+        if(myPlayer.playerHp<=0 || oppPlayer.playerHp <= 0)
+        {
+            Debug.Log("라운드 0");
+            
+            ShowRoundIntro(myPlayer.loseRound + oppPlayer.loseRound+1);
+        }
+    }
+
+    
+        
+    
+
+    public void ShowRoundIntro(int roundNumber)
+    {
+        Debug.Log("라운드 1");
+        if (isRoundIntroPlaying) return;
+        Debug.Log("라운드 2");
+
+        StartCoroutine(PlayRoundIntroCoroutine(roundNumber));
+    }
+
+    private IEnumerator PlayRoundIntroCoroutine(int roundNumber)
+    {
+        Debug.Log("라운드 3");
+        isRoundIntroPlaying = true;
+        RoundMessageRoot.SetActive(true);
+
+        RoundText.text = $"Round {roundNumber}";
+        RoundText.gameObject.SetActive(true);
+        FightText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1.2f);
+
+        RoundText.gameObject.SetActive(false);
+        FightText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+
+        RoundMessageRoot.SetActive(false);
+        isRoundIntroPlaying = false;
     }
 }
