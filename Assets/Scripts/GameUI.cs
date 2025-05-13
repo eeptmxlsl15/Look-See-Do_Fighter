@@ -22,7 +22,7 @@ namespace Quantum.LSDF
         private void Awake()
         {
             RoundMessageRoot.SetActive(false);
-            EndGamePanel.SetActive(false);
+            //EndGamePanel.SetActive(false);
         }
 
         /// <summary>

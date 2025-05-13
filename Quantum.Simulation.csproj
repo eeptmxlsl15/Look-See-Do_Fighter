@@ -93,6 +93,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_GameConfig.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_DashSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\ParringWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_TimerSystem.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\SimulationConfig.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\BoundarySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
@@ -157,6 +158,7 @@
     <None Include="Assets\Photon\Quantum\Simulation\Quantum.Simulation.asmdef" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_HitboxInfo.qtn" />
     <None Include="Assets\QuantumUser\Simulation\Quantum.Simulation.asmref" />
+    <None Include="Assets\QuantumUser\Simulation\LSDF_Global.qtn" />
     <None Include="Assets\Photon\QuantumAddons\Animator\Simulation\Quantum.Simulation.Reference.asmref" />
   </ItemGroup>
   <ItemGroup>

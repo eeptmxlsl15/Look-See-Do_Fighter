@@ -1,6 +1,6 @@
 global
 {
-    Int32 AsteroidsWaveCount;
+    Int32 Time = 60;
 
     
 }

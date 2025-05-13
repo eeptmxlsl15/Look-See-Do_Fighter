@@ -65,6 +65,9 @@ MonoBehaviour:
     - rid: 7349474601564372993
     - rid: 7349474601564372994
     - rid: 7349474601564372995
+  - Components:
+    - rid: 5959234361189466112
+    - rid: 5959234361189466113
   SerializedTriangleDataUncompressedSize: 8
   references:
     version: 2
@@ -156,6 +159,20 @@ MonoBehaviour:
       type: {class: LSDF_CameraInfoPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         cameraNum: 0
+    - rid: 5959234361189466112
+      type: {class: Transform2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        Position:
+          X:
+            RawValue: 62984544
+          Y:
+            RawValue: 30772012
+        Rotation:
+          RawValue: 0
+    - rid: 5959234361189466113
+      type: {class: LSDF_TimerPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
+      data:
+        currentTime: 60
     - rid: 7349474601564372992
       type: {class: Transform2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:

@@ -143,6 +143,7 @@
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumDeterministicSessionConfigAsset.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypeView.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QPrototypePhysicsCallbacks3D.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeLSDF_Global.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumUnityRuntime.AssemblyAttributes.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumGraphProfilerPredictedFrames.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumInstantReplayDemo.cs" />

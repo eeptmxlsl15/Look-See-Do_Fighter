@@ -199,6 +199,21 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Global))]
+  public unsafe partial class LSDF_GlobalPrototype : ComponentPrototype<Quantum.LSDF_Global> {
+    public Int32 Timer;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Global result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_Global component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_Global result, in PrototypeMaterializationContext context = default) {
+        result.Timer = this.Timer;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Ground))]
   public unsafe partial class LSDF_GroundPrototype : ComponentPrototype<Quantum.LSDF_Ground> {
     [HideInInspector()]

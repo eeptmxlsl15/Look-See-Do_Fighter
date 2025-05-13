@@ -36,7 +36,7 @@ namespace Quantum.LSDF
             //체력 초기화
             LSDF_player->playerHp = 170;
 
-
+            f.Global->Time = 60;
 
         }
     }
