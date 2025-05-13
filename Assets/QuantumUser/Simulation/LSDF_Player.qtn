@@ -37,7 +37,7 @@ component LSDF_Player
 
 	int playerHp; //체력
 	int loseRound; //피가 0이 된 횟수
-	bool isRoundEnd // 라운드가 끝났을 때 
+	bool isRoundEnd; // 라운드가 끝났을 때 
 	int DelayFrame;
 
 	//라운드 종료 후 움직일 수 없는 구간

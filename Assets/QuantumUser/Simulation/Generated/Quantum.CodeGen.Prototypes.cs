@@ -283,6 +283,7 @@ namespace Quantum.Prototypes {
     public Int32 hitCount;
     public Int32 playerHp;
     public Int32 loseRound;
+    public QBoolean isRoundEnd;
     public Int32 DelayFrame;
     public Int32 tickToEnableMove;
     [ArrayLengthAttribute(28)]
@@ -318,6 +319,7 @@ namespace Quantum.Prototypes {
         result.hitCount = this.hitCount;
         result.playerHp = this.playerHp;
         result.loseRound = this.loseRound;
+        result.isRoundEnd = this.isRoundEnd;
         result.DelayFrame = this.DelayFrame;
         result.tickToEnableMove = this.tickToEnableMove;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {

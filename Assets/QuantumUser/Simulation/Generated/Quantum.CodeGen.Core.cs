@@ -1134,15 +1134,15 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 216;
+    public const Int32 SIZE = 220;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(160)]
     public QBoolean isDashBack;
     [FieldOffset(164)]
     public QBoolean isDashFront;
-    [FieldOffset(200)]
-    public QBoolean isSit;
     [FieldOffset(204)]
+    public QBoolean isSit;
+    [FieldOffset(208)]
     public QBoolean isStandUpGuard;
     [FieldOffset(148)]
     public QBoolean isAttack;
@@ -1150,7 +1150,7 @@ namespace Quantum {
     public QBoolean isHit;
     [FieldOffset(176)]
     public QBoolean isGuard;
-    [FieldOffset(208)]
+    [FieldOffset(212)]
     public QBoolean isStun;
     [FieldOffset(156)]
     public QBoolean isCombo;
@@ -1170,7 +1170,7 @@ namespace Quantum {
     public QBoolean isGround;
     [FieldOffset(192)]
     public QBoolean isOnWall;
-    [FieldOffset(212)]
+    [FieldOffset(216)]
     public QBoolean isWallHit;
     [FieldOffset(140)]
     public QBoolean hitWallLauncher;
@@ -1184,6 +1184,8 @@ namespace Quantum {
     public Int32 playerHp;
     [FieldOffset(120)]
     public Int32 loseRound;
+    [FieldOffset(200)]
+    public QBoolean isRoundEnd;
     [FieldOffset(112)]
     public Int32 DelayFrame;
     [FieldOffset(128)]
@@ -1217,6 +1219,7 @@ namespace Quantum {
         hash = hash * 31 + hitCount.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
         hash = hash * 31 + loseRound.GetHashCode();
+        hash = hash * 31 + isRoundEnd.GetHashCode();
         hash = hash * 31 + DelayFrame.GetHashCode();
         hash = hash * 31 + tickToEnableMove.GetHashCode();
         fixed (Int32* p = CommandSkillMap) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 28);
@@ -1248,6 +1251,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->isJump, serializer);
         QBoolean.Serialize(&p->isOnWall, serializer);
         QBoolean.Serialize(&p->isParring, serializer);
+        QBoolean.Serialize(&p->isRoundEnd, serializer);
         QBoolean.Serialize(&p->isSit, serializer);
         QBoolean.Serialize(&p->isStandUpGuard, serializer);
         QBoolean.Serialize(&p->isStun, serializer);

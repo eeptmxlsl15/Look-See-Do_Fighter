@@ -67,7 +67,10 @@ namespace Quantum.LSDF
                 input = f.GetPlayerInput(playerLink->PlayerRef);
 
             }
-
+            if(player->playerHp < 0)
+            {
+                player->playerHp = 0;
+            }
             //Èú °ü·Ã
             if(player->isHealing == true)
             {

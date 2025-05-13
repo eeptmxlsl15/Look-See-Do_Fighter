@@ -56,29 +56,30 @@ namespace Quantum.LSDF
             // 한쪽이라도 죽었을 때
             if (hp1 <= 0 || hp2 <= 0)
             {
-                
 
 
-                    if (hp1 <= 0)
-                    {
 
-                        var player = f.Get<LSDF_Player>(p1);
-                        player.loseRound++;
-                        f.Set(p1, player);
-                        Debug.Log("1P 패배");
-                    }
-                    if (hp2 <= 0)
-                    {
-                        var player = f.Get<LSDF_Player>(p2);
-                        player.loseRound++;
-                        f.Set(p2, player);
-                        Debug.Log("2P 패배");
-                    }
+                if (hp1 <= 0)
+                {
 
-                    // 양쪽 모두 리셋
-                    ResetPlayer(f, p1, (PlayerRef)0);
-                    ResetPlayer(f, p2, (PlayerRef)1);
-                
+                    var player = f.Get<LSDF_Player>(p1);
+                    player.loseRound++;
+
+                    f.Set(p1, player);
+                    Debug.Log("1P 패배");
+                }
+                if (hp2 <= 0)
+                {
+                    var player = f.Get<LSDF_Player>(p2);
+                    player.loseRound++;
+                    f.Set(p2, player);
+                    Debug.Log("2P 패배");
+                }
+
+                // 양쪽 모두 리셋
+                ResetPlayer(f, p1, (PlayerRef)0);
+                ResetPlayer(f, p2, (PlayerRef)1);
+
 
 
 
