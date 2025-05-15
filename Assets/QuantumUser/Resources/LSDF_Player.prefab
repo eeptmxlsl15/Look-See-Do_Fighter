@@ -418,6 +418,8 @@ MonoBehaviour:
       Value: 0
     isDodgeHigh:
       Value: 0
+    isHealing:
+      Value: 0
     isAir:
       Value: 0
     isGround:
@@ -433,7 +435,11 @@ MonoBehaviour:
     wallCount: 0
     hitCount: 0
     playerHp: 170
+    loseRound: 0
+    isRoundEnd:
+      Value: 0
     DelayFrame: 0
+    tickToEnableMove: 0
     CommandSkillMap: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &6165187188016615102
 MonoBehaviour:
@@ -529,3 +535,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3888416629e624ba4ecb1cf8cb2319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TimerText: {fileID: 0}
+  LeftRoundWins:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  RightRoundWins:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  RoundMessageRoot: {fileID: 0}
+  RoundText: {fileID: 0}
+  FightText: {fileID: 0}

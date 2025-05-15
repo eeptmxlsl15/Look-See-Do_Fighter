@@ -126,6 +126,7 @@
     <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeLSDF_Timer.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\PhotonServerSettings.cs" />
     <Compile Include="Assets\Photon\Quantum\Runtime\QuantumNavMeshRegion.cs" />
+    <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeOnPlayerHit.cs" />
     <Compile Include="Assets\QuantumUser\View\Generated\QPrototypeLSDF_HitboxInfo.cs" />
     <Compile Include="Assets\QuantumUser\View\Generated\QPrototypePlayerLink.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\View\AnimationEventData.cs" />

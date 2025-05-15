@@ -87,9 +87,9 @@ public class LSDF_IngameUI : QuantumEntityViewComponent
         PlayerRef myRef = game.GetLocalPlayers().FirstOrDefault();
 
         //타이머
-        var roundTime = frame.GetSingleton<LSDF_Timer>();
-        Debug.Log("타이머 : " + roundTime.currentTime);
-        TimerText.text = roundTime.currentTime.ToString();
+        //var roundTime = frame.GetSingleton<LSDF_Timer>();
+        //Debug.Log("타이머 : " + roundTime.currentTime);
+        //TimerText.text = roundTime.currentTime.ToString();
         
         if (!initialized)
         {

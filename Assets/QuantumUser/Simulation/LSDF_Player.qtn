@@ -43,6 +43,9 @@ component LSDF_Player
 	//라운드 종료 후 움직일 수 없는 구간
 	int tickToEnableMove;
 
+	// 히트/가드 이펙트가 생기는 위치
+	FPVector2 effectPosition; 
+
 	//스킬 맵
 	array<int>[28] CommandSkillMap;
 	

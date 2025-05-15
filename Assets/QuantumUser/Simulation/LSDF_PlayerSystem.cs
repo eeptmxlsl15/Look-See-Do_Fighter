@@ -50,7 +50,7 @@ namespace Quantum.LSDF
             //        inputBuffer->Count++;
             //    }
             //}
-
+            
 
             //회전 고정
             filter.Transform->Rotation = FP._0;
@@ -674,7 +674,10 @@ namespace Quantum.LSDF
         }
 
 
-       
+        public void InitiateEffect(LSDF_HitboxInfo hitbox)
+        {
+
+        }
         
 
         

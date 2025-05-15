@@ -8,9 +8,13 @@ using static UnityEngine.EventSystems.EventTrigger;
 [Serializable]
 public class JapWindowEvent : AnimatorTimeWindowEventAsset
 {
+    /// <summary>
+    /// 시작 프레임
+    /// </summary>
+    private const int HitFrame = 10;
+
 
     private int currentFrame;
-    private const int HitFrame = 10; // 실제 발동 프레임보다 1 낮아야 다음 프레임에 히트 박스가 적용 된다 = 이벤트 시작 위치때문에 -1
     bool bufferedNextAttack;
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
@@ -44,6 +48,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
+        #region 수정 X
         //플레이어 정보
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
@@ -62,6 +67,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
 
         //방향
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
+        #endregion
 
         //전진 속도
         if (currentFrame < HitFrame)
@@ -104,7 +110,8 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             player->isJump = false;
             player->isDodgeHigh = false;
 
-
+            //-------------------------------------------상단-----------------------------------------//
+            
             f.Add(hitbox, new Transform2D
             {
                 //위치
@@ -119,6 +126,42 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
                 //박스 크기
                 Shape = Shape2D.CreateBox(new FPVector2(FP._0_20 / 2, (FP._0_10 - FP._0_02) / 2))
             });
+
+            //-------------------------------------------중단-----------------------------------------//
+            
+            //f.Add(hitbox, new Transform2D
+            //{
+            //    //Change
+            //    //위치
+            //    Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, 0),
+            //    Rotation = FP._0
+            //});
+
+            //f.Add(hitbox, new PhysicsCollider2D
+            //{
+            //    IsTrigger = true,
+            //    //Change
+            //    //박스 크기
+            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_33 - FP._0_03) / 2))
+            //});
+
+            //---------------------------------------하단---------------------------------------------//
+            ////
+            //f.Add(hitbox, new Transform2D
+            //{
+            //    //위치
+            //    Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, -(FP._0_25 + FP._0_03)),
+            //    Rotation = FP._0
+            //});
+
+            //f.Add(hitbox, new PhysicsCollider2D
+            //{
+            //    IsTrigger = true,
+            //    //박스 크기
+            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_10 - FP._0_02) / 2))
+            //});
+            //------------------------------------------------------------------------------------//
+
 
             //공격 정보
             f.Add(hitbox, new LSDF_HitboxInfo

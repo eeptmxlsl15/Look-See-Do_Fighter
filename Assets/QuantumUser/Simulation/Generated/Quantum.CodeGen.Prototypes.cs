@@ -301,6 +301,7 @@ namespace Quantum.Prototypes {
     public QBoolean isRoundEnd;
     public Int32 DelayFrame;
     public Int32 tickToEnableMove;
+    public FPVector2 effectPosition;
     [ArrayLengthAttribute(28)]
     public Int32[] CommandSkillMap = new Int32[28];
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context);
@@ -337,6 +338,7 @@ namespace Quantum.Prototypes {
         result.isRoundEnd = this.isRoundEnd;
         result.DelayFrame = this.DelayFrame;
         result.tickToEnableMove = this.tickToEnableMove;
+        result.effectPosition = this.effectPosition;
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {
           result.CommandSkillMap[i] = this.CommandSkillMap[i];
         }
@@ -361,7 +363,8 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Timer))]
   public unsafe partial class LSDF_TimerPrototype : ComponentPrototype<Quantum.LSDF_Timer> {
-    public Int32 currentTime;
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Timer result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_Timer component = default;
@@ -369,7 +372,6 @@ namespace Quantum.Prototypes {
         return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Quantum.LSDF_Timer result, in PrototypeMaterializationContext context = default) {
-        result.currentTime = this.currentTime;
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -474,6 +476,21 @@ namespace Quantum.Prototypes {
             PrototypeValidator.AddToDictionary(dict, tmpKey, tmpValue, in context);
           }
         }
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.OnPlayerHit))]
+  public unsafe partial class OnPlayerHitPrototype : ComponentPrototype<Quantum.OnPlayerHit> {
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
+    partial void MaterializeUser(Frame frame, ref Quantum.OnPlayerHit result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.OnPlayerHit component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.OnPlayerHit result, in PrototypeMaterializationContext context = default) {
         MaterializeUser(frame, ref result, in context);
     }
   }

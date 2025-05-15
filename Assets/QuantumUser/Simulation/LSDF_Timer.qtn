@@ -1,4 +1,4 @@
 singleton component LSDF_Timer{
-	int currentTime=60;
+	
 
 }

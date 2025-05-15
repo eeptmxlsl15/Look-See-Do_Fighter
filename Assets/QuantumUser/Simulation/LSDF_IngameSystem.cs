@@ -57,22 +57,22 @@ namespace Quantum.LSDF
 
 
 
-            if (!player1.isCantMove && !player2.isCantMove)
-            {
-                // 현재 프레임 기준에서 1초(60프레임) 지났는지 확인
-                if (f.Number - lastTimeTickFrame >= 60)
-                {
-                    lastTimeTickFrame = f.Number;
+            //if (!player1.isCantMove && !player2.isCantMove)
+            //{
+            //    // 현재 프레임 기준에서 1초(60프레임) 지났는지 확인
+            //    if (f.Number - lastTimeTickFrame >= 60)
+            //    {
+            //        lastTimeTickFrame = f.Number;
 
-                    if (f.Global->Time > 0)
-                    {
-                        f.Global->Time--;
-                        var roundTime = f.GetSingleton<LSDF_Timer>();
-                        roundTime.currentTime = f.Global->Time;
-                        f.SetSingleton(roundTime);
-                    }
-                }
-            }
+            //        if (f.Global->Time > 0)
+            //        {
+            //            f.Global->Time--;
+            //            var roundTime = f.GetSingleton<LSDF_Timer>();
+            //            roundTime.currentTime = f.Global->Time;
+            //            f.SetSingleton(roundTime);
+            //        }
+            //    }
+            //}
             
 
 

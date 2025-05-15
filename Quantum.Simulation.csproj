@@ -98,6 +98,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\BoundarySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\MoveFrontWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Attack\Lp\SitPunchWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\RisingWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorState.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator\Move\StandUpWindowEvent.cs" />
@@ -160,6 +161,7 @@
     <None Include="Assets\QuantumUser\Simulation\Quantum.Simulation.asmref" />
     <None Include="Assets\QuantumUser\Simulation\LSDF_Global.qtn" />
     <None Include="Assets\Photon\QuantumAddons\Animator\Simulation\Quantum.Simulation.Reference.asmref" />
+    <None Include="Assets\QuantumUser\Simulation\OnPlayerHit.qtn" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

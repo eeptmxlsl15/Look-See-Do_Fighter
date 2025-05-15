@@ -404,12 +404,45 @@ MonoBehaviour:
       Value: 0
     isGuard:
       Value: 0
+    isStun:
+      Value: 0
+    isCombo:
+      Value: 0
+    isParring:
+      Value: 0
     canCounter:
       Value: 0
     isJump:
       Value: 0
+    isDodgeHigh:
+      Value: 0
+    isHealing:
+      Value: 0
+    isAir:
+      Value: 0
+    isGround:
+      Value: 0
+    isOnWall:
+      Value: 0
+    isWallHit:
+      Value: 0
+    hitWallLauncher:
+      Value: 0
+    isCantMove:
+      Value: 0
+    wallCount: 0
+    hitCount: 0
     playerHp: 0
+    loseRound: 0
+    isRoundEnd:
+      Value: 0
     DelayFrame: 0
+    tickToEnableMove: 0
+    effectPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
     CommandSkillMap: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &6165187188016615102
 MonoBehaviour:
