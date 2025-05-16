@@ -171,7 +171,7 @@ namespace VFolders
 
                             SetLabelAlignmentCenter();
 
-                            GUI.Label(cellRect.SetSizeFromMid(iconSize), EditorGUIUtility.IconContent(iconNameOrGuid));
+                            //GUI.Label(cellRect.SetSizeFromMid(iconSize), EditorGUIUtility.IconContent(iconNameOrGuid));
 
                             ResetLabelStyle();
 
