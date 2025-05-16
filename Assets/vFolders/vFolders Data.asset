@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb9c12a8c6c949f7af83a3d238359d0, type: 3}
+  m_Name: vFolders Data
+  m_EditorClassIdentifier: 
+  folderDatas_byGuid:
+    keys:
+    - 53395622cff27704a848eccf20a2dd43
+    - 5af524091ef9e4b4a95880d9bdc8ac6c
+    - 63f857d7b9287ed449f9186f0e87f6b3
+    - 9d3fa16684abfdc48af1fdb28433ecff
+    - 00bdf897f28c4a64687df65da4f505cf
+    - 2b898cd588af51640ac9fd7c93f7386b
+    - 8ea4d4645d614cc45a2d06fad466a553
+    - eb102d1b14f0ea54992837043453f466
+    values:
+    - colorIndex: 1
+      iconNameOrGuid: 
+    - colorIndex: 1
+      iconNameOrGuid: 
+    - colorIndex: 2
+      iconNameOrGuid: 
+    - colorIndex: 3
+      iconNameOrGuid: 
+    - colorIndex: 4
+      iconNameOrGuid: 
+    - colorIndex: 5
+      iconNameOrGuid: 
+    - colorIndex: 6
+      iconNameOrGuid: 
+    - colorIndex: 7
+      iconNameOrGuid: 

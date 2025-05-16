@@ -1416,6 +1416,10 @@
       <Project>{A4652533-7C38-5BF7-F9FD-7CE0E56E1E9D}</Project>
       <Name>Photon.Realtime</Name>
     </ProjectReference>
+    <ProjectReference Include="VFolders.csproj">
+      <Project>{350F0B14-C278-2233-09BB-891249A41D9B}</Project>
+      <Name>VFolders</Name>
+    </ProjectReference>
     <ProjectReference Include="Quantum.Unity.csproj">
       <Project>{00FFAB92-A38D-361C-53C0-8797DE838129}</Project>
       <Name>Quantum.Unity</Name>
