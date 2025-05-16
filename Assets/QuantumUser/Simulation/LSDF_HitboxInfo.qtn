@@ -38,7 +38,7 @@ component LSDF_HitboxInfo
     int enemyGuardTime;
     int enemyHitTime;
 	int enemyCountTime;
-    int forceBack; //히트, 가드 시 뒤로 미는 힘
+    FP forceBack; //히트, 가드 시 뒤로 미는 힘
 
     bool launcher;//콤보 시동기
     bool dodgeHigh;//상단을 피하는 공격인가? controlcollision 에서 앉은자세일때도 그 크기, 이때도 그 크기로 하기

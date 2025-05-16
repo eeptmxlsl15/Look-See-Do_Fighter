@@ -85,7 +85,9 @@
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Events.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSpawnSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rp\AssultWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rk\DraOriKickWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_GameUI.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rp\DraRightUpperWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lp\JapJapWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rk\Bry2RkWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorRuntimeBlendData.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_AnimatorView.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorTransition.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Prototypes.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lp\JapTwoWindowEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorDefinitions\AnimatorComponent.qtn" />

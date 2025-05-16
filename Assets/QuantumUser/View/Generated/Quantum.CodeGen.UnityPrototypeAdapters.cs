@@ -83,7 +83,7 @@ namespace Quantum.Prototypes.Unity {
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
     public Int32 enemyCountTime;
-    public Int32 forceBack;
+    public FP forceBack;
     public QBoolean launcher;
     public QBoolean dodgeHigh;
     public QBoolean jumpAttack;

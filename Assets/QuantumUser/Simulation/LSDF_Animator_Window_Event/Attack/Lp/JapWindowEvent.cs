@@ -39,6 +39,11 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         AnimatorComponent.SetBoolean(f, animatorComponent, "MoveBack", false);
 
         #endregion
+
+        //만약 처음부터 앉은 자세,점프 판정이라면
+        player->isDodgeHigh = false; 
+        player->isJump = false;
+        
         //---연타 기술 ---//
         //버퍼 넥스트 초기화
         bufferedNextAttack = false;
@@ -82,23 +87,31 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         }
 
         //연타 관련
-        if (5 <= currentFrame && currentFrame <= 20) // 연계 입력 받을 수 있는 구간
+        if (5 <= currentFrame && currentFrame <= 15) // 연계 입력 받을 수 있는 구간
         {
-            if (input->LeftPunch)
+            if (input->RightPunch && (AnimatorComponent.GetInteger(f,animatorComponent,"FinalNum")==0))
             {
                 
                 bufferedNextAttack = true;  // 일단 예약만 함
                 Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
             }
         }
-        if (currentFrame >= 21&& bufferedNextAttack)
+        else if (currentFrame >= 16&& bufferedNextAttack)
         {
+            
             AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);
            // AnimatorComponent.SetTrigger(f, animatorComponent, "Lp");
 
             Debug.Log("예약된 Lp 발동");
         }
 
+
+        ////상단회피, 점프 
+        //if(1<currentFrame && currentFrame< HitFrame-1)
+        //{
+        //    player->isJump = true;
+        //    player->isDodgeHigh = true;
+        //}
 
         //히트 박스 생성
         if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
@@ -128,7 +141,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             });
 
             //-------------------------------------------중단-----------------------------------------//
-            
+
             //f.Add(hitbox, new Transform2D
             //{
             //    //Change
@@ -184,6 +197,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
                 enemyHitTime = 28,
                 enemyCountTime = 28,
                 attackDamage = 7,
+                forceBack = 0
             });
 
 
@@ -204,10 +218,14 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
+        ////연타 공격일 경우
+        // AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
         player->isAttack = false;
+        player->isJump = false;
+        player->isDodgeHigh = false;
 
         Debug.Log($"원잽 끝 프레임 : {f.Number}");
     }

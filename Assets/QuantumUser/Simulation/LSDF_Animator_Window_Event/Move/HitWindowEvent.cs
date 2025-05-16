@@ -49,8 +49,8 @@ public class HitWindowEvent : AnimatorTimeWindowEventAsset
         //방향
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? -1 : 1;
 
-
-        body->Velocity.X = 3 * flip;
+        //히트,가드 백
+        body->Velocity.X = player->forceBack * flip;
     }
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)

@@ -1076,7 +1076,7 @@ namespace Quantum {
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
     public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(64)]
+    [FieldOffset(56)]
     public EntityRef AttackerEntity;
     [FieldOffset(8)]
     public HitboxAttackType AttackType;
@@ -1086,7 +1086,7 @@ namespace Quantum {
     public DelayGuardType DelayGuardTpye;
     [FieldOffset(12)]
     public HomingType HomingReturnType;
-    [FieldOffset(36)]
+    [FieldOffset(32)]
     public Int32 startFrame;
     [FieldOffset(16)]
     public Int32 attackDamage;
@@ -1096,17 +1096,17 @@ namespace Quantum {
     public Int32 enemyHitTime;
     [FieldOffset(20)]
     public Int32 enemyCountTime;
-    [FieldOffset(32)]
-    public Int32 forceBack;
-    [FieldOffset(48)]
-    public QBoolean launcher;
-    [FieldOffset(40)]
-    public QBoolean dodgeHigh;
+    [FieldOffset(64)]
+    public FP forceBack;
     [FieldOffset(44)]
+    public QBoolean launcher;
+    [FieldOffset(36)]
+    public QBoolean dodgeHigh;
+    [FieldOffset(40)]
     public QBoolean jumpAttack;
-    [FieldOffset(52)]
+    [FieldOffset(48)]
     public QBoolean notSitLauncher;
-    [FieldOffset(56)]
+    [FieldOffset(52)]
     public QBoolean wallLauncher;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -1140,7 +1140,6 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->enemyCountTime);
         serializer.Stream.Serialize(&p->enemyGuardTime);
         serializer.Stream.Serialize(&p->enemyHitTime);
-        serializer.Stream.Serialize(&p->forceBack);
         serializer.Stream.Serialize(&p->startFrame);
         QBoolean.Serialize(&p->dodgeHigh, serializer);
         QBoolean.Serialize(&p->jumpAttack, serializer);
@@ -1148,11 +1147,12 @@ namespace Quantum {
         QBoolean.Serialize(&p->notSitLauncher, serializer);
         QBoolean.Serialize(&p->wallLauncher, serializer);
         EntityRef.Serialize(&p->AttackerEntity, serializer);
+        FP.Serialize(&p->forceBack, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
-    public const Int32 SIZE = 240;
+    public const Int32 SIZE = 248;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(160)]
     public QBoolean isDashBack;
@@ -1194,6 +1194,8 @@ namespace Quantum {
     public QBoolean hitWallLauncher;
     [FieldOffset(152)]
     public QBoolean isCantMove;
+    [FieldOffset(224)]
+    public FP forceBack;
     [FieldOffset(132)]
     public Int32 wallCount;
     [FieldOffset(116)]
@@ -1208,7 +1210,7 @@ namespace Quantum {
     public Int32 DelayFrame;
     [FieldOffset(128)]
     public Int32 tickToEnableMove;
-    [FieldOffset(224)]
+    [FieldOffset(232)]
     public FPVector2 effectPosition;
     [FieldOffset(0)]
     public fixed Int32 CommandSkillMap[28];
@@ -1235,6 +1237,7 @@ namespace Quantum {
         hash = hash * 31 + isWallHit.GetHashCode();
         hash = hash * 31 + hitWallLauncher.GetHashCode();
         hash = hash * 31 + isCantMove.GetHashCode();
+        hash = hash * 31 + forceBack.GetHashCode();
         hash = hash * 31 + wallCount.GetHashCode();
         hash = hash * 31 + hitCount.GetHashCode();
         hash = hash * 31 + playerHp.GetHashCode();
@@ -1277,6 +1280,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->isStandUpGuard, serializer);
         QBoolean.Serialize(&p->isStun, serializer);
         QBoolean.Serialize(&p->isWallHit, serializer);
+        FP.Serialize(&p->forceBack, serializer);
         FPVector2.Serialize(&p->effectPosition, serializer);
     }
   }

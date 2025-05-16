@@ -83,7 +83,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 5597994589606548633, guid: d8089a2d4fee02341aa3bb372dbe5a94, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -430,6 +430,8 @@ MonoBehaviour:
       Value: 0
     isCantMove:
       Value: 0
+    forceBack:
+      RawValue: 0
     wallCount: 0
     hitCount: 0
     playerHp: 0

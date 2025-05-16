@@ -110,7 +110,7 @@ public class AssultWindowEvent : AnimatorTimeWindowEventAsset
                 DelayGuardTpye = DelayGuardType.Normal,
                 HomingReturnType = HomingType.Combo,
 
-                forceBack = 25,
+                
 
                 jumpAttack = false,
                 dodgeHigh = false,
@@ -120,6 +120,7 @@ public class AssultWindowEvent : AnimatorTimeWindowEventAsset
                 enemyHitTime = 28,
                 enemyCountTime = 28,
                 attackDamage = 25,
+                forceBack = 2
             });
 
 

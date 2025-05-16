@@ -42,6 +42,10 @@ public class SitPunchEvent : AnimatorTimeWindowEventAsset
         //---연타 기술 ---//
         //버퍼 넥스트 초기화
         bufferedNextAttack = false;
+
+        //상단 회피, 점프 판정
+        player->isDodgeHigh = true;
+        player->isJump = false;
         Debug.Log($"잽 현재 프레임 : {currentFrame}");
 
 
@@ -98,7 +102,10 @@ public class SitPunchEvent : AnimatorTimeWindowEventAsset
 
         //    Debug.Log("예약된 Lp 발동");
         //}
-
+        if (0<=currentFrame && currentFrame< HitFrame-1)
+        {
+            player->isDodgeHigh = true;
+        }
 
         //히트 박스 생성
         if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
@@ -172,7 +179,8 @@ public class SitPunchEvent : AnimatorTimeWindowEventAsset
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
         player->isAttack = false;
-
+        player->isJump = false;
+        player->isDodgeHigh = false;
         Debug.Log($"원잽 끝 프레임 : {f.Number}");
     }
 }

@@ -32,6 +32,8 @@ component LSDF_Player
 	bool hitWallLauncher;//벽꽝 유발기를 맞았는지
 	bool isCantMove;//움직임이 입력 될 수 없는 상황(벽꽝되서)
 	
+	FP forceBack; //히트,가드 상태로 얼마나 날아가는지
+
 	int wallCount; //벽에서 맞은 횟수
 	int hitCount; //공중에서 맞은 횟수
 

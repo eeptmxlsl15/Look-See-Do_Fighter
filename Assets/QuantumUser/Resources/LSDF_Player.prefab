@@ -432,6 +432,8 @@ MonoBehaviour:
       Value: 0
     isCantMove:
       Value: 0
+    forceBack:
+      RawValue: 0
     wallCount: 0
     hitCount: 0
     playerHp: 170
@@ -440,6 +442,11 @@ MonoBehaviour:
       Value: 0
     DelayFrame: 0
     tickToEnableMove: 0
+    effectPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
     CommandSkillMap: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &6165187188016615102
 MonoBehaviour:

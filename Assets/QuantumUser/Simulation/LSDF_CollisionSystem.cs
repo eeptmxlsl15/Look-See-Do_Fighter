@@ -205,7 +205,7 @@ namespace Quantum.LSDF
                 case HitboxAttackType.High:
 
                 case HitboxAttackType.Mid:
-                    return state == "Idle" || state == "Move Back" || state == "Dash Back" || state == "Rising"; //일어날때 상하단 가드
+                    return state == "Idle" || state == "Move Back" || state == "Dash Back" || state == "Rising" || state == "Stand Guard" || state == "Low Guard"; //일어날때 상하단 가드
                 case HitboxAttackType.Low:
                     return state == "Sit Enter" || state == "Siting" || isSit;//일어날때 앉은자세면 가드
                 default:

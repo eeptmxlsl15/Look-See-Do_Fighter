@@ -152,15 +152,15 @@ namespace Quantum.LSDF
                     //input->LeftPunch = true;
                     //input->RightPunch = true;
                     //input->Up = true;
-                    input->Right = true;
+                    //input->Right = true;
 
                 }
                 else
                 {
                     //input->Left = true;
                     //input->LeftPunch = true;
-                    input->Down = true;
-                    input->RightKick = true;
+                    //input->Down = true;
+                    //input->RightKick = true;
                 }
 
             }
@@ -371,6 +371,11 @@ namespace Quantum.LSDF
         public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
             player->isAttack = false;
+
+            //가드,히트백 전달
+            player->forceBack = hitbox->forceBack;
+
+
             //상단에 히트할 경유
 
             //벽에서 벽꽝기 맞았을 때
@@ -501,6 +506,8 @@ namespace Quantum.LSDF
 
         public void OnTriggerCounterHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
+            //히트 가드백 전달
+            player->forceBack = hitbox->forceBack;
             //카운터 시 설정
             player->canCounter = false;
             player->isAttack = false;
@@ -548,6 +555,9 @@ namespace Quantum.LSDF
         }
         public void OnTriggerGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox)
         {
+            //히트 가드백 전달
+            player->forceBack = hitbox->forceBack;
+
             //하단을 가드할 경우
             if (hitbox->AttackType == HitboxAttackType.Low)
             {

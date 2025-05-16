@@ -241,7 +241,7 @@ namespace Quantum.Prototypes {
     public Int32 enemyGuardTime;
     public Int32 enemyHitTime;
     public Int32 enemyCountTime;
-    public Int32 forceBack;
+    public FP forceBack;
     public QBoolean launcher;
     public QBoolean dodgeHigh;
     public QBoolean jumpAttack;
@@ -294,6 +294,7 @@ namespace Quantum.Prototypes {
     public QBoolean isWallHit;
     public QBoolean hitWallLauncher;
     public QBoolean isCantMove;
+    public FP forceBack;
     public Int32 wallCount;
     public Int32 hitCount;
     public Int32 playerHp;
@@ -331,6 +332,7 @@ namespace Quantum.Prototypes {
         result.isWallHit = this.isWallHit;
         result.hitWallLauncher = this.hitWallLauncher;
         result.isCantMove = this.isCantMove;
+        result.forceBack = this.forceBack;
         result.wallCount = this.wallCount;
         result.hitCount = this.hitCount;
         result.playerHp = this.playerHp;

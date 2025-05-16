@@ -102,10 +102,12 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
                 jumpAttack = false,
                 dodgeHigh = false,
 
+
                 enemyGuardTime = 21,
                 enemyHitTime = 28,
                 enemyCountTime = 28,
                 attackDamage = 7,
+                
             });
 
 
