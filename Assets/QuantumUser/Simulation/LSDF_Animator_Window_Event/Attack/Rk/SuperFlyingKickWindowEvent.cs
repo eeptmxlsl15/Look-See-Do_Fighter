@@ -75,16 +75,16 @@ public class SuperFlyKickWindowEvent : AnimatorTimeWindowEventAsset
         #endregion
 
         //전진 속도
-        if (currentFrame < HitFrame)
-        {
+        
+        
             body->Velocity.X = 2*flip;
-            Debug.Log("잽 Execute");
-            //if (input->LeftPunch)
-            //{
-            //    Debug.Log("셋트리거");
-            //    AnimatorComponent.SetTrigger(f, animatorComponent, "Rp");
-            //}
-        }
+
+        //if (input->LeftPunch)
+        //{
+        //    Debug.Log("셋트리거");
+        //    AnimatorComponent.SetTrigger(f, animatorComponent, "Rp");
+        //}
+
 
         //연타 관련
         //if (5 <= currentFrame && currentFrame <= 15) // 연계 입력 받을 수 있는 구간
@@ -106,12 +106,12 @@ public class SuperFlyKickWindowEvent : AnimatorTimeWindowEventAsset
         //}
 
 
-        ////상단회피, 점프 
-        //if(1<currentFrame && currentFrame< HitFrame-1)
-        //{
-        //    player->isJump = true;
-        //    player->isDodgeHigh = true;
-        //}
+        //상단회피, 점프 
+        if (1 < currentFrame && currentFrame < HitFrame - 1)
+        {
+            player->isJump = true;
+            //player->isDodgeHigh = true;
+        }
 
         //히트 박스 생성
         if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함

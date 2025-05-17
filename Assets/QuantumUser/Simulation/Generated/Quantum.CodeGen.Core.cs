@@ -58,6 +58,7 @@ namespace Quantum {
   }
   public enum CountAttackType : int {
     Normal,
+    Stun,
     Combo,
   }
   public enum DelayGuardType : int {
@@ -69,6 +70,11 @@ namespace Quantum {
     None,
     Left,
     Right,
+  }
+  public enum GuaranteeType : int {
+    Normal,
+    Stun,
+    Combo,
   }
   public enum HitboxAttackType : int {
     High,
@@ -1074,39 +1080,41 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
-    public const Int32 SIZE = 72;
+    public const Int32 SIZE = 80;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(56)]
+    [FieldOffset(64)]
     public EntityRef AttackerEntity;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public HitboxAttackType AttackType;
     [FieldOffset(0)]
     public CountAttackType CountType;
     [FieldOffset(4)]
     public DelayGuardType DelayGuardTpye;
-    [FieldOffset(12)]
-    public HomingType HomingReturnType;
-    [FieldOffset(32)]
-    public Int32 startFrame;
     [FieldOffset(16)]
-    public Int32 attackDamage;
-    [FieldOffset(24)]
-    public Int32 enemyGuardTime;
-    [FieldOffset(28)]
-    public Int32 enemyHitTime;
-    [FieldOffset(20)]
-    public Int32 enemyCountTime;
-    [FieldOffset(64)]
-    public FP forceBack;
-    [FieldOffset(44)]
-    public QBoolean launcher;
+    public HomingType HomingReturnType;
+    [FieldOffset(8)]
+    public GuaranteeType GuaranteeAttackType;
     [FieldOffset(36)]
-    public QBoolean dodgeHigh;
-    [FieldOffset(40)]
-    public QBoolean jumpAttack;
+    public Int32 startFrame;
+    [FieldOffset(20)]
+    public Int32 attackDamage;
+    [FieldOffset(28)]
+    public Int32 enemyGuardTime;
+    [FieldOffset(32)]
+    public Int32 enemyHitTime;
+    [FieldOffset(24)]
+    public Int32 enemyCountTime;
+    [FieldOffset(72)]
+    public FP forceBack;
     [FieldOffset(48)]
-    public QBoolean notSitLauncher;
+    public QBoolean launcher;
+    [FieldOffset(40)]
+    public QBoolean dodgeHigh;
+    [FieldOffset(44)]
+    public QBoolean jumpAttack;
     [FieldOffset(52)]
+    public QBoolean notSitLauncher;
+    [FieldOffset(56)]
     public QBoolean wallLauncher;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -1116,6 +1124,7 @@ namespace Quantum {
         hash = hash * 31 + (Int32)CountType;
         hash = hash * 31 + (Int32)DelayGuardTpye;
         hash = hash * 31 + (Int32)HomingReturnType;
+        hash = hash * 31 + (Int32)GuaranteeAttackType;
         hash = hash * 31 + startFrame.GetHashCode();
         hash = hash * 31 + attackDamage.GetHashCode();
         hash = hash * 31 + enemyGuardTime.GetHashCode();
@@ -1134,6 +1143,7 @@ namespace Quantum {
         var p = (LSDF_HitboxInfo*)ptr;
         serializer.Stream.Serialize((Int32*)&p->CountType);
         serializer.Stream.Serialize((Int32*)&p->DelayGuardTpye);
+        serializer.Stream.Serialize((Int32*)&p->GuaranteeAttackType);
         serializer.Stream.Serialize((Int32*)&p->AttackType);
         serializer.Stream.Serialize((Int32*)&p->HomingReturnType);
         serializer.Stream.Serialize(&p->attackDamage);
@@ -1758,6 +1768,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(FPVector3), FPVector3.SIZE);
       typeRegistry.Register(typeof(FrameMetaData), FrameMetaData.SIZE);
       typeRegistry.Register(typeof(FrameTimer), FrameTimer.SIZE);
+      typeRegistry.Register(typeof(Quantum.GuaranteeType), 4);
       typeRegistry.Register(typeof(HingeJoint), HingeJoint.SIZE);
       typeRegistry.Register(typeof(HingeJoint3D), HingeJoint3D.SIZE);
       typeRegistry.Register(typeof(Hit), Hit.SIZE);
@@ -1851,6 +1862,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.CountAttackType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.DelayGuardType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.DirectionType>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.GuaranteeType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.HitboxAttackType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.HomingType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();

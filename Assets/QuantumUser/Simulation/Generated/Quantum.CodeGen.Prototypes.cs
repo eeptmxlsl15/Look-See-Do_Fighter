@@ -236,6 +236,7 @@ namespace Quantum.Prototypes {
     public Quantum.QEnum32<CountAttackType> CountType;
     public Quantum.QEnum32<DelayGuardType> DelayGuardTpye;
     public Quantum.QEnum32<HomingType> HomingReturnType;
+    public Quantum.QEnum32<GuaranteeType> GuaranteeAttackType;
     public Int32 startFrame;
     public Int32 attackDamage;
     public Int32 enemyGuardTime;
@@ -258,6 +259,7 @@ namespace Quantum.Prototypes {
         result.CountType = this.CountType;
         result.DelayGuardTpye = this.DelayGuardTpye;
         result.HomingReturnType = this.HomingReturnType;
+        result.GuaranteeAttackType = this.GuaranteeAttackType;
         result.startFrame = this.startFrame;
         result.attackDamage = this.attackDamage;
         result.enemyGuardTime = this.enemyGuardTime;

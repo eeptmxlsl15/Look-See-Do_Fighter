@@ -98,6 +98,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_TimerSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\HitWindowEvent.cs" />
     <Compile Include="Assets\Photon\Quantum\Simulation\SimulationConfig.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rk\RightJongKickWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\MoveBackWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\BoundarySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\DashFrontWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rp\DeathFistWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\SystemSetup.User.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rk\LarsSnakeWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\SitEnterWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\ParringWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\ParringStartWindowEvent.cs" />

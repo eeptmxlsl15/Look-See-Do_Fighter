@@ -5,9 +5,17 @@ enum HitboxAttackType
     Low     // 하단
 }
 
+enum GuaranteeType
+{
+    Normal,
+    Stun,
+    Combo
+}
+
 enum CountAttackType //카운터시 콤보 이행되는지, 추후 확정타 추가
 {
     Normal,
+    Stun,
     Combo
 }
 
@@ -31,7 +39,7 @@ component LSDF_HitboxInfo
     CountAttackType CountType;
     DelayGuardType DelayGuardTpye;
     HomingType HomingReturnType;
-
+    GuaranteeType GuaranteeAttackType;
     int startFrame;
 
     int attackDamage;

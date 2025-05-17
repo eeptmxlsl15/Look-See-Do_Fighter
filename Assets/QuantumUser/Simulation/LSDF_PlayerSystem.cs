@@ -151,7 +151,8 @@ namespace Quantum.LSDF
                 if (shouldAttack)
                 {
                     //input->Right = true;
-                    //input->Down = true;
+                    input->Down = true;
+                    input->RightKick = true;
                     //input->LeftPunch = true;
                     //input->RightPunch = true;
                     //input->Up = true;
@@ -455,6 +456,14 @@ namespace Quantum.LSDF
                     AnimatorComponent.SetTrigger(f, animator, "Air");
                 }
             }
+            else if (hitbox->GuaranteeAttackType == GuaranteeType.Stun)
+            {
+                AnimatorComponent.SetTrigger(f, animator, "Stun");
+            }
+            else if ( hitbox->GuaranteeAttackType == GuaranteeType.Combo)
+            {
+                AnimatorComponent.SetTrigger(f, animator, "Combo");
+            }
             //상단
             else if (hitbox->AttackType == HitboxAttackType.High)
             {
@@ -516,7 +525,7 @@ namespace Quantum.LSDF
             player->canCounter = false;
             player->isAttack = false;
 
-            if (hitbox->CountType==CountAttackType.Normal)
+            if (hitbox->CountType == CountAttackType.Normal)
             {
                 if (hitbox->AttackType == HitboxAttackType.High)
                 {
@@ -541,17 +550,21 @@ namespace Quantum.LSDF
                 player->isHit = true;
                 player->DelayFrame = f.Number + hitbox->enemyCountTime;
 
-                player->playerHp -= (int)(hitbox->attackDamage *1.2f);//여기서 데미지 보정
-                
+                player->playerHp -= (int)(hitbox->attackDamage * 1.2f);//여기서 데미지 보정
+
                 Debug.Log($"현재 체력 : {player->playerHp}/170");
             }
             //콤보 상황일 경우 띄움
-            else if(hitbox->CountType == CountAttackType.Combo)
+            else if (hitbox->CountType == CountAttackType.Combo)
             {
-                
-                AnimatorComponent.SetTrigger(f, animator, "Air");
+
+                AnimatorComponent.SetTrigger(f, animator, "Combo");
                 //player->isAir = true;
-                
+
+            }
+            else if(hitbox->CountType == CountAttackType.Stun)
+            {
+                AnimatorComponent.SetTrigger(f, animator, "Stun");
             }
 
             

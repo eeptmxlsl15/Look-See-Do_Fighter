@@ -78,6 +78,7 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.QEnum32<CountAttackType> CountType;
     public Quantum.QEnum32<DelayGuardType> DelayGuardTpye;
     public Quantum.QEnum32<HomingType> HomingReturnType;
+    public Quantum.QEnum32<GuaranteeType> GuaranteeAttackType;
     public Int32 startFrame;
     public Int32 attackDamage;
     public Int32 enemyGuardTime;
@@ -97,6 +98,7 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.CountType, out result.CountType);
       converter.Convert(this.DelayGuardTpye, out result.DelayGuardTpye);
       converter.Convert(this.HomingReturnType, out result.HomingReturnType);
+      converter.Convert(this.GuaranteeAttackType, out result.GuaranteeAttackType);
       converter.Convert(this.startFrame, out result.startFrame);
       converter.Convert(this.attackDamage, out result.attackDamage);
       converter.Convert(this.enemyGuardTime, out result.enemyGuardTime);
