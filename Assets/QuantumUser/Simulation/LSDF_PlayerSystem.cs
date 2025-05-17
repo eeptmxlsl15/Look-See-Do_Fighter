@@ -94,6 +94,7 @@ namespace Quantum.LSDF
             //그외에 못움직이는 경우
             if (player->isAttack == true || player->isStun == true || player->isCombo == true || player->isAir || player->isWallHit || player->isCantMove)
             {
+                
                 //Debug.Log("공격 중");
                 return;
             }
@@ -101,6 +102,7 @@ namespace Quantum.LSDF
             //유저가 가드 중이면서 가드 프레임이 지나면 idle상태로 감
             if (filter.LSDF_Player->isGuard && f.Number >= filter.LSDF_Player->DelayFrame)
             {
+                
                 AnimatorComponent.SetTrigger(f, filter.Animator, "DelayFrame"); // Idle로 전이하는 트리거
                 Debug.Log($"가드 상태 끝 프레임 : {f.Number}");
 
@@ -116,6 +118,7 @@ namespace Quantum.LSDF
             //유저가 히트 중이면서 히트 프레임이 지나면 idle상태로 감
             if (filter.LSDF_Player->isHit && f.Number >= filter.LSDF_Player->DelayFrame)
             {
+                
                 AnimatorComponent.SetTrigger(f, filter.Animator, "DelayFrame"); // Idle로 전이하는 트리거
                 Debug.Log($"히트 상태 끝 프레임 : {f.Number}");
 
@@ -256,24 +259,25 @@ namespace Quantum.LSDF
 
             if (input->Left && playerState.isDashBack == false)
             {
-                filter.Body->Velocity.X = -walkSpeed * flip;
+                //filter.Body->Velocity.X = -walkSpeed * flip;
 
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", true);
             }
             else
             {
+                
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveBack", false);
             }
 
             if (input->Right && playerState.isDashFront == false)
             {
-                filter.Body->Velocity.X = walkSpeed * flip;
+                //filter.Body->Velocity.X = walkSpeed * flip;
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveFront", true);
             }
             else
             {
                 AnimatorComponent.SetBoolean(f, filter.Animator, "MoveFront", false);
-
+                
                 //filter.Body->AngularVelocity = FPMath.Clamp(filter.Body->AngularVelocity, -8, 8);
             }
 

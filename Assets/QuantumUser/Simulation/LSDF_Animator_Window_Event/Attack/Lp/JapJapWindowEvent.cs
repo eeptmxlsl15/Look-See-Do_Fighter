@@ -132,6 +132,9 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
 
+        if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
+        body->Velocity.X = 0;
+
         player->isAttack = false;
 
         Debug.Log($"¿Ï¿Ï ≥° «¡∑π¿” : {f.Number}");

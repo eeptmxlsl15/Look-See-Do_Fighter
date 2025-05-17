@@ -152,7 +152,8 @@ public class ShaheenCutKickWindowEvent : AnimatorTimeWindowEventAsset
     {
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
-
+        if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
+        body->Velocity.X = 0;
         player->isAttack = false;
 
         Debug.Log($"원잽 끝 프레임 : {f.Number}");
