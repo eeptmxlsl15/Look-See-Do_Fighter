@@ -83,7 +83,7 @@ public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
                 AttackerEntity = entity,
                 
                 AttackType = HitboxAttackType.Mid,
-                CountType = CountAttackType.Combo,
+                CountType = CountAttackType.Air,
                 DelayGuardTpye = DelayGuardType.Normal,
                 HomingReturnType = HomingType.Homing,
 

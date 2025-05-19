@@ -151,6 +151,7 @@ namespace Quantum.LSDF
                 if (shouldAttack)
                 {
                     //input->Right = true;
+                    input->Left = true;
                     input->Down = true;
                     input->RightKick = true;
                     //input->LeftPunch = true;
@@ -565,6 +566,10 @@ namespace Quantum.LSDF
             else if(hitbox->CountType == CountAttackType.Stun)
             {
                 AnimatorComponent.SetTrigger(f, animator, "Stun");
+            }
+            else if (hitbox->CountType == CountAttackType.Air)
+            {
+                AnimatorComponent.SetTrigger(f, animator, "Air");
             }
 
             

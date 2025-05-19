@@ -117,7 +117,7 @@ public class ShaheenCutKickWindowEvent : AnimatorTimeWindowEventAsset
                 AttackerEntity = entity,
 
                 AttackType = HitboxAttackType.Mid,
-                CountType = CountAttackType.Combo,
+                CountType = CountAttackType.Air,
                 DelayGuardTpye = DelayGuardType.Stun,
                 HomingReturnType = HomingType.Combo,
                 

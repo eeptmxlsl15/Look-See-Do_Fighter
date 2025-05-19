@@ -60,6 +60,7 @@ namespace Quantum {
     Normal,
     Stun,
     Combo,
+    Air,
   }
   public enum DelayGuardType : int {
     Normal,

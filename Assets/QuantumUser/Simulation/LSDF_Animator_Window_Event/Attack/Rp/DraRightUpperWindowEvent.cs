@@ -182,7 +182,7 @@ public class DraRightUpperWindowEvent : AnimatorTimeWindowEventAsset
                 AttackerEntity = entity,
 
                 AttackType = HitboxAttackType.Mid,
-                CountType = CountAttackType.Normal,
+                CountType = CountAttackType.Air,
                 DelayGuardTpye = DelayGuardType.Stun,
                 HomingReturnType = HomingType.Stun,
 

@@ -89,7 +89,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 
 
                 enemyGuardTime = 0,//후딜이 20이므로 상대 가드 타임이 10 이면 10프레임 여유가 생김
-                enemyHitTime = 20,
+                enemyHitTime = 11,
                 enemyCountTime = 20,
                 attackDamage = 13,
             });
