@@ -18,7 +18,7 @@ public class SkillGroup
 {
     public CommandDirection Direction;
     public CommandButton Button;
-    public List<SkillOption> Options;
+    //spublic List<SkillOption> Options;
 }
 
 [System.Serializable]
