@@ -8,10 +8,12 @@ namespace Quantum.Menu {
   using InputField = UnityEngine.UI.InputField;
 #endif
   using UnityEngine;
+    using System.Linq;
+    using System;
 
-  /// <summary>
-  /// The main menu.
-  /// </summary>
+    /// <summary>
+    /// The main menu.
+    /// </summary>
   public partial class QuantumMenuUIMain : QuantumMenuUIScreen {
     /// <summary>
     /// The username label.
@@ -187,15 +189,27 @@ namespace Quantum.Menu {
     /// Initiates the connection and expects the connection object to set further screen states.
     /// </summary>
     protected virtual async void OnPlayButtonPressed() {
-      ConnectionArgs.Session = null;
-      ConnectionArgs.Creating = false;
-      ConnectionArgs.Region = ConnectionArgs.PreferredRegion;
+            ConnectionArgs.Session = null;
+            ConnectionArgs.Creating = false;
+            ConnectionArgs.Region = ConnectionArgs.PreferredRegion;
 
-      Controller.Show<QuantumMenuUILoading>();
 
-      var result = await Connection.ConnectAsync(ConnectionArgs);
+            //int[] skillMap = new int[28];
 
-      await Controller.HandleConnectionResult(result, this.Controller);
+            //for (int i = 0; i < 28; i++)
+            //{
+            //    skillMap[i] = 1;
+            //    PlayerPrefs.SetInt($"Skill_{i}", skillMap[i]);
+            //}
+            //PlayerPrefs.Save(); // 반드시 호출
+
+            Controller.Show<QuantumMenuUILoading>();
+            
+
+
+            var result = await Connection.ConnectAsync(ConnectionArgs);
+
+            await Controller.HandleConnectionResult(result, this.Controller);
     }
 
     

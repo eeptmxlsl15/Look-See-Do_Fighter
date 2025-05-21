@@ -19,7 +19,7 @@ namespace Quantum.LSDF
             // 위치 설정 (왼쪽, 오른쪽)
             FPVector2 spawnPos = player == (PlayerRef)0 ? new FPVector2(-FP._0_50, 0) : new FPVector2(FP._0_50, 0);
 
-
+            
             f.Set(playerEntity, new Transform2D
             {
                 Position = spawnPos,
@@ -32,12 +32,17 @@ namespace Quantum.LSDF
                 LSDF_player->CommandSkillMap[i] = 0;
                 
             }
-
+            int[] result = new int[28];
+            for (int i = 0; i < 28; i++)
+            {
+                result[i] = PlayerPrefs.GetInt($"Skill_{i}", 0); // 기본값은 0
+                Debug.Log(result[i]);
+            }
             //체력 초기화
             LSDF_player->playerHp = 170;
 
             f.Global->Time = 60;
-
+            
 
         }
     }

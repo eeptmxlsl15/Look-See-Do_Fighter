@@ -151,13 +151,13 @@ namespace Quantum.LSDF
                 if (shouldAttack)
                 {
                     //input->Right = true;
-                    input->Left = true;
-                    input->Down = true;
-                    input->RightKick = true;
+                    //input->Left = true;
+                    //input->Down = true;
+                    //input->RightKick = true;
                     //input->LeftPunch = true;
                     //input->RightPunch = true;
                     //input->Up = true;
-                    //input->Right = true;
+                    input->Right = true;
 
                 }
                 else

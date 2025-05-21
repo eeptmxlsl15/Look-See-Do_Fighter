@@ -69,6 +69,7 @@
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUILoading.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenu.Sdk.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuMachineId.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUISkillSelect.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuFpsAvgCounter.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUIParty.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuScreenPluginTooltip.cs" />
