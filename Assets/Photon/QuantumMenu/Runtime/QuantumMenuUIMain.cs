@@ -46,7 +46,7 @@ namespace Quantum.Menu {
     /// <summary>
     /// The open party screen button.
     /// </summary>
-    [InlineHelp, SerializeField] protected UnityEngine.UI.Button _partyButton;
+    [InlineHelp, SerializeField] protected UnityEngine.UI.Button _skillSet;
     /// <summary>
     /// The quick play button.
     /// </summary>
@@ -126,11 +126,11 @@ namespace Quantum.Menu {
 
       if (string.IsNullOrEmpty(ConnectionArgs.Scene?.NameOrSceneName)) {
         _playButton.interactable = false;
-        _partyButton.interactable = false;
+        _skillSet.interactable = false;
         Debug.LogWarning("No valid scene to start found. Add a QuantumMenuSceneInfo asset to Resources.");
       } else {
         _playButton.interactable = true;
-        _partyButton.interactable = true;
+        _skillSet.interactable = true;
       }
 
       if (_sceneButton.gameObject.activeInHierarchy && _sceneThumbnail != null) {
@@ -215,7 +215,7 @@ namespace Quantum.Menu {
     
 
     /// <summary>
-    /// Is called when the <see cref="_partyButton"/> is pressed using SendMessage() from the UI object.
+    /// Is called when the <see cref="_skillSet"/> is pressed using SendMessage() from the UI object.
     /// </summary>
     protected virtual void OnPartyButtonPressed() {
       Controller.Show<QuantumMenuUIParty>();

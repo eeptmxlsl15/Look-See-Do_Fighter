@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 104871702480506734}
   - component: {fileID: 4954842888746913213}
   - component: {fileID: 3714602772727089598}
+  - component: {fileID: 6162443877473553662}
   m_Layer: 5
   m_Name: Skill Panel
   m_TagString: Untagged
@@ -369,6 +370,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6162443877473553662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011978387850210309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73cad149b0b32d947b85a45963e66a8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Direction: 0
+  ButtonType: 0
+  SkillIndex: 0
+  UIButton: {fileID: 0}
 --- !u!1 &5059660043751875032
 GameObject:
   m_ObjectHideFlags: 0

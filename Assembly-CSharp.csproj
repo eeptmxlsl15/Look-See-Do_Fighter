@@ -61,12 +61,15 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.32f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\Legacy\SkillDatabase.cs" />
     <Compile Include="Assets\Scripts\GameUI.cs" />
-    <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillSaveManager.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillSetPanelUI.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_PlayerInput.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillScrollToggle.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_IngameUI.cs" />
-    <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillDatabase.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillSelectionManager.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillButton.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\Legacy\SkillSaveManager.cs" />
     <Compile Include="Assets\Scripts\SignalPlayHitEffect.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_HitEffectView.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_ViewHandler.cs" />
