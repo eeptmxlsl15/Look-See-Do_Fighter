@@ -1,28 +1,30 @@
 using Quantum.LSDF;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "LSDF/SkillDatabase")]
-public class SkillDatabase : ScriptableObject
+[System.Serializable]
+public class SkillOption
 {
-    public List<SkillGroup> Groups;
+    public string SkillName;
+    public string Description;
+    public int Cost;
+}
 
-    public SkillGroup GetSkillGroup(CommandDirection direction, CommandButton button)
+public class SkillDatabase : MonoBehaviour
+{
+    public List<SkillGroup> Skills;
+
+    [System.Serializable]
+    public class SkillGroup
     {
-        return Groups.Find(g => g.Direction == direction && g.Button == button);
+        public CommandDirection Direction;
+        public CommandButton Button;
+        public List<SkillOption> Options;
     }
-}
 
-[System.Serializable]
-public class SkillGroup
-{
-    public CommandDirection Direction;
-    public CommandButton Button;
-    //spublic List<SkillOption> Options;
-}
-
-[System.Serializable]
-public class SkillSet
-{
-    public int[] CommandSkillMap = new int[28]; // 7방향 × 4버튼
+    public SkillGroup GetSkillGroup(CommandDirection dir, CommandButton btn)
+    {
+        return Skills.FirstOrDefault(g => g.Direction == dir && g.Button == btn);
+    }
 }

@@ -7,38 +7,46 @@ using UnityEngine.UI;
 
 public class SkillSelectionUI : MonoBehaviour
 {
-    private SkillSet currentSkillSet = new SkillSet();
-    public int totalCost;
+    //public int parentIndex; // 방향
+    public CommandDirection parentIndex;
+    public CommandButton Button;
+    private Button[] buttons;
+    private int selectedIndex = -1; //고유 값
 
-    public void OnSkillSelected(int direction, int button, int skillId , int cost)
-    {
-        int index = (direction * 4) + button;
-        currentSkillSet.CommandSkillMap[index] = skillId;
-        totalCost += cost;
-    }
 
-    public void SaveSkillSet()
+    void Awake()
     {
-        string json = JsonUtility.ToJson(currentSkillSet);
-        PlayerPrefs.SetString("CommandSkillSet", json);
-        PlayerPrefs.Save();
-        Debug.Log("저장 완료!");
-    }
+        buttons = GetComponentsInChildren<Button>();
 
-    public void LoadSkillSet()
-    {
-        if (PlayerPrefs.HasKey("CommandSkillSet"))
+        for (int i = 0; i < buttons.Length; i++)
         {
-            string json = PlayerPrefs.GetString("CommandSkillSet");
-            currentSkillSet = JsonUtility.FromJson<SkillSet>(json);
-            ApplyToUI();
+            int buttonIndex = i; // 로컬 변수로 캡처 방지
+            buttons[i].onClick.AddListener(() => OnButtonClicked(buttonIndex));
         }
     }
 
-    private void ApplyToUI()
+    void OnButtonClicked(int buttonIndex)
     {
-        // UI 갱신 (예: 각 슬롯에 저장된 skillId로 미리보기 표시 등)
-    }
+        // 이전에 선택된 버튼 비활성화
+        if (selectedIndex != -1 && selectedIndex != buttonIndex)
+        {
+            // 예: 색상 초기화
+            buttons[selectedIndex].GetComponent<Image>().color = Color.white;
+        }
 
-    public SkillSet GetCurrentSkillSet() => currentSkillSet;
+        // 현재 선택된 버튼 강조
+        buttons[buttonIndex].GetComponent<Image>().color = Color.green;
+
+        // 선택 인덱스 업데이트
+        selectedIndex = buttonIndex;
+
+
+        int index = ((int)parentIndex * 4) + (int)Button;
+
+        // 필요한 곳에 index 전달 (예시용 로그)
+        PlayerPrefs.SetInt($"Skill_{index}", selectedIndex);
+
+        
+
+    }
 }

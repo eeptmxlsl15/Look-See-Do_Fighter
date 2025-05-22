@@ -12,10 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f879a8b1be361ae44b876ff567c20a14, type: 3}
   m_Name: Skill Database
   m_EditorClassIdentifier: 
-  Groups:
+  Skills:
   - Direction: 0
     Button: 0
     Options:
-    - SkillName: OneTwo
-      Cost: 5
-      Icon: {fileID: 0}
+    - SkillName: 
+      Description: 
+      Cost: 0
+  - Direction: 1
+    Button: 0
+    Options: []
+  - Direction: 2
+    Button: 0
+    Options: []
+  - Direction: 3
+    Button: 0
+    Options: []
+  - Direction: 4
+    Button: 0
+    Options: []
+  - Direction: 5
+    Button: 0
+    Options: []
+  - Direction: 6
+    Button: 0
+    Options: []

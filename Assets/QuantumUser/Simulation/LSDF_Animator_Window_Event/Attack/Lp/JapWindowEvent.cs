@@ -89,9 +89,18 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         //연타 관련
         if (5 <= currentFrame && currentFrame <= 15) // 연계 입력 받을 수 있는 구간
         {
+            //원투
             if (input->RightPunch && (AnimatorComponent.GetInteger(f,animatorComponent,"FinalNum")==0))
             {
                 
+                bufferedNextAttack = true;  // 일단 예약만 함
+                Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
+            }
+
+            //섬광
+            if (input->LeftPunch && (AnimatorComponent.GetInteger(f, animatorComponent, "FinalNum") == 1))
+            {
+
                 bufferedNextAttack = true;  // 일단 예약만 함
                 Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
             }

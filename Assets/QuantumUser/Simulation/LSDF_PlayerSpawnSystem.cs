@@ -27,16 +27,18 @@ namespace Quantum.LSDF
 
             //CommandSkillMap 초기화
             f.Unsafe.TryGetPointer<LSDF_Player>(playerEntity, out var LSDF_player);
+                //초기화용
+            //for (int i = 0; i < 28; i++)
+            //{
+            //    LSDF_player->CommandSkillMap[i] = 0;
+            //    PlayerPrefs.SetInt($"Skill_{i}", 0);
+            //}
+
+            
             for (int i = 0; i < 28; i++)
             {
-                LSDF_player->CommandSkillMap[i] = 0;
-                
-            }
-            int[] result = new int[28];
-            for (int i = 0; i < 28; i++)
-            {
-                result[i] = PlayerPrefs.GetInt($"Skill_{i}", 0); // 기본값은 0
-                Debug.Log(result[i]);
+                LSDF_player->CommandSkillMap[i] = PlayerPrefs.GetInt($"Skill_{i}", 0); // 기본값은 0
+                Debug.Log("커맨드 : " + LSDF_player->CommandSkillMap[i]);
             }
             //체력 초기화
             LSDF_player->playerHp = 170;
