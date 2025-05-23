@@ -64,9 +64,28 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
             //    AnimatorComponent.SetTrigger(f, animatorComponent, "Rp");
             //}
         }
-        
 
 
+        if (5 <= currentFrame && currentFrame <= 28) // 연계 입력 받을 수 있는 구간
+        {
+            
+
+            //섬광
+            if (input->Right)
+            {
+
+                bufferedNextAttack = true;  // 일단 예약만 함
+                Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
+            }
+        }
+        else if (currentFrame >= 6 && bufferedNextAttack)
+        {
+
+            AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);
+            // AnimatorComponent.SetTrigger(f, animatorComponent, "Lp");
+
+            Debug.Log("예약된 Lp 발동");
+        }
         //히트 박스 생성
         if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {

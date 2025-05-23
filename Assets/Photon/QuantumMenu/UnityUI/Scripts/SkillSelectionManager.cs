@@ -34,6 +34,9 @@ public class SkillSelectionManager : MonoBehaviour
             sb.UIButton.onClick.AddListener(() => OnSkillButtonClicked(sb));
         }
 
+
+        InitializeSkillsIfFirstPlay();
+
         LoadSelectionsFromPrefs();
         UpdateCostText();
     }
@@ -118,7 +121,25 @@ public class SkillSelectionManager : MonoBehaviour
         
         UpdateCostText();
     }
+    void InitializeSkillsIfFirstPlay()
+    {
+        Debug.Log("Initialize 체크: " + PlayerPrefs.HasKey("Initialized"));
 
+        if (!PlayerPrefs.HasKey("Initialized"))
+        {
+            // Skill_0 ~ Skill_27 초기화
+            for (int i = 0; i < 28; i++)
+            {
+                PlayerPrefs.SetInt($"Skill_{i}", 0);
+            }
+
+            // 초기화 플래그 설정
+            PlayerPrefs.SetInt("Initialized", 1);
+            PlayerPrefs.Save();
+
+            Debug.Log("처음 실행 - Skill 모두 0으로 초기화 완료");
+        }
+    }
     int GetIndex((CommandDirection, CommandButton) key)
     {
         return ((int)key.Item1 * 4) + (int)key.Item2;

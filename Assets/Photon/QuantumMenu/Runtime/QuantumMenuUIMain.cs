@@ -46,7 +46,7 @@ namespace Quantum.Menu {
     /// <summary>
     /// The open party screen button.
     /// </summary>
-    [InlineHelp, SerializeField] protected UnityEngine.UI.Button _skillSet;
+    [InlineHelp, SerializeField] protected UnityEngine.UI.Button _partyButton;
     /// <summary>
     /// The quick play button.
     /// </summary>
@@ -64,6 +64,7 @@ namespace Quantum.Menu {
     /// </summary>
     [InlineHelp, SerializeField] protected UnityEngine.UI.Button _settingsButton;
 
+        public GameObject sillSetUI;
     partial void AwakeUser();
     partial void InitUser();
     partial void ShowUser();
@@ -126,11 +127,11 @@ namespace Quantum.Menu {
 
       if (string.IsNullOrEmpty(ConnectionArgs.Scene?.NameOrSceneName)) {
         _playButton.interactable = false;
-        _skillSet.interactable = false;
+        _partyButton.interactable = false;
         Debug.LogWarning("No valid scene to start found. Add a QuantumMenuSceneInfo asset to Resources.");
       } else {
         _playButton.interactable = true;
-        _skillSet.interactable = true;
+        _partyButton.interactable = true;
       }
 
       if (_sceneButton.gameObject.activeInHierarchy && _sceneThumbnail != null) {
@@ -215,16 +216,23 @@ namespace Quantum.Menu {
     
 
     /// <summary>
-    /// Is called when the <see cref="_skillSet"/> is pressed using SendMessage() from the UI object.
+    /// Is called when the <see cref="_partyButton"/> is pressed using SendMessage() from the UI object.
     /// </summary>
     protected virtual void OnPartyButtonPressed() {
-      Controller.Show<QuantumMenuUIParty>();
+            //Controller.Show<QuantumMenuUIParty>();
+            sillSetUI.SetActive(true);
     }
 
-    /// <summary>
-    /// Is called when the <see cref="_sceneButton"/> is pressed using SendMessage() from the UI object.
-    /// </summary>
-    protected virtual void OnScenesButtonPressed() {
+        protected virtual void OnPartyBackButtonPressed()
+        {
+            //Controller.Show<QuantumMenuUIParty>();
+            sillSetUI.SetActive(false);
+        }
+
+        /// <summary>
+        /// Is called when the <see cref="_sceneButton"/> is pressed using SendMessage() from the UI object.
+        /// </summary>
+        protected virtual void OnScenesButtonPressed() {
       Controller.Show<QuantumMenuUIScenes>();
     }
 

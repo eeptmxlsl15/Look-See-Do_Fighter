@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e000d7455ac3924459efca0448845743, type: 3}
+  m_Name: Jap Jap Two Window Event
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/LSDF_Animator Assets/Jap Jap Two Window Event
+    Guid:
+      Value: 270502273992340202
+  IsMuted: 0

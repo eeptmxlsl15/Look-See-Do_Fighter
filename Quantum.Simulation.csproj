@@ -134,6 +134,7 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorFrame.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lk\LarsCutKickWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\DashFrontWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lp\JapJapTwoWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rp\DeathFistWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rk\LarsSnakeWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\SystemSetup.User.cs" />
