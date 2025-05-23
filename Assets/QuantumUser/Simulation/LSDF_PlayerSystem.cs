@@ -152,12 +152,12 @@ namespace Quantum.LSDF
                 {
                     //input->Right = true;
                     //input->Left = true;
-                    //input->Down = true;
-                    //input->RightKick = true;
+                    input->Down = true;
+                    input->RightKick = true;
                     //input->LeftPunch = true;
                     //input->RightPunch = true;
                     //input->Up = true;
-                    input->Right = true;
+                    //input->Right = true;
 
                 }
                 else
@@ -548,12 +548,7 @@ namespace Quantum.LSDF
                     AnimatorComponent.SetTrigger(f, animator, "LowHit");
 
                 }
-                player->isHit = true;
-                player->DelayFrame = f.Number + hitbox->enemyCountTime;
-
-                player->playerHp -= (int)(hitbox->attackDamage * 1.2f);//여기서 데미지 보정
-
-                Debug.Log($"현재 체력 : {player->playerHp}/170");
+                
             }
             //콤보 상황일 경우 띄움
             else if (hitbox->CountType == CountAttackType.Combo)
@@ -571,9 +566,14 @@ namespace Quantum.LSDF
             {
                 AnimatorComponent.SetTrigger(f, animator, "Air");
             }
+            player->isHit = true;
+            player->DelayFrame = f.Number + hitbox->enemyCountTime;
 
-            
-            
+            player->playerHp -= (int)(hitbox->attackDamage * 1.2f);//여기서 데미지 보정
+
+            Debug.Log($"현재 체력 : {player->playerHp}/170");
+
+
         }
         public void OnTriggerGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox)
         {

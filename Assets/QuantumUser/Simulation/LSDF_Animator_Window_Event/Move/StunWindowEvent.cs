@@ -26,6 +26,10 @@ public class StunWindowEvent : AnimatorTimeWindowEventAsset
 
         player->isStun = true;
 
+        //상하단 회피 판정 초기화
+        player->isDodgeHigh = false;
+        player->isJump = false;
+
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 

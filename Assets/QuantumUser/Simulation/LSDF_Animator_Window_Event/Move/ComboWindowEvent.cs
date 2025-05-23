@@ -24,7 +24,9 @@ public class ComboWindowEvent : AnimatorTimeWindowEventAsset
         Debug.Log("콤보 휘청 시작");
 
         player->isCombo = true;
-
+        //상하단 회피 판정 초기화
+        player->isDodgeHigh = false;
+        player->isJump = false;
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 

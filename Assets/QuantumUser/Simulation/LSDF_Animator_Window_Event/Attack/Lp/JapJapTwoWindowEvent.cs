@@ -11,7 +11,7 @@ public class JapJapTwoWindowEvent : AnimatorTimeWindowEventAsset
     /// <summary>
     /// 시작 프레임
     /// </summary>
-    private const int HitFrame = 1;
+    private const int HitFrame = 5;
 
 
     private int currentFrame;
@@ -77,7 +77,7 @@ public class JapJapTwoWindowEvent : AnimatorTimeWindowEventAsset
         //전진 속도
         if (currentFrame < HitFrame)
         {
-            body->Velocity.X = 10*flip;
+            body->Velocity.X = 2*flip;
             Debug.Log("잽 Execute");
             //if (input->LeftPunch)
             //{
@@ -206,7 +206,7 @@ public class JapJapTwoWindowEvent : AnimatorTimeWindowEventAsset
                 enemyHitTime = 29,
                 enemyCountTime = 29,
                 attackDamage = 7,
-                forceBack = 12
+                forceBack = 1
             });
 
 
@@ -227,8 +227,8 @@ public class JapJapTwoWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        ////연타 공격일 경우
-        // AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
+        //연타 공격일 경우
+        AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
         var entity = animatorComponent->Self;
         f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;

@@ -191,10 +191,20 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
                 startFrame = HitFrame,
                 AttackerEntity = entity,
 
+                //상중하단
                 AttackType = HitboxAttackType.High,
+
+                //카운터 시 상대가 어떻게 되는가
                 CountType = CountAttackType.Normal,
+
+                //막혔을때 내가 어떻게 되는가
                 DelayGuardTpye = DelayGuardType.Normal,
+
+                //상대가 패링했을때 내가 어떻게 되는가 아님 호밍기인가
                 HomingReturnType = HomingType.Stun,
+
+                //히트시 상대가 어떻게 되는가
+                GuaranteeAttackType = GuaranteeType.Normal,
 
                 jumpAttack = false,
                 dodgeHigh = false,

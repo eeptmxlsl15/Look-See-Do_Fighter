@@ -98,7 +98,13 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 44add15fa32fca64cbd5b7207e62f4fb, type: 2}
   - {fileID: 7400000, guid: b501879494683c542824ce82e567f1aa, type: 2}
   - {fileID: 7400000, guid: 536a5471b671cfa4cbaa274f4138218f, type: 2}
-  - {fileID: 7400000, guid: 4f241d26083c39b4da28551038727800, type: 2}
+  - {fileID: 7400000, guid: d5b75cb8ce98c60409afef19c55e982a, type: 2}
+  - {fileID: 7400000, guid: 22a121c5135cd394abba2c1cc58c9c9d, type: 2}
+  - {fileID: 7400000, guid: 0d1921888b3104746956f282c11c6e81, type: 2}
+  - {fileID: 7400000, guid: 54cfa20fb292b1347acfd8e4e93bd409, type: 2}
+  - {fileID: 7400000, guid: f17a5f7ac9d620c419bb62d7fd9caa69, type: 2}
+  - {fileID: 7400000, guid: 1d16c0321769b9f4cbe210392ffd5ab2, type: 2}
+  - {fileID: 7400000, guid: f6d404bbc077a6047b1bf4ba5172e860, type: 2}
   Layers:
   - Id: 0
     Name: Base Layer
@@ -1091,7 +1097,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154950
+          - rid: 2519904164808229243
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -4071,7 +4077,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154951
+          - rid: 2519904164808229244
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -4411,7 +4417,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154952
+          - rid: 2519904164808229245
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -4710,7 +4716,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154953
+          - rid: 2519904164808229246
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -6064,7 +6070,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154954
+          - rid: 2519904164808229247
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -6363,7 +6369,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154955
+          - rid: 2519904164808229248
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -13475,14 +13481,14 @@ MonoBehaviour:
         DestinationStateId: 1475068564
         DestinationStateName: Go To Idle
       - Index: 1
-        Name: 1_Jap to 0_JapJap
+        Name: 1_Jap to 1_JapJap
         Duration:
           RawValue: 0
         Offset:
           RawValue: 0
         ExitTime:
           RawValue: 0
-        HasExitTime: 1
+        HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
         - VariableName: NextAttack
@@ -13490,8 +13496,8 @@ MonoBehaviour:
           ThresholdFp:
             RawValue: 0
           ThresholdInt: 0
-        DestinationStateId: 87220717
-        DestinationStateName: 0_JapJap
+        DestinationStateId: -912727693
+        DestinationStateName: 1_JapJap
       SerialisedMotions:
       - IsAnimation: 1
         Name: Jap_Enemy
@@ -14135,7 +14141,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154956
+          - rid: 2519904164808229249
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -15498,7 +15504,7 @@ MonoBehaviour:
         RawValue: 65536
       Transitions:
       - Index: 0
-        Name: Left to 0_LeftUpper
+        Name: Left to 0_QuickHook
         Duration:
           RawValue: 0
         Offset:
@@ -15513,8 +15519,8 @@ MonoBehaviour:
           ThresholdFp:
             RawValue: 0
           ThresholdInt: 0
-        DestinationStateId: -1170847628
-        DestinationStateName: 0_LeftUpper
+        DestinationStateId: -773198819
+        DestinationStateName: 0_QuickHook
       SerialisedMotions:
       - IsAnimation: 1
         Name: Idle_Enemy
@@ -16813,7 +16819,25 @@ MonoBehaviour:
         RawValue: 0
       Speed:
         RawValue: 65536
-      Transitions: []
+      Transitions:
+      - Index: 0
+        Name: Down to 0_SitPunch
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 49152
+        HasExitTime: 0
+        CanTransitionToSelf: 0
+        Conditions:
+        - VariableName: FinalNum
+          Mode: 6
+          ThresholdFp:
+            RawValue: 0
+          ThresholdInt: 0
+        DestinationStateId: 1487175276
+        DestinationStateName: 0_SitPunch
       SerialisedMotions:
       - IsAnimation: 1
         Name: Idle_Enemy
@@ -18114,7 +18138,7 @@ MonoBehaviour:
         RawValue: 65536
       Transitions:
       - Index: 0
-        Name: LeftDown to 0_LeftUpper
+        Name: LeftDown to 0_MachineGun
         Duration:
           RawValue: 0
         Offset:
@@ -18129,8 +18153,8 @@ MonoBehaviour:
           ThresholdFp:
             RawValue: 0
           ThresholdInt: 0
-        DestinationStateId: -1170847628
-        DestinationStateName: 0_LeftUpper
+        DestinationStateId: -900878462
+        DestinationStateName: 0_MachineGun
       SerialisedMotions:
       - IsAnimation: 1
         Name: Idle_Enemy
@@ -19431,13 +19455,13 @@ MonoBehaviour:
         RawValue: 65536
       Transitions:
       - Index: 0
-        Name: Right to 0_LeftUpper
+        Name: Right to 0_Sledge
         Duration:
           RawValue: 0
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 49152
+          RawValue: 0
         HasExitTime: 0
         CanTransitionToSelf: 0
         Conditions:
@@ -19446,8 +19470,8 @@ MonoBehaviour:
           ThresholdFp:
             RawValue: 0
           ThresholdInt: 0
-        DestinationStateId: -1170847628
-        DestinationStateName: 0_LeftUpper
+        DestinationStateId: -1209468635
+        DestinationStateName: 0_Sledge
       SerialisedMotions:
       - IsAnimation: 1
         Name: Idle_Enemy
@@ -20748,7 +20772,7 @@ MonoBehaviour:
         RawValue: 65536
       Transitions:
       - Index: 0
-        Name: Up to 0_LeftUpper
+        Name: Up to 0_NewMaha
         Duration:
           RawValue: 0
         Offset:
@@ -20763,8 +20787,8 @@ MonoBehaviour:
           ThresholdFp:
             RawValue: 0
           ThresholdInt: 0
-        DestinationStateId: -1170847628
-        DestinationStateName: 0_LeftUpper
+        DestinationStateId: -197457774
+        DestinationStateName: 0_NewMaha
       SerialisedMotions:
       - IsAnimation: 1
         Name: Idle_Enemy
@@ -25359,7 +25383,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154957
+          - rid: 2519904164808229250
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -26047,7 +26071,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154958
+          - rid: 2519904164808229251
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -26735,7 +26759,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154959
+          - rid: 2519904164808229252
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -27423,7 +27447,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154960
+          - rid: 2519904164808229253
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -28111,7 +28135,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154961
+          - rid: 2519904164808229254
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -29454,7 +29478,25 @@ MonoBehaviour:
         RawValue: 0
       Speed:
         RawValue: 65536
-      Transitions: []
+      Transitions:
+      - Index: 0
+        Name: Neutral 0 to 0_BraHoming
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 49152
+        HasExitTime: 0
+        CanTransitionToSelf: 0
+        Conditions:
+        - VariableName: FinalNum
+          Mode: 6
+          ThresholdFp:
+            RawValue: 0
+          ThresholdInt: 0
+        DestinationStateId: 1722406966
+        DestinationStateName: 0_BraHoming
       SerialisedMotions:
       - IsAnimation: 1
         Name: Idle_Enemy
@@ -30753,7 +30795,25 @@ MonoBehaviour:
         RawValue: 0
       Speed:
         RawValue: 65536
-      Transitions: []
+      Transitions:
+      - Index: 0
+        Name: Left 0 to 0_KazumiHoming
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 0
+        HasExitTime: 1
+        CanTransitionToSelf: 0
+        Conditions:
+        - VariableName: FinalNum
+          Mode: 6
+          ThresholdFp:
+            RawValue: 0
+          ThresholdInt: 0
+        DestinationStateId: -735531112
+        DestinationStateName: 0_KazumiHoming
       SerialisedMotions:
       - IsAnimation: 1
         Name: Idle_Enemy
@@ -48636,7 +48696,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154962
+          - rid: 2519904164808229255
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -49382,7 +49442,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154963
+          - rid: 2519904164808229256
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -59619,7 +59679,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154964
+          - rid: 2519904164808229257
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -59800,7 +59860,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154965
+          - rid: 2519904164808229258
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -62243,7 +62303,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154966
+          - rid: 2519904164808229259
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -63031,7 +63091,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154967
+          - rid: 2519904164808229260
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -64349,7 +64409,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154968
+          - rid: 2519904164808229261
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -64822,7 +64882,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154969
+          - rid: 2519904164808229262
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -65720,7 +65780,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154970
+          - rid: 2519904164808229263
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -66613,7 +66673,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154971
+          - rid: 2519904164808229264
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -67296,7 +67356,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154972
+          - rid: 2519904164808229265
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -68147,7 +68207,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154973
+          - rid: 2519904164808229266
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -68935,7 +68995,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154974
+          - rid: 2519904164808229267
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -68953,8 +69013,8 @@ MonoBehaviour:
         Id:
           Value: 0
       StateBehaviours: []
-    - Id: 87220717
-      Name: 0_JapJap
+    - Id: -912727693
+      Name: 1_JapJap
       IsAny: 0
       IsDefault: 0
       CycleOffset:
@@ -68963,7 +69023,7 @@ MonoBehaviour:
         RawValue: 65536
       Transitions:
       - Index: 0
-        Name: 0_JapJap to Go To Idle
+        Name: 1_JapJap to Go To Idle
         Duration:
           RawValue: 0
         Offset:
@@ -68976,7 +69036,7 @@ MonoBehaviour:
         DestinationStateId: 1475068564
         DestinationStateName: Go To Idle
       - Index: 1
-        Name: 0_JapJap to 1_JapJapTwo
+        Name: 1_JapJap to 1_JapJapTwo
         Duration:
           RawValue: 0
         Offset:
@@ -69636,7 +69696,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154975
+          - rid: 2519904164808229268
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -69662,7 +69722,20 @@ MonoBehaviour:
         RawValue: 0
       Speed:
         RawValue: 65536
-      Transitions: []
+      Transitions:
+      - Index: 0
+        Name: 0_SitPunch to Go To Idle
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 32768
+        HasExitTime: 1
+        CanTransitionToSelf: 0
+        Conditions: []
+        DestinationStateId: 1475068564
+        DestinationStateName: Go To Idle
       SerialisedMotions:
       - IsAnimation: 1
         Name: SitPunch_Enemy
@@ -70306,7 +70379,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154976
+          - rid: 2519904164808229269
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -71608,7 +71681,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154977
+          - rid: 2519904164808229270
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -72249,7 +72322,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154978
+          - rid: 2519904164808229271
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -72950,7 +73023,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154979
+          - rid: 2519904164808229272
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -75249,7 +75322,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154980
+          - rid: 2519904164808229273
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -76100,7 +76173,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154981
+          - rid: 2519904164808229274
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -76951,7 +77024,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154982
+          - rid: 2519904164808229275
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -77760,7 +77833,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154983
+          - rid: 2519904164808229276
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -78989,7 +79062,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154984
+          - rid: 2519904164808229277
           LoopTime: 1
           Mirror: 0
         BlendParameterIndex: 0
@@ -80218,7 +80291,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154985
+          - rid: 2519904164808229278
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -80985,7 +81058,7 @@ MonoBehaviour:
             RotationY:
               RawValue: 0
           Events:
-          - rid: 2519904157996154986
+          - rid: 2519904164808229279
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -81019,7 +81092,7 @@ MonoBehaviour:
         Offset:
           RawValue: 0
         ExitTime:
-          RawValue: 30583
+          RawValue: 22937
         HasExitTime: 1
         CanTransitionToSelf: 0
         Conditions: []
@@ -81027,15 +81100,509 @@ MonoBehaviour:
         DestinationStateName: Go To Idle
       SerialisedMotions:
       - IsAnimation: 1
-        Name: JapTwo_Enemy
+        Name: JapJapTwo_Enemy
         AnimatorData:
-          ClipName: JapTwo_Enemy
-          MotionId: -277380942
+          ClipName: JapJapTwo_Enemy
+          MotionId: 1679074309
           Length:
-            RawValue: 30583
+            RawValue: 22937
           Index: 0
           FrameRate: 60
-          FrameCount: 28
+          FrameCount: 21
+          Frames:
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          Events:
+          - rid: 2519904164808229280
+          LoopTime: 0
+          Mirror: 0
+        BlendParameterIndex: 0
+        BlendParameterIndexY: 0
+        Positions: []
+        TimesScale: []
+        Resolution: 0
+        WeightTable:
+          Data: []
+        TimeScaleTable:
+          Data: []
+        ChildCount: 0
+        IndexOfFirstChild: 1
+      StateAsset:
+        Id:
+          Value: 0
+      StateBehaviours: []
+    - Id: -773198819
+      Name: 0_QuickHook
+      IsAny: 0
+      IsDefault: 0
+      CycleOffset:
+        RawValue: 0
+      Speed:
+        RawValue: 65536
+      Transitions:
+      - Index: 0
+        Name: 0_QuickHook to Go To Idle
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 36044
+        HasExitTime: 1
+        CanTransitionToSelf: 0
+        Conditions: []
+        DestinationStateId: 1475068564
+        DestinationStateName: Go To Idle
+      SerialisedMotions:
+      - IsAnimation: 1
+        Name: QuickHook_Enemy
+        AnimatorData:
+          ClipName: QuickHook_Enemy
+          MotionId: 1604861299
+          Length:
+            RawValue: 36044
+          Index: 0
+          FrameRate: 60
+          FrameCount: 33
           Frames:
           - Id: 0
             Time:
@@ -81625,8 +82192,4095 @@ MonoBehaviour:
                 RawValue: 0
             RotationY:
               RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
           Events:
-          - rid: 2519904157996154987
+          - rid: 2519904164808229281
+          LoopTime: 0
+          Mirror: 0
+        BlendParameterIndex: 0
+        BlendParameterIndexY: 0
+        Positions: []
+        TimesScale: []
+        Resolution: 0
+        WeightTable:
+          Data: []
+        TimeScaleTable:
+          Data: []
+        ChildCount: 0
+        IndexOfFirstChild: 1
+      StateAsset:
+        Id:
+          Value: 0
+      StateBehaviours: []
+    - Id: -900878462
+      Name: 0_MachineGun
+      IsAny: 0
+      IsDefault: 0
+      CycleOffset:
+        RawValue: 0
+      Speed:
+        RawValue: 65536
+      Transitions:
+      - Index: 0
+        Name: 0_MachineGun to Go To Idle
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 34952
+        HasExitTime: 1
+        CanTransitionToSelf: 0
+        Conditions: []
+        DestinationStateId: 1475068564
+        DestinationStateName: Go To Idle
+      SerialisedMotions:
+      - IsAnimation: 1
+        Name: MachineGun_Enemy
+        AnimatorData:
+          ClipName: MachineGun_Enemy
+          MotionId: -987432248
+          Length:
+            RawValue: 34952
+          Index: 0
+          FrameRate: 60
+          FrameCount: 32
+          Frames:
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          Events:
+          - rid: 2519904164808229282
+          LoopTime: 0
+          Mirror: 0
+        BlendParameterIndex: 0
+        BlendParameterIndexY: 0
+        Positions: []
+        TimesScale: []
+        Resolution: 0
+        WeightTable:
+          Data: []
+        TimeScaleTable:
+          Data: []
+        ChildCount: 0
+        IndexOfFirstChild: 1
+      StateAsset:
+        Id:
+          Value: 0
+      StateBehaviours: []
+    - Id: -1209468635
+      Name: 0_Sledge
+      IsAny: 0
+      IsDefault: 0
+      CycleOffset:
+        RawValue: 0
+      Speed:
+        RawValue: 65536
+      Transitions:
+      - Index: 0
+        Name: 0_Sledge to Go To Idle
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 40413
+        HasExitTime: 1
+        CanTransitionToSelf: 0
+        Conditions: []
+        DestinationStateId: 1475068564
+        DestinationStateName: Go To Idle
+      SerialisedMotions:
+      - IsAnimation: 1
+        Name: Sledge_Enemy
+        AnimatorData:
+          ClipName: Sledge_Enemy
+          MotionId: 1261292317
+          Length:
+            RawValue: 40413
+          Index: 0
+          FrameRate: 60
+          FrameCount: 37
+          Frames:
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          Events:
+          - rid: 2519904164808229283
+          LoopTime: 0
+          Mirror: 0
+        BlendParameterIndex: 0
+        BlendParameterIndexY: 0
+        Positions: []
+        TimesScale: []
+        Resolution: 0
+        WeightTable:
+          Data: []
+        TimeScaleTable:
+          Data: []
+        ChildCount: 0
+        IndexOfFirstChild: 1
+      StateAsset:
+        Id:
+          Value: 0
+      StateBehaviours: []
+    - Id: -197457774
+      Name: 0_NewMaha
+      IsAny: 0
+      IsDefault: 0
+      CycleOffset:
+        RawValue: 0
+      Speed:
+        RawValue: 65536
+      Transitions:
+      - Index: 0
+        Name: 0_NewMaha to Go To Idle
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 39321
+        HasExitTime: 1
+        CanTransitionToSelf: 0
+        Conditions: []
+        DestinationStateId: 1475068564
+        DestinationStateName: Go To Idle
+      SerialisedMotions:
+      - IsAnimation: 1
+        Name: NewMaha_Enemy
+        AnimatorData:
+          ClipName: NewMaha_Enemy
+          MotionId: -1651630046
+          Length:
+            RawValue: 39321
+          Index: 0
+          FrameRate: 60
+          FrameCount: 36
+          Frames:
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          Events:
+          - rid: 2519904164808229284
+          LoopTime: 0
+          Mirror: 0
+        BlendParameterIndex: 0
+        BlendParameterIndexY: 0
+        Positions: []
+        TimesScale: []
+        Resolution: 0
+        WeightTable:
+          Data: []
+        TimeScaleTable:
+          Data: []
+        ChildCount: 0
+        IndexOfFirstChild: 1
+      StateAsset:
+        Id:
+          Value: 0
+      StateBehaviours: []
+    - Id: 1722406966
+      Name: 0_BraHoming
+      IsAny: 0
+      IsDefault: 0
+      CycleOffset:
+        RawValue: 0
+      Speed:
+        RawValue: 65536
+      Transitions:
+      - Index: 0
+        Name: 0_BraHoming to Go To Idle
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 40413
+        HasExitTime: 1
+        CanTransitionToSelf: 0
+        Conditions: []
+        DestinationStateId: 1475068564
+        DestinationStateName: Go To Idle
+      SerialisedMotions:
+      - IsAnimation: 1
+        Name: BraHoming_Enemy
+        AnimatorData:
+          ClipName: BraHoming_Enemy
+          MotionId: -1935989058
+          Length:
+            RawValue: 40413
+          Index: 0
+          FrameRate: 60
+          FrameCount: 37
+          Frames:
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          Events:
+          - rid: 2519904164808229285
+          LoopTime: 0
+          Mirror: 0
+        BlendParameterIndex: 0
+        BlendParameterIndexY: 0
+        Positions: []
+        TimesScale: []
+        Resolution: 0
+        WeightTable:
+          Data: []
+        TimeScaleTable:
+          Data: []
+        ChildCount: 0
+        IndexOfFirstChild: 1
+      StateAsset:
+        Id:
+          Value: 0
+      StateBehaviours: []
+    - Id: -735531112
+      Name: 0_KazumiHoming
+      IsAny: 0
+      IsDefault: 0
+      CycleOffset:
+        RawValue: 0
+      Speed:
+        RawValue: 65536
+      Transitions:
+      - Index: 0
+        Name: 0_KazumiHoming to Go To Idle
+        Duration:
+          RawValue: 0
+        Offset:
+          RawValue: 0
+        ExitTime:
+          RawValue: 38229
+        HasExitTime: 1
+        CanTransitionToSelf: 0
+        Conditions: []
+        DestinationStateId: 1475068564
+        DestinationStateName: Go To Idle
+      SerialisedMotions:
+      - IsAnimation: 1
+        Name: KazumiHoming_Enemy
+        AnimatorData:
+          ClipName: KazumiHoming_Enemy
+          MotionId: -1706814578
+          Length:
+            RawValue: 38229
+          Index: 0
+          FrameRate: 60
+          FrameCount: 35
+          Frames:
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          - Id: 0
+            Time:
+              RawValue: 0
+            Position:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+            Rotation:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+              Z:
+                RawValue: 0
+              W:
+                RawValue: 0
+            RotationY:
+              RawValue: 0
+          Events:
+          - rid: 2519904164808229286
           LoopTime: 0
           Mirror: 0
         BlendParameterIndex: 0
@@ -82052,17 +86706,17 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2519904157996154950
+    - rid: 2519904164808229243
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
           Id:
             Value: 405792025630966805
         Time:
-          RawValue: 0
+          RawValue: 1092
         EndTime:
           RawValue: 43690
-    - rid: 2519904157996154951
+    - rid: 2519904164808229244
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82072,7 +86726,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 21845
-    - rid: 2519904157996154952
+    - rid: 2519904164808229245
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82082,7 +86736,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 10922
-    - rid: 2519904157996154953
+    - rid: 2519904164808229246
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82092,7 +86746,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 10922
-    - rid: 2519904157996154954
+    - rid: 2519904164808229247
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82102,7 +86756,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 65536
-    - rid: 2519904157996154955
+    - rid: 2519904164808229248
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82112,7 +86766,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 10922
-    - rid: 2519904157996154956
+    - rid: 2519904164808229249
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82122,7 +86776,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154957
+    - rid: 2519904164808229250
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82132,7 +86786,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154958
+    - rid: 2519904164808229251
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82142,7 +86796,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154959
+    - rid: 2519904164808229252
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82152,7 +86806,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154960
+    - rid: 2519904164808229253
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82162,7 +86816,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154961
+    - rid: 2519904164808229254
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82172,7 +86826,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154962
+    - rid: 2519904164808229255
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82182,7 +86836,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 38229
-    - rid: 2519904157996154963
+    - rid: 2519904164808229256
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82192,7 +86846,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 36044
-    - rid: 2519904157996154964
+    - rid: 2519904164808229257
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82202,7 +86856,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 54613
-    - rid: 2519904157996154965
+    - rid: 2519904164808229258
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82212,7 +86866,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 5461
-    - rid: 2519904157996154966
+    - rid: 2519904164808229259
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82222,7 +86876,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 54613
-    - rid: 2519904157996154967
+    - rid: 2519904164808229260
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82232,7 +86886,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 38229
-    - rid: 2519904157996154968
+    - rid: 2519904164808229261
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82242,7 +86896,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 65536
-    - rid: 2519904157996154969
+    - rid: 2519904164808229262
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82252,7 +86906,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 21845
-    - rid: 2519904157996154970
+    - rid: 2519904164808229263
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82262,7 +86916,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 43690
-    - rid: 2519904157996154971
+    - rid: 2519904164808229264
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82272,7 +86926,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 43690
-    - rid: 2519904157996154972
+    - rid: 2519904164808229265
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82282,7 +86936,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154973
+    - rid: 2519904164808229266
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82292,7 +86946,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 41506
-    - rid: 2519904157996154974
+    - rid: 2519904164808229267
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82302,17 +86956,17 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 38229
-    - rid: 2519904157996154975
+    - rid: 2519904164808229268
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
           Id:
             Value: 506750153109899138
         Time:
-          RawValue: 0
+          RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154976
+    - rid: 2519904164808229269
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82322,7 +86976,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154977
+    - rid: 2519904164808229270
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82332,7 +86986,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 24029
-    - rid: 2519904157996154978
+    - rid: 2519904164808229271
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82342,7 +86996,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 30583
-    - rid: 2519904157996154979
+    - rid: 2519904164808229272
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82352,7 +87006,7 @@ MonoBehaviour:
           RawValue: 0
         EndTime:
           RawValue: 32768
-    - rid: 2519904157996154980
+    - rid: 2519904164808229273
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82362,7 +87016,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 41506
-    - rid: 2519904157996154981
+    - rid: 2519904164808229274
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82372,7 +87026,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 41506
-    - rid: 2519904157996154982
+    - rid: 2519904164808229275
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82382,7 +87036,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 41506
-    - rid: 2519904157996154983
+    - rid: 2519904164808229276
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82392,7 +87046,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 39321
-    - rid: 2519904157996154984
+    - rid: 2519904164808229277
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82402,7 +87056,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 61166
-    - rid: 2519904157996154985
+    - rid: 2519904164808229278
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82412,7 +87066,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 61166
-    - rid: 2519904157996154986
+    - rid: 2519904164808229279
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82422,7 +87076,7 @@ MonoBehaviour:
           RawValue: 1092
         EndTime:
           RawValue: 37137
-    - rid: 2519904157996154987
+    - rid: 2519904164808229280
       type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
       data:
         AssetRef:
@@ -82431,4 +87085,64 @@ MonoBehaviour:
         Time:
           RawValue: 1092
         EndTime:
-          RawValue: 30583
+          RawValue: 22937
+    - rid: 2519904164808229281
+      type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
+      data:
+        AssetRef:
+          Id:
+            Value: 351907434858096616
+        Time:
+          RawValue: 1092
+        EndTime:
+          RawValue: 36044
+    - rid: 2519904164808229282
+      type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
+      data:
+        AssetRef:
+          Id:
+            Value: 319638042829155017
+        Time:
+          RawValue: 1092
+        EndTime:
+          RawValue: 34952
+    - rid: 2519904164808229283
+      type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
+      data:
+        AssetRef:
+          Id:
+            Value: 311481544832612809
+        Time:
+          RawValue: 1092
+        EndTime:
+          RawValue: 40413
+    - rid: 2519904164808229284
+      type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
+      data:
+        AssetRef:
+          Id:
+            Value: 353458344122560761
+        Time:
+          RawValue: 1092
+        EndTime:
+          RawValue: 39321
+    - rid: 2519904164808229285
+      type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
+      data:
+        AssetRef:
+          Id:
+            Value: 363994385347270707
+        Time:
+          RawValue: 1092
+        EndTime:
+          RawValue: 40413
+    - rid: 2519904164808229286
+      type: {class: AnimatorTimeWindowEvent, ns: Quantum.Addons.Animator, asm: Quantum.Simulation}
+      data:
+        AssetRef:
+          Id:
+            Value: 293457547455498817
+        Time:
+          RawValue: 1092
+        EndTime:
+          RawValue: 38229

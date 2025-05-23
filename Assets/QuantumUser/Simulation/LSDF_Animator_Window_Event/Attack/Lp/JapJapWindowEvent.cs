@@ -27,8 +27,8 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
         player->isSit = false;
 
         //콤보에 사용 되는 불린
-        
-
+        AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
+        bufferedNextAttack = false;
         Debug.Log($"잽잽 현재 프레임 : {currentFrame}");
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
@@ -64,21 +64,21 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
             //    AnimatorComponent.SetTrigger(f, animatorComponent, "Rp");
             //}
         }
+        
 
-
-        if (5 <= currentFrame && currentFrame <= 28) // 연계 입력 받을 수 있는 구간
+       if (currentFrame <= 28) // 연계 입력 받을 수 있는 구간
         {
             
 
             //섬광
-            if (input->Right)
+            if (input->RightPunch)
             {
 
                 bufferedNextAttack = true;  // 일단 예약만 함
                 Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
             }
         }
-        else if (currentFrame >= 6 && bufferedNextAttack)
+        if (currentFrame >= 15 && bufferedNextAttack)
         {
 
             AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);

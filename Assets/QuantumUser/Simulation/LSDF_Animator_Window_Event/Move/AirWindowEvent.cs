@@ -35,6 +35,11 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
         Debug.Log($"air 시작 프레임 : {f.Number}");
         player->hitCount++;
         player->isAir = true;
+
+        //상하단 회피 판정 초기화
+        player->isDodgeHigh = false;
+        player->isJump = false;
+
         //player->isAir = true;
         //Debug.Log($"히트 카운트 : {player->hitCount}");
     }

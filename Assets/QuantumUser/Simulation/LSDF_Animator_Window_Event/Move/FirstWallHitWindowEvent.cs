@@ -37,6 +37,9 @@ public class FirstWallHitWindowEvent : AnimatorTimeWindowEventAsset
         player->isWallHit = true;
         player->isAir = false;
         Debug.Log($"히트 카운트 : {player->hitCount}");
+        //상하단 회피 판정 초기화
+        player->isDodgeHigh = false;
+        player->isJump = false;
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
