@@ -52,3 +52,7 @@ component LSDF_Player
 	array<int>[28] CommandSkillMap;
 	
 }	
+
+event OnHit{}
+event OnGuard{}
+event OnCounter{}

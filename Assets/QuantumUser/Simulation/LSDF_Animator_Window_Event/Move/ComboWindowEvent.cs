@@ -34,15 +34,15 @@ public class ComboWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        //var entity = animatorComponent->Self;
+        var entity = animatorComponent->Self;
 
-        //// PlayerRef 가져오기
-        //if (!f.Unsafe.TryGetPointer<PlayerLink>(entity, out var playerLink))
-        //    return;
+        // PlayerRef 가져오기
+        if (!f.Unsafe.TryGetPointer<PlayerLink>(entity, out var playerLink))
+            return;
 
-        //var input = f.GetPlayerInput(playerLink->PlayerRef);
-        //if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player))
-        //    return;
+        var input = f.GetPlayerInput(playerLink->PlayerRef);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player))
+            return;
 
         //// 입력에 따라 isSit 제어
         //if (input->Down)
@@ -54,6 +54,8 @@ public class ComboWindowEvent : AnimatorTimeWindowEventAsset
         //    player->isSit = false;
         //}
         //Debug.Log($"앉기 여부 : {player->isSit}");
+
+        player->isSit = false;
 
     }
 

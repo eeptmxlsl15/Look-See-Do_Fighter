@@ -203,7 +203,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
                 //상대가 패링했을때 내가 어떻게 되는가 아님 호밍기인가
                 HomingReturnType = HomingType.Stun,
 
-                //히트시 상대가 어떻게 되는가
+                //확정타가 있는가
                 GuaranteeAttackType = GuaranteeType.Normal,
 
                 jumpAttack = false,

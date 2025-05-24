@@ -69,7 +69,8 @@ public class LSDF_ViewHandler : QuantumEntityViewComponent
     }
     public override void OnUpdateView()
     {
-
+        
+        
         base.OnUpdateView();
 
         if (player1 != null && player2 != null)

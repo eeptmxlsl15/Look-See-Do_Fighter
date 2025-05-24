@@ -53,6 +53,9 @@ public class HitWindowEvent : AnimatorTimeWindowEventAsset
 
         //히트,가드 백
         body->Velocity.X = player->forceBack * flip;
+
+        //플레이어 앉지 못하게 해야함
+        player->isSit = false;
     }
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)

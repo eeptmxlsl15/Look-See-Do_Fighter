@@ -376,6 +376,8 @@ namespace Quantum.LSDF
         
         public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
+            f.Events.OnHit();
+
             player->isAttack = false;
 
             //가드,히트백 전달
@@ -520,6 +522,7 @@ namespace Quantum.LSDF
 
         public void OnTriggerCounterHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
+            f.Events.OnCounter();
             //히트 가드백 전달
             player->forceBack = hitbox->forceBack;
             //카운터 시 설정
@@ -572,11 +575,12 @@ namespace Quantum.LSDF
             player->playerHp -= (int)(hitbox->attackDamage * 1.2f);//여기서 데미지 보정
 
             Debug.Log($"현재 체력 : {player->playerHp}/170");
-
+            
 
         }
         public void OnTriggerGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox)
         {
+            f.Events.OnGuard();
             //히트 가드백 전달
             player->forceBack = hitbox->forceBack;
 
