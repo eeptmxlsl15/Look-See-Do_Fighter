@@ -114,13 +114,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             Debug.Log("예약된 Lp 발동");
         }
 
-
-        ////상단회피, 점프 
-        //if(1<currentFrame && currentFrame< HitFrame-1)
-        //{
-        //    player->isJump = true;
-        //    player->isDodgeHigh = true;
-        //}
+        
 
         //히트 박스 생성
         if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
@@ -155,7 +149,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             //{
             //    //Change
             //    //위치
-            //    Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, 0),
+            //    Position = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, 0),
             //    Rotation = FP._0
             //});
 
@@ -172,7 +166,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             //f.Add(hitbox, new Transform2D
             //{
             //    //위치
-            //    Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, -(FP._0_25 + FP._0_03)),
+            //    Position = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, -(FP._0_25 + FP._0_03)),
             //    Rotation = FP._0
             //});
 
@@ -203,7 +197,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
                 //상대가 패링했을때 내가 어떻게 되는가 아님 호밍기인가
                 HomingReturnType = HomingType.Stun,
 
-                //확정타가 있는가
+                //노멀 히트 시 확정타가 있는가
                 GuaranteeAttackType = GuaranteeType.Normal,
 
                 jumpAttack = false,
@@ -219,7 +213,14 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
                 forceBack = 0
             });
 
-
+            //-------------------------------------------상단 회피, 점프 판정-----------------------------------------//
+            ////상단회피, 점프 
+            //if(1<currentFrame && currentFrame< HitFrame-1)
+            //{
+            //    player->isJump = true;
+            //    player->isDodgeHigh = true;
+            //}
+            //------------------------------------------------------------------------------------//
 
             f.Add(hitbox, new TickToDestroy
             {

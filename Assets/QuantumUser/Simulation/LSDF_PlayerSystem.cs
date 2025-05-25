@@ -152,11 +152,11 @@ namespace Quantum.LSDF
                 {
                     //input->Right = true;
                     //input->Left = true;
-                    input->Down = true;
-                    input->RightKick = true;
+                    //input->Down = true;
+                    //input->RightKick = true;
                     //input->LeftPunch = true;
                     //input->RightPunch = true;
-                    //input->Up = true;
+                    input->Up = true;
                     //input->Right = true;
 
                 }
@@ -376,7 +376,7 @@ namespace Quantum.LSDF
         
         public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
-            f.Events.OnHit();
+            f.Events.OnHitSound();
 
             player->isAttack = false;
 
@@ -522,7 +522,7 @@ namespace Quantum.LSDF
 
         public void OnTriggerCounterHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
-            f.Events.OnCounter();
+            f.Events.OnCounterSound();
             //히트 가드백 전달
             player->forceBack = hitbox->forceBack;
             //카운터 시 설정
@@ -580,7 +580,7 @@ namespace Quantum.LSDF
         }
         public void OnTriggerGuard(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator,LSDF_HitboxInfo* hitbox)
         {
-            f.Events.OnGuard();
+            f.Events.OnGuardSound();
             //히트 가드백 전달
             player->forceBack = hitbox->forceBack;
 
@@ -624,7 +624,7 @@ namespace Quantum.LSDF
 
         public void OnTriggerEnemyParring(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
-
+            f.Events.OnParringSound();
             if (hitbox->HomingReturnType == HomingType.Stun)
             {
                 AnimatorComponent.SetTrigger(f, animator, "Stun");

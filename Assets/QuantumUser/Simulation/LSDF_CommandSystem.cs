@@ -102,6 +102,7 @@ namespace Quantum.LSDF
 
             AnimatorComponent.SetInteger(f, animator, "FinalNum", skillId);
 
+            //f.Events.OnAttackSound();
         }
     }
 

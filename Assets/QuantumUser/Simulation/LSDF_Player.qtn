@@ -53,6 +53,19 @@ component LSDF_Player
 	
 }	
 
-event OnHit{}
-event OnGuard{}
-event OnCounter{}
+//Sfx
+event OnHitSound{}
+event OnGuardSound{}
+event OnCounterSound{}
+event OnAttackSound{}
+event OnParringSound{}
+
+//Effect
+event OnHitEffect{}
+event OnGuardEffect{}
+event OnParringEffect{}
+event OnCounterEffect{}
+
+//Voice
+event RoundVoice{}
+event FightVoice{}

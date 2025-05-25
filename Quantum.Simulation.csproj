@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rk\NarakTwoWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lk\JetVallyWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lp\JapWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_CollisionDestroySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rk\ShaheenCutKickWindowEvent.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorVariables.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorStateBehaviours\AnimatorStateBehaviour.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Example\ExampleTimeWindowEventAsset.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lk\SweepKickWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Systems\AnimatorSystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\AirWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\SitingWindowEvent.cs" />
@@ -104,9 +106,12 @@
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\MoveBackWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\BoundarySystem.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_PlayerSystem.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lk\KazuyaStandLkWindowEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorState.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\GuardWindowEvent.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lk\SlideLowKickWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\Generated\Quantum.CodeGen.Core.cs" />
+    <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lk\HatchetWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lp\MachineGunWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\FirstWallHitWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_CameraSystem.cs" />
@@ -135,8 +140,8 @@
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorTimeWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\RuntimeConfig.LDSF.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\StunWindowEvent.cs" />
-    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorInstantEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Rp\Gigas1RpWindowEvent.cs" />
+    <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\Event\AnimatorInstantEvent.cs" />
     <Compile Include="Assets\Photon\QuantumAddons\Animator\Simulation\Core\AnimatorFrame.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Attack\Lk\LarsCutKickWindowEvent.cs" />
     <Compile Include="Assets\QuantumUser\Simulation\LSDF_Animator_Window_Event\Move\DashFrontWindowEvent.cs" />

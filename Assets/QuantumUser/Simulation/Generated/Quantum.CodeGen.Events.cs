@@ -52,7 +52,7 @@ namespace Quantum {
   public unsafe partial class Frame {
     public unsafe partial struct FrameEvents {
       static partial void GetEventTypeCountCodeGen(ref Int32 eventCount) {
-        eventCount = 5;
+        eventCount = 13;
       }
       static partial void GetParentEventIDCodeGen(Int32 eventID, ref Int32 parentEventID) {
         switch (eventID) {
@@ -61,25 +61,73 @@ namespace Quantum {
       }
       static partial void GetEventTypeCodeGen(Int32 eventID, ref System.Type result) {
         switch (eventID) {
-          case EventOnHit.ID: result = typeof(EventOnHit); return;
-          case EventOnGuard.ID: result = typeof(EventOnGuard); return;
-          case EventOnCounter.ID: result = typeof(EventOnCounter); return;
+          case EventOnHitSound.ID: result = typeof(EventOnHitSound); return;
+          case EventOnGuardSound.ID: result = typeof(EventOnGuardSound); return;
+          case EventOnCounterSound.ID: result = typeof(EventOnCounterSound); return;
+          case EventOnAttackSound.ID: result = typeof(EventOnAttackSound); return;
+          case EventOnParringSound.ID: result = typeof(EventOnParringSound); return;
+          case EventOnHitEffect.ID: result = typeof(EventOnHitEffect); return;
+          case EventOnGuardEffect.ID: result = typeof(EventOnGuardEffect); return;
+          case EventOnParringEffect.ID: result = typeof(EventOnParringEffect); return;
+          case EventOnCounterEffect.ID: result = typeof(EventOnCounterEffect); return;
+          case EventRoundVoice.ID: result = typeof(EventRoundVoice); return;
+          case EventFightVoice.ID: result = typeof(EventFightVoice); return;
           case EventOnPlayerHitEvent.ID: result = typeof(EventOnPlayerHitEvent); return;
           default: break;
         }
       }
-      public EventOnHit OnHit() {
-        var ev = _f.Context.AcquireEvent<EventOnHit>(EventOnHit.ID);
+      public EventOnHitSound OnHitSound() {
+        var ev = _f.Context.AcquireEvent<EventOnHitSound>(EventOnHitSound.ID);
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnGuard OnGuard() {
-        var ev = _f.Context.AcquireEvent<EventOnGuard>(EventOnGuard.ID);
+      public EventOnGuardSound OnGuardSound() {
+        var ev = _f.Context.AcquireEvent<EventOnGuardSound>(EventOnGuardSound.ID);
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnCounter OnCounter() {
-        var ev = _f.Context.AcquireEvent<EventOnCounter>(EventOnCounter.ID);
+      public EventOnCounterSound OnCounterSound() {
+        var ev = _f.Context.AcquireEvent<EventOnCounterSound>(EventOnCounterSound.ID);
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnAttackSound OnAttackSound() {
+        var ev = _f.Context.AcquireEvent<EventOnAttackSound>(EventOnAttackSound.ID);
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnParringSound OnParringSound() {
+        var ev = _f.Context.AcquireEvent<EventOnParringSound>(EventOnParringSound.ID);
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnHitEffect OnHitEffect() {
+        var ev = _f.Context.AcquireEvent<EventOnHitEffect>(EventOnHitEffect.ID);
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnGuardEffect OnGuardEffect() {
+        var ev = _f.Context.AcquireEvent<EventOnGuardEffect>(EventOnGuardEffect.ID);
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnParringEffect OnParringEffect() {
+        var ev = _f.Context.AcquireEvent<EventOnParringEffect>(EventOnParringEffect.ID);
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnCounterEffect OnCounterEffect() {
+        var ev = _f.Context.AcquireEvent<EventOnCounterEffect>(EventOnCounterEffect.ID);
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventRoundVoice RoundVoice() {
+        var ev = _f.Context.AcquireEvent<EventRoundVoice>(EventRoundVoice.ID);
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventFightVoice FightVoice() {
+        var ev = _f.Context.AcquireEvent<EventFightVoice>(EventFightVoice.ID);
         _f.AddEvent(ev);
         return ev;
       }
@@ -91,12 +139,12 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnHit : EventBase {
+  public unsafe partial class EventOnHitSound : EventBase {
     public new const Int32 ID = 1;
-    protected EventOnHit(Int32 id, EventFlags flags) : 
+    protected EventOnHitSound(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnHit() : 
+    public EventOnHitSound() : 
         base(1, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
@@ -114,12 +162,12 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnGuard : EventBase {
+  public unsafe partial class EventOnGuardSound : EventBase {
     public new const Int32 ID = 2;
-    protected EventOnGuard(Int32 id, EventFlags flags) : 
+    protected EventOnGuardSound(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnGuard() : 
+    public EventOnGuardSound() : 
         base(2, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
@@ -137,12 +185,12 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnCounter : EventBase {
+  public unsafe partial class EventOnCounterSound : EventBase {
     public new const Int32 ID = 3;
-    protected EventOnCounter(Int32 id, EventFlags flags) : 
+    protected EventOnCounterSound(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnCounter() : 
+    public EventOnCounterSound() : 
         base(3, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
@@ -160,13 +208,12 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayerHitEvent : EventBase {
+  public unsafe partial class EventOnAttackSound : EventBase {
     public new const Int32 ID = 4;
-    public Int32 Foo;
-    protected EventOnPlayerHitEvent(Int32 id, EventFlags flags) : 
+    protected EventOnAttackSound(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerHitEvent() : 
+    public EventOnAttackSound() : 
         base(4, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
@@ -180,6 +227,191 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 53;
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnParringSound : EventBase {
+    public new const Int32 ID = 5;
+    protected EventOnParringSound(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnParringSound() : 
+        base(5, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 59;
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnHitEffect : EventBase {
+    public new const Int32 ID = 6;
+    protected EventOnHitEffect(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnHitEffect() : 
+        base(6, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 61;
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnGuardEffect : EventBase {
+    public new const Int32 ID = 7;
+    protected EventOnGuardEffect(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnGuardEffect() : 
+        base(7, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 67;
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnParringEffect : EventBase {
+    public new const Int32 ID = 8;
+    protected EventOnParringEffect(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnParringEffect() : 
+        base(8, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 71;
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnCounterEffect : EventBase {
+    public new const Int32 ID = 9;
+    protected EventOnCounterEffect(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnCounterEffect() : 
+        base(9, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 73;
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventRoundVoice : EventBase {
+    public new const Int32 ID = 10;
+    protected EventRoundVoice(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventRoundVoice() : 
+        base(10, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 79;
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventFightVoice : EventBase {
+    public new const Int32 ID = 11;
+    protected EventFightVoice(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventFightVoice() : 
+        base(11, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 83;
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnPlayerHitEvent : EventBase {
+    public new const Int32 ID = 12;
+    public Int32 Foo;
+    protected EventOnPlayerHitEvent(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnPlayerHitEvent() : 
+        base(12, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 89;
         hash = hash * 31 + Foo.GetHashCode();
         return hash;
       }

@@ -22,6 +22,9 @@ namespace Quantum.Asteroids
         public LSDF_AudioConfiguration OnHitAudio;
         public LSDF_AudioConfiguration OnGuardAudio;
         public LSDF_AudioConfiguration OnCounterAudio;
+        public LSDF_AudioConfiguration OnAttackAudio;
+        public LSDF_AudioConfiguration OnParringAudio;
+
         //public LSDF_AudioConfiguration ShipShootAudio;
         //public LSDF_AudioConfiguration StartLevelAudio;
 
@@ -58,9 +61,11 @@ namespace Quantum.Asteroids
         private void RegisterCallbacks()
         {
             Debug.Log("사운드 : 등록");
-            QuantumEvent.Subscribe<EventOnHit>(this, OnHit);
-            QuantumEvent.Subscribe<EventOnGuard>(this, OnGuard);
-            QuantumEvent.Subscribe<EventOnCounter>(this, OnCounter);
+            QuantumEvent.Subscribe<EventOnHitSound>(this, OnHitSound);
+            QuantumEvent.Subscribe<EventOnGuardSound>(this, OnGuardSound);
+            QuantumEvent.Subscribe<EventOnCounterSound>(this, OnCounterSound);
+            QuantumEvent.Subscribe<EventOnAttackSound>(this, OnAttackSound);
+            QuantumEvent.Subscribe<EventOnParringSound>(this, OnParringSound);
             //QuantumEvent.Subscribe<EventOnAsteroidDestroyed>(this, OnAsteroidDestroyed);
             //QuantumEvent.Subscribe<EventOnStartNewLevel>(this, OnStartNewLevel);
         }
@@ -94,22 +99,36 @@ namespace Quantum.Asteroids
 
 
 
-        private void OnHit(EventOnHit eventData)
+        private void OnHitSound(EventOnHitSound eventData)
         {
             Debug.Log("사운드 : 힛");
             PlayAudioClip(OnHitAudio);
         }
 
-        private void OnGuard(EventOnGuard eventData)
+        private void OnGuardSound(EventOnGuardSound eventData)
         {
+            Debug.Log("사운드 : 가드");
             PlayAudioClip(OnGuardAudio);
         }
 
-        private void OnCounter(EventOnCounter eventData)
+        private void OnCounterSound(EventOnCounterSound eventData)
         {
+            Debug.Log("사운드 : 카운터");
             PlayAudioClip(OnCounterAudio);
         }
 
+        private void OnAttackSound(EventOnAttackSound eventData)
+        {
+            Debug.Log("사운드 : 어택중");
+            PlayAudioClip(OnAttackAudio);
+        }
+
+        private void OnParringSound(EventOnParringSound eventData)
+        {
+            Debug.Log("사운드 : 패링");
+            PlayAudioClip(OnParringAudio);
+        }
+        
         //private unsafe void OnAsteroidDestroyed(EventOnAsteroidDestroyed eventData)
         //{
         //    PlayAudioClip(AsteroidDestroyAudio);
