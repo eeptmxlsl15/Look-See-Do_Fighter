@@ -35,6 +35,8 @@ enum HomingType //패링에 잘 걸리는가? 아니면 10프레임 맞으면 콤보 패링을 잡으면 
 }
 component LSDF_HitboxInfo
 {	
+    FPVector2 position;
+
     EntityRef AttackerEntity;
 	HitboxAttackType AttackType;
     CountAttackType CountType;

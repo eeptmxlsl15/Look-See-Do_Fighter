@@ -150,13 +150,13 @@ namespace Quantum.LSDF
             {
                 if (shouldAttack)
                 {
-                    //input->Right = true;
+                    input->Right = true;
                     //input->Left = true;
                     //input->Down = true;
                     //input->RightKick = true;
                     //input->LeftPunch = true;
                     //input->RightPunch = true;
-                    input->Up = true;
+                    //input->Up = true;
                     //input->Right = true;
 
                 }
@@ -376,6 +376,8 @@ namespace Quantum.LSDF
         
         public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
+            f.Events.OnHitEffect(hitbox->position);
+            Debug.Log("이펙트 : 힛 플레이어 시스템");
             f.Events.OnHitSound();
 
             player->isAttack = false;
@@ -522,6 +524,7 @@ namespace Quantum.LSDF
 
         public void OnTriggerCounterHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
+            
             f.Events.OnCounterSound();
             //히트 가드백 전달
             player->forceBack = hitbox->forceBack;

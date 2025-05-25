@@ -1,3 +1,4 @@
+using Photon.Deterministic;
 using UnityEngine;
 
 namespace Quantum.LSDF
@@ -12,26 +13,24 @@ namespace Quantum.LSDF
 
 
     
-        public ParticleSystem HitParicle;
-        public ParticleSystem GuardParicle;
-        public ParticleSystem ParringParicle;
-        public ParticleSystem CounterParicle;
+        public GameObject HitParticle;
+        public GameObject GuardParticle;
+        public GameObject ParringParticle;
+        public GameObject CounterParticle;
 
-        public override void OnInitialize()
+        private void Start()
         {
-            //_particles = GetComponent<ParticleSystem>();
-
-            //QuantumEvent.Subscribe<OnPlayerHit>(this, OnDamaged);
-            //QuantumEvent.Subscribe(listener: this, handler: (OnPlayerHit e) => Debug.Log($"MyEvent {e}"));
+            RegisterCallbacks();
         }
+        //public override void OnInitialize()
+        //{
+        //    //_particles = GetComponent<ParticleSystem>();
 
-        private void OnDamaged(OnPlayerHit e)
-        {
-            //if (e.EntityRef == EntityRef)
-            //{
-            //    _particles.Play();
-            //}
-        }
+        //    //QuantumEvent.Subscribe<OnPlayerHit>(this, OnDamaged);
+        //    //QuantumEvent.Subscribe(listener: this, handler: (OnPlayerHit e) => Debug.Log($"MyEvent {e}"));
+        //}
+
+
         private void RegisterCallbacks()
         {
             Debug.Log("사운드 : 등록");
@@ -43,30 +42,50 @@ namespace Quantum.LSDF
             //QuantumEvent.Subscribe<EventOnAsteroidDestroyed>(this, OnAsteroidDestroyed);
             //QuantumEvent.Subscribe<EventOnStartNewLevel>(this, OnStartNewLevel);
         }
+        void SpawnEffect(GameObject prefab, FPVector2 position)
+        {
+            if (prefab == null) return;
+
+            var worldPos = new Vector3(position.X.AsFloat, position.Y.AsFloat, 0f);
+            var effect = Instantiate(prefab, worldPos, Quaternion.identity);
+
+            var particle = effect.GetComponent<ParticleSystem>();
+            if (particle != null)
+                particle.Play();
+
+            Destroy(effect, 0.1f);
+        }
 
         private void OnHitEffect(EventOnHitEffect OnHitEffect)
         {
             Debug.Log("이펙트 : 히트");
-            HitParicle.Play();
+            
+            Debug.Log("이펙트 : 위치 "+ HitParticle.transform.position);
+            SpawnEffect(HitParticle, OnHitEffect.position);
+            //HitParticle.Play();
         }
 
         private void OnGuardEffect(EventOnGuardEffect OnGuardEffect)
         {
+
+            SpawnEffect(GuardParticle, OnGuardEffect.position);
             Debug.Log("이펙트 : 가드");
-            GuardParicle.Play();
+            //GuardParticle.Play();
         }
 
         private void OnCounterEffect(EventOnCounterEffect OnCounterEffect)
         {
+            SpawnEffect(CounterParticle, OnCounterEffect.position);
             Debug.Log("이펙트 : 카운터");
-            CounterParicle.Play();
+            //CounterParticle.Play();
         }
 
 
         private void OnParringEffect(EventOnParringEffect OnParringEffect)
         {
+            SpawnEffect(ParringParticle, OnParringEffect.position);
             Debug.Log("이펙트 : 패링");
-            ParringParicle.Play();
+            //ParringParticle.Play();
         }
     }
 }

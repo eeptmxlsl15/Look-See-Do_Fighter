@@ -101,23 +101,27 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnHitEffect OnHitEffect() {
+      public EventOnHitEffect OnHitEffect(FPVector2 position) {
         var ev = _f.Context.AcquireEvent<EventOnHitEffect>(EventOnHitEffect.ID);
+        ev.position = position;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnGuardEffect OnGuardEffect() {
+      public EventOnGuardEffect OnGuardEffect(FPVector2 position) {
         var ev = _f.Context.AcquireEvent<EventOnGuardEffect>(EventOnGuardEffect.ID);
+        ev.position = position;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnParringEffect OnParringEffect() {
+      public EventOnParringEffect OnParringEffect(FPVector2 position) {
         var ev = _f.Context.AcquireEvent<EventOnParringEffect>(EventOnParringEffect.ID);
+        ev.position = position;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnCounterEffect OnCounterEffect() {
+      public EventOnCounterEffect OnCounterEffect(FPVector2 position) {
         var ev = _f.Context.AcquireEvent<EventOnCounterEffect>(EventOnCounterEffect.ID);
+        ev.position = position;
         _f.AddEvent(ev);
         return ev;
       }
@@ -256,6 +260,7 @@ namespace Quantum {
   }
   public unsafe partial class EventOnHitEffect : EventBase {
     public new const Int32 ID = 6;
+    public FPVector2 position;
     protected EventOnHitEffect(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -273,12 +278,14 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 61;
+        hash = hash * 31 + position.GetHashCode();
         return hash;
       }
     }
   }
   public unsafe partial class EventOnGuardEffect : EventBase {
     public new const Int32 ID = 7;
+    public FPVector2 position;
     protected EventOnGuardEffect(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -296,12 +303,14 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 67;
+        hash = hash * 31 + position.GetHashCode();
         return hash;
       }
     }
   }
   public unsafe partial class EventOnParringEffect : EventBase {
     public new const Int32 ID = 8;
+    public FPVector2 position;
     protected EventOnParringEffect(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -319,12 +328,14 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 71;
+        hash = hash * 31 + position.GetHashCode();
         return hash;
       }
     }
   }
   public unsafe partial class EventOnCounterEffect : EventBase {
     public new const Int32 ID = 9;
+    public FPVector2 position;
     protected EventOnCounterEffect(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -342,6 +353,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 73;
+        hash = hash * 31 + position.GetHashCode();
         return hash;
       }
     }

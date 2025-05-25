@@ -1081,8 +1081,10 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
-    public const Int32 SIZE = 80;
+    public const Int32 SIZE = 96;
     public const Int32 ALIGNMENT = 8;
+    [FieldOffset(80)]
+    public FPVector2 position;
     [FieldOffset(64)]
     public EntityRef AttackerEntity;
     [FieldOffset(12)]
@@ -1120,6 +1122,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
+        hash = hash * 31 + position.GetHashCode();
         hash = hash * 31 + AttackerEntity.GetHashCode();
         hash = hash * 31 + (Int32)AttackType;
         hash = hash * 31 + (Int32)CountType;
@@ -1159,6 +1162,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->wallLauncher, serializer);
         EntityRef.Serialize(&p->AttackerEntity, serializer);
         FP.Serialize(&p->forceBack, serializer);
+        FPVector2.Serialize(&p->position, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]

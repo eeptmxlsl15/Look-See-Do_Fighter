@@ -562,7 +562,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: c0f1a82c6016d1145984b4e3e0ecd65c, type: 3}
   m_Resource: {fileID: 8300000, guid: c0f1a82c6016d1145984b4e3e0ecd65c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.206
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -663,31 +663,31 @@ MonoBehaviour:
   AudioSourceDefaultParent: {fileID: 218014100}
   OnHitAudio:
     Resource: {fileID: 8300000, guid: b883c27c88428884fb3a10dcc42b8b47, type: 3}
-    Volume: 0.8
+    Volume: 0.5
     Is2D: 0
     Loop: 0
     Delay: 0
   OnGuardAudio:
     Resource: {fileID: 8300000, guid: a37109c51cd477548ad1c882be3971d5, type: 3}
-    Volume: 0.8
+    Volume: 0.5
     Is2D: 0
     Loop: 0
     Delay: 0
   OnCounterAudio:
     Resource: {fileID: 8300000, guid: 9a66f6ed483212d49986453da06cd2a6, type: 3}
-    Volume: 1
+    Volume: 0.8
     Is2D: 0
     Loop: 0
     Delay: 0
   OnAttackAudio:
     Resource: {fileID: 8300000, guid: 1976a5690677e504580b7c6a831bb783, type: 3}
-    Volume: 0.8
+    Volume: 0.5
     Is2D: 0
     Loop: 0
     Delay: 0
   OnParringAudio:
     Resource: {fileID: 8300000, guid: b190a8a5f59499f4f9204e64b9a04da9, type: 3}
-    Volume: 0.8
+    Volume: 0.5
     Is2D: 0
     Loop: 0
     Delay: 0
@@ -3463,10 +3463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3923d5c2162a84ab94e9ac7af440bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitParicle: {fileID: 0}
-  GuardParicle: {fileID: 0}
-  ParringParicle: {fileID: 0}
-  CounterParicle: {fileID: 0}
+  HitParticle: {fileID: 5238538877814813142, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
+  GuardParticle: {fileID: 0}
+  ParringParticle: {fileID: 0}
+  CounterParticle: {fileID: 0}
 --- !u!114 &1079664174
 MonoBehaviour:
   m_ObjectHideFlags: 0

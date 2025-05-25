@@ -61,10 +61,25 @@ event OnAttackSound{}
 event OnParringSound{}
 
 //Effect
-event OnHitEffect{}
-event OnGuardEffect{}
-event OnParringEffect{}
-event OnCounterEffect{}
+event OnHitEffect
+{
+	FPVector2 position;
+}
+
+event OnGuardEffect
+{
+	FPVector2 position;
+}
+
+event OnParringEffect
+{
+	FPVector2 position;
+}
+
+event OnCounterEffect
+{
+	FPVector2 position;
+}
 
 //Voice
 event RoundVoice{}
