@@ -106,7 +106,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
                 Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
             }
         }
-        else if (currentFrame >= 16&& bufferedNextAttack)
+        else if (currentFrame > 15&& bufferedNextAttack)
         {
             
             AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);

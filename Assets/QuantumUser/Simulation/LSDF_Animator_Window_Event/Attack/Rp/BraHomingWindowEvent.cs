@@ -190,6 +190,7 @@ public class BraHomingWindowEvent : AnimatorTimeWindowEventAsset
             //공격 정보
             f.Add(hitbox, new LSDF_HitboxInfo
             {
+                position = hitboxPosition,  
                 startFrame = HitFrame,
                 AttackerEntity = entity,
 

@@ -3463,10 +3463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3923d5c2162a84ab94e9ac7af440bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitParticle: {fileID: 5238538877814813142, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
-  GuardParticle: {fileID: 0}
-  ParringParticle: {fileID: 0}
-  CounterParticle: {fileID: 0}
+  HitParticle: {fileID: 4968336861700998245, guid: 762b94612fd2f2d4f97a21bb6ba9699d, type: 3}
+  GuardParticle: {fileID: 4968336861700998245, guid: 8909fdbd1f408c340bf22a2ab0dbad4b, type: 3}
+  ParringParticle: {fileID: 562816228795386514, guid: 7e55675a59ca32b40816e21c4fca0430, type: 3}
+  CounterParticle: {fileID: 4968336861700998245, guid: 1a82b56f409917b4bbc67cfc8bba0a7b, type: 3}
 --- !u!114 &1079664174
 MonoBehaviour:
   m_ObjectHideFlags: 0

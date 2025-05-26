@@ -61,21 +61,37 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.32f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\ProjectileTut.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\TigerAttackShooter.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\Legacy\SkillDatabase.cs" />
     <Compile Include="Assets\Scripts\GameUI.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillSetPanelUI.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_PlayerInput.cs" />
     <Compile Include="Assets\Scripts\SfxManager.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Plugins\Pixelplacement\iTween\iTween.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\SpawnShield.cs" />
     <Compile Include="Assets\Matthew Guz\Hits Effects FREE\Scene Demo\Script\RotationEffect.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\TigerAttack.cs" />
     <Compile Include="Assets\Matthew Guz\Hits Effects FREE\Scene Demo\Script\Prefab Manager.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\GroundSlashShooter.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillScrollToggle.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\SlashTest.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\FirstPersonControllerScript.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_IngameUI.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillSelectionManager.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillButton.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\PowerUpTest.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\FPSShooterTut.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\LootDrop.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\Legacy\SkillSaveManager.cs" />
     <Compile Include="Assets\Scripts\SignalPlayHitEffect.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\Flamethrower.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_HitEffectView.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\GroundSlash.cs" />
     <Compile Include="Assets\Scripts\LSDF_AudioSource.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\SpawnShieldRipples.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Scripts\CameraShake.cs" />
     <Compile Include="Assets\QuantumUser\View\LSDF_ViewHandler.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1209,12 +1225,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.2D.Aseprite.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Aseprite.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.Multiplayer.Center.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Center.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Aseprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Aseprite.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
@@ -1283,6 +1299,14 @@
     </Reference>
     <Reference Include="Unity.Multiplayer.PlayMode.Configurations.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.PlayMode.Configurations.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Extras.Editor">
