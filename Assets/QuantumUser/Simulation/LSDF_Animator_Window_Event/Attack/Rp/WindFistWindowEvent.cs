@@ -124,11 +124,12 @@ public class WindFistWindowEvent : AnimatorTimeWindowEventAsset
             player->isDodgeHigh = false;
 
             //-------------------------------------------상단-----------------------------------------//
+            FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25 + FP._0_05) * flip, FP._0_25);
 
             f.Add(hitbox, new Transform2D
             {
                 //위치
-                Position = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25 + FP._0_05) * flip, FP._0_25),
+                Position = hitboxPosition,
                 Rotation = FP._0
             });
 
@@ -140,13 +141,13 @@ public class WindFistWindowEvent : AnimatorTimeWindowEventAsset
                 Shape = Shape2D.CreateBox(new FPVector2(FP._0_20 / 2, (FP._0_10 - FP._0_02) / 2))
             });
 
-            //-------------------------------------------중단-----------------------------------------//
-
+            ////-------------------------------------------중단-----------------------------------------//
+            //FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, 0);
             //f.Add(hitbox, new Transform2D
             //{
             //    //Change
             //    //위치
-            //    Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, 0),
+            //    Position = hitboxPosition,
             //    Rotation = FP._0
             //});
 
@@ -159,11 +160,12 @@ public class WindFistWindowEvent : AnimatorTimeWindowEventAsset
             //});
 
             //---------------------------------------하단---------------------------------------------//
-            ////
+            //FPVector2 hitboxPosition=f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, -(FP._0_25 + FP._0_03));
+
             //f.Add(hitbox, new Transform2D
             //{
             //    //위치
-            //    Position = f.Get<Transform2D>(entity).Position + new FPVector2(FP._0_25 * flip, -(FP._0_25 + FP._0_03)),
+            //    Position =hitboxPosition,
             //    Rotation = FP._0
             //});
 
@@ -178,7 +180,7 @@ public class WindFistWindowEvent : AnimatorTimeWindowEventAsset
 
             //공격 정보
             f.Add(hitbox, new LSDF_HitboxInfo
-            {
+            {position = hitboxPosition,
                 startFrame = HitFrame,
                 AttackerEntity = entity,
 
