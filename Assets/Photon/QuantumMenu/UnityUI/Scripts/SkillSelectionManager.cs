@@ -148,6 +148,6 @@ public class SkillSelectionManager : MonoBehaviour
     void UpdateCostText()
     {
         if (costText != null)
-            costText.text = $"Cost : {currentCost}";
+            costText.text = $"Cost : {currentCost}/{MaxCost}";
     }
 }

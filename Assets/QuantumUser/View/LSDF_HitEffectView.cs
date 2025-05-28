@@ -1,4 +1,5 @@
 using Photon.Deterministic;
+using System.Linq;
 using UnityEngine;
 
 namespace Quantum.LSDF
@@ -44,10 +45,27 @@ namespace Quantum.LSDF
         }
         void SpawnEffect(GameObject prefab, FPVector2 position, float angleDeg = 0f, Vector3? scale = null)
         {
+            ////플레이어에 따라 생성되는 이펙트의 z값 바꾸기
+            //var game = QuantumRunner.Default.Game;
+            //var frame = game.Frames?.Predicted;
+
+            //if (!frame.TryGet<PlayerLink>(EntityRef, out var playerLink))
+            //    return;
+            //Debug.Log("이펙트 ");
+            //var localPlayer = QuantumRunner.Default.Game.GetLocalPlayers().FirstOrDefault();
+            //bool isMine = playerLink.PlayerRef == localPlayer;
+
+            //float zPosition = 1f;
+
+            //if (playerLink.PlayerRef == (PlayerRef)0)
+            //    zPosition = 1 * zPosition;
+            //else if (playerLink.PlayerRef == (PlayerRef)1)
+            //    zPosition = -1 * zPosition;
+
             if (prefab == null) return;
 
             // FP → Unity Vector 변환
-            var worldPos = new Vector3(position.X.AsFloat, position.Y.AsFloat, 0.1f);
+            var worldPos = new Vector3(position.X.AsFloat, position.Y.AsFloat, 0f);
 
             // 각도
             Quaternion rotation = Quaternion.Euler(angleDeg, 0f, 0f);
@@ -75,21 +93,21 @@ namespace Quantum.LSDF
             Debug.Log("이펙트 : 히트");
             
             Debug.Log("이펙트 : 위치 "+ HitParticle.transform.position);
-            SpawnEffect(HitParticle, OnHitEffect.position,90, new Vector3 (0.1f,0.1f,0.1f));
+            SpawnEffect(HitParticle, OnHitEffect.position,90, new Vector3 (0.2f,0.2f,0.2f));
             //HitParticle.Play();
         }
 
         private void OnGuardEffect(EventOnGuardEffect OnGuardEffect)
         {
 
-            SpawnEffect(GuardParticle, OnGuardEffect.position, 90, new Vector3(0.1f, 0.1f, 0.1f));
+            SpawnEffect(GuardParticle, OnGuardEffect.position, 90, new Vector3(0.3f, 0.3f, 0.3f));
             Debug.Log("이펙트 : 가드");
             //GuardParticle.Play();
         }
 
         private void OnCounterEffect(EventOnCounterEffect OnCounterEffect)
         {
-            SpawnEffect(CounterParticle, OnCounterEffect.position, 90, new Vector3(0.1f, 0.1f, 0.1f));
+            SpawnEffect(CounterParticle, OnCounterEffect.position, 90, new Vector3(0.3f, 0.3f, 0.3f));
             Debug.Log("이펙트 : 카운터");
             //CounterParticle.Play();
         }

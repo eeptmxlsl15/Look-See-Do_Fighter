@@ -3,7 +3,7 @@ namespace Quantum.Asteroids
     using System.Collections.Generic;
     using Quantum;
     using UnityEngine;
-    using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+    //using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
     /// <summary>
     /// This Behavior handles events not related to player actions that require audio feedback, such as shooting and explosions

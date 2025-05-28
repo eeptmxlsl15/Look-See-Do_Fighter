@@ -112,9 +112,9 @@ MonoBehaviour:
       data:
         Position:
           X:
-            RawValue: 0
+            RawValue: -96901
           Y:
-            RawValue: -32768
+            RawValue: -59126
         Rotation:
           RawValue: 0
     - rid: 7820791150700134401
@@ -126,19 +126,19 @@ MonoBehaviour:
             Id:
               Value: 0
           CircleRadius:
-            RawValue: 3276800
+            RawValue: 5094058
           CapsuleSize:
             X:
-              RawValue: 6553600
+              RawValue: 10188116
             Y:
-              RawValue: 131072
+              RawValue: 460574
           EdgeExtent:
-            RawValue: 3276800
+            RawValue: 5094058
           BoxExtents:
             X:
-              RawValue: 3276800
+              RawValue: 5094058
             Y:
-              RawValue: 6554
+              RawValue: 36847
           PositionOffset:
             X:
               RawValue: 0

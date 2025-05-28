@@ -1,13 +1,10 @@
 using Photon.Deterministic;
-using Quantum;
-using System.Data;
-using UnityEditor.Experimental.GraphView;
+///using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Playables;
-using UnityEngine.Rendering;
+//using UnityEngine.Playables;
+//using UnityEngine.Rendering;
 using UnityEngine.Scripting;
-using UnityEngine.Windows;
-using static UnityEngine.EventSystems.EventTrigger;
+//using UnityEngine.Windows;
 
 //플레이어 움직임,가드,히트
 
@@ -146,29 +143,29 @@ namespace Quantum.LSDF
             bool shouldAttack = true;
 
             //bool shouldAttack = f.Number % 60 < 30;
-            if (playerLink->PlayerRef == (PlayerRef)1)
-            {
-                if (shouldAttack)
-                {
-                    input->Right = true;
-                    //input->Left = true;
-                    //input->Down = true;
-                    //input->RightKick = true;
-                    //input->LeftPunch = true;
-                    //input->RightPunch = true;
-                    //input->Up = true;
-                    //input->Right = true;
+            //if (playerLink->PlayerRef == (PlayerRef)1)
+            //{
+            //    if (shouldAttack)
+            //    {
+            //        input->Right = true;
+            //        //input->Left = true;
+            //        //input->Down = true;
+            //        //input->RightKick = true;
+            //        //input->LeftPunch = true;
+            //        //input->RightPunch = true;
+            //        //input->Up = true;
+            //        //input->Right = true;
 
-                }
-                else
-                {
-                    //input->Left = true;
-                    //input->LeftPunch = true;
-                    //input->Down = true;
-                    //input->RightKick = true;
-                }
+            //    }
+            //    else
+            //    {
+            //        //input->Left = true;
+            //        //input->LeftPunch = true;
+            //        //input->Down = true;
+            //        //input->RightKick = true;
+            //    }
 
-            }
+            //}
 
             //패링 중 윗키 뗄 시 패링 취소
             if (!input->Up)
