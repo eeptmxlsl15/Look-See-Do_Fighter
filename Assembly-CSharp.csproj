@@ -84,6 +84,7 @@
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\PowerUpTest.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\FPSShooterTut.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\LootDrop.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scriptable Objects\SkillMapAsset.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\Legacy\SkillSaveManager.cs" />
     <Compile Include="Assets\Scripts\SignalPlayHitEffect.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\Flamethrower.cs" />

@@ -1,3 +1,5 @@
+using Photon.Deterministic.Protocol;
+using Quantum;
 using Quantum.LSDF;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +12,13 @@ public class SkillSelectionUI : MonoBehaviour
     //public int parentIndex; // 방향
     public CommandDirection parentIndex;
     public CommandButton Button;
-    private Button[] buttons;
+    private UnityEngine.UI.Button[] buttons;
     private int selectedIndex = -1; //고유 값
 
 
     void Awake()
     {
-        buttons = GetComponentsInChildren<Button>();
+        buttons = GetComponentsInChildren<UnityEngine.UI.Button>();
 
         for (int i = 0; i < buttons.Length; i++)
         {
@@ -45,7 +47,7 @@ public class SkillSelectionUI : MonoBehaviour
 
         // 필요한 곳에 index 전달 (예시용 로그)
         PlayerPrefs.SetInt($"Skill_{index}", selectedIndex);
-
+        //
         
 
     }
