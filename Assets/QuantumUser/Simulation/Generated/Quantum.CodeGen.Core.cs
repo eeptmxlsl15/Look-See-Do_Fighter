@@ -124,7 +124,7 @@ namespace Quantum {
     [FieldOffset(0)]
     public fixed UInt64 Bits[2];
     public const Int32 BitsSize = 128;
-    public Int32 Length {
+    public readonly Int32 Length {
       get {
         return 128;
       }
@@ -158,11 +158,11 @@ namespace Quantum {
       fixed (UInt64* p = Bits) Native.Utils.Clear(p, 16);
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsSet(Int32 bit) {
+    public readonly Boolean IsSet(Int32 bit) {
       fixed (UInt64* p = Bits) return ((p[bit/64])&(1UL<<(bit%64))) != 0UL;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Int32 GetSetCount() {
+    public readonly Int32 GetSetCount() {
       fixed (UInt64* p = Bits) {
         int result = 0;
         result += Maths.CountSetBits(p[0]);
@@ -171,14 +171,14 @@ namespace Quantum {
       }
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsAnySet() {
+    public readonly Boolean IsAnySet() {
       fixed (UInt64* p = Bits) {
         if (p[0] != 0) return true;
         if (p[1] != 0) return true;
         return false;
       }
     }
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 4463;
         fixed (UInt64* p = Bits) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 2);
@@ -197,7 +197,7 @@ namespace Quantum {
     [FieldOffset(0)]
     public fixed UInt64 Bits[32];
     public const Int32 BitsSize = 2048;
-    public Int32 Length {
+    public readonly Int32 Length {
       get {
         return 2048;
       }
@@ -231,11 +231,11 @@ namespace Quantum {
       fixed (UInt64* p = Bits) Native.Utils.Clear(p, 256);
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsSet(Int32 bit) {
+    public readonly Boolean IsSet(Int32 bit) {
       fixed (UInt64* p = Bits) return ((p[bit/64])&(1UL<<(bit%64))) != 0UL;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Int32 GetSetCount() {
+    public readonly Int32 GetSetCount() {
       fixed (UInt64* p = Bits) {
         int result = 0;
         for (int i = 0; i < 32; ++i) {
@@ -245,7 +245,7 @@ namespace Quantum {
       }
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsAnySet() {
+    public readonly Boolean IsAnySet() {
       fixed (UInt64* p = Bits) {
         for (int i = 0; i < 32; ++i) {
           if (p[i] != 0) return true;
@@ -253,7 +253,7 @@ namespace Quantum {
         return false;
       }
     }
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 3319;
         fixed (UInt64* p = Bits) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 32);
@@ -272,7 +272,7 @@ namespace Quantum {
     [FieldOffset(0)]
     public fixed UInt64 Bits[4];
     public const Int32 BitsSize = 256;
-    public Int32 Length {
+    public readonly Int32 Length {
       get {
         return 256;
       }
@@ -306,11 +306,11 @@ namespace Quantum {
       fixed (UInt64* p = Bits) Native.Utils.Clear(p, 32);
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsSet(Int32 bit) {
+    public readonly Boolean IsSet(Int32 bit) {
       fixed (UInt64* p = Bits) return ((p[bit/64])&(1UL<<(bit%64))) != 0UL;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Int32 GetSetCount() {
+    public readonly Int32 GetSetCount() {
       fixed (UInt64* p = Bits) {
         int result = 0;
         result += Maths.CountSetBits(p[0]);
@@ -321,7 +321,7 @@ namespace Quantum {
       }
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsAnySet() {
+    public readonly Boolean IsAnySet() {
       fixed (UInt64* p = Bits) {
         if (p[0] != 0) return true;
         if (p[1] != 0) return true;
@@ -330,7 +330,7 @@ namespace Quantum {
         return false;
       }
     }
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 14057;
         fixed (UInt64* p = Bits) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 4);
@@ -349,7 +349,7 @@ namespace Quantum {
     [FieldOffset(0)]
     public fixed UInt64 Bits[64];
     public const Int32 BitsSize = 4096;
-    public Int32 Length {
+    public readonly Int32 Length {
       get {
         return 4096;
       }
@@ -383,11 +383,11 @@ namespace Quantum {
       fixed (UInt64* p = Bits) Native.Utils.Clear(p, 512);
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsSet(Int32 bit) {
+    public readonly Boolean IsSet(Int32 bit) {
       fixed (UInt64* p = Bits) return ((p[bit/64])&(1UL<<(bit%64))) != 0UL;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Int32 GetSetCount() {
+    public readonly Int32 GetSetCount() {
       fixed (UInt64* p = Bits) {
         int result = 0;
         for (int i = 0; i < 64; ++i) {
@@ -397,7 +397,7 @@ namespace Quantum {
       }
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsAnySet() {
+    public readonly Boolean IsAnySet() {
       fixed (UInt64* p = Bits) {
         for (int i = 0; i < 64; ++i) {
           if (p[i] != 0) return true;
@@ -405,7 +405,7 @@ namespace Quantum {
         return false;
       }
     }
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 1433;
         fixed (UInt64* p = Bits) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 64);
@@ -424,7 +424,7 @@ namespace Quantum {
     [FieldOffset(0)]
     public fixed UInt64 Bits[8];
     public const Int32 BitsSize = 512;
-    public Int32 Length {
+    public readonly Int32 Length {
       get {
         return 512;
       }
@@ -458,11 +458,11 @@ namespace Quantum {
       fixed (UInt64* p = Bits) Native.Utils.Clear(p, 64);
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsSet(Int32 bit) {
+    public readonly Boolean IsSet(Int32 bit) {
       fixed (UInt64* p = Bits) return ((p[bit/64])&(1UL<<(bit%64))) != 0UL;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Int32 GetSetCount() {
+    public readonly Int32 GetSetCount() {
       fixed (UInt64* p = Bits) {
         int result = 0;
         for (int i = 0; i < 8; ++i) {
@@ -472,7 +472,7 @@ namespace Quantum {
       }
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsAnySet() {
+    public readonly Boolean IsAnySet() {
       fixed (UInt64* p = Bits) {
         for (int i = 0; i < 8; ++i) {
           if (p[i] != 0) return true;
@@ -480,7 +480,7 @@ namespace Quantum {
         return false;
       }
     }
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 17491;
         fixed (UInt64* p = Bits) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 8);
@@ -499,7 +499,7 @@ namespace Quantum {
     [FieldOffset(0)]
     public fixed UInt64 Bits[1];
     public const Int32 BitsSize = 6;
-    public Int32 Length {
+    public readonly Int32 Length {
       get {
         return 6;
       }
@@ -533,11 +533,11 @@ namespace Quantum {
       fixed (UInt64* p = Bits) Native.Utils.Clear(p, 8);
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsSet(Int32 bit) {
+    public readonly Boolean IsSet(Int32 bit) {
       fixed (UInt64* p = Bits) return ((p[bit/64])&(1UL<<(bit%64))) != 0UL;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Int32 GetSetCount() {
+    public readonly Int32 GetSetCount() {
       fixed (UInt64* p = Bits) {
         int result = 0;
         result += Maths.CountSetBits(p[0] & 0x3FUL);
@@ -545,13 +545,13 @@ namespace Quantum {
       }
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Boolean IsAnySet() {
+    public readonly Boolean IsAnySet() {
       fixed (UInt64* p = Bits) {
         if ((p[0] & 0x3FUL) != 0) return true;
         return false;
       }
     }
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 13669;
         fixed (UInt64* p = Bits) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 1);
@@ -569,7 +569,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public QListPtr<FP> Values;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 14387;
         hash = hash * 31 + Values.GetHashCode();
@@ -604,7 +604,7 @@ namespace Quantum {
     public Button LeftKick;
     [FieldOffset(60)]
     public Button RightKick;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 19249;
         hash = hash * 31 + Left.GetHashCode();
@@ -731,7 +731,7 @@ namespace Quantum {
     [FieldOffset(28)]
     [HideInInspector()]
     public QDictionaryPtr<Int32, BlendTreeWeights> BlendTreeWeights;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 16301;
         hash = hash * 31 + Time.GetHashCode();
@@ -792,9 +792,9 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 1200;
+    public const Int32 SIZE = 1216;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(1196)]
+    [FieldOffset(1212)]
     private fixed Byte _alignment_padding_[4];
     [FieldOffset(0)]
     public AssetRef<Map> Map;
@@ -814,21 +814,21 @@ namespace Quantum {
     public BitSet1024 Systems;
     [FieldOffset(304)]
     public PhysicsSceneSettings PhysicsSettings;
-    [FieldOffset(600)]
+    [FieldOffset(616)]
     public Int32 PlayerConnectedCount;
-    [FieldOffset(604)]
+    [FieldOffset(620)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
     private fixed Byte _input_[576];
-    [FieldOffset(1184)]
+    [FieldOffset(1200)]
     public BitSet6 PlayerLastConnectionState;
-    [FieldOffset(1192)]
+    [FieldOffset(1208)]
     public Int32 Time;
-    public FixedArray<Input> input {
+    public readonly FixedArray<Input> input {
       get {
         fixed (byte* p = _input_) { return new FixedArray<Input>(p, 96, 6); }
       }
     }
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 12473;
         hash = hash * 31 + Map.GetHashCode();
@@ -886,7 +886,7 @@ namespace Quantum {
     public const Int32 FPVALUE = 1;
     public const Int32 INTEGERVALUE = 2;
     public const Int32 BOOLEANVALUE = 3;
-    public Int32 Field {
+    public readonly Int32 Field {
       get {
         return _field_used_;
       }
@@ -924,13 +924,19 @@ namespace Quantum {
         }
       }
     }
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 19843;
         hash = hash * 31 + _field_used_.GetHashCode();
-        hash = hash * 31 + _FPValue.GetHashCode();
-        hash = hash * 31 + _IntegerValue.GetHashCode();
-        hash = hash * 31 + _BooleanValue.GetHashCode();
+        if (_field_used_ == FPVALUE) {
+          hash = hash * 31 + _FPValue.GetHashCode();
+        }
+        if (_field_used_ == INTEGERVALUE) {
+          hash = hash * 31 + _IntegerValue.GetHashCode();
+        }
+        if (_field_used_ == BOOLEANVALUE) {
+          hash = hash * 31 + _BooleanValue.GetHashCode();
+        }
         return hash;
       }
     }
@@ -967,7 +973,7 @@ namespace Quantum {
     [FieldOffset(0)]
     [HideInInspector()]
     public QListPtr<AnimatorRuntimeVariable> AnimatorVariables;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 18413;
         hash = hash * 31 + Self.GetHashCode();
@@ -1007,7 +1013,7 @@ namespace Quantum {
     public Int32 DashInputWindow;
     [FieldOffset(16)]
     public QBoolean LastInputPressed;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 8747;
         hash = hash * 31 + (Int32)LastDirection;
@@ -1033,7 +1039,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public Int32 cameraNum;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 10709;
         hash = hash * 31 + cameraNum.GetHashCode();
@@ -1051,7 +1057,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public Int32 Timer;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 353;
         hash = hash * 31 + Timer.GetHashCode();
@@ -1069,7 +1075,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     private fixed Byte _alignment_padding_[4];
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 11311;
         return hash;
@@ -1119,7 +1125,7 @@ namespace Quantum {
     public QBoolean notSitLauncher;
     [FieldOffset(56)]
     public QBoolean wallLauncher;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
         hash = hash * 31 + position.GetHashCode();
@@ -1229,7 +1235,7 @@ namespace Quantum {
     public FPVector2 effectPosition;
     [FieldOffset(0)]
     public fixed Int32 CommandSkillMap[28];
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 9949;
         hash = hash * 31 + isDashBack.GetHashCode();
@@ -1305,7 +1311,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     private fixed Byte _alignment_padding_[4];
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 16979;
         return hash;
@@ -1321,7 +1327,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     private fixed Byte _alignment_padding_[4];
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 4159;
         return hash;
@@ -1337,7 +1343,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     private fixed Byte _alignment_padding_[4];
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 15901;
         return hash;
@@ -1353,7 +1359,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     private fixed Byte _alignment_padding_[4];
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 4283;
         return hash;
@@ -1369,7 +1375,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public PlayerRef PlayerRef;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 21391;
         hash = hash * 31 + PlayerRef.GetHashCode();
@@ -1387,7 +1393,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public Int32 TickToDestroyAt;
-    public override Int32 GetHashCode() {
+    public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 1567;
         hash = hash * 31 + TickToDestroyAt.GetHashCode();
@@ -1575,10 +1581,8 @@ namespace Quantum {
       bitSet = new(_globals->PlayerLastConnectionState.Bits, _globals->PlayerLastConnectionState.Length);
     }
     partial void ResetPhysicsCodeGen() {
-      if (Context.Physics2D != null && Physics2D.Map != null && Physics2D.Map.Guid.IsDynamic) Physics2D.ResetMap();
-      Physics2D.Init(_globals->PhysicsState2D.MapStaticCollidersState.TrackedMap);
-      if (Context.Physics3D != null && Physics3D.Map != null && Physics3D.Map.Guid.IsDynamic) Physics3D.ResetMap();
-      Physics3D.Init(_globals->PhysicsState3D.MapStaticCollidersState.TrackedMap);
+      Physics2D?.Init(_globals->PhysicsState2D.MapStaticCollidersState.TrackedMap);
+      Physics3D?.Init(_globals->PhysicsState3D.MapStaticCollidersState.TrackedMap);
     }
     public unsafe partial struct FrameSignals {
       public void OnAnimatorStateEnter(EntityRef entity, AnimatorComponent* animator, AnimatorGraph graph, Addons.Animator.AnimatorState state) {

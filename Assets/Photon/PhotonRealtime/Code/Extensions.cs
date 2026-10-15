@@ -261,6 +261,31 @@ namespace Photon.Realtime
             }
         }
 
+        /// <summary>
+        /// Merges keys of type string and int to target PhotonHashtable.
+        /// </summary>
+        /// <remarks>
+        /// Does not remove keys from target (so non-string keys CAN be in target if they were before).
+        /// </remarks>
+        /// <param name="target">The target PhotonHashtable passed in plus all string- or int-typed keys from the addHash.</param>
+        /// <param name="addHash">A IDictionary that should be merged partly into target to update it.</param>
+        public static void MergeValidCustomProperties(this PhotonHashtable target, PhotonHashtable addHash)
+        {
+            if (addHash == null || target.Equals(addHash))
+            {
+                return;
+            }
+
+            foreach (var entry in addHash)
+            {
+                // only merge keys of type string
+                if (entry.Key is string || entry.Key is int)
+                {
+                    target[entry.Key] = entry.Value;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Checks if a particular integer value is in an int-array.

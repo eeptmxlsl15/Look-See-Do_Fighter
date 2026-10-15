@@ -155,7 +155,7 @@ namespace Photon.Realtime
         /// <param name="roomProperties">Properties for this room.</param>
         protected internal RoomInfo(string roomName, PhotonHashtable roomProperties)
         {
-            this.InternalCacheProperties(roomProperties);
+            this.InternalCachePropertiesRoomInfo(roomProperties);
 
             this.name = roomName;
         }
@@ -195,7 +195,7 @@ namespace Photon.Realtime
 
         /// <summary>Copies "well known" properties to fields (IsVisible, etc) and caches the custom properties (string-keys only) in a local hashtable.</summary>
         /// <param name="propertiesToCache">New or updated properties to store in this RoomInfo.</param>
-        protected internal virtual void InternalCacheProperties(PhotonHashtable propertiesToCache)
+        protected internal void InternalCachePropertiesRoomInfo(PhotonHashtable propertiesToCache)
         {
             if (propertiesToCache == null || propertiesToCache.Count == 0 || this.customProperties.Equals(propertiesToCache))
             {
@@ -271,7 +271,7 @@ namespace Photon.Realtime
             }
 
             // merge the custom properties (from your application) to the cache (only string-typed keys will be kept)
-            this.customProperties.Merge(propertiesToCache);
+            this.customProperties.MergeValidCustomProperties(propertiesToCache);
             this.customProperties.StripKeysWithNullValues();
         }
     }

@@ -1,4 +1,5 @@
 namespace Quantum.Profiling {
+#if !QUANTUM_DISABLE_GRAPHPROFILER
   using System.Collections.Generic;
   using Photon.Client;
   using UnityEngine;
@@ -7,7 +8,7 @@ namespace Quantum.Profiling {
   /// <summary>
   /// A Unity script that renders additional profiling tools to the graph UI.
     /// </summary>
-  public sealed class QuantumGraphProfilingTools : MonoBehaviour {
+  public sealed class QuantumGraphProfilingTools : QuantumMonoBehaviour {
     [SerializeField]
     private bool _enableOnAwake;
     [SerializeField]
@@ -191,4 +192,5 @@ namespace Quantum.Profiling {
       _toggleVisibility.color = _isSimulationEnabled == true ? Color.red : _defaultToggleColor;
     }
   }
+#endif
 }

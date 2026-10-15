@@ -2148,6 +2148,17 @@
             <param name="segmentEndB">End point of segment B.</param>
             <returns></returns>
         </member>
+        <member name="M:Photon.Deterministic.FPCollision.ClosestPointBetweenSegments(Photon.Deterministic.FPVector3,Photon.Deterministic.FPVector3,Photon.Deterministic.FPVector3,Photon.Deterministic.FPVector3,Photon.Deterministic.FPVector3@,Photon.Deterministic.FPVector3@)">
+            <summary>
+            Computes the closes point in segment A to a segment B and the closest point in segment B to A.
+            </summary>
+            <param name="segmentStartA">Start point of segment A.</param>
+            <param name="segmentEndA">End point of segment A.</param>
+            <param name="segmentStartB">Start point of segment A.</param>
+            <param name="segmentEndB">End point of segment B.</param>
+            <param name="pointOnA">Closest point to B on segment A.</param>
+            <param name="pointOnB">Closest point to A on segment B.</param>
+        </member>
         <member name="T:Photon.Deterministic.FPHighPrecisionDivisor">
             <summary>
             Represents a high precision divisor for use with the Fixed Point math system.
@@ -2755,6 +2766,11 @@
             * FPSqrt
             </summary>
             <param name="lutProvider"></param>
+        </member>
+        <member name="M:Photon.Deterministic.FPLut.Init(System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+            Initialize LUT using using byte arrays.
+            </summary>
         </member>
         <member name="M:Photon.Deterministic.FPLut.GenerateTables(System.String)">
             <summary>
@@ -4017,7 +4033,7 @@
         <member name="M:Photon.Deterministic.FPQuaternion.FromToRotationSkipNormalize(Photon.Deterministic.FPVector3,Photon.Deterministic.FPVector3)">
             <summary>
             Creates a quaternion which rotates from <paramref name="fromVector"/> to <paramref name="toVector"/> (not normalized internally).
-            If these vectors are known to be normalized or have magnitude close to 1, use <see cref="M:Photon.Deterministic.FPQuaternion.FromToRotation(Photon.Deterministic.FPVector3,Photon.Deterministic.FPVector3)"/> instead.
+            If these vectors are not known to be normalized, use <see cref="M:Photon.Deterministic.FPQuaternion.FromToRotation(Photon.Deterministic.FPVector3,Photon.Deterministic.FPVector3)"/> instead.
             </summary>
             <param name="fromVector"></param>
             <param name="toVector"></param>
@@ -4111,6 +4127,9 @@
         <member name="M:Photon.Deterministic.FPQuaternion.RotateTowards(Photon.Deterministic.FPQuaternion,Photon.Deterministic.FPQuaternion,Photon.Deterministic.FP)">
             <summary>
             Rotates a rotation <paramref name="from"/> towards <paramref name="to"/> by an angular step of <paramref name="maxDegreesDelta"/>.
+            <remarks>
+            Both <paramref name="from"/> and <paramref name="to"/> quaternions are assumed and expected to be normalized.
+            </remarks>
             </summary>
             <param name="from"></param>
             <param name="to"></param>
@@ -6899,6 +6918,11 @@
             This room property can be controlled through Photon dashboard settings.
             </summary>
         </member>
+        <member name="F:Photon.Deterministic.RoomProperties.WebHookBaseUrl">
+            <summary>
+            User can set this during CreateGame to change the webhook base url provided by an allow list.
+            </summary>
+        </member>
         <member name="T:Photon.Deterministic.Protocol.AddPlayer">
             <summary>
             This messages is send from the client to reserve a player slot.
@@ -7713,6 +7737,23 @@
             <param name="player">Player</param>
             <returns>A command if one is available.</returns>
         </member>
+        <member name="M:Photon.Deterministic.DeterministicFrame.GetPlayerCommand``1(Quantum.PlayerRef)">
+            <summary>
+            Get player command and cast to specific type.
+            </summary>
+            <typeparam name="T">Command type</typeparam>
+            <param name="player">Player</param>
+            <returns>Available command of concrete type or null if there is no command or that command is of a different type.</returns>
+        </member>
+        <member name="M:Photon.Deterministic.DeterministicFrame.TryGetPlayerCommand``1(Quantum.PlayerRef,``0@)">
+            <summary>
+            Get player command and cast to specific type.
+            </summary>
+            <typeparam name="T">Command type</typeparam>
+            <param name="player">Player</param>
+            <param name="command">Available command of concrete type or null if there is no command or that command is of a different type.</param>
+            <returns><see langword="true"/> if a command of this type was found.</returns>
+        </member>
         <member name="M:Photon.Deterministic.DeterministicFrame.DumpFrame(System.Int32)">
             <summary>
             Dumps the frame with the specified dump flags.
@@ -7756,7 +7797,7 @@
             </summary>
             <param name="frame">The frame to copy from.</param>
         </member>
-        <member name="M:Photon.Deterministic.DeterministicFrame.OnPlayerAdded(Photon.Deterministic.DeterministicFrame,Photon.Deterministic.DeterministicSession,System.Int32,System.Int32,Quantum.PlayerRef)">
+        <member name="M:Photon.Deterministic.DeterministicFrame.OnPlayerAdded(Photon.Deterministic.DeterministicFrame,Photon.Deterministic.DeterministicSession,System.Int32,System.Int32,Quantum.PlayerRef,System.Boolean)">
             <summary>
             Handles the event when a player is added to the session.
             </summary>
@@ -7765,6 +7806,7 @@
             <param name="playerSlot">The player slot.</param>
             <param name="actorNumber">The actor number.</param>
             <param name="player">The player reference.</param>
+            <param name="invokeCallback">Invoke game callback.</param>
         </member>
         <member name="M:Photon.Deterministic.DeterministicFrame.OnPlayerRemoved(Photon.Deterministic.DeterministicFrame,Photon.Deterministic.DeterministicSession,Quantum.PlayerRef)">
             <summary>
@@ -7773,6 +7815,14 @@
             <param name="frame">The frame.</param>
             <param name="session">The session.</param>
             <param name="player">The player reference.</param>
+        </member>
+        <member name="M:Photon.Deterministic.DeterministicFrame.TryResetPlayerMapping(Photon.Deterministic.DeterministicSessionConfig)">
+            <summary>
+            This method will check if the frame number equals RollbackWindow - 1, which indicates
+            that a snapshots has been promoted online.
+            The online simulation will not have any players, so local payers have to be reset.
+            </summary>
+            <returns>True, when the local snapshot to online promotion was detected.</returns>
         </member>
         <member name="T:Photon.Deterministic.DeterministicFrameInputTemp">
             <summary>
@@ -8563,7 +8613,7 @@
             Stats: Number of predicted frames simulated during the last call to Update().
             </summary>
         </member>
-        <member name="P:Photon.Deterministic.DeterministicSession.SimulationTimeElasped">
+        <member name="P:Photon.Deterministic.DeterministicSession.SimulationTimeElapsed">
             <summary>
             Stats: Precise time in seconds used by the last call to Update(). Includes all session internal input handling, rollbacks, verified and predicted frames simulation.
             </summary>
@@ -8670,6 +8720,11 @@
             Runner is the wrapper for session/game that can be attached to Unity, a .Net console app, or a Quantum Custom Server Plugin. 
             </summary>
         </member>
+        <member name="P:Photon.Deterministic.DeterministicSession.SnapshotProvider">
+            <summary>
+            Returns the assigned snapshot provider.
+            </summary>
+        </member>
         <member name="P:Photon.Deterministic.DeterministicSession.OnDestroyed">
             <summary>
             Is executed in the end of <see cref="M:Photon.Deterministic.DeterministicSession.Destroy"/>. Is used by the server simulation.
@@ -8765,6 +8820,13 @@
             </summary>
             <param name="frame">The frame to reset the session to.</param>
         </member>
+        <member name="M:Photon.Deterministic.DeterministicSession.ResetReplay(System.Byte[],System.Int32)">
+            <summary>
+            Resets the session to the provided frame data and frame number.
+            </summary>
+            <param name="frameData">The frame data to reset the session to.</param>
+            <param name="frameNumber">The frame number associated with the frame data.</param>
+        </member>
         <member name="M:Photon.Deterministic.DeterministicSession.Resync(Photon.Deterministic.DeterministicFrame)">
             <summary>
             Resynchronizes the session to the specified frame.
@@ -8821,6 +8883,12 @@
         <member name="F:Photon.Deterministic.DeterministicSessionArgs.Game">
             <summary>
             Gets or sets the deterministic game interface.
+            </summary>
+        </member>
+        <member name="F:Photon.Deterministic.DeterministicSessionArgs.SnapshotProvider">
+            <summary>
+            Optional external snapshot packaging (for e.g. async).
+            Can be null to use default single threaded implementation.
             </summary>
         </member>
         <member name="F:Photon.Deterministic.DeterministicSessionArgs.Communicator">
@@ -9535,11 +9603,12 @@
             </summary>
             <returns>Frame context.</returns>
         </member>
-        <member name="M:Photon.Deterministic.IDeterministicGame.CreateFrame(System.IDisposable)">
+        <member name="M:Photon.Deterministic.IDeterministicGame.CreateFrame(System.IDisposable,System.Boolean)">
             <summary>
             Creates a new frame object using the context.
             </summary>
             <param name="context">Frame context</param>
+            <param name="enableHeapTrackerDuringInit">Enables frame heap tracking immediately.</param>
             <returns>Frame object</returns>
         </member>
         <member name="M:Photon.Deterministic.IDeterministicGame.CreateFrame(System.IDisposable,System.Byte[])">
@@ -9790,6 +9859,36 @@
         <member name="P:Photon.Deterministic.IDeterministicReplayProvider.LocalActorNumber">
             <summary>
             Setting the correct local actor number makes <see cref="M:Photon.Deterministic.DeterministicSession.IsLocalPlayer(Quantum.PlayerRef)"/> work in replays similar to normal Quantum sessions.
+            </summary>
+        </member>
+        <member name="T:Photon.Deterministic.IDeterministicSnapshotProvider">
+            <summary>
+            An interface that can be added to the Quantum session to overwrite the default snapshot sending for late-joiners.
+            </summary>
+        </member>
+        <member name="P:Photon.Deterministic.IDeterministicSnapshotProvider.ExtraHeapCount">
+            <summary>
+            Return the number of additional frame heaps required for this tool to work.
+            </summary>
+        </member>
+        <member name="P:Photon.Deterministic.IDeterministicSnapshotProvider.IsCompleted">
+            <summary>
+            Returns <see langword="true"/> when a snapshot is read to be completed.
+            </summary>
+        </member>
+        <member name="M:Photon.Deterministic.IDeterministicSnapshotProvider.Init(Photon.Deterministic.DeterministicSession,System.IDisposable)">
+            <summary>
+            Initializing the snapshot provider for this Quantum session. Used to create a frame container.
+            </summary>
+        </member>
+        <member name="M:Photon.Deterministic.IDeterministicSnapshotProvider.RequestSnapshot(Photon.Deterministic.DeterministicSession,System.Int32)">
+            <summary>
+            Requesting a snapshot, use to CopyFrom and start async computation. 
+            </summary>
+        </member>
+        <member name="M:Photon.Deterministic.IDeterministicSnapshotProvider.GetSnapshot">
+            <summary>
+            Returns the completed encoded snapshot.
             </summary>
         </member>
         <member name="T:Photon.Deterministic.IDeterministicStreamReplayInputProvider">
@@ -11677,6 +11776,65 @@
         <member name="M:Photon.Deterministic.StopwatchTimer.Restart">
             <summary>
             Restarts the timer, setting the elapsed time to zero and starting it.
+            </summary>
+        </member>
+        <member name="T:Quantum.Compression">
+            <summary>
+            Provides compression and decompression functionality.
+            For non-Unity builds, uses <see cref="T:System.IO.Compression.GZipStream"/> implementation by default.
+            For Unity builds, the implementation is set from Unity. If com.unity.sharp-zip-lib package is installed, Sharp Zip Lib based implementation will be preferred. Otherwise, falls back to
+            the default implementation. Both implementations are compatible in their output, so clients/plugins can use either implementation.
+            Users can override the implementation at any time with <see cref="M:Quantum.Compression.Init(Quantum.Compression)"/>.
+            </summary>
+        </member>
+        <member name="M:Quantum.Compression.Init(Quantum.Compression)">
+            <summary>
+            Sets the current implementation.
+            </summary>
+        </member>
+        <member name="M:Quantum.Compression.CompressBytes(System.Byte[])">
+            <summary>
+            Compresses a byte array.
+            </summary>
+        </member>
+        <member name="M:Quantum.Compression.CompressBytes(System.ArraySegment{System.Byte})">
+            <summary>
+            Compresses a byte array.
+            </summary>
+        </member>
+        <member name="M:Quantum.Compression.DecompressBytes(System.Byte[])">
+            <summary>
+            Decompresses a byte array.
+            </summary>
+        </member>
+        <member name="M:Quantum.Compression.DecompressBytes(System.ArraySegment{System.Byte})">
+            <summary>
+            Decompresses a byte array.
+            </summary>
+        </member>
+        <member name="M:Quantum.Compression.CompressString(System.String,System.Text.Encoding)">
+            <summary>
+            Compresses a string to a byte array with <paramref name="encoding"/> and then compresses the result.
+            </summary>
+        </member>
+        <member name="M:Quantum.Compression.DecompressString(System.Byte[],System.Text.Encoding)">
+            <summary>
+            Decompresses and converts a byte array to a string with <paramref name="encoding"/>.
+            </summary>
+        </member>
+        <member name="M:Quantum.Compression.CreateCompressingStream(System.IO.Stream,System.Boolean)">
+            <summary>
+            Creates a stream that compresses input and writes it into <paramref name="stream"/>.
+            </summary>
+        </member>
+        <member name="M:Quantum.Compression.CreateDecompressionStream(System.IO.Stream,System.Boolean)">
+            <summary>
+            Creates a stream that decompresses output from <paramref name="stream"/>.
+            </summary>
+        </member>
+        <member name="T:Quantum.CompressionDotNet">
+            <summary>
+            The default compression implementation. Problematic for Web, because it relies on native code internally, and it gets removed when LTO is enabled.
             </summary>
         </member>
         <member name="T:Quantum.PlayerRef">

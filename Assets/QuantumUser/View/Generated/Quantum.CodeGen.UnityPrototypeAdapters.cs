@@ -56,10 +56,10 @@ namespace Quantum.Prototypes.Unity {
     public AssetRef<AnimatorGraph> AnimatorGraph;
     [HideInInspector()]
     [DynamicCollectionAttribute()]
-    public Quantum.Prototypes.LayerDataPrototype[] Layers = {};
+    public Quantum.Prototypes.LayerDataPrototype[] Layers = System.Array.Empty<Quantum.Prototypes.LayerDataPrototype>();
     [HideInInspector()]
     [DynamicCollectionAttribute()]
-    public Quantum.Prototypes.AnimatorRuntimeVariablePrototype[] AnimatorVariables = {};
+    public Quantum.Prototypes.AnimatorRuntimeVariablePrototype[] AnimatorVariables = System.Array.Empty<Quantum.Prototypes.AnimatorRuntimeVariablePrototype>();
     partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.AnimatorComponentPrototype prototype);
     public override Quantum.Prototypes.AnimatorComponentPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.AnimatorComponentPrototype();

@@ -63,10 +63,10 @@ namespace Quantum.Prototypes {
     public AssetRef<AnimatorGraph> AnimatorGraph;
     [HideInInspector()]
     [DynamicCollectionAttribute()]
-    public Quantum.Prototypes.LayerDataPrototype[] Layers = {};
+    public Quantum.Prototypes.LayerDataPrototype[] Layers = System.Array.Empty<Quantum.Prototypes.LayerDataPrototype>();
     [HideInInspector()]
     [DynamicCollectionAttribute()]
-    public Quantum.Prototypes.AnimatorRuntimeVariablePrototype[] AnimatorVariables = {};
+    public Quantum.Prototypes.AnimatorRuntimeVariablePrototype[] AnimatorVariables = System.Array.Empty<Quantum.Prototypes.AnimatorRuntimeVariablePrototype>();
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.AnimatorComponent component = default;
         Materialize((Frame)f, ref component, in context);
@@ -120,7 +120,7 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.BlendTreeWeights))]
   public unsafe partial class BlendTreeWeightsPrototype : StructPrototype {
     [DynamicCollectionAttribute()]
-    public FP[] Values = {};
+    public FP[] Values = System.Array.Empty<FP>();
     partial void MaterializeUser(Frame frame, ref Quantum.BlendTreeWeights result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.BlendTreeWeights result, in PrototypeMaterializationContext context = default) {
         if (this.Values.Length == 0) {
@@ -445,7 +445,7 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     [DictionaryAttribute()]
     [DynamicCollectionAttribute()]
-    public DictionaryEntry_Int32_BlendTreeWeights[] BlendTreeWeights = {};
+    public DictionaryEntry_Int32_BlendTreeWeights[] BlendTreeWeights = System.Array.Empty<DictionaryEntry_Int32_BlendTreeWeights>();
     partial void MaterializeUser(Frame frame, ref Quantum.LayerData result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.LayerData result, in PrototypeMaterializationContext context = default) {
         result.Time = this.Time;

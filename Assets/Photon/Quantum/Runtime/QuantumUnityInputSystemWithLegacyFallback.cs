@@ -37,15 +37,15 @@ namespace Quantum {
       if (actionsAsset != null)
         return false;
 
-      return point?.action == null
-          && leftClick?.action == null
-          && rightClick?.action == null
-          && middleClick?.action == null
-          && submit?.action == null
-          && cancel?.action == null
-          && scrollWheel?.action == null
-          && trackedDeviceOrientation?.action == null
-          && trackedDevicePosition?.action == null;
+      return (point == null || point.action == null)
+          && (leftClick == null || leftClick.action == null)
+          && (rightClick == null || rightClick.action == null)
+          && (middleClick == null || middleClick.action == null)
+          && (submit == null || submit.action == null)
+          && (cancel == null || cancel.action == null)
+          && (scrollWheel == null || scrollWheel.action == null)
+          && (trackedDeviceOrientation == null || trackedDeviceOrientation.action == null)
+          && (trackedDevicePosition == null || trackedDevicePosition.action == null);
     }
 #endif
 

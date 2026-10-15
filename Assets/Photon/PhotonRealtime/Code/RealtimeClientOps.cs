@@ -153,7 +153,8 @@ namespace Photon.Realtime
             }
 
 
-            bool sending = this.RealtimePeer.SendOperation(OperationCode.FindFriends, opParameters, SendOptions.SendReliable);
+            SendOptions sendOptions = new SendOptions() { Reliability = true, Encrypt = true };
+            bool sending = this.RealtimePeer.SendOperation(OperationCode.FindFriends, opParameters, sendOptions);
             this.paramDictionaryPool.Release(opParameters);
 
             this.friendListRequested = sending ? filteredArray : null;
@@ -165,7 +166,14 @@ namespace Photon.Realtime
         /// <summary>
         /// Joins the lobby on the Master Server, where you get a list of RoomInfos of currently open rooms. This is an async request triggers an OnOperationResponse() call and the callback OnJoinedLobby().
         /// </summary>
-        /// <param name="lobby">The lobby join to.</param>
+        /// <remarks>
+        /// Joining a lobby is not required for random matchmaking — OpJoinRandomRoom and OpJoinRandomOrCreateRoom
+        /// work without an active lobby. Use this only when you actually need the room list (e.g. for a custom
+        /// server browser).
+        ///
+        /// The room list the server sends is capped, so on busy titles clients will not see every open room.
+        /// </remarks>
+        /// <param name="lobby">The lobby to join. If null, TypedLobby.Default is used.</param>
         /// <returns>If the operation could be sent (has to be connected).</returns>
         public virtual bool OpJoinLobby(TypedLobby lobby = null)
         {
@@ -229,7 +237,7 @@ namespace Photon.Realtime
             gameProperties[GamePropertyKey.IsOpen] = roomOptions.IsOpen;
             gameProperties[GamePropertyKey.IsVisible] = roomOptions.IsVisible;
             gameProperties[GamePropertyKey.PropsListedInLobby] = (roomOptions.CustomRoomPropertiesForLobby == null) ? new object[0] : roomOptions.CustomRoomPropertiesForLobby;
-            gameProperties.Merge(roomOptions.CustomRoomProperties);
+            gameProperties.MergeValidCustomProperties(roomOptions.CustomRoomProperties);
 
 
             if (roomOptions.MaxPlayers > 0)
@@ -344,6 +352,12 @@ namespace Photon.Realtime
         ///
         /// When you're in the room, this client's State will become ClientState.Joined.
         ///
+        /// The lobby is only left when the client leaves the Master Server to enter a room on a Game Server
+        /// (InLobby becomes false). An op that fails on the Master Server keeps the client in the lobby.
+        /// The lobby is never re-joined automatically: call OpJoinLobby again if needed, e.g. from
+        /// OnJoinRoomFailed / OnCreateRoomFailed / OnJoinRandomFailed, which get called when the client is
+        /// back on the Master Server.
+        ///
         ///
         /// When entering a room, this client's Player Custom Properties will be sent to the room.
         /// Use LocalPlayer.SetCustomProperties to set them, even while not yet in the room.
@@ -377,7 +391,7 @@ namespace Photon.Realtime
 
 
             PhotonHashtable expectedRoomProperties = new PhotonHashtable();
-            expectedRoomProperties.Merge(joinRandomRoomArgs.ExpectedCustomRoomProperties);
+            expectedRoomProperties.MergeValidCustomProperties(joinRandomRoomArgs.ExpectedCustomRoomProperties);
 
             if (joinRandomRoomArgs.ExpectedMaxPlayers > 0)
             {
@@ -393,6 +407,7 @@ namespace Photon.Realtime
             }
 
             ParameterDictionary opParameters = this.paramDictionaryPool.Acquire();
+            SendOptions sendOptions = new SendOptions() { Reliability = true };
             if (expectedRoomProperties.Count > 0)
             {
                 opParameters[ParameterCode.GameProperties] = expectedRoomProperties;
@@ -417,6 +432,7 @@ namespace Photon.Realtime
             if (joinRandomRoomArgs.ExpectedUsers != null && joinRandomRoomArgs.ExpectedUsers.Length > 0)
             {
                 opParameters[ParameterCode.Add] = joinRandomRoomArgs.ExpectedUsers;
+                sendOptions.Encrypt = true;
             }
 
             if (joinRandomRoomArgs.Ticket != null)
@@ -428,7 +444,7 @@ namespace Photon.Realtime
 
 
             //this.Listener.DebugReturn(LogLevel.Info, "OpJoinRandomRoom: " + SupportClass.DictionaryToString(opParameters));
-            bool sending = this.RealtimePeer.SendOperation(OperationCode.JoinRandomGame, opParameters, SendOptions.SendReliable);
+            bool sending = this.RealtimePeer.SendOperation(OperationCode.JoinRandomGame, opParameters, sendOptions);
             this.paramDictionaryPool.Release(opParameters);
 
             if (sending)
@@ -468,6 +484,12 @@ namespace Photon.Realtime
         ///
         /// Either IMatchmakingCallbacks.OnJoinedRoom or IMatchmakingCallbacks.OnCreatedRoom get called.
         ///
+        /// The lobby is only left when the client leaves the Master Server to enter a room on a Game Server
+        /// (InLobby becomes false). An op that fails on the Master Server keeps the client in the lobby.
+        /// The lobby is never re-joined automatically: call OpJoinLobby again if needed, e.g. from
+        /// OnJoinRoomFailed / OnCreateRoomFailed / OnJoinRandomFailed, which get called when the client is
+        /// back on the Master Server.
+        ///
         /// More about matchmaking:
         /// https://doc.photonengine.com/en-us/realtime/current/reference/matchmaking-and-lobby
         ///
@@ -506,7 +528,7 @@ namespace Photon.Realtime
             // join random room parameters:
 
             PhotonHashtable expectedRoomProperties = new PhotonHashtable();
-            expectedRoomProperties.Merge(joinRandomRoomArgs.ExpectedCustomRoomProperties);
+            expectedRoomProperties.MergeValidCustomProperties(joinRandomRoomArgs.ExpectedCustomRoomProperties);
 
             if (joinRandomRoomArgs.ExpectedMaxPlayers > 0)
             {
@@ -522,6 +544,7 @@ namespace Photon.Realtime
             }
 
             ParameterDictionary opParameters = this.paramDictionaryPool.Acquire();
+            SendOptions sendOptions = new SendOptions() { Reliability = true };
             if (expectedRoomProperties.Count > 0)
             {
                 opParameters[ParameterCode.GameProperties] = expectedRoomProperties; // used as filter. below, RoomOptionsToOpParameters has usePropertiesKey = true
@@ -546,6 +569,7 @@ namespace Photon.Realtime
             if (joinRandomRoomArgs.ExpectedUsers != null && joinRandomRoomArgs.ExpectedUsers.Length > 0)
             {
                 opParameters[ParameterCode.Add] = joinRandomRoomArgs.ExpectedUsers;
+                sendOptions.Encrypt = true;
             }
 
             if (joinRandomRoomArgs.Ticket != null)
@@ -568,7 +592,7 @@ namespace Photon.Realtime
 
 
             //this.Listener.DebugReturn(LogLevel.Info, "OpJoinRandomOrCreateRoom: " + SupportClass.DictionaryToString(opParameters, false));
-            bool sending = this.RealtimePeer.SendOperation(OperationCode.JoinRandomGame, opParameters, SendOptions.SendReliable);
+            bool sending = this.RealtimePeer.SendOperation(OperationCode.JoinRandomGame, opParameters, sendOptions);
             this.paramDictionaryPool.Release(opParameters);
 
             if (sending)
@@ -606,6 +630,12 @@ namespace Photon.Realtime
         ///
         ///
         /// When you're in the room, this client's State will become ClientState.Joined.
+        ///
+        /// The lobby is only left when the client leaves the Master Server to enter a room on a Game Server
+        /// (InLobby becomes false). An op that fails on the Master Server keeps the client in the lobby.
+        /// The lobby is never re-joined automatically: call OpJoinLobby again if needed, e.g. from
+        /// OnJoinRoomFailed / OnCreateRoomFailed / OnJoinRandomFailed, which get called when the client is
+        /// back on the Master Server.
         ///
         ///
         /// When entering a room, this client's Player Custom Properties will be sent to the room.
@@ -674,6 +704,12 @@ namespace Photon.Realtime
         /// be called. In the background, the client will switch servers and call various related operations.
         ///
         /// When you're in the room, this client's State will become ClientState.Joined.
+        ///
+        /// The lobby is only left when the client leaves the Master Server to enter a room on a Game Server
+        /// (InLobby becomes false). An op that fails on the Master Server keeps the client in the lobby.
+        /// The lobby is never re-joined automatically: call OpJoinLobby again if needed, e.g. from
+        /// OnJoinRoomFailed / OnCreateRoomFailed / OnJoinRandomFailed, which get called when the client is
+        /// back on the Master Server.
         ///
         ///
         /// If you set room properties in roomOptions, they get ignored when the room is existing already.
@@ -753,6 +789,12 @@ namespace Photon.Realtime
         /// be called. In the background, the client will switch servers and call various related operations.
         ///
         /// When you're in the room, this client's State will become ClientState.Joined.
+        ///
+        /// The lobby is only left when the client leaves the Master Server to enter a room on a Game Server
+        /// (InLobby becomes false). An op that fails on the Master Server keeps the client in the lobby.
+        /// The lobby is never re-joined automatically: call OpJoinLobby again if needed, e.g. from
+        /// OnJoinRoomFailed / OnCreateRoomFailed / OnJoinRandomFailed, which get called when the client is
+        /// back on the Master Server.
         ///
         ///
         /// When entering a room, this client's Player Custom Properties will be sent to the room.
@@ -835,6 +877,7 @@ namespace Photon.Realtime
 
 
             ParameterDictionary opParameters = this.paramDictionaryPool.Acquire();
+            SendOptions sendOptions = new SendOptions() { Reliability = true };
 
             if (!string.IsNullOrEmpty(opArgs.RoomName))
             {
@@ -849,6 +892,7 @@ namespace Photon.Realtime
             if (opArgs.ExpectedUsers != null && opArgs.ExpectedUsers.Length > 0)
             {
                 opParameters[ParameterCode.Add] = opArgs.ExpectedUsers;
+                sendOptions.Encrypt = true;
             }
             if (opArgs.Ticket != null)
             {
@@ -884,7 +928,7 @@ namespace Photon.Realtime
 
 
             //this.Listener.DebugReturn(LogLevel.Info, "OpCreateRoom: " + SupportClass.DictionaryToString(op));
-            bool sending = this.RealtimePeer.SendOperation(OperationCode.CreateGame, opParameters, SendOptions.SendReliable);
+            bool sending = this.RealtimePeer.SendOperation(OperationCode.CreateGame, opParameters, sendOptions);
             this.paramDictionaryPool.Release(opParameters);
 
             return sending;
@@ -915,6 +959,7 @@ namespace Photon.Realtime
 
 
             ParameterDictionary opParameters = this.paramDictionaryPool.Acquire();
+            SendOptions sendOptions = new SendOptions() { Reliability = true };
             if (!string.IsNullOrEmpty(opArgs.RoomName))
             {
                 opParameters[ParameterCode.RoomName] = opArgs.RoomName;
@@ -937,6 +982,7 @@ namespace Photon.Realtime
             if (opArgs.ExpectedUsers != null && opArgs.ExpectedUsers.Length > 0)
             {
                 opParameters[ParameterCode.Add] = opArgs.ExpectedUsers;
+                sendOptions.Encrypt = true;
             }
             if (opArgs.Ticket != null)
             {
@@ -970,7 +1016,7 @@ namespace Photon.Realtime
             }
 
             //Log.Info("OpJoinRoomIntern: " + SupportClass.DictionaryToString(opParameters), this.LogLevel, this.LogPrefix);
-            bool sending = this.RealtimePeer.SendOperation(OperationCode.JoinGame, opParameters, SendOptions.SendReliable);
+            bool sending = this.RealtimePeer.SendOperation(OperationCode.JoinGame, opParameters, sendOptions);
             this.paramDictionaryPool.Release(opParameters);
 
             return sending;
@@ -986,7 +1032,7 @@ namespace Photon.Realtime
         /// OpLeaveRoom returns false in those cases and won't change the state, so check return of this method.
         ///
         /// In some cases, this method will skip the OpLeave call and just call Disconnect(),
-        /// which not only leaves the room but also the server. Disconnect also triggers a leave and so that workflow is is quicker.
+        /// which not only leaves the room but also the server. Disconnect also triggers a leave and so that workflow is quicker.
         /// </remarks>
         /// <param name="becomeInactive">If true, this player becomes inactive in the game and can return later (if PlayerTTL of the room is != 0).</param>
         /// <returns>If the current room could be left (impossible while not in a room).</returns>
@@ -999,12 +1045,6 @@ namespace Photon.Realtime
 
             Log.Info(string.Format("OpLeaveRoom({0})", becomeInactive ? "inactive=true" : ""), this.LogLevel, this.LogPrefix);
 
-
-            this.State = ClientState.Leaving;
-            this.GameServerAddress = String.Empty;
-            this.enterRoomArgumentsCache = null;
-
-
             ParameterDictionary opParameters = this.paramDictionaryPool.Acquire();
             if (becomeInactive)
             {
@@ -1013,6 +1053,13 @@ namespace Photon.Realtime
 
             bool sending = this.RealtimePeer.SendOperation(OperationCode.Leave, opParameters, SendOptions.SendReliable);
             this.paramDictionaryPool.Release(opParameters);
+
+            if (sending)
+            {
+                this.State = ClientState.Leaving;
+                this.GameServerAddress = String.Empty;
+                this.enterRoomArgumentsCache = null;
+            }
 
             return sending;
         }
@@ -1023,14 +1070,20 @@ namespace Photon.Realtime
         /// </summary>
         /// <remarks>
         /// Used to return to a room, before this user was removed from the players list.
-        /// Internally, the userID will be checked by the server, to make sure this user is in the room (active or inactice).
+        /// Internally, the userID will be checked by the server, to make sure this user is in the room (active or inactive).
         ///
         /// In contrast to join, this operation never adds a players to a room. It will attempt to retake an existing
-        /// spot in the playerlist or fail. This makes sure the client doean't accidentally join a room when the
+        /// spot in the playerlist or fail. This makes sure the client does not accidentally join a room when the
         /// game logic meant to re-activate an existing actor in an existing room.
         ///
         /// This method will fail on the server, when the room does not exist, can't be loaded (persistent rooms) or
         /// when the userId is not in the player list of this room. This will lead to a callback OnJoinRoomFailed.
+        ///
+        /// The lobby is only left when the client leaves the Master Server to enter a room on a Game Server
+        /// (InLobby becomes false). An op that fails on the Master Server keeps the client in the lobby.
+        /// The lobby is never re-joined automatically: call OpJoinLobby again if needed, e.g. from
+        /// OnJoinRoomFailed / OnCreateRoomFailed / OnJoinRandomFailed, which get called when the client is
+        /// back on the Master Server.
         ///
         /// Rejoining room will not send any player properties. Instead client will receive up-to-date ones from server.
         /// If you want to set new player properties, do it once rejoined.
@@ -1039,6 +1092,9 @@ namespace Photon.Realtime
         /// you will have to provide a fitting ticket. Ticket have an internal expiry date time, so they
         /// may become unusable for a rejoin.
         /// </remarks>
+        /// <param name="roomName">Name of the room to rejoin. The same name must have been used when this client originally entered the room.</param>
+        /// <param name="ticket">Optional matchmaking ticket. Required if the original join used a ticket or the server enforces tickets; otherwise leave null.</param>
+        /// <returns>True if the rejoin op was queued. The actual rejoin result arrives via OnJoinedRoom or OnJoinRoomFailed.</returns>
         public bool OpRejoinRoom(string roomName, object ticket = null)
         {
             if (!this.CheckIfOpCanBeSent(OperationCode.JoinGame, this.Server, "RejoinRoom"))
@@ -1344,7 +1400,7 @@ namespace Photon.Realtime
             }
             if (string.IsNullOrEmpty(queryData))
             {
-                Log.Error("Operation GetGameList requires a filter.", this.LogLevel, this.LogPrefix);
+                Log.Error("Operation GetGameList requires a filter (queryData).", this.LogLevel, this.LogPrefix);
                 return false;
             }
             if (lobby == null || lobby.Type != LobbyType.Sql || lobby.IsDefault)
@@ -1355,15 +1411,6 @@ namespace Photon.Realtime
 
             Log.Info("OpGetGameList()", this.LogLevel, this.LogPrefix);
 
-
-            if (string.IsNullOrEmpty(queryData))
-            {
-                if (this.LogLevel >= LogLevel.Info)
-                {
-                    Log.Info("OpGetGameList not sent. queryData must be not null and not empty.", this.LogLevel, this.LogPrefix);
-                }
-                return false;
-            }
 
             ParameterDictionary opParameters = this.paramDictionaryPool.Acquire();
             opParameters[(byte)ParameterCode.LobbyName] = lobby.Name;
@@ -1635,6 +1682,56 @@ namespace Photon.Realtime
             }
         }
 
+        /// <summary>Uses RaiseEvent to communicate with the Party Ticket Plugin.</summary>
+        /// <remarks>
+        /// This operation asks a plugin to generate a matchmaking ticket for a party of players,
+        /// which makes it convenient to find another room as party.
+        /// A party of players can each use their ticket for random matchmaking to find a room and
+        /// will all join the same room.
+        ///
+        /// Provided the client is in a room and the Party Ticket Plugin is available, this operation
+        /// asks the server to generate a ticket for all players in the room or just those in actorsToInclude.
+        ///
+        /// Invited clients will receive a EventCode.CommandEvent with an object[] as data.
+        /// That object[] contains: (byte)1 as identifier, (int[]) invited players by actorNumber, (string) ticket.
+        /// The ticket can be used in JoinRandomOrCreateRoomAsync as JoinRandomRoomArgs.Ticket.
+        ///
+        /// OpCreateMatchmakingTicket is not a distinct operation.
+        /// It uses the operation RaiseEvent to pass a "CommandEvent" (code: 220) to a plugin.
+        /// The Party Ticket Plugin handles event code 220 with an object[] as content, if the first item is a (byte) 1.
+        ///
+        /// If a room does not have the Party Ticket Plugin and no other plugin handles the EventCode.CommandEvent,
+        /// no ticket gets generated and the event will only be sent back to this client. The content of said event
+        /// will be the object[] as sent. This means, it will not have the third entry, which has the ticket.
+        /// </remarks>
+        /// <param name="actorsToInclude">Optionally pass the actorNumbers of the players who should are invited to the Matchmaking Party (and get a ticket).</param>
+        /// <returns>If the operation could be sent. The client must be in a room.</returns>
+        public bool OpCreateMatchmakingTicket(int[] actorsToInclude)
+        {
+            if (!this.CheckIfOpCanBeSent(OperationCode.RaiseEvent, this.Server, "OpCreateMatchmakingTicket (RaiseEvent())"))
+            {
+                return false;
+            }
+
+            Log.Info("OpCreateMatchmakingTicket()", this.LogLevel, this.LogPrefix);
+
+            int[] targetWithoutPlugin = new int[] { this.LocalPlayer.ActorNumber };
+            ParameterDictionary opParameters = this.paramDictionaryPool.Acquire();
+            try
+            {
+                object[] ticketRequest = new object[] { (byte)CommandEventSubcode.GenerateTicket, actorsToInclude };
+                opParameters.Add(ParameterCode.Code, (byte)EventCode.CommandEvent);
+                opParameters.Add(ParameterCode.ActorList, targetWithoutPlugin);
+                opParameters.Add(ParameterCode.Data, ticketRequest);
+
+                return this.RealtimePeer.SendOperation(OperationCode.RaiseEvent, opParameters, SendOptions.SendReliable);
+            }
+            finally
+            {
+                this.paramDictionaryPool.Release(opParameters);
+            }
+        }
+
 
         /// <summary>
         /// Internally used operation to set some "per server" settings. This is for the Master Server.
@@ -1643,9 +1740,14 @@ namespace Photon.Realtime
         /// <returns>False if the operation could not be sent.</returns>
         protected internal bool OpSettings(bool receiveLobbyStats)
         {
+            if (!receiveLobbyStats)
+            {
+                return false;
+            }
+
             if (!this.IsConnectedAndReady || this.Server != ServerConnection.MasterServer)
             {
-                Log.Debug($"OpSettings() skipping because IsConnectedAndReady: {IsConnectedAndReady} / Server: {Server}", this.LogLevel, this.LogPrefix);
+                //Log.Debug($"OpSettings() skipping because IsConnectedAndReady: {IsConnectedAndReady} / Server: {Server}", this.LogLevel, this.LogPrefix);
                 return false;
             }
 

@@ -206,23 +206,21 @@ namespace Quantum.Editor {
       appSettings.Server = string.Empty;
       appSettings.UseNameServer = true;
       appSettings.Port = 0;
-    }
-
-    [Obsolete("Use SetSettingsToLocalMasterServer(AppSettings)")]
-    public static void SetSettingsToLocalServer(AppSettings appSettings) {
-      SetSettingsToLocalMasterServer(appSettings);
+      appSettings.AuthMode = AuthModeOption.AuthOnceWss;
     }
 
     public static void SetSettingsToLocalMasterServer(AppSettings appSettings) {
         appSettings.Server = GuessLocalIpAddress();
         appSettings.UseNameServer = false;
         appSettings.Port = 5055;
+      appSettings.AuthMode = AuthModeOption.AuthOnce;
     }
 
     public static void SetSettingsToLocalNameServer(AppSettings appSettings) {
       appSettings.Server = GuessLocalIpAddress();
       appSettings.UseNameServer = true;
       appSettings.Port = 5058;
+      appSettings.AuthMode = AuthModeOption.AuthOnce;
     }
 
     public static string GuessLocalIpAddress() {
@@ -556,7 +554,7 @@ namespace Quantum.Editor {
       }
     }
 
-    public static EdgeChangeResult Edge(QuantumMonoBehaviour qmb, ref FPVector2 v0, ref FPVector2 v1, FPVector2 posOffset, FP rotOffset) {
+    public static EdgeChangeResult Edge(Behaviour qmb, ref FPVector2 v0, ref FPVector2 v1, FPVector2 posOffset, FP rotOffset) {
       var t = qmb.transform;
       // we do it this way to strip the unneeded axe's easily
       var rot =
@@ -588,7 +586,7 @@ namespace Quantum.Editor {
              FPMath.Abs(a.Y - b.Y) < epsilon;
     }
 
-    private static void DrawEdgeVertex(QuantumMonoBehaviour behaviour, Matrix4x4 m, ref FPVector2 vertex) {
+    private static void DrawEdgeVertex(Behaviour behaviour, Matrix4x4 m, ref FPVector2 vertex) {
       EditorGUI.BeginChangeCheck();
 
       // we do not directly apply matrix here because we want the handles axe's to stay aligned
@@ -603,35 +601,45 @@ namespace Quantum.Editor {
       }
     }
 
-    public static void Polygon(QuantumMonoBehaviour qmb, ref FPVector2[] vertices, FPVector2 posOffset, FP rotOffset) {
+    public static void Polygon(Behaviour qmb, ref FPVector2[] vertices, FPVector2 posOffset, FP rotOffset, bool isScaled = true) {
       if (Event.current.shift || Event.current.control) {
         DrawAddAndRemoveButtons(qmb, Event.current.shift, Event.current.control, posOffset, rotOffset, ref vertices);
       } else {
-        DrawMovementHandles(qmb, posOffset, rotOffset, ref vertices);
+        DrawMovementHandles(qmb, posOffset, rotOffset, ref vertices, isScaled);
         DrawMakeCCWButton(qmb, posOffset, ref vertices);
       }
     }
 
-    private static void AddVertex(QuantumMonoBehaviour qmb, int index, FPVector2 position, ref FPVector2[] vertices) {
+    private static void AddVertex(Behaviour qmb, int index, FPVector2 position, ref FPVector2[] vertices) {
       var newVertices = new List<FPVector2>(vertices);
       newVertices.Insert(index, position);
       Undo.RegisterCompleteObjectUndo(qmb, "Adding polygon vertex");
       vertices = newVertices.ToArray();
     }
 
-    private static void RemoveVertex(QuantumMonoBehaviour qmb, ref FPVector2[] vertices, int index) {
+    private static void RemoveVertex(Behaviour qmb, ref FPVector2[] vertices, int index) {
       var newVertices = new List<FPVector2>(vertices);
       newVertices.RemoveAt(index);
       Undo.RegisterCompleteObjectUndo(qmb, "Removing polygon vertex");
       vertices = newVertices.ToArray();
     }
 
-    private static void DrawMovementHandles(QuantumMonoBehaviour qmb, FPVector2 posOffset, FP rotOffset, ref FPVector2[] vertices) {
+    private static void DrawMovementHandles(Behaviour qmb, FPVector2 posOffset, FP rotOffset, ref FPVector2[] vertices, bool isScaled) {
       var isClockWise = FPVector2.IsClockWise(vertices);
       var t = qmb.transform;
 
       var r = t.rotation * rotOffset.FlipRotation().ToUnityQuaternionDegrees();
       r = r.ToFPRotation2DDegrees().ToUnityQuaternionDegrees();
+
+      var absScale = Vector3.one;
+      if (isScaled) {
+        absScale.x = Mathf.Abs(t.transform.lossyScale.x);
+        absScale.y = Mathf.Abs(t.transform.lossyScale.y);
+        absScale.z = Mathf.Abs(t.transform.lossyScale.z);
+      } else {
+        absScale.x *= Mathf.Sign(t.transform.lossyScale.x);
+        absScale.y *= Mathf.Sign(t.transform.lossyScale.y);
+      }
 
       var m = Matrix4x4.TRS(t.TransformPoint(posOffset.ToUnityVector3()), r, Vector3.one);
 
@@ -639,7 +647,7 @@ namespace Quantum.Editor {
         for (int i = 0; i < vertices.Length; i++) {
           EditorGUI.BeginChangeCheck();
 
-          var scaledPos = Vector3.Scale(vertices[i].ToUnityVector3(), t.lossyScale);
+          var scaledPos = Vector3.Scale(vertices[i].ToUnityVector3(), absScale);
           var newWorldPosition = Handles.PositionHandle(scaledPos, r);
 
           if (EditorGUI.EndChangeCheck()) {
@@ -647,9 +655,9 @@ namespace Quantum.Editor {
 
             var result = newWorldPosition;
 
-            result.x /= t.lossyScale.x;
-            result.y /= t.lossyScale.y;
-            result.z /= t.lossyScale.z;
+            result.x /= absScale.x;
+            result.y /= absScale.y;
+            result.z /= absScale.z;
             
             vertices[i] = result.ToFPVector2();
           }
@@ -657,7 +665,7 @@ namespace Quantum.Editor {
       }
     }
 
-    private static void DrawMakeCCWButton(QuantumMonoBehaviour qmb, FPVector2 posOffset, ref FPVector2[] vertices) {
+    private static void DrawMakeCCWButton(Behaviour qmb, FPVector2 posOffset, ref FPVector2[] vertices) {
       if (FPVector2.IsPolygonConvex(vertices) && FPVector2.IsClockWise(vertices)) {
         var center = FPVector2.CalculatePolygonCentroid(vertices);
         var view = SceneView.currentDrawingSceneView;
@@ -673,7 +681,7 @@ namespace Quantum.Editor {
       }
     }
 
-    private static void DrawAddAndRemoveButtons(QuantumMonoBehaviour qmb, bool drawAddButton, bool drawRemoveButton, FPVector2 posOffset, FP rotOffset, ref FPVector2[] vertices) {
+    private static void DrawAddAndRemoveButtons(Behaviour qmb, bool drawAddButton, bool drawRemoveButton, FPVector2 posOffset, FP rotOffset, ref FPVector2[] vertices) {
       var handlesColor = Handles.color;
       var t = qmb.transform;
       Handles.matrix = Matrix4x4.TRS(t.TransformPoint(posOffset.ToUnityVector3()),
@@ -684,8 +692,13 @@ namespace Quantum.Editor {
       for (int i = 0; i < vertices.Length; i++) {
         var facePosition_FP = (vertices[i] + vertices[(i + 1) % vertices.Length]) * FP._0_50;
 
-        var hs = QuantumStaticPolygonCollider2DEditor.HandlesSize;
-        var dtrhs = QuantumStaticPolygonCollider2DEditor.DistanceToReduceHandleSize;
+        float hs = 0;
+        float dtrhs = 0;
+#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
+        // TODO review
+        hs = QuantumStaticPolygonCollider2DEditor.HandlesSize;
+        dtrhs = QuantumStaticPolygonCollider2DEditor.DistanceToReduceHandleSize;
+#endif
 
         var handleSize = hs * HandleUtility.GetHandleSize(vertices[i].ToUnityVector3());
         var cameraDistance = Vector3.Distance(SceneView.currentDrawingSceneView.camera.transform.position, vertices[i].ToUnityVector3());
@@ -716,14 +729,30 @@ namespace Quantum.Editor {
       Handles.matrix = Matrix4x4.identity;
     }
 
-    public static void Circle(QuantumMonoBehaviour qmb, FPVector2 posOffset, ref FP radius, Color? color = null) {
+    public static void Circle(Behaviour qmb, FPVector2 posOffset, ref FP radius, Color? color = null) {
       UpdateAxes(_sphere, false);
       var transform = qmb.transform;
       var rotation = transform.rotation.ToFPRotation2DDegrees().ToUnityQuaternionDegrees();
       var scale = transform.lossyScale;
 
-      var max = Mathf.Max(Mathf.Max(scale.x, scale.y), scale.z);
-      var m = Matrix4x4.TRS(transform.TransformPoint(posOffset.ToUnityVector3()), rotation, max * Vector3.one);
+      Vector3 scaleAbs;
+      scaleAbs.x = Mathf.Abs(scale.x);
+      scaleAbs.y = Mathf.Abs(scale.y);
+      scaleAbs.z = Mathf.Abs(scale.z);
+
+      var circleScale = scaleAbs.ToFPVector2();
+      var radiusScale = FPMath.Max(circleScale.X, circleScale.Y);
+
+      var handleScale = (radiusScale * FPVector2.One).ToUnityVector3();
+
+#if QUANTUM_XY
+      handleScale.z = -scaleAbs.z;
+#else
+      handleScale.y = scaleAbs.y;
+#endif
+
+      var max = Mathf.Max(Mathf.Max(scaleAbs.x, scaleAbs.y), scaleAbs.z);
+      var m = Matrix4x4.TRS(transform.TransformPoint(posOffset.ToUnityVector3()), rotation, handleScale);
 
       using (new Handles.DrawingScope(color.GetValueOrDefault(DefaultColor), m)) {
         _sphere.center = Vector3.zero;
@@ -741,12 +770,17 @@ namespace Quantum.Editor {
       }
     }
 
-    private static void Capsule(bool is3D, QuantumMonoBehaviour qmb, FPVector3 posOffset, FPVector3 rotOffset, ref FP radius, ref FP height, Color? color = null) {
+    private static void Capsule(bool is3D, Behaviour qmb, FPVector3 posOffset, FPVector3 rotOffset, ref FP radius, ref FP height, Color? color = null) {
       UpdateAxes(_capsule, is3D);
 
       var transform = qmb.transform;
       var rotation = transform.rotation * Quaternion.Euler(rotOffset.ToUnityVector3());
       var scale = transform.lossyScale;
+
+      Vector3 scaleAbs = transform.lossyScale;
+      scaleAbs.x = Mathf.Abs(scale.x);
+      scaleAbs.y = Mathf.Abs(scale.y);
+      scaleAbs.z = Mathf.Abs(scale.z);
 
       if (is3D == false) {
         // strip un-needed rotations
@@ -757,9 +791,9 @@ namespace Quantum.Editor {
       float radiusScale;
 
       if (is3D == false) {
-        radiusScale = scale.x;
+        radiusScale = scaleAbs.x;
       } else {
-        radiusScale = Mathf.Max(scale.x, scale.z);
+        radiusScale = Mathf.Max(scaleAbs.x, scaleAbs.z);
       }
 
       radiusScale = Mathf.Max(0, radiusScale);
@@ -767,11 +801,11 @@ namespace Quantum.Editor {
       // Scale the radius
       var capsuleRadius = Mathf.Max(radius.AsFloat, 0) * radiusScale;
 
-      var capsuleHeightScale = scale.y;
+      var capsuleHeightScale = scaleAbs.y;
 
       if (is3D == false) {
 #if !QUANTUM_XY
-        capsuleHeightScale = scale.z;
+        capsuleHeightScale = scaleAbs.z;
 #endif
       }
 
@@ -818,11 +852,11 @@ namespace Quantum.Editor {
       }
     }
 
-    public static void Capsule3D(QuantumMonoBehaviour qmb, FPVector3 posOffset, FPVector3 rotOffset, ref FP radius, ref FP height, Color? color = null) {
+    public static void Capsule3D(Behaviour qmb, FPVector3 posOffset, FPVector3 rotOffset, ref FP radius, ref FP height, Color? color = null) {
       Capsule(true, qmb, posOffset, rotOffset, ref radius, ref height, color);
     }
 
-    public static void Capsule2D(QuantumMonoBehaviour qmb, FPVector2 posOffset, FP rotOffset, ref FPVector2 size, Color? color = null) {
+    public static void Capsule2D(Behaviour qmb, FPVector2 posOffset, FP rotOffset, ref FPVector2 size, Color? color = null) {
       var radius = size.X / 2;
       var height = size.Y;
 
@@ -840,7 +874,7 @@ namespace Quantum.Editor {
       size.Y = height;
     }
 
-    public static void Rectangle(QuantumMonoBehaviour qmb, FPVector2 posOffset, FP rotOffset, ref FPVector2 sizeOrExtents, bool isExtents = false, Color? color = null) {
+    public static void Rectangle(Behaviour qmb, FPVector2 posOffset, FP rotOffset, ref FPVector2 sizeOrExtents, bool isExtents = false, Color? color = null) {
       UpdateAxes(_box, false);
 
       var transform = qmb.transform;
@@ -883,7 +917,7 @@ namespace Quantum.Editor {
       }
     }
 
-    public static void Box(QuantumMonoBehaviour qmb, FPVector3 posOffset, FPVector3 rotOffset, ref FPVector3 sizeOrExtents, bool isExtents = false, Color? color = null) {
+    public static void Box(Behaviour qmb, FPVector3 posOffset, FPVector3 rotOffset, ref FPVector3 sizeOrExtents, bool isExtents = false, Color? color = null) {
       UpdateAxes(_box, true);
       var transform = qmb.transform;
       var position = transform.TransformPoint(posOffset.ToUnityVector3());
@@ -920,7 +954,7 @@ namespace Quantum.Editor {
       }
     }
 
-    public static void Sphere(QuantumMonoBehaviour qmb, FPVector3 posOffset, ref FP radius, Color? color = null) {
+    public static void Sphere(Behaviour qmb, FPVector3 posOffset, ref FP radius, Color? color = null) {
       UpdateAxes(_sphere, true);
 
       var transform = qmb.transform;
@@ -928,7 +962,12 @@ namespace Quantum.Editor {
       var rotation = transform.rotation;
       var scale = transform.lossyScale;
 
-      var max = Mathf.Max(Mathf.Max(scale.x, scale.y), scale.z);
+      Vector3 scaleAbs;
+      scaleAbs.x = Mathf.Abs(scale.x);
+      scaleAbs.y = Mathf.Abs(scale.y);
+      scaleAbs.z = Mathf.Abs(scale.z);
+
+      var max = Mathf.Max(Mathf.Max(scaleAbs.x, scaleAbs.y), scaleAbs.z);
 
       using (new Handles.DrawingScope(color.GetValueOrDefault(DefaultColor), Matrix4x4.TRS(transform.TransformPoint(posOffset.ToUnityVector3()), rotation, max * Vector3.one))) {
         var handle = _sphere;
@@ -949,7 +988,7 @@ namespace Quantum.Editor {
       }
     }
 
-    public static void Rotation2D(QuantumMonoBehaviour qep, FPVector2 positionOffset, ref FP rotationValue) {
+    public static void Rotation2D(Behaviour qep, FPVector2 positionOffset, ref FP rotationValue) {
       EditorGUI.BeginChangeCheck();
 
       // dont need to flip here because this is already a quantum value
@@ -970,14 +1009,16 @@ namespace Quantum.Editor {
       }
     }
 
-    public static void Rotation3D(QuantumMonoBehaviour qep, FPVector3 positionOffset, ref FPVector3 rotOffset) {
+    public static void Rotation3D(Behaviour qep, FPVector3 positionOffset, ref FPVector3 rotOffset) {
       EditorGUI.BeginChangeCheck();
 
       var worldPos = qep.transform.TransformPoint(positionOffset.ToUnityVector3());
 
       var rotation = Quaternion.Euler(rotOffset.ToUnityVector3());
 
-      rotation = Handles.RotationHandle(rotation, worldPos);
+      using (new Handles.DrawingScope(Matrix4x4.TRS(worldPos, qep.transform.rotation, Vector3.one))) {
+        rotation = Handles.RotationHandle(rotation, Vector3.zero);
+      }
 
       if (EditorGUI.EndChangeCheck()) {
         Undo.RecordObject(qep, "Changed collider rotation offset.");
@@ -990,7 +1031,7 @@ namespace Quantum.Editor {
       }
     }
 
-    public static void Position2D(QuantumMonoBehaviour behaviour, ref FPVector2 position) {
+    public static void Position2D(Behaviour behaviour, ref FPVector2 position) {
       EditorGUI.BeginChangeCheck();
 
       var unityPos = position.ToUnityVector3();
@@ -1014,7 +1055,7 @@ namespace Quantum.Editor {
       }
     }
 
-    public static void Position3D(QuantumMonoBehaviour behaviour, ref FPVector3 position) {
+    public static void Position3D(Behaviour behaviour, ref FPVector3 position) {
       EditorGUI.BeginChangeCheck();
 
       var unityPos = position.ToUnityVector3();
@@ -1145,8 +1186,6 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/CustomEditors/QuantumEditorSettingsEditor.cs
 
 namespace Quantum.Editor {
-  using System;
-  using System.Linq;
   using UnityEditor;
   using UnityEditor.Build;
   using UnityEngine;
@@ -1165,12 +1204,14 @@ namespace Quantum.Editor {
       DrawScriptingDefineToggle(new GUIContent("Enable DebugDraw in Dev Builds", "Toggles QUANTUM_DRAW_SHAPES scripting define for the current platform to enable/disable debug draw in development builds."), "QUANTUM_DRAW_SHAPES", false);
       
       EditorGUI.BeginChangeCheck();
-      DrawScriptingDefineToggle(new GUIContent("Enable Task Profiler", "Toggle QUANTUM_ENABLE_REMOTE_PROFILER scripting define for the current platform"), "QUANTUM_ENABLE_REMOTE_PROFILER");
+      DrawScriptingDefineToggle(new GUIContent("Enable Remote Task Profiler", "Toggles QUANTUM_ENABLE_REMOTE_PROFILER scripting define for the current platform"), "QUANTUM_ENABLE_REMOTE_PROFILER");
       if (EditorGUI.EndChangeCheck()) {
         // remove legacy define
         AssetDatabaseExt.UpdateScriptingDefineSymbol("QUANTUM_REMOTE_PROFILER", false);
       }
-      
+
+      DrawScriptingDefineToggle(new GUIContent("Enable Quantum Graph Profiler (all platforms)", "Toggles QUANTUM_DISABLE_GRAPHPROFILER scripting define to enable/disable Quantum graph profiler code."), "QUANTUM_DISABLE_GRAPHPROFILER", allPlatforms: true, invertDefine: true);
+
       EditorGUILayout.Space();
       EditorGUILayout.LabelField("Quantum 2D", EditorStyles.boldLabel);
 
@@ -1178,7 +1219,7 @@ namespace Quantum.Editor {
         new GUIContent(
           "Enable Quantum XY", 
           "Toggles QUANTUM_XY scripting define to enable/disable Quantum XY."),
-      "QUANTUM_XY",
+          "QUANTUM_XY",
         true
         );
 
@@ -1187,7 +1228,7 @@ namespace Quantum.Editor {
       _logSettingsDrawer.DrawLayout(this, true);
     }
 
-    private static bool DrawScriptingDefineToggle(GUIContent label, string define, bool allPlatforms = false) {
+    private static bool DrawScriptingDefineToggle(GUIContent label, string define, bool allPlatforms = false, bool invertDefine = false) {
       bool? hasDefine;
       NamedBuildTarget buildTarget = default;
       if (allPlatforms) {
@@ -1197,10 +1238,16 @@ namespace Quantum.Editor {
         hasDefine = AssetDatabaseExt.HasScriptingDefineSymbol(buildTarget, define);
       }
 
+      var value = hasDefine ?? false;
+      if (invertDefine) value = !value;
+
       EditorGUI.BeginChangeCheck();
       EditorGUI.showMixedValue = hasDefine == null;
-      bool value = EditorGUILayout.Toggle(label, hasDefine == true);
+      value = EditorGUILayout.Toggle(label, value);
       EditorGUI.showMixedValue = false;
+
+      if (invertDefine) value = !value;
+
       if (EditorGUI.EndChangeCheck()) {
         if (allPlatforms) {
           AssetDatabaseExt.UpdateScriptingDefineSymbol(define, value);
@@ -1285,7 +1332,6 @@ namespace Quantum.Editor {
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using Photon.Deterministic;
   using UnityEditor;
   using UnityEngine;
 
@@ -1328,427 +1374,6 @@ namespace Quantum.Editor {
 
     private bool toolsPreviousState;
 
-    private const string _shape3DToolPropertyPath = "PhysicsCollider.Shape3D";
-    private const string _shape2DToolPropertyPath = "PhysicsCollider.Shape2D";
-    private const string _parametric3DToolPropertyPath = "PhysicsBody.ParametricInertiaShape3D";
-    private const string _parametric2DToolPropertyPath = "PhysicsBody.ParametricInertiaShape2D";
-
-    protected override void OnEnable() {
-      base.OnEnable();
-
-      toolsPreviousState = Tools.hidden;
-    }
-
-    protected override void OnDisable() {
-      base.OnDisable();
-
-      ShapeConfigDrawer.States.Clear();
-
-      Tools.hidden = toolsPreviousState;
-    }
-
-    private void OnSceneGUI() {
-      bool shouldDrawHandles = ShapeConfigDrawer.States.Any(x => x.Value.ToolbarValue >= 0);
-      var toolbarStates = ShapeConfigDrawer.States;
-      Tools.hidden = shouldDrawHandles;
-      if (shouldDrawHandles) {
-        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape) {
-          ShapeConfigDrawer.States.Clear();
-
-          Repaint();
-        }
-
-        var qep = (QuantumEntityPrototype)target;
-
-        // we are drawing compound collider tool handles
-        if (IsColliderCompound(qep)) {
-          foreach (var states in toolbarStates) {
-            var toolsIndex = states.Value.ToolbarValue;
-            var arrayIndex = states.Value.IndexInArray;
-
-            switch (qep.TransformMode) {
-              case QuantumEntityPrototypeTransformMode.Transform2D:
-
-                var colliders2D = qep.PhysicsCollider.Shape2D.CompoundShapes;
-
-                if (arrayIndex < colliders2D.Length && arrayIndex >= 0) {
-                  var element2D = colliders2D[arrayIndex];
-
-                  var discard = default(Shape3DConfig.CompoundShapeData3D);
-
-                  DrawColliderHandles(
-                    qep,
-                    ref discard,
-                    ref element2D,
-                    toolsIndex
-                  );
-
-                  colliders2D[arrayIndex] = element2D;
-                }
-
-                break;
-
-              case QuantumEntityPrototypeTransformMode.Transform3D:
-                var colliders3D = qep.PhysicsCollider.Shape3D.CompoundShapes;
-                if (arrayIndex < colliders3D.Length && arrayIndex >= 0) {
-                  var element = colliders3D[arrayIndex];
-
-                  var discard = default(Shape2DConfig.CompoundShapeData2D);
-
-                  DrawColliderHandles(
-                    qep,
-                    ref element,
-                    ref discard,
-                    toolsIndex
-                  );
-
-                  colliders3D[arrayIndex] = element;
-                }
-
-                break;
-            }
-          }
-        }
-
-        // draw normal
-        else {
-          var converted2d = new Shape2DConfig.CompoundShapeData2D(qep.PhysicsCollider.Shape2D);
-          var converted3d = new Shape3DConfig.CompoundShapeData3D(qep.PhysicsCollider.Shape3D);
-
-          DrawColliderHandles(
-            qep,
-            ref converted3d,
-            ref converted2d
-          );
-
-          converted3d.CopyToConfig(qep.PhysicsCollider.Shape3D);
-          converted2d.CopyToConfig(qep.PhysicsCollider.Shape2D);
-
-          if (qep.PhysicsBody.InertiaMode == Prototypes.PhysicsBodyInertiaMode.ParametricShape) {
-            var color = QuantumGameGizmosSettingsScriptableObject.Global.Settings.ParametricInertiaShape.Color;
-
-            switch (qep.TransformMode) {
-              case QuantumEntityPrototypeTransformMode.Transform2D:
-                var convertedBody2d = qep.PhysicsBody.ParametricInertiaShape2D != null
-                  ? new Shape2DConfig.CompoundShapeData2D(qep.PhysicsBody.ParametricInertiaShape2D)
-                  : default;
-
-                DrawShapeHandles2D(qep, _parametric2DToolPropertyPath, ref convertedBody2d, color);
-                convertedBody2d.CopyToConfig(qep.PhysicsBody.ParametricInertiaShape2D);
-                break;
-
-              case QuantumEntityPrototypeTransformMode.Transform3D:
-                var convertedBody3d = qep.PhysicsBody.ParametricInertiaShape3D != null
-                  ? new Shape3DConfig.CompoundShapeData3D(qep.PhysicsBody.ParametricInertiaShape3D)
-                  : default;
-
-                DrawShapeHandles3D(qep, _parametric3DToolPropertyPath, ref convertedBody3d, color);
-                convertedBody3d.CopyToConfig(qep.PhysicsBody.ParametricInertiaShape3D);
-                break;
-            }
-          }
-        }
-      }
-    }
-
-    private bool IsColliderCompound(QuantumEntityPrototype ep) {
-      switch (ep.TransformMode) {
-        case QuantumEntityPrototypeTransformMode.Transform2D:
-          return ep.PhysicsCollider.Shape2D.ShapeType == Shape2DType.Compound;
-        case QuantumEntityPrototypeTransformMode.Transform3D:
-          return ep.PhysicsCollider.Shape3D.ShapeType == Shape3DType.Compound;
-        case QuantumEntityPrototypeTransformMode.None:
-          break;
-        default:
-          throw new ArgumentOutOfRangeException();
-      }
-
-      return false;
-    }
-
-    private static void DrawColliderHandles(
-      QuantumEntityPrototype qep,
-      ref Shape3DConfig.CompoundShapeData3D shapeData3D,
-      ref Shape2DConfig.CompoundShapeData2D shapeData2D,
-      int toolsIndex = -1
-    ) {
-      var transformMode = qep.TransformMode;
-
-      bool is2D = transformMode == QuantumEntityPrototypeTransformMode.Transform2D;
-      bool is3D = transformMode == QuantumEntityPrototypeTransformMode.Transform3D;
-      var propertyPath = is3D ? _shape3DToolPropertyPath : is2D ? _shape2DToolPropertyPath : string.Empty;
-
-      if (toolsIndex == -1) {
-        if (ShapeConfigDrawer.States.TryGetValue(propertyPath, out var state) == false) {
-          return;
-        }
-
-        toolsIndex = state.ToolbarValue;
-      }
-
-      if (toolsIndex == -1) {
-        return;
-      }
-
-      var gizmoSettings = QuantumGameGizmosSettingsScriptableObject.Global.Settings;
-      var color = gizmoSettings.DynamicColliders.Color;
-
-      if (is3D || is2D) {
-        if (qep.PhysicsBody.IsEnabled == false) {
-          color = gizmoSettings.KinematicColliders.Color;
-        }
-      }
-
-      switch (qep.TransformMode) {
-        case QuantumEntityPrototypeTransformMode.Transform2D:
-          DrawShapeHandles2D(qep, propertyPath, ref shapeData2D, color, toolsIndex);
-          break;
-        case QuantumEntityPrototypeTransformMode.Transform3D:
-          DrawShapeHandles3D(qep, propertyPath, ref shapeData3D, color, toolsIndex);
-          break;
-      }
-    }
-
-    private static void DrawShapeHandles2D(
-      QuantumEntityPrototype qep,
-      string propertyPath,
-      ref Shape2DConfig.CompoundShapeData2D shapeData2D,
-      Color color,
-      int toolsIndex = -1
-    ) {
-      if (toolsIndex == -1) {
-        if (ShapeConfigDrawer.States.TryGetValue(propertyPath, out var state)) {
-          toolsIndex = state.ToolbarValue;
-        }
-      }
-      
-      if (toolsIndex == -1) {
-        return;
-      }
-
-      ref var capsuleSize2d = ref shapeData2D.CapsuleSize;
-      ref var posOffset2D = ref shapeData2D.PositionOffset;
-      ref var rotOffset2D = ref shapeData2D.RotationOffset;
-      ref var circleRadius = ref shapeData2D.CircleRadius;
-      ref var rectangleExtents = ref shapeData2D.BoxExtents;
-      ref var edgeExtents = ref shapeData2D.EdgeExtent;
-
-      switch (toolsIndex) {
-        case QuantumColliderHandles.EditCollider:
-          var s2D = shapeData2D.ShapeType;
-
-          switch (s2D) {
-            case Shape2DType.None:
-              break;
-
-            case Shape2DType.Circle:
-              QuantumColliderHandles.Circle(
-                qep,
-                posOffset2D,
-                ref circleRadius,
-                color
-              );
-              break;
-
-            case Shape2DType.Polygon:
-              var asset = QuantumUnityDB.GetGlobalAsset(shapeData2D.PolygonCollider);
-
-              // because this is a quantum value already, we dont need to flip the value
-              // but because this method expects a unity value, we need to compensate
-              var flipped = rotOffset2D.FlipRotation();
-
-              if (asset != null) {
-                QuantumColliderHandles.Polygon(
-                  qep,
-                  ref asset.Vertices,
-                  posOffset2D,
-                  flipped
-                );
-              }
-
-              rotOffset2D = flipped.FlipRotation();
-              break;
-
-            case Shape2DType.Box:
-              QuantumColliderHandles.Rectangle(
-                qep,
-                posOffset2D,
-                rotOffset2D.FlipRotation(),
-                ref rectangleExtents,
-                true,
-                color
-              );
-
-              break;
-
-            case Shape2DType.Edge:
-              var center = FPVector2.Zero;
-
-              FPVector2 v0 = new FPVector2(
-                center.X - edgeExtents,
-                center.Y
-              );
-
-              FPVector2 v1 = new FPVector2(
-                center.X + edgeExtents,
-                center.Y
-              );
-
-              var v0Old = v0;
-              var v1Old = v1;
-
-              var result = QuantumColliderHandles.Edge(
-                qep,
-                ref v0,
-                ref v1,
-                posOffset2D,
-                rotOffset2D.FlipRotation()
-              );
-
-              if (result.V0Changed || result.V1Changed) {
-                var t = qep.transform;
-                var m = Matrix4x4.TRS(
-                  t.TransformPoint(posOffset2D.ToUnityVector3()),
-                  t.rotation * rotOffset2D.ToUnityQuaternionDegrees(),
-                  t.localScale
-                );
-
-                Vector3 p0, p1;
-
-                // Convert to world space while preserving the unmodified handle
-                if (result.V0Changed) {
-                  p0 = m.MultiplyPoint(v0.ToUnityVector3());
-                  p1 = m.MultiplyPoint(v1Old.ToUnityVector3());
-                } else {
-                  p0 = m.MultiplyPoint(v0Old.ToUnityVector3());
-                  p1 = m.MultiplyPoint(v1.ToUnityVector3());
-                }
-
-                var worldCenter = (p0 + p1) / 2;
-                var worldDir = (p1 - p0).normalized.ToFPVector2();
-                var newLength = Vector3.Distance(p0, p1);
-
-                posOffset2D = t.InverseTransformPoint(worldCenter).ToFPVector2();
-
-                rotOffset2D = FPMath.Atan2(worldDir.Y, worldDir.X) * FP.Rad2Deg;
-
-                edgeExtents = (newLength / 2).ToFP();
-              }
-
-              break;
-
-            case Shape2DType.Compound:
-              break;
-
-            case Shape2DType.Capsule:
-              QuantumColliderHandles.Capsule2D(
-                qep,
-                posOffset2D,
-                rotOffset2D,
-                ref capsuleSize2d
-              );
-              break;
-          }
-
-          break;
-        case QuantumColliderHandles.EditPosition:
-          QuantumColliderHandles.Position2D(qep, ref posOffset2D);
-          break;
-        case QuantumColliderHandles.EditRotation:
-          QuantumColliderHandles.Rotation2D(
-            qep,
-            posOffset2D,
-            ref rotOffset2D
-          );
-
-          break;
-      }
-    }
-
-    private static void DrawShapeHandles3D(
-      QuantumEntityPrototype qep,
-      string propertyPath,
-      ref Shape3DConfig.CompoundShapeData3D shapeData3D,
-      Color color,
-      int toolsIndex = -1
-    ) {
-      if (toolsIndex == -1) {
-        if (ShapeConfigDrawer.States.TryGetValue(propertyPath, out var state)) {
-          toolsIndex = state.ToolbarValue;
-        }
-      }
-
-      if (toolsIndex == -1) {
-        return;
-      }
-
-      ref var posOffset3D = ref shapeData3D.PositionOffset;
-      ref var rotOffset3D = ref shapeData3D.RotationOffset;
-      ref var boxExtents = ref shapeData3D.BoxExtents;
-      ref var capsuleHeight3d = ref shapeData3D.CapsuleHeight;
-      ref var capsuleRadius3d = ref shapeData3D.CapsuleRadius;
-      ref var sphereRadius = ref shapeData3D.SphereRadius;
-
-      switch (toolsIndex) {
-        case QuantumColliderHandles.EditCollider:
-
-          var s3D = shapeData3D.ShapeType;
-
-          switch (s3D) {
-            case Shape3DType.Sphere:
-              QuantumColliderHandles.Sphere(
-                qep,
-                posOffset3D,
-                ref sphereRadius,
-                color
-              );
-              break;
-            case Shape3DType.Box:
-              QuantumColliderHandles.Box(
-                qep,
-                posOffset3D,
-                rotOffset3D,
-                ref boxExtents,
-                true,
-                color
-              );
-              break;
-
-            case Shape3DType.Capsule:
-              QuantumColliderHandles.Capsule3D(
-                qep,
-                posOffset3D,
-                rotOffset3D,
-                ref capsuleRadius3d,
-                ref capsuleHeight3d,
-                color
-              );
-              break;
-
-            case Shape3DType.Compound:
-            case Shape3DType.Mesh:
-            case Shape3DType.Terrain:
-            case Shape3DType.None:
-
-              break;
-          }
-
-          break;
-
-        case QuantumColliderHandles.EditPosition:
-          QuantumColliderHandles.Position3D(qep, ref posOffset3D);
-          break;
-
-        case QuantumColliderHandles.EditRotation:
-          QuantumColliderHandles.Rotation3D(
-            qep,
-            posOffset3D,
-            ref rotOffset3D
-          );
-          break;
-      }
-    }
-
     public override void OnInspectorGUI() {
       base.PrepareOnInspectorGUI();
 
@@ -1773,7 +1398,6 @@ namespace Quantum.Editor {
           }
         }
       }
-
 
       if (Application.isPlaying) {
         EditorGUILayout.HelpBox("Prototypes are only used for entity instantiation. To inspect an actual entity check its EntityView.", MessageType.Info);
@@ -1825,11 +1449,18 @@ namespace Quantum.Editor {
               foreach (var p in prop.Children()) {
                 if (p.name == nameof(target.PhysicsCollider.SourceCollider)) {
                   if (is3D) {
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
                     QuantumEditorGUI.MultiTypeObjectField(p, new GUIContent(p.displayName), typeof(BoxCollider), typeof(SphereCollider), typeof(CapsuleCollider));
+#endif
                   } else {
-                    QuantumEditorGUI.MultiTypeObjectField(p, new GUIContent(p.displayName), typeof(BoxCollider), typeof(SphereCollider), typeof(BoxCollider2D), typeof(CircleCollider2D), typeof(CapsuleCollider2D));
+#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
+                    QuantumEditorGUI.MultiTypeObjectField(p, new GUIContent(p.displayName),
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
+                      typeof(BoxCollider), typeof(SphereCollider),
+#endif
+                      typeof(BoxCollider2D), typeof(CircleCollider2D), typeof(CapsuleCollider2D));
+#endif                      
                   }
-
                   continue;
                 }
 
@@ -2322,10 +1953,11 @@ namespace Quantum.Editor {
           }
         }
       }
- 
-      if (data.Asset) {
-        if (_mapAssetEditor == null || _mapAssetEditor.target != data.Asset) {
-          _mapAssetEditor = CreateEditor(data.Asset);
+
+      var asset = data.GetAsset(true);
+      if (asset) {
+        if (_mapAssetEditor == null || _mapAssetEditor.target != asset) {
+          _mapAssetEditor = CreateEditor(asset);
         }
         
         EditorGUILayout.Space();
@@ -2412,9 +2044,11 @@ namespace Quantum.Editor {
     /// </summary>
     public static void UpdateDefaultMinAgentRadius() {
       var settingsValue = QuantumNavMesh.DefaultMinAgentRadius;
+#if QUANTUM_ENABLE_AI
       for (int i = 0; i < UnityEngine.AI.NavMesh.GetSettingsCount(); i++) {
         settingsValue = Math.Min(settingsValue, UnityEngine.AI.NavMesh.GetSettingsByIndex(i).agentRadius);
       }
+#endif
       QuantumNavMesh.DefaultMinAgentRadius = settingsValue;
     }
 
@@ -2438,18 +2072,8 @@ namespace Quantum.Editor {
 
       try {
         // Clear any navmesh surface data
-        var instance = Unity.AI.Navigation.Editor.NavMeshAssetManager.instance;
         var surfaceObjects = surfaces.Select(s => s.GetComponent<Unity.AI.Navigation.NavMeshSurface>()).ToArray();
-        foreach (var s in surfaceObjects) {
-          var assetToDelete = (Object)typeof(Unity.AI.Navigation.Editor.NavMeshAssetManager).GetMethod("GetNavMeshAssetToDelete", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(instance, new object[] { s });
-          if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(assetToDelete)) == false) {
-            // Make sure to clear correctly to remove associated Unity navmesh asset
-            typeof(Unity.AI.Navigation.Editor.NavMeshAssetManager).GetMethod("ClearSurface", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(instance, new object[] { s });
-          } else {
-            // Only clear the surface data
-            typeof(Unity.AI.Navigation.NavMeshSurface).GetMethod("RemoveData").Invoke(s, null);
-          }
-        }
+        Unity.AI.Navigation.Editor.NavMeshAssetManager.instance.ClearSurfaces(surfaceObjects);
       } catch (System.Exception e) {
         QuantumEditorLog.Warn($"Failed to reset Unity navmesh surfaces due to an exception: {e.Message}");
       }
@@ -2458,18 +2082,27 @@ namespace Quantum.Editor {
       foreach (var gameObject in surfaces) {
         var navMeshSurface = gameObject.GetComponent<Unity.AI.Navigation.NavMeshSurface>();
         navMeshSurface.BuildNavMesh();
+
+        try {
+          // CreateNavMeshAsset will create a data asset, so the navmesh data does not end up on the loaded scene
+          typeof(Unity.AI.Navigation.Editor.NavMeshAssetManager).GetMethod("CreateNavMeshAsset", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).Invoke(null, new object[] { navMeshSurface });
+        } catch (Exception e) {
+          QuantumEditorLog.Warn($"Failed to create Unity navmesh surfaces data due to an exception: {e.Message}");
+        }
       }
 
       return false;
 #else
 #if UNITY_2023_3_OR_NEWER
       throw new Exception("Calling NavMeshBuilder is not supported anymore. Switch to Navmesh surfaces or implement custom global navmesh baking during OnBeforeBake()");
-#else
+#elif QUANTUM_ENABLE_AI
       // Is NavMesh Surfaces is not installed the global navmesh baking is triggered
       UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
       return true;
-#endif
-#endif
+#else 
+      return false;
+#endif // UNITY_2023_3_OR_NEWER
+#endif // QUANTUM_ENABLE_AI_NAVIGATION
     }
 
     /// <summary>
@@ -2490,23 +2123,25 @@ namespace Quantum.Editor {
         surfaces.AddRange(unityNavmesh.NavMeshSurfaces);
       }
 
-      foreach (var gameObject in surfaces) {
-        //NavMeshAssetManagerType.instance.ClearSurfaces()
-        var navMeshSurface = gameObject.GetComponent<Unity.AI.Navigation.NavMeshSurface>();
-        navMeshSurface.RemoveData();
-        navMeshSurface.navMeshData = null;
+      try {
+        var surfaceObjects = surfaces.Select(s => s.GetComponent<Unity.AI.Navigation.NavMeshSurface>()).ToArray();
+        Unity.AI.Navigation.Editor.NavMeshAssetManager.instance.ClearSurfaces(surfaceObjects);
+      } catch (Exception e) {
+        QuantumEditorLog.Warn($"Failed to clear Unity navmesh surfaces data due to an exception: {e.Message}");
       }
 
       return false;
 #else
 #if UNITY_2023_3_OR_NEWER
       throw new Exception("Calling NavMeshBuilder is not supported anymore. Switch to Navmesh surfaces or implement custom global navmesh clearing during OnBakeNavMesh()");
-#else
+#elif QUANTUM_ENABLE_AI
       // Is NavMesh Surfaces is not installed the global navmesh baking is triggered
       UnityEditor.AI.NavMeshBuilder.ClearAllNavMeshes();
       return true;
-#endif
-#endif
+#else 
+      return false;
+#endif // UNITY_2023_3_OR_NEWER
+#endif // QUANTUM_ENABLE_AI_NAVIGATION
     }
   }
 }
@@ -2580,7 +2215,10 @@ namespace Quantum.Editor {
 
           int unityAreaId = 0;
 #if QUANTUM_ENABLE_AI_NAVIGATION
-          var modifier = data.GetComponent<Unity.AI.Navigation.NavMeshModifier>() ?? data.GetComponentInParent<Unity.AI.Navigation.NavMeshModifier>();
+          var modifier = data.GetComponent<Unity.AI.Navigation.NavMeshModifier>();
+          if (modifier == null) {
+            modifier = data.GetComponentInParent<Unity.AI.Navigation.NavMeshModifier>();
+          }
           if (modifier != null) {
             using (new EditorGUI.DisabledGroupScope(true)) {
               EditorGUILayout.ObjectField("NavMesh Modifier GameObject", modifier.gameObject, typeof(GameObject), true);
@@ -2590,7 +2228,7 @@ namespace Quantum.Editor {
           else {
             EditorGUILayout.LabelField("The NavMesh Area is defined by the NavMeshModifier script. No such script found in parents.");
           }
-#else
+#elif QUANTUM_ENABLE_AI && !QUANTUM_DISABLE_AI
           unityAreaId = GameObjectUtility.GetNavMeshArea(data.gameObject);
           var map = GameObjectUtility.GetNavMeshAreaNames();
           var currentIndex = GetNavMeshAreaIndex(unityAreaId);
@@ -2611,9 +2249,11 @@ namespace Quantum.Editor {
 #endif
 #endif // QUANTUM_ENABLE_AI_NAVIGATION
 
+#if QUANTUM_ENABLE_AI && !QUANTUM_DISABLE_AI
           if (data.CastRegion == QuantumNavMeshRegion.RegionCastType.CastRegion && data.OverwriteCost == false) {
             data.Cost = UnityEngine.AI.NavMesh.GetAreaCost(unityAreaId).ToFP();
           }
+#endif
 
           if (change.changed) {
             EditorUtility.SetDirty(target);
@@ -2625,16 +2265,21 @@ namespace Quantum.Editor {
 
         private static int GetNavMeshAreaIndex(int areaId) {
 #if UNITY_2023_3_OR_NEWER
+#if QUANTUM_ENABLE_AI && !QUANTUM_DISABLE_AI
       var map = UnityEngine.AI.NavMesh.GetAreaNames();
+#endif
 #else
       var map = GameObjectUtility.GetNavMeshAreaNames();
 #endif
       var index = 0;
+
+#if QUANTUM_ENABLE_AI && !QUANTUM_DISABLE_AI
       for (index = 0; index < map.Length;) {
         if (UnityEngine.AI.NavMesh.GetAreaFromName(map[index]) == areaId)
           break;
         index++;
       }
+#endif
 
       return index;
     }
@@ -2660,25 +2305,26 @@ namespace Quantum.Editor {
     public override void OnInspectorGUI() {
       base.OnInspectorGUI();
 
-      if (target?.Runner != null ) {
+      if (target != null && target.Runner != null ) {
         QuantumEditorGUI.Header("Quantum Runner");
         EditorGUILayout.LabelField("Id", target.Runner.Id);
         EditorGUILayout.LabelField("Running", target.Runner.IsRunning.ToString());
         EditorGUILayout.LabelField("Verified Predicted", target.Runner.Session?.FramePredicted?.Number.ToString());
         EditorGUILayout.LabelField("Verified Frame", target.Runner.Session?.FrameVerified?.Number.ToString());
         EditorGUILayout.LabelField("Predicted Frames", target.Runner.Session?.PredictedFrames.ToString());
-        EditorGUILayout.LabelField("Resimulated Frames", target.Runner.Session?.Stats.ResimulatedFrames.ToString());
         EditorGUILayout.LabelField("Ping", target.Runner.Session?.Stats.Ping.ToString());
         EditorGUILayout.LabelField("Simulate Time", (target.Runner.Session != null ? Math.Round(target.Runner.Session.Stats.UpdateTime * 1000, 2) : 0) + " ms");
         EditorGUILayout.LabelField("Input Offset", target.Runner.Session?.Stats.Offset.ToString());
 
+        target.Runner.HideGizmos = EditorGUILayout.Toggle(nameof(target.Runner.HideGizmos), target.Runner.HideGizmos);
         target.Runner.DeltaTimeType = (SimulationUpdateTime)EditorGUILayout.EnumPopup("DeltaTimeType", target.Runner.DeltaTimeType);
+
         if (GUILayout.Button("Open State Inspector")) {
           QuantumStateInspector.ShowWindow(false);
         }
       }
 
-      if (target?.Runner?.NetworkClient != null) {
+      if (target != null && target.Runner != null && target.Runner.NetworkClient != null) {
         var client = target.Runner.NetworkClient;
         QuantumEditorGUI.Header("Photon Room");
         EditorGUILayout.LabelField("Region", client.CurrentRegion);
@@ -2878,7 +2524,6 @@ namespace Quantum.Editor {
 
     partial void DrawFloatValue(SerializedProperty property, Rect position, GUIContent label, ref float floatValue) {
       var rawValueProperty = property.FindPropertyRelativeOrThrow(nameof(FP.RawValue));
-      rawValueProperty.longValue = FP.FromRoundedFloat_UNSAFE(floatValue).RawValue;
       
       EditorGUI.BeginChangeCheck();
       FPPropertyDrawer.DrawIntPropertyAsFP(position, rawValueProperty, label, fieldInfo);
@@ -2895,6 +2540,7 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/CustomEditors/StaticColliders/QuantumStaticBoxCollider2DEditor.cs
 
 namespace Quantum.Editor {
+#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
   using UnityEditor;
 
   [CustomEditor(typeof(QuantumStaticBoxCollider2D))]
@@ -2907,6 +2553,7 @@ namespace Quantum.Editor {
       QuantumColliderHandles.Rectangle(collider, collider.PositionOffset, collider.RotationOffset, ref collider.Size);
     }
   }
+#endif
 }
 
 #endregion
@@ -2917,6 +2564,7 @@ namespace Quantum.Editor {
 namespace Quantum.Editor {
   using UnityEditor;
 
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D 
   [CustomEditor(typeof(QuantumStaticBoxCollider3D))]
   public class QuantumStaticBoxCollider3DEditor : QuantumStaticCollider3DEditorBase {
     protected override void DrawSizeGizmos(QuantumMonoBehaviour behaviour) {
@@ -2924,7 +2572,9 @@ namespace Quantum.Editor {
       QuantumColliderHandles.Box(collider, collider.PositionOffset, collider.RotationOffset, ref collider.Size);
     }
   }
+#endif
 }
+
 
 #endregion
 
@@ -2932,6 +2582,7 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/CustomEditors/StaticColliders/QuantumStaticCapsuleCollider2DEditor.cs
 
 namespace Quantum.Editor {
+#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
   using UnityEditor;
 
   [CustomEditor(typeof(QuantumStaticCapsuleCollider2D), true)]
@@ -2944,6 +2595,7 @@ namespace Quantum.Editor {
       QuantumColliderHandles.Capsule2D(collider, collider.PositionOffset, collider.RotationOffset, ref collider.Size);
     }
   }
+#endif
 }
 
 #endregion
@@ -2952,8 +2604,8 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/CustomEditors/StaticColliders/QuantumStaticCapsuleCollider3DEditor.cs
 
 namespace Quantum.Editor {
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D 
   using UnityEditor;
-
   [CustomEditor(typeof(QuantumStaticCapsuleCollider3D), true)]
   public class QuantumStaticCapsuleCollider3DEditor : QuantumStaticCollider3DEditorBase {
     protected override void DrawSizeGizmos(QuantumMonoBehaviour behaviour) {
@@ -2964,6 +2616,7 @@ namespace Quantum.Editor {
       QuantumColliderHandles.Capsule3D(collider, collider.PositionOffset, collider.RotationOffset, ref collider.Radius, ref collider.Height);
     }
   }
+#endif
 }
 
 #endregion
@@ -2972,6 +2625,7 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/CustomEditors/StaticColliders/QuantumStaticCircleCollider2DEditor.cs
 
 namespace Quantum.Editor {
+#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
   using UnityEditor;
 
   [CustomEditor(typeof(QuantumStaticCircleCollider2D), true)]
@@ -2986,6 +2640,7 @@ namespace Quantum.Editor {
       QuantumColliderHandles.Circle(collider, collider.PositionOffset, ref collider.Radius);
     }
   }
+#endif
 }
 
 #endregion
@@ -2994,11 +2649,17 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/CustomEditors/StaticColliders/QuantumStaticCollider2DEditorBase.cs
 
 namespace Quantum.Editor {
+#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D 
   using Photon.Deterministic;
   using UnityEditor;
   using UnityEngine;
-
   public class QuantumStaticCollider2DEditorBase : QuantumStaticColliderEditorBase {
+    
+    
+    protected override string PosName => nameof(QuantumStaticBoxCollider2D.PositionOffset);
+    protected override string RotName => nameof(QuantumStaticBoxCollider2D.RotationOffset);
+    protected override string SourceColliderName => nameof(QuantumStaticBoxCollider2D.SourceCollider);
+    
     private const string RotationUndoMessage = "Changed collider rotation offset.";
     
     protected override void DrawRotationGizmos(QuantumMonoBehaviour behaviour, SerializedObject so) {
@@ -3036,6 +2697,7 @@ namespace Quantum.Editor {
       return rotation.FlipRotation().ToUnityQuaternionDegrees();
     }
   }
+#endif
 }
 
 #endregion
@@ -3044,10 +2706,16 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/CustomEditors/StaticColliders/QuantumStaticCollider3DEditorBase.cs
 
 namespace Quantum.Editor {
-  using UnityEditor;
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D 
   using UnityEngine;
-
+  using UnityEditor;
   public abstract class QuantumStaticCollider3DEditorBase : QuantumStaticColliderEditorBase {
+    
+    
+    protected override string PosName => nameof(QuantumStaticBoxCollider3D.PositionOffset);
+    protected override string RotName => nameof(QuantumStaticBoxCollider3D.RotationOffset);
+    protected override string SourceColliderName => nameof(QuantumStaticBoxCollider3D.SourceCollider);
+    
     private const string RotationUndoMessage = "Changed collider rotation offset.";
 
     protected override void DrawRotationGizmos(QuantumMonoBehaviour behaviour, SerializedObject so) {
@@ -3061,7 +2729,10 @@ namespace Quantum.Editor {
 
       var worldPos = behaviour.transform.TransformPoint(positionOffset);
       var rotation = Quaternion.Euler(rotationOffset);
-      rotation = Handles.RotationHandle(rotation, worldPos);
+
+      using (new Handles.DrawingScope(Matrix4x4.TRS(worldPos, behaviour.transform.rotation, Vector3.one))) {
+        rotation = Handles.RotationHandle(rotation, Vector3.zero);
+      }
 
       if (EditorGUI.EndChangeCheck()) {
         Undo.RecordObject(behaviour, RotationUndoMessage);
@@ -3074,6 +2745,7 @@ namespace Quantum.Editor {
       }
     }
   }
+#endif
 }
 
 #endregion
@@ -3082,18 +2754,20 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/CustomEditors/StaticColliders/QuantumStaticColliderEditorBase.cs
 
 namespace Quantum.Editor {
+#if ((QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D) || (QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D)) 
   using Photon.Deterministic;
   using UnityEditor;
   using UnityEngine;
 
   public abstract class QuantumStaticColliderEditorBase : QuantumEditor {
-    protected const string PosName = nameof(QuantumStaticBoxCollider3D.PositionOffset);
-    protected const string RotName = nameof(QuantumStaticBoxCollider3D.RotationOffset);
+    protected abstract string PosName { get; }
+    protected abstract string RotName { get; }
+    protected abstract string SourceColliderName { get; }
+    
     private const string XName = nameof(FPVector3.X);
     private const string YName = nameof(FPVector3.Y);
     private const string ZName = nameof(FPVector3.Z);
     protected const string RawValueName = nameof(FP.RawValue);
-    private const string SourceColliderName = nameof(QuantumStaticBoxCollider3D.SourceCollider);
     private const string UndoMessage = "Changed collider position offset.";
 
     private int _index = -1;
@@ -3243,7 +2917,9 @@ namespace Quantum.Editor {
     protected virtual void DrawSizeGizmos(QuantumMonoBehaviour behaviour) {
     }
   }
+#endif
 }
+
 
 #endregion
 
@@ -3361,7 +3037,7 @@ namespace Quantum.Editor {
 
     protected override void DrawSizeGizmos(QuantumMonoBehaviour behaviour) {
       var collider = (QuantumStaticPolygonCollider2D)behaviour;
-      QuantumColliderHandles.Polygon(collider, ref collider.Vertices, collider.PositionOffset, collider.RotationOffset);
+      QuantumColliderHandles.Polygon(collider, ref collider.Vertices, collider.PositionOffset, collider.RotationOffset, true);
     }
   }
 #endif
@@ -3373,6 +3049,7 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/CustomEditors/StaticColliders/QuantumStaticSphereCollider3DEditor.cs
 
 namespace Quantum.Editor {
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D 
   using UnityEditor;
 
   [CustomEditor(typeof(QuantumStaticSphereCollider3D), true)]
@@ -3387,6 +3064,7 @@ namespace Quantum.Editor {
       QuantumColliderHandles.Sphere(collider, collider.PositionOffset, ref collider.Radius);
     }
   }
+#endif
 }
 
 #endregion
@@ -3476,17 +3154,10 @@ namespace Quantum.Editor {
       if (property.IsArrayElement()) {
         if (label?.text?.StartsWith("Element ", StringComparison.Ordinal) == true) {
           
-          var systemNameProperty = property.FindPropertyRelativeOrThrow(nameof(SystemEntryBase.SystemName));
           var systemTypeProperty = property.FindPropertyRelativeOrThrow(nameof(SystemEntryBase.SystemType));
       
-          var systemName = systemNameProperty.stringValue;
-          var (fullTypeName, decorationType, decorationMsg) = SerializableTypeDrawer.GetTypeContent(systemTypeProperty, true, out _);
-          
-          if (string.IsNullOrEmpty(systemName)) {
-            label.text = fullTypeName;
-          } else {
-            label.text = $"{fullTypeName} ({systemName})";
-          }
+          var (fullTypeName, decorationType, decorationMsg) = SerializableTypeDrawer.GetTypeContent(systemTypeProperty, false, out _);
+          label.text = fullTypeName;
           
           EditorGUI.PropertyField(position, property, label, property.isExpanded);
           
@@ -3513,6 +3184,7 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/Dotnet/QuantumDotnetBuildSettingsInspector.cs
 
 namespace Quantum.Editor {
+  using System.IO;
   using UnityEditor;
   using UnityEngine;
 
@@ -3585,6 +3257,20 @@ namespace Quantum.Editor {
       }
     }
 
+    private void DrawPluginLicenseMissing() {
+      var licenseFiles = Directory.GetFiles(Path.Combine(_settings.PluginSdkPath, QuantumDotnetBuildSettings.PhotonServerPath), "*.license0", SearchOption.TopDirectoryOnly);
+      if (licenseFiles.Length == 0) {
+        return;
+      }
+
+      using (new EditorGUILayout.HorizontalScope()) {
+        EditorGUILayout.HelpBox($"No server license found in the Photon Server SDK. Create and download a license file and place into {QuantumDotnetBuildSettings.PhotonServerPath}.", MessageType.Warning);
+        if (GUILayout.Button("Photon Dashboard", GUILayout.ExpandHeight(true))) {
+          Application.OpenURL("https://dashboard.photonengine.com/selfhosted");
+        }
+      }
+    }
+
     private void Draw() {
       DrawProjectGeneration();
 
@@ -3620,6 +3306,8 @@ namespace Quantum.Editor {
       }
 
       EditorGUI.PropertyField(QuantumEditorGUI.LayoutHelpPrefix(this, _pluginSdkPath), _pluginSdkPath);
+
+      DrawPluginLicenseMissing();
 
       if (GUILayout.Button("Sync Plugin SDK Server Simulation")) {
         QuantumDotnetBuildSettings.SynchronizePluginSdk(_settings);
@@ -4253,7 +3941,7 @@ namespace Quantum.Editor {
               obj = EditorGUI.ObjectField(rect, obj, matchingType, true);
             } else {
               obj = EditorGUI.ObjectField(rect, obj, typeof(UnityEngine.Object), true);
-              Decorate(rect, $"Type not supported: {obj?.GetType()}", MessageType.Error);
+              Decorate(rect, $"Type not supported: {(obj != null ? obj.GetType() : null)}", MessageType.Error);
             }
           } else {
             var r = rect.SetWidth(rect.width / types.Length);
@@ -4553,7 +4241,9 @@ namespace Quantum.Editor {
       return rootProperty;
     }
 
-    public static EntityPrototype FinishPendingEntityPrototype() {
+    public static EntityPrototype FinishPendingEntityPrototype(SerializedProperty property) {
+      property.serializedObject.ApplyModifiedPropertiesWithoutUndo();
+      
       var container = QuantumEditorUtilityContainer.instance;
 
       var entityPrototype = AssetObject.Create<EntityPrototype>();
@@ -4746,10 +4436,8 @@ namespace Quantum.Editor {
         ComponentsByName = Components.ToDictionary(x => x.Key.Name, x => x.Value);
         ComponentsByAQName = Components.ToDictionary(x => x.Key.AssemblyQualifiedName, x => x.Value);
 
-        Assets = AppDomain.CurrentDomain.GetAssemblies()
-          .SelectMany(x => x.GetLoadableTypes())
-          .Where(x => x?.IsSubclassOf(typeof(AssetObject)) == true)
-          .ToDictionary(x => x, x => CreateAssetEntry(x));
+        Assets = TypeCache.GetTypesDerivedFrom<AssetObject>()
+          .ToDictionary(x => x, CreateAssetEntry);
 
         AssetsByAQName = Assets.ToDictionary(x => x.Key.AssemblyQualifiedName, x => x.Value);
       }
@@ -4829,11 +4517,11 @@ namespace Quantum.Editor {
     // }
 
     public abstract class SerializableObjectsContainerBase {
-      public DeterministicSessionConfig[] DeterministicSessionConfig = { };
+      public DeterministicSessionConfig[] DeterministicSessionConfig = Array.Empty<DeterministicSessionConfig>();
       //public EntityPrototypeSurrogate[] EntityPrototypeSurrogate = { };
       //public MapSurrogate[] MapSurrogate = { };
-      public RuntimeConfig[] RuntimeConfig = { };
-      public RuntimePlayer[] RuntimePlayer = { };
+      public RuntimeConfig[] RuntimeConfig = Array.Empty<RuntimeConfig>();
+      public RuntimePlayer[] RuntimePlayer = Array.Empty<RuntimePlayer>();
 
       internal void Store(object obj) {
         var typeName = obj.GetType().Name;
@@ -5279,7 +4967,7 @@ namespace Quantum.Editor {
           AddValue("IsPaused", session.IsPaused);
           AddValue("MaxVerifiedTicksPerUpdate", session.MaxVerifiedTicksPerUpdate);
           AddValue("AccumulatedTime", session.AccumulatedTime);
-          AddValue("SimulationTimeElasped", session.SimulationTimeElasped);
+          AddValue("SimulationTimeElapsed", session.SimulationTimeElapsed);
           AddValue("InitialTick", session.InitialTick);
           AddValue("TimeScale", session.TimeScale);
           AddValue("LocalInputOffset", session.LocalInputOffset);
@@ -5326,7 +5014,6 @@ namespace Quantum.Editor {
             AddValue("Frame", session.Stats.Frame);
             AddValue("Offset", session.Stats.Offset);
             AddValue("Predicted", session.Stats.Predicted);
-            AddValue("ResimulatedFrames", session.Stats.ResimulatedFrames);
             AddValue("UpdateTime", session.Stats.UpdateTime);
           } finally {
             EndScope();
@@ -5618,12 +5305,17 @@ namespace Quantum.Editor {
 
       Type assetType;
       
-      var fieldType = fieldInfo.FieldType.GetUnityLeafType();
-      if (!fieldType.IsGenericType) {
+      if (fieldInfo == null) {
+        SetWarning($"Drawer used without a valid {nameof(fieldInfo)}. Make sure the type being serialized is marked with [Serializable].");
         assetType = typeof(AssetObject);
       } else {
-        assetType = fieldType.GetGenericArguments()[0];
-      }
+        var fieldType = fieldInfo.FieldType.GetUnityLeafType();
+        if (fieldType.IsGenericType) {
+          assetType = fieldType.GetGenericArguments()[0];
+        } else {
+          assetType = typeof(AssetObject);
+        }
+      } 
 
       DrawAssetRefSelector(position, property, label, assetType);
     }
@@ -6128,6 +5820,12 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
+  [CustomPropertyDrawer(typeof(DictionaryAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(DictionaryAttribute), typeof(DictionaryAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
   internal class DictionaryAttributeDrawer : DecoratingPropertyAttributeDrawer, INonApplicableOnArrayElements {
     
     private const string DictionaryKeyPropertyName   = "Key";
@@ -6171,14 +5869,9 @@ namespace Quantum.Editor {
 #if ODIN_INSPECTOR && !QUANTUM_ODIN_DISABLED
     [QuantumOdinAttributeConverter]
     static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, DictionaryAttribute attribute) {
-      return new System.Attribute[0];
+      return System.Array.Empty<System.Attribute>();
     }
 #endif
-  }
-  
-  [CustomPropertyDrawer(typeof(DictionaryAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(DictionaryAttribute), typeof(DictionaryAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround {
   }
 }
 
@@ -6257,6 +5950,12 @@ namespace Quantum.Editor {
   using Sirenix.OdinInspector.Editor;
 #endif
 
+  [CustomPropertyDrawer(typeof(DynamicCollectionAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(DynamicCollectionAttribute), typeof(DynamicCollectionAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
   internal class DynamicCollectionAttributeDrawer : DecoratingPropertyAttributeDrawer, INonApplicableOnArrayElements {
     
     private static readonly string DynamicCollectionWarning = $"Collection does not have [{(typeof(Core.FreeOnComponentRemovedAttribute).FullName)}] attribute and needs to be manually disposed in the simulation code to avoid memory leaks.";
@@ -6312,11 +6011,6 @@ namespace Quantum.Editor {
       }
     }
 #endif
-  }
-  
-  [CustomPropertyDrawer(typeof(DynamicCollectionAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(DynamicCollectionAttribute), typeof(DynamicCollectionAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround {
   }
 }
 
@@ -7218,6 +6912,12 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
+  [CustomPropertyDrawer(typeof(OptionalAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(OptionalAttribute), typeof(OptionalAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
   internal class OptionalAttributeDrawer : DecoratingPropertyAttributeDrawer, INonApplicableOnArrayElements {
     protected override void OnGUIInternal(Rect position, SerializedProperty prop, GUIContent label) {
       const float ToggleWidth = 16.0f;
@@ -7300,12 +7000,6 @@ namespace Quantum.Editor {
       return Array.Empty<Attribute>();
     }
 #endif
-  }
-  
-  
-  [CustomPropertyDrawer(typeof(OptionalAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(OptionalAttribute), typeof(OptionalAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround {
   }
 }
 
@@ -7760,7 +7454,8 @@ namespace Quantum.Editor {
 
 namespace Quantum.Editor {
   using System;
-  using System.Collections.Generic;
+  using System.Reflection;
+  using Photon.Deterministic;
   using UnityEditor;
   using UnityEngine;
 
@@ -7769,15 +7464,6 @@ namespace Quantum.Editor {
   [CustomPropertyDrawer(typeof(Shape3DConfig))]
   [CustomPropertyDrawer(typeof(Shape3DConfig.CompoundShapeData3D))]
   internal class ShapeConfigDrawer : PropertyDrawer {
-    public struct ColliderToolbarState {
-      public int IndexInArray;
-
-      public int ToolbarValue;
-    }
-    
-    public static Dictionary<string, ColliderToolbarState> States => _states;
-    private static readonly Dictionary<string, ColliderToolbarState> _states = new Dictionary<string, ColliderToolbarState>();
-
     static readonly GUIContent _radiusContent = new("Radius");
     static readonly GUIContent _assetContent = new("Asset");
     static readonly GUIContent _sizeContent = new("Size");
@@ -7789,8 +7475,328 @@ namespace Quantum.Editor {
     static readonly GUIContent _tagContent = new("User Tag");
     static readonly GUIContent _heightContent = new("Height");
 
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+    static readonly FieldInfo _nativeObjectPtrField = typeof(SerializedObject)
+      .GetField("m_NativeObjectPtr", BindingFlags.Instance | BindingFlags.NonPublic);
+    
+    private int _toolbarState = -1;
+    private int _arrayIndex = -1;
 
+    private static ShapeConfigDrawer _currentHandleDrawer;
+
+    private SerializedProperty _currentProperty;
+
+    static ShapeConfigDrawer() {
+      SceneView.duringSceneGui += sv => {
+        if (_currentHandleDrawer?._currentProperty != null) {
+          _currentHandleDrawer.CallSceneGUIHandles(sv);
+        }
+      };
+    }
+
+    private bool SerializedObjectTargetIsNull(SerializedObject so) {
+      var obj = _nativeObjectPtrField?.GetValue(so);
+
+      if (obj is IntPtr p) {
+        return p == IntPtr.Zero;
+      }
+
+      return true;
+    }
+    
+    private void CloseTools() {
+      _toolbarState = -1;
+      _arrayIndex = -1;
+      _currentHandleDrawer = null;
+      _currentProperty = null;
+      Tools.hidden = false;
+    }
+
+    private void CallSceneGUIHandles(SceneView sceneView) {
+      if (SerializedObjectTargetIsNull(_currentProperty.serializedObject)) {
+        CloseTools();
+        return;
+      }
+      
+      var serializedProperty = _currentProperty;
+
+      bool shouldDrawHandles = _toolbarState >= 0;
+      Tools.hidden = shouldDrawHandles;
+
+      if (shouldDrawHandles) {
+        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape) {
+          CloseTools();
+          sceneView.Repaint();
+        }
+
+        var targetObject = serializedProperty.serializedObject.targetObject;
+
+        var targetBehaviour = (Behaviour)targetObject;
+
+        var value = serializedProperty.GetTargetObject(out var field, out var parent);
+
+        var color = QuantumGameGizmosSettingsScriptableObject.Global.Settings.DynamicColliders.Color;
+
+        switch (value) {
+          case Shape3DConfig config3d:
+            var csd3d = new Shape3DConfig.CompoundShapeData3D(config3d);
+            DrawShapeHandles3D(targetBehaviour, ref csd3d, color);
+            csd3d.CopyToConfig(config3d);
+            break;
+          case Shape2DConfig config2d:
+            var csd2d = new Shape2DConfig.CompoundShapeData2D(config2d);
+            DrawShapeHandles2D(targetBehaviour, ref csd2d, color);
+            csd2d.CopyToConfig(config2d);
+            break;
+          case Shape3DConfig.CompoundShapeData3D compoundShapeData3D:
+            DrawShapeHandles3D(targetBehaviour, ref compoundShapeData3D, color);
+
+            if (EditorUtility.IsDirty(targetBehaviour)) {
+              var array = (Shape3DConfig.CompoundShapeData3D[])field.GetValue(parent);
+              array[serializedProperty.GetArrayIndex()] = compoundShapeData3D;
+            }
+
+            break;
+          case Shape2DConfig.CompoundShapeData2D compoundShapeData2D:
+            DrawShapeHandles2D(targetBehaviour, ref compoundShapeData2D, color);
+
+            if (EditorUtility.IsDirty(targetBehaviour)) {
+              var array = (Shape2DConfig.CompoundShapeData2D[])field.GetValue(parent);
+              array[serializedProperty.GetArrayIndex()] = compoundShapeData2D;
+            }
+
+            break;
+        }
+      }
+    }
+
+    private void DrawShapeHandles2D(
+      Behaviour qep,
+      ref Shape2DConfig.CompoundShapeData2D shapeData2D,
+      Color color
+    ) {
+      var toolsIndex = _toolbarState;
+      if (toolsIndex == -1) {
+        return;
+      }
+
+      ref var capsuleSize2d = ref shapeData2D.CapsuleSize;
+      ref var posOffset2D = ref shapeData2D.PositionOffset;
+      ref var rotOffset2D = ref shapeData2D.RotationOffset;
+      ref var circleRadius = ref shapeData2D.CircleRadius;
+      ref var rectangleExtents = ref shapeData2D.BoxExtents;
+      ref var edgeExtents = ref shapeData2D.EdgeExtent;
+
+      switch (toolsIndex) {
+        case QuantumColliderHandles.EditCollider:
+          var s2D = shapeData2D.ShapeType;
+
+          switch (s2D) {
+            case Shape2DType.None:
+              break;
+
+            case Shape2DType.Circle:
+              QuantumColliderHandles.Circle(
+                qep,
+                posOffset2D,
+                ref circleRadius,
+                color
+              );
+              break;
+
+            case Shape2DType.Polygon:
+              var asset = QuantumUnityDB.GetGlobalAsset(shapeData2D.PolygonCollider);
+
+              // because this is a quantum value already, we dont need to flip the value
+              // but because this method expects a unity value, we need to compensate
+              var flipped = rotOffset2D.FlipRotation();
+
+              if (asset != null) {
+                QuantumColliderHandles.Polygon(
+                  qep,
+                  ref asset.Vertices,
+                  posOffset2D,
+                  flipped,
+                  false
+                );
+              }
+
+              rotOffset2D = flipped.FlipRotation();
+              break;
+
+            case Shape2DType.Box:
+              QuantumColliderHandles.Rectangle(
+                qep,
+                posOffset2D,
+                rotOffset2D.FlipRotation(),
+                ref rectangleExtents,
+                true,
+                color
+              );
+
+              break;
+
+            case Shape2DType.Edge:
+              var center = FPVector2.Zero;
+
+              FPVector2 v0 = new FPVector2(
+                center.X - edgeExtents,
+                center.Y
+              );
+
+              FPVector2 v1 = new FPVector2(
+                center.X + edgeExtents,
+                center.Y
+              );
+
+              var v0Old = v0;
+              var v1Old = v1;
+
+              var result = QuantumColliderHandles.Edge(
+                qep,
+                ref v0,
+                ref v1,
+                posOffset2D,
+                rotOffset2D.FlipRotation()
+              );
+
+              if (result.V0Changed || result.V1Changed) {
+                var t = qep.transform;
+                var m = Matrix4x4.TRS(
+                  t.TransformPoint(posOffset2D.ToUnityVector3()),
+                  t.rotation * rotOffset2D.ToUnityQuaternionDegrees(),
+                  t.localScale
+                );
+
+                Vector3 p0, p1;
+
+                // Convert to world space while preserving the unmodified handle
+                if (result.V0Changed) {
+                  p0 = m.MultiplyPoint(v0.ToUnityVector3());
+                  p1 = m.MultiplyPoint(v1Old.ToUnityVector3());
+                } else {
+                  p0 = m.MultiplyPoint(v0Old.ToUnityVector3());
+                  p1 = m.MultiplyPoint(v1.ToUnityVector3());
+                }
+
+                var worldCenter = (p0 + p1) / 2;
+                var worldDir = (p1 - p0).normalized.ToFPVector2();
+                var newLength = Vector3.Distance(p0, p1);
+
+                posOffset2D = t.InverseTransformPoint(worldCenter).ToFPVector2();
+
+                rotOffset2D = FPMath.Atan2(worldDir.Y, worldDir.X) * FP.Rad2Deg;
+
+                edgeExtents = (newLength / 2).ToFP();
+              }
+
+              break;
+
+            case Shape2DType.Compound:
+              break;
+
+            case Shape2DType.Capsule:
+              QuantumColliderHandles.Capsule2D(
+                qep,
+                posOffset2D,
+                rotOffset2D,
+                ref capsuleSize2d
+              );
+              break;
+          }
+
+          break;
+        case QuantumColliderHandles.EditPosition:
+          QuantumColliderHandles.Position2D(qep, ref posOffset2D);
+          break;
+        case QuantumColliderHandles.EditRotation:
+          QuantumColliderHandles.Rotation2D(
+            qep,
+            posOffset2D,
+            ref rotOffset2D
+          );
+
+          break;
+      }
+    }
+
+    private void DrawShapeHandles3D(
+      Behaviour qep,
+      ref Shape3DConfig.CompoundShapeData3D shapeData3D,
+      Color color
+    ) {
+      var toolsIndex = _toolbarState;
+      if (toolsIndex == -1) {
+        return;
+      }
+
+      ref var posOffset3D = ref shapeData3D.PositionOffset;
+      ref var rotOffset3D = ref shapeData3D.RotationOffset;
+      ref var boxExtents = ref shapeData3D.BoxExtents;
+      ref var capsuleHeight3d = ref shapeData3D.CapsuleHeight;
+      ref var capsuleRadius3d = ref shapeData3D.CapsuleRadius;
+      ref var sphereRadius = ref shapeData3D.SphereRadius;
+
+      switch (toolsIndex) {
+        case QuantumColliderHandles.EditCollider:
+
+          var s3D = shapeData3D.ShapeType;
+
+          switch (s3D) {
+            case Shape3DType.Sphere:
+              QuantumColliderHandles.Sphere(
+                qep,
+                posOffset3D,
+                ref sphereRadius,
+                color
+              );
+              break;
+            case Shape3DType.Box:
+              QuantumColliderHandles.Box(
+                qep,
+                posOffset3D,
+                rotOffset3D,
+                ref boxExtents,
+                true,
+                color
+              );
+              break;
+
+            case Shape3DType.Capsule:
+              QuantumColliderHandles.Capsule3D(
+                qep,
+                posOffset3D,
+                rotOffset3D,
+                ref capsuleRadius3d,
+                ref capsuleHeight3d,
+                color
+              );
+              break;
+
+            case Shape3DType.Compound:
+            case Shape3DType.Mesh:
+            case Shape3DType.Terrain:
+            case Shape3DType.None:
+
+              break;
+          }
+
+          break;
+
+        case QuantumColliderHandles.EditPosition:
+          QuantumColliderHandles.Position3D(qep, ref posOffset3D);
+          break;
+
+        case QuantumColliderHandles.EditRotation:
+          QuantumColliderHandles.Rotation3D(
+            qep,
+            posOffset3D,
+            ref rotOffset3D
+          );
+          break;
+      }
+    }
+
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       bool hasSourceCollider = property.FindPropertyRelativeToParent("^SourceCollider")?.objectReferenceValue;
 
       var configType = fieldInfo.FieldType.GetUnityLeafType();
@@ -7802,7 +7808,7 @@ namespace Quantum.Editor {
 
         Debug.Assert(nameof(Shape2DConfig.ShapeType) == nameof(Shape3DConfig.ShapeType));
         Debug.Assert(nameof(Shape2DConfig.UserTag) == nameof(Shape3DConfig.UserTag));
-        
+
         TryDrawToolbar(ref position, property);
 
         property.Next(true);
@@ -7881,68 +7887,51 @@ namespace Quantum.Editor {
       }
     }
 
-    private int FindCompoundColliderIndex(SerializedProperty compoundDataProp) {
-      var type = fieldInfo.FieldType.GetUnityLeafType();
-
-      SerializedProperty arrayProp = null;
-
-      if (type == typeof(Shape3DConfig.CompoundShapeData3D) || type == typeof(Shape2DConfig.CompoundShapeData2D)) {
-        arrayProp = compoundDataProp.GetArrayFromArrayElement();
-      }
-
-      if (arrayProp != null) {
-        var arraySize = arrayProp.arraySize;
-
-        for (int i = 0; i < arraySize; i++) {
-          var element = arrayProp.GetArrayElementAtIndex(i);
-
-          if (element.propertyPath == compoundDataProp.propertyPath) {
-            return i;
-          }
-        }
-      }
-
-      return int.MaxValue;
-    }
-
     private void TryDrawToolbar(ref Rect position, SerializedProperty property) {
-      var value = -1;
-
-      bool compound = IsToolbarCompound();
-
-      int arrayIndex = compound ? FindCompoundColliderIndex(property) : -1;
-      
-      _states.TryAdd(property.propertyPath, new ColliderToolbarState { IndexInArray = arrayIndex, ToolbarValue = value });
-
-      value = _states[property.propertyPath].ToolbarValue;
-
-      var oldValue = value;
+      var value = _toolbarState;
 
       if (ShouldDrawToolbar(property)) {
-        QuantumColliderHandles.DrawToolbar(ref position, ref value, SupportsRotation(property));
-      }
+        bool clicked = false;
+        bool isArrayElement = property.IsArrayElement();
+        bool useRotation = SupportsRotation(property);
 
-      bool wasPressed = oldValue != value;
+        EditorGUI.BeginChangeCheck();
 
-      if (wasPressed) {
-        if (value == -1) {
-          _states.Remove(property.propertyPath);
+        if (isArrayElement && _arrayIndex >= 0 && _arrayIndex != property.GetArrayIndex()) {
+          var unfocusedIndex = -1;
+          EditorGUI.BeginChangeCheck();
+          QuantumColliderHandles.DrawToolbar(ref position, ref unfocusedIndex, useRotation);
+          if (EditorGUI.EndChangeCheck()) {
+            value = unfocusedIndex;
+          }
         } else {
-          var state = _states[property.propertyPath];
-          state.ToolbarValue = value;
+          QuantumColliderHandles.DrawToolbar(ref position, ref value, useRotation);
+        }
 
-          _states[property.propertyPath] = state;
+        clicked = EditorGUI.EndChangeCheck();
+
+        if (clicked) {
+          _currentProperty = property.Copy();
+
+          if (isArrayElement) {
+            _arrayIndex = property.GetArrayIndex();
+          } else {
+            _arrayIndex = -1;
+          }
+
+          _toolbarState = value;
+
+          _currentHandleDrawer = this;
         }
       }
-    }
-
-    private bool IsToolbarCompound() {
-      var type = fieldInfo.FieldType.GetUnityLeafType();
-
-      return type == typeof(Shape3DConfig.CompoundShapeData3D) || type == typeof(Shape2DConfig.CompoundShapeData2D);
     }
 
     private bool ShouldDrawToolbar(SerializedProperty property) {
+      // if we are in a scriptable object, there is nowhere valid to draw handles
+      if (property.serializedObject.targetObject is ScriptableObject) {
+        return false;
+      }
+
       var type = fieldInfo.FieldType.GetUnityLeafType();
 
       if (type == typeof(Shape3DConfig) || type == typeof(Shape3DConfig.CompoundShapeData3D)) {
@@ -8248,6 +8237,160 @@ namespace Quantum.Editor {
 #endregion
 
 
+#region Assets/Photon/Quantum/Editor/QuantumBackwardCompatibility.Common.cs
+
+// merged BackwardCompatibility
+
+#region AssetImportContextExtensions.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.IO;
+  using UnityEditor.AssetImporters;
+
+  static partial class AssetImportContextExtensions {
+#if !UNITY_6000_5_OR_NEWER
+    /// <summary/>
+    public static void SetOutputArtifactData(this AssetImportContext context, string extension, ReadOnlySpan<byte> data) {
+      using var fileStream = File.Create(context.GetOutputArtifactFilePath(extension));
+      fileStream.Write(data);
+    }
+
+    /// <summary/>
+    public static byte[] GetArtifactData(this AssetImportContext context, string path, string filename) {
+      return File.ReadAllBytes(context.GetArtifactFilePath(path, filename));
+    }
+#endif
+  }
+}
+
+#endregion
+
+
+#region AssetPackage.cs
+
+#if !UNITY_6000_6_OR_NEWER
+namespace UnityEditor.AssetPackage {
+  static class Package {
+    public static void Export(ExportPackageArgs args) {
+      AssetDatabase.ExportPackage(args.AssetPathNames, args.FileName, args.Flags);
+    }
+
+    public static void Import(string packagePath, bool interactive) {
+      AssetDatabase.ImportPackage(packagePath, interactive);
+    }
+  }
+
+  struct ExportPackageArgs {
+    public readonly string[] AssetPathNames;
+    public readonly string FileName;
+    public readonly ExportPackageOptions Flags;
+
+    public ExportPackageArgs(string[] assetPathNames, string fileName, ExportPackageOptions flags = ExportPackageOptions.Default) {
+      AssetPathNames = assetPathNames;
+      FileName = fileName;
+      Flags = flags;
+    }
+
+    public ExportPackageArgs(string assetPath, string fileName, ExportPackageOptions flags = ExportPackageOptions.Default) {
+      AssetPathNames = new [] { assetPath };
+      FileName = fileName;
+      Flags = flags;
+    }
+  }
+}
+#endif
+
+#endregion
+
+
+#region HierarchyIteratorExtensions.cs
+
+namespace Quantum.Editor {
+  using UnityEditor;
+  using UnityEngine;
+
+#if !UNITY_6000_3_OR_NEWER
+  using HierarchyIterator = UnityEditor.HierarchyProperty;
+#endif
+
+  static class HierarchyIteratorExtensions {
+#if UNITY_6000_3_OR_NEWER
+    public static UnityEngine.EntityId GetObjectId(this HierarchyIterator iterator) {
+      return iterator.entityId;
+    }
+#else
+    public static int GetObjectId(this HierarchyIterator iterator) {
+      return iterator.instanceID;
+    }
+#endif
+
+#if UNITY_6000_2_OR_NEWER
+    public static GUID GetAssetGuid(this HierarchyIterator iterator) {
+      return iterator.assetGUID;
+    }
+#else
+    public static GUID GetAssetGuid(this HierarchyIterator iterator) {
+      var guidStr = iterator.guid;
+      return string.IsNullOrEmpty(guidStr) ? default : new GUID(guidStr);
+    }
+#endif
+  }
+}
+
+#endregion
+
+
+#region LazyLoadReferenceExtensions.cs
+
+namespace Quantum.Editor {
+  using UnityEngine;
+
+  static class LazyLoadReferenceExtensions {
+#if UNITY_6000_3_OR_NEWER
+    public static EntityId GetObjectId<T>(this LazyLoadReference<T> obj) where T : Object {
+      return obj.entityId;
+    }
+#else
+    public static int GetObjectId<T>(this LazyLoadReference<T> obj) where T : Object {
+      return obj.instanceID;
+    }
+#endif
+  }
+}
+
+#endregion
+
+
+#region Object.cs
+
+namespace Quantum.Editor {
+  static class ObjectExtensions {
+#if UNITY_6000_3_OR_NEWER
+    public static UnityEngine.EntityId GetObjectId(this UnityEngine.Object obj) {
+      return obj.GetEntityId();
+    }
+#else
+    public static int GetObjectId(this UnityEngine.Object obj) {
+      return obj.GetInstanceID();
+    }
+#endif
+  }
+  
+#if !UNITY_6000_3_OR_NEWER
+  static class EntityId {
+    public static int None => 0;
+  }
+#endif
+}
+
+#endregion
+
+
+
+#endregion
+
+
 #region Assets/Photon/Quantum/Editor/QuantumEditor.Common.cs
 
 // merged Editor
@@ -8257,8 +8400,16 @@ namespace Quantum.Editor {
 namespace Quantum.Editor {
   using UnityEditor;
 
+#if UNITY_6000_3_OR_NEWER
+  using ObjectIdType = UnityEngine.EntityId;
+  using HierarchyIteratorType = UnityEditor.HierarchyIterator;
+#else 
+  using ObjectIdType = System.Int32;
+  using HierarchyIteratorType = UnityEditor.HierarchyProperty;
+#endif
+
   /// <summary>
-  /// A factory that creates <see cref="IQuantumAssetSource"/> instances for a given asset.
+  /// A factory that creates asset source instances for a given asset.
   /// </summary>
   public partial interface IQuantumAssetSourceFactory {
     /// <summary>
@@ -8266,15 +8417,15 @@ namespace Quantum.Editor {
     /// </summary>
     int Order { get; }
   }
-  
+
   /// <summary>
-  /// A context object that is passed to <see cref="IQuantumAssetSourceFactory"/> instances to create an <see cref="IQuantumAssetSource"/> instance.
+  /// A context object that is passed to <see cref="IQuantumAssetSourceFactory"/> instances to create an asset source instance.
   /// </summary>
   public readonly partial struct QuantumAssetSourceFactoryContext {
     /// <summary>
     /// Asset instance ID.
     /// </summary>
-    public readonly int    InstanceID;
+    public readonly ObjectIdType InstanceID;
     /// <summary>
     /// Asset Unity GUID;
     /// </summary>
@@ -8286,16 +8437,21 @@ namespace Quantum.Editor {
     /// <summary>
     /// Is this the main asset.
     /// </summary>
-    public readonly bool   IsMainAsset;
+    public readonly bool IsMainAsset;
     /// <summary>
     /// Asset Unity path.
     /// </summary>
     public string AssetPath => AssetDatabaseUtils.GetAssetPathOrThrow(InstanceID);
 
     /// <summary>
+    /// The object pointed to be <see cref="InstanceID"/>
+    /// </summary>
+    public UnityEngine.Object Object => QuantumEditorUtility.IdToObject(InstanceID);
+
+    /// <summary>
     /// Create a new instance of <see cref="QuantumAssetSourceFactoryContext"/>.
     /// </summary>
-    public QuantumAssetSourceFactoryContext(string assetGuid, int instanceID, string assetName, bool isMainAsset) {
+    public QuantumAssetSourceFactoryContext(string assetGuid, ObjectIdType instanceID, string assetName, bool isMainAsset) {
       AssetGuid = assetGuid;
       InstanceID = instanceID;
       AssetName = assetName;
@@ -8305,13 +8461,13 @@ namespace Quantum.Editor {
     /// <summary>
     /// Create a new instance of <see cref="QuantumAssetSourceFactoryContext"/>.
     /// </summary>
-    public QuantumAssetSourceFactoryContext(HierarchyProperty hierarchyProperty) {
+    public QuantumAssetSourceFactoryContext(HierarchyIteratorType hierarchyProperty) {
       AssetGuid = hierarchyProperty.guid;
-      InstanceID = hierarchyProperty.instanceID;
+      InstanceID = hierarchyProperty.GetObjectId();
       AssetName = hierarchyProperty.name;
       IsMainAsset = hierarchyProperty.isMainRepresentation;
     }
-    
+
     /// <summary>
     /// Create a new instance of <see cref="QuantumAssetSourceFactoryContext"/>.
     /// </summary>
@@ -8319,13 +8475,12 @@ namespace Quantum.Editor {
       if (!obj) {
         throw new System.ArgumentNullException(nameof(obj));
       }
-      
-      var instanceId = obj.GetInstanceID();
-      (AssetGuid, _) = AssetDatabaseUtils.GetGUIDAndLocalFileIdentifierOrThrow(instanceId);
-      InstanceID = instanceId;
+
+      (AssetGuid, _) = AssetDatabaseUtils.GetGUIDAndLocalFileIdentifierOrThrow(obj);
+      InstanceID = obj.GetObjectId();
       AssetName = obj.name;
-      IsMainAsset = AssetDatabase.IsMainAsset(instanceId);
-    } 
+      IsMainAsset = AssetDatabase.IsMainAsset(obj);
+    }
   }
 }
 
@@ -8347,7 +8502,7 @@ namespace Quantum.Editor {
     public const int Order = 800;
 
     int IQuantumAssetSourceFactory.Order => Order;
-    
+
     /// <summary>
     /// Creates a new instance. Checks if AddressableAssetSettings exists and logs a warning if it does not.
     /// </summary>
@@ -8356,11 +8511,11 @@ namespace Quantum.Editor {
         QuantumEditorLog.WarnImport($"AddressableAssetSettings does not exist, Quantum will not be able to use Addressables for asset sources.");
       }
     }
-    
+
     /// <summary>
     /// Creates <see cref="QuantumAssetSourceAddressable{TAsset}"/> if the asset is an Addressable.
     /// </summary>
-    protected bool TryCreateInternal<TSource, TAsset>(in QuantumAssetSourceFactoryContext context, out TSource result) 
+    protected bool TryCreateInternal<TSource, TAsset>(in QuantumAssetSourceFactoryContext context, out TSource result)
       where TSource : QuantumAssetSourceAddressable<TAsset>, new()
       where TAsset : UnityEngine.Object {
 
@@ -8373,7 +8528,7 @@ namespace Quantum.Editor {
       if (assetsSettings == null) {
         throw new System.InvalidOperationException("Unable to load Addressables settings. This may be due to an outdated Addressables version.");
       }
-      
+
       var addressableEntry = assetsSettings.FindAssetEntry(context.AssetGuid, true);
       if (addressableEntry == null) {
         result = default;
@@ -8408,7 +8563,7 @@ namespace Quantum.Editor {
     /// <summary>
     /// Creates <see cref="QuantumAssetSourceResource{T}"/> if the asset is in the Resources folder.
     /// </summary>
-    protected bool TryCreateInternal<TSource, TAsset>(in QuantumAssetSourceFactoryContext context, out TSource result) 
+    protected bool TryCreateInternal<TSource, TAsset>(in QuantumAssetSourceFactoryContext context, out TSource result)
       where TSource : QuantumAssetSourceResource<TAsset>, new()
       where TAsset : UnityEngine.Object {
       if (!PathUtils.TryMakeRelativeToFolder(context.AssetPath, "/Resources/", out var resourcePath)) {
@@ -8432,13 +8587,12 @@ namespace Quantum.Editor {
 #region QuantumAssetSourceFactoryStatic.cs
 
 namespace Quantum.Editor {
-  using UnityEditor;
   using UnityEngine;
 
   /// <summary>
   /// A <see cref="IQuantumAssetSourceFactory"/> implementation that creates <see cref="QuantumAssetSourceStaticLazy{TAsset}"/>.
   /// </summary>
-  public partial  class QuantumAssetSourceFactoryStatic : IQuantumAssetSourceFactory {
+  public partial class QuantumAssetSourceFactoryStatic : IQuantumAssetSourceFactory {
     /// <inheritdoc cref="IQuantumAssetSourceFactory.Order"/>
     public const int Order = int.MaxValue;
 
@@ -8450,14 +8604,14 @@ namespace Quantum.Editor {
     protected bool TryCreateInternal<TSource, TAsset>(in QuantumAssetSourceFactoryContext context, out TSource result)
       where TSource : QuantumAssetSourceStaticLazy<TAsset>, new()
       where TAsset : UnityEngine.Object {
-      
+
       if (typeof(TAsset).IsSubclassOf(typeof(Component))) {
-        var prefab = (GameObject)EditorUtility.InstanceIDToObject(context.InstanceID);
+        var prefab = (GameObject)context.Object;
 
         result = new TSource() {
           Object = prefab.GetComponent<TAsset>()
         };
-        
+
       } else {
         result = new TSource() {
           Object = new(context.InstanceID)
@@ -8522,7 +8676,37 @@ namespace Quantum.Editor {
         }
       };
     }
-    
+
+    /// <summary>
+    /// Hash of the serialized addressable settings and group assets. Unlike <see cref="AddressableAssetSettings.currentHash"/>,
+    /// it only changes when the assets are saved, making it deterministic across MPPM instances and editor sessions.
+    /// </summary>
+    public static Hash128 GetAddressablesContentHash() {
+      if (!AddressableAssetSettingsDefaultObject.SettingsExists) {
+        return default;
+      }
+
+      var settings = AddressableAssetSettingsDefaultObject.Settings;
+      if (settings == null) {
+        return default;
+      }
+      
+      var paths = new List<string>() { AssetDatabase.GetAssetPath(settings) };
+      foreach (var group in settings.groups) {
+        if (group != null) {
+          paths.Add(AssetDatabase.GetAssetPath(group));
+        }
+      }
+      paths.Sort(StringComparer.Ordinal);
+
+      var hash = new Hash128();
+      foreach (var path in paths) {
+        var fileHash = Hash128.Compute(System.IO.File.ReadAllBytes(path));
+        hash.Append(ref fileHash);
+      }
+      return hash;
+    }
+
     internal static AddressableAssetEntry GetAddressableAssetEntry(UnityEngine.Object source) {
       if (source == null || !AssetDatabase.Contains(source)) {
         return null;
@@ -8530,7 +8714,7 @@ namespace Quantum.Editor {
 
       return GetAddressableAssetEntry(GetAssetGuidOrThrow(source));
     }
-    
+
     internal static AddressableAssetEntry GetAddressableAssetEntry(string guid) {
       if (string.IsNullOrEmpty(guid)) {
         return null;
@@ -8541,12 +8725,13 @@ namespace Quantum.Editor {
     }
 
     internal static AddressableAssetEntry CreateOrMoveAddressableAssetEntry(UnityEngine.Object source, string groupName = null) {
-      if (source == null || !AssetDatabase.Contains(source))
+      if (source == null || !AssetDatabase.Contains(source)) {
         return null;
+      }
 
       return CreateOrMoveAddressableAssetEntry(GetAssetGuidOrThrow(source), groupName);
     }
-    
+
     internal static AddressableAssetEntry CreateOrMoveAddressableAssetEntry(string guid, string groupName = null) {
       if (string.IsNullOrEmpty(guid)) {
         return null;
@@ -8556,19 +8741,19 @@ namespace Quantum.Editor {
 
       AddressableAssetGroup group;
       if (string.IsNullOrEmpty(groupName)) {
-        group = addressableSettings.DefaultGroup; 
+        group = addressableSettings.DefaultGroup;
       } else {
         group = addressableSettings.FindGroup(groupName);
       }
-      
+
       if (group == null) {
         throw new ArgumentOutOfRangeException($"Group {groupName} not found");
       }
-      
+
       var entry = addressableSettings.CreateOrMoveEntry(guid, group);
       return entry;
     }
-    
+
     internal static bool RemoveMoveAddressableAssetEntry(UnityEngine.Object source) {
       if (source == null || !AssetDatabase.Contains(source)) {
         return false;
@@ -8576,7 +8761,7 @@ namespace Quantum.Editor {
 
       return RemoveMoveAddressableAssetEntry(GetAssetGuidOrThrow(source));
     }
-    
+
     internal static bool RemoveMoveAddressableAssetEntry(string guid) {
       if (string.IsNullOrEmpty(guid)) {
         return false;
@@ -8590,7 +8775,7 @@ namespace Quantum.Editor {
     static void InitializeRuntimeCallbacks() {
       QuantumAddressablesUtils.SetLoadEditorInstanceHandler(LoadEditorInstance);
     }
-    
+
     private static UnityEngine.Object LoadEditorInstance(string runtimeKey) {
       if (string.IsNullOrEmpty(runtimeKey)) {
         return default;
@@ -8609,6 +8794,9 @@ namespace Quantum.Editor {
           }
         } else {
           foreach (var subAsset in AssetDatabase.LoadAllAssetRepresentationsAtPath(AssetDatabase.GUIDToAssetPath(mainKey))) {
+            if (ReferenceEquals(subAsset, null)) {
+              continue;
+            }
             if (subAsset.name == subKey) {
               return subAsset;
             }
@@ -8617,14 +8805,14 @@ namespace Quantum.Editor {
           // not returning null here, as there might be a chance for a guid-like address
         }
       }
-      
+
       // need to resort to addressable asset settings
       // path... this sucks
       if (!AddressableAssetSettingsDefaultObject.SettingsExists) {
         QuantumEditorLog.Error($"Unable to load asset: {runtimeKey}; AddressableAssetSettings does not exist");
         return default;
       }
-      
+
       var settings = AddressableAssetSettingsDefaultObject.Settings;
       Assert.Check(settings != null);
 
@@ -8660,46 +8848,60 @@ namespace Quantum.Editor {
   using System;
   using System.Collections;
   using System.Collections.Generic;
+  using System.IO;
   using System.Linq;
   using UnityEditor;
+  using UnityEditor.AssetImporters;
   using UnityEditor.Build;
   using UnityEditor.PackageManager;
   using UnityEngine;
+
+
+#if UNITY_6000_3_OR_NEWER
+  using ObjectIdType = UnityEngine.EntityId;
+  using HierarchyIteratorType = UnityEditor.HierarchyIterator;
+#else
+  using ObjectIdType = System.Int32;
+  using HierarchyIteratorType = UnityEditor.HierarchyProperty;
+#endif
+
 
   /// <summary>
   /// Utility methods for working with Unity's <see cref="AssetDatabase"/>
   /// </summary>
   public static partial class AssetDatabaseUtils {
-    
     /// <summary>
     /// Sets the asset dirty and, if is a sub-asset, also sets the main asset dirty.
     /// </summary>
     /// <param name="obj"></param>
     public static void SetAssetAndTheMainAssetDirty(UnityEngine.Object obj) {
       EditorUtility.SetDirty(obj);
-      
+
       var assetPath = AssetDatabase.GetAssetPath(obj);
       if (string.IsNullOrEmpty(assetPath)) {
         return;
       }
+
       var mainAsset = AssetDatabase.LoadMainAssetAtPath(assetPath);
       if (!mainAsset || mainAsset == obj) {
         return;
       }
+
       EditorUtility.SetDirty(mainAsset);
     }
-    
+
     /// <summary>
     /// Returns the asset path for the given instance ID or throws an exception if the asset is not found.
     /// </summary>
-    public static string GetAssetPathOrThrow(int instanceID) {
+    public static string GetAssetPathOrThrow(ObjectIdType instanceID) {
       var result = AssetDatabase.GetAssetPath(instanceID);
       if (string.IsNullOrEmpty(result)) {
         throw new ArgumentException($"Asset with InstanceID {instanceID} not found");
       }
+
       return result;
     }
-    
+
     /// <summary>
     /// Returns the asset path for the given object or throws an exception if <paramref name="obj"/> is
     /// not an asset.
@@ -8709,9 +8911,10 @@ namespace Quantum.Editor {
       if (string.IsNullOrEmpty(result)) {
         throw new ArgumentException($"Asset {obj} not found");
       }
+
       return result;
     }
-    
+
     /// <summary>
     /// Returns the asset path for the given asset GUID or throws an exception if the asset is not found.
     /// </summary>
@@ -8735,21 +8938,33 @@ namespace Quantum.Editor {
 
       return result;
     }
-    
+
     /// <summary>
     /// Returns the asset GUID for the given instance ID or throws an exception if the asset is not found.
     /// </summary>
-    public static string GetAssetGuidOrThrow(int instanceId) {
+    public static string GetAssetGuidOrThrow(ObjectIdType instanceId) {
       var assetPath = GetAssetPathOrThrow(instanceId);
       return GetAssetGuidOrThrow(assetPath);
     }
-    
+
     /// <summary>
     /// Returns the asset GUID for the given object reference or throws an exception if the asset is not found.
     /// </summary>
     public static string GetAssetGuidOrThrow(UnityEngine.Object obj) {
       var assetPath = GetAssetPathOrThrow(obj);
       return GetAssetGuidOrThrow(assetPath);
+    }
+
+    /// <summary>
+    /// Returns the asset path for the given asset GUID or throws an exception if the asset is not found.
+    /// </summary>
+    public static string GetAssetPathOrThrow(GUID assetGuid) {
+      var result = AssetDatabase.GUIDToAssetPath(assetGuid);
+      if (string.IsNullOrEmpty(result)) {
+        throw new ArgumentException($"Asset with Guid {assetGuid} not found");
+      }
+
+      return result;
     }
 
     /// <summary>
@@ -8777,7 +8992,7 @@ namespace Quantum.Editor {
     /// <summary>
     /// Gets the GUID and local file identifier for the instance ID or throws an exception if the asset is not found.
     /// </summary>
-    public static (string, long) GetGUIDAndLocalFileIdentifierOrThrow(int instanceId) {
+    public static (string, long) GetGUIDAndLocalFileIdentifierOrThrow(ObjectIdType instanceId) {
       if (!AssetDatabase.TryGetGUIDAndLocalFileIdentifier(instanceId, out var guid, out long localId)) {
         throw new ArgumentException($"Asset with instanceId {instanceId} not found");
       }
@@ -8805,7 +9020,7 @@ namespace Quantum.Editor {
       }
 
       var labels = AssetDatabase.GetLabels(guid);
-      var index  = Array.IndexOf(labels, label);
+      var index = Array.IndexOf(labels, label);
       return index >= 0;
     }
 
@@ -8814,19 +9029,19 @@ namespace Quantum.Editor {
     /// </summary>
     public static bool HasLabel(UnityEngine.Object obj, string label) {
       var labels = AssetDatabase.GetLabels(obj);
-      var index  = Array.IndexOf(labels, label);
+      var index = Array.IndexOf(labels, label);
       return index >= 0;
     }
-    
+
     /// <summary>
     /// Returns <see langword="true"/> if the asset <paramref name="guid"/> has the given <paramref name="label"/>.
     /// </summary>
     public static bool HasLabel(GUID guid, string label) {
       var labels = AssetDatabase.GetLabels(guid);
-      var index  = Array.IndexOf(labels, label);
+      var index = Array.IndexOf(labels, label);
       return index >= 0;
     }
-    
+
     /// <summary>
     /// Returns <see langword="true"/> if the asset at <paramref name="assetPath"/> has any of the given <paramref name="labels"/>.
     /// </summary>
@@ -8845,7 +9060,7 @@ namespace Quantum.Editor {
 
       return false;
     }
-    
+
     /// <summary>
     /// Returns <see langword="true"/> if the <paramref name="asset"/> has any of the given <paramref name="labels"/>.
     /// </summary>
@@ -8860,7 +9075,7 @@ namespace Quantum.Editor {
       return false;
     }
 
-    
+
     /// <summary>
     /// Sets or unsets <paramref name="label"/> label for the asset at <paramref name="assetPath"/>, depending
     /// on the value of <paramref name="present"/>.
@@ -8871,18 +9086,20 @@ namespace Quantum.Editor {
       if (guid.Empty()) {
         return false;
       }
-      
+
       var labels = AssetDatabase.GetLabels(guid);
-      var index  = Array.IndexOf(labels, label);
+      var index = Array.IndexOf(labels, label);
       if (present) {
         if (index >= 0) {
           return false;
         }
+
         ArrayUtility.Add(ref labels, label);
       } else {
         if (index < 0) {
           return false;
         }
+
         ArrayUtility.RemoveAt(ref labels, index);
       }
 
@@ -8890,7 +9107,7 @@ namespace Quantum.Editor {
       if (obj == null) {
         return false;
       }
-      
+
       AssetDatabase.SetLabels(obj, labels);
       return true;
     }
@@ -8902,23 +9119,25 @@ namespace Quantum.Editor {
     /// <returns><see langword="true"/> if there was a change to the labels.</returns>
     public static bool SetLabel(UnityEngine.Object obj, string label, bool present) {
       var labels = AssetDatabase.GetLabels(obj);
-      var index  = Array.IndexOf(labels, label);
+      var index = Array.IndexOf(labels, label);
       if (present) {
         if (index >= 0) {
           return false;
         }
+
         ArrayUtility.Add(ref labels, label);
       } else {
         if (index < 0) {
           return false;
         }
+
         ArrayUtility.RemoveAt(ref labels, index);
       }
 
       AssetDatabase.SetLabels(obj, labels);
       return true;
     }
-    
+
     /// <summary>
     /// Sets all the labels for the asset at <paramref name="assetPath"/>.
     /// </summary>
@@ -8928,11 +9147,11 @@ namespace Quantum.Editor {
       if (obj == null) {
         return false;
       }
-      
+
       AssetDatabase.SetLabels(obj, labels);
       return true;
     }
-    
+
     /// <summary>
     /// Checks if a scripting define <paramref name="value"/> is defined for <paramref name="target"/>.
     /// </summary>
@@ -8940,7 +9159,7 @@ namespace Quantum.Editor {
       var defines = PlayerSettings.GetScriptingDefineSymbols(target).Split(';');
       return System.Array.IndexOf(defines, value) >= 0;
     }
-    
+
     /// <summary>
     /// Checks if a scripting define <paramref name="value"/> is defined for <paramref name="group"/>.
     /// </summary>
@@ -8948,12 +9167,12 @@ namespace Quantum.Editor {
       var defines = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(group)).Split(';');
       return System.Array.IndexOf(defines, value) >= 0;
     }
-    
+
     /// <inheritdoc cref="SetScriptableObjectType"/>
     public static T SetScriptableObjectType<T>(ScriptableObject obj) where T : ScriptableObject {
       return (T)SetScriptableObjectType(obj, typeof(T));
     }
-    
+
     /// <summary>
     /// Changes the type of scriptable object.
     /// </summary>
@@ -8964,13 +9183,15 @@ namespace Quantum.Editor {
       if (!obj) {
         throw new ArgumentNullException(nameof(obj));
       }
+
       if (type == null) {
         throw new ArgumentNullException(nameof(type));
       }
+
       if (!type.IsSubclassOf(typeof(ScriptableObject))) {
         throw new ArgumentException($"Type {type} is not a subclass of {nameof(ScriptableObject)}");
       }
-      
+
       if (obj.GetType() == type) {
         return obj;
       }
@@ -8991,27 +9212,30 @@ namespace Quantum.Editor {
         UnityEngine.Object.DestroyImmediate(tmp);
       }
     }
-    
+
     private static bool IsEnumValueObsolete<T>(string valueName) where T : System.Enum {
-      var fi         = typeof(T).GetField(valueName);
+      var fi = typeof(T).GetField(valueName);
       var attributes = fi.GetCustomAttributes(typeof(System.ObsoleteAttribute), false);
       return attributes?.Length > 0;
     }
-    
+
     internal static IEnumerable<BuildTargetGroup> ValidBuildTargetGroups {
       get {
         foreach (var name in System.Enum.GetNames(typeof(BuildTargetGroup))) {
-          if (IsEnumValueObsolete<BuildTargetGroup>(name))
+          if (IsEnumValueObsolete<BuildTargetGroup>(name)) {
             continue;
+          }
+
           var group = (BuildTargetGroup)System.Enum.Parse(typeof(BuildTargetGroup), name);
-          if (group == BuildTargetGroup.Unknown)
+          if (group == BuildTargetGroup.Unknown) {
             continue;
+          }
 
           yield return group;
         }
       }
     }
-    
+
     /// <summary>
     /// Checks if any and all <see cref="BuildTargetGroup"/> have the given scripting define symbol.
     /// </summary>
@@ -9088,155 +9312,115 @@ namespace Quantum.Editor {
         EditorApplication.UnlockReloadAssemblies();
       }
     }
-    
+
     /// <summary>
-    /// Iterates over all assets in the project that match the given search criteria, without
-    /// actually loading them.
+    /// Checks if given path is read only. This can happen e.g. for non-local and non-embedded packages.
     /// </summary>
-    /// <param name="root">The optional root folder</param>
-    /// <param name="label">The optional label</param>
-    public static AssetEnumerable IterateAssets<T>(string root = null, string label = null) where T : UnityEngine.Object {
-      return IterateAssets(root, label, typeof(T));
+    public static bool IsPathWritable(string path) {
+      if (string.IsNullOrEmpty(path)) {
+        return false;
+      }
+
+      var directoryPath = Path.GetDirectoryName(path);
+      if (string.IsNullOrEmpty(directoryPath)) {
+        return true;
+      }
+
+      if (UnityInternal.AssetDatabase.TryGetAssetFolderInfo(directoryPath, out _, out var immutable) && immutable) {
+        return false;
+      }
+
+      return true;
     }
-    
+
+
     /// <summary>
-    /// Iterates over all assets in the project that match the given search criteria, without
-    /// actually loading them.
+    /// Gets the importer for a given <paramref name="asset"/>
     /// </summary>
-    /// <param name="root">The optional root folder</param>
-    /// <param name="label">The optional label</param>
-    /// <param name="type">The optional type</param>
-    public static AssetEnumerable IterateAssets(string root = null, string label = null, Type type = null) {
-      return new AssetEnumerable(root, label, type);
-    }
-    
-    static Lazy<string[]> s_rootFolders = new Lazy<string[]>(() => new[] { "Assets" }.Concat(UnityEditor.PackageManager.PackageInfo.GetAllRegisteredPackages()
-      .Where(x => !IsPackageHidden(x))
-      .Select(x => x.assetPath))
-      .ToArray());
-    
-    private static bool IsPackageHidden(UnityEditor.PackageManager.PackageInfo info) => info.type == "module" || info.type == "feature" && info.source != PackageSource.Embedded;
-    
-    /// <summary>
-    /// Enumerates assets in the project that match the given search criteria using <see cref="HierarchyProperty"/> API.
-    /// Obtained with <see cref="AssetDatabaseUtils.IterateAssets"/>.
-    /// </summary>
-    public struct AssetEnumerator : IEnumerator<HierarchyProperty> {
-
-      private HierarchyProperty _hierarchyProperty;
-      private int               _rootFolderIndex;
-
-      private readonly string[] _rootFolders;
-
-      /// <summary>
-      /// Creates a new instance.
-      /// </summary>
-      public AssetEnumerator(string root, string label, Type type) {
-        var searchFilter = MakeSearchFilter(label, type);
-        _rootFolderIndex = 0;
-        if (string.IsNullOrEmpty(root)) {
-          // search everywhere
-          _rootFolders = s_rootFolders.Value;
-          _hierarchyProperty = new HierarchyProperty(_rootFolders[0]);
-        } else {
-          _rootFolders       = null;
-          _hierarchyProperty = new HierarchyProperty(root);
-        }
-
-        _hierarchyProperty.SetSearchFilter(searchFilter, (int)SearchableEditorWindow.SearchMode.All);
+    public static T GetImporterOrThrow<T>(UnityEngine.Object asset) where T : UnityEditor.AssetImporter {
+      var assetPath = GetAssetPathOrThrow(asset);
+      var importer = AssetImporter.GetAtPath(assetPath);
+      if (!importer) {
+        throw new InvalidOperationException($"Importer failed to load for asset {assetPath}");
       }
 
-      /// <summary>
-      /// Updates internal <see cref="HierarchyProperty"/>.
-      /// </summary>
-      /// <returns></returns>
-      public bool MoveNext() {
-        if (_hierarchyProperty.Next(null)) {
-          return true;
-        }
-
-        if (_rootFolders == null || _rootFolderIndex + 1 >= _rootFolders.Length) {
-          return false;
-        }
-
-        var newHierarchyProperty = new HierarchyProperty(_rootFolders[++_rootFolderIndex]);
-        UnityInternal.HierarchyProperty.CopySearchFilterFrom(newHierarchyProperty, _hierarchyProperty);
-        _hierarchyProperty = newHierarchyProperty;
-
-        // try again
-        return MoveNext();
-      }
-
-      /// <summary>
-      /// Throws <see cref="System.NotImplementedException"/>.
-      /// </summary>
-      /// <exception cref="NotImplementedException"></exception>
-      public void Reset() {
-        throw new System.NotImplementedException();
-      }
-
-      /// <summary>
-      /// Returns the internernal <see cref="HierarchyProperty"/>. Most of the time
-      /// this will be the same instance as returned the last time, so do not cache
-      /// the result - check its properties intestead.
-      /// </summary>
-      public HierarchyProperty Current => _hierarchyProperty;
-
-      object IEnumerator.Current => Current;
-
-      /// <inheritdoc/>
-      public void Dispose() {
-      }
-      
-      private static string MakeSearchFilter(string label, Type type) {
-        string searchFilter;
-        if (type == typeof(GameObject)) {
-          searchFilter = "t:prefab";
-        } else if (type != null) {
-          searchFilter = "t:" + type.FullName;
-        } else {
-          searchFilter = "";
-        }
-
-        if (!string.IsNullOrEmpty(label)) {
-          if (searchFilter.Length > 0) {
-            searchFilter += " ";
-          }
-
-          searchFilter += "l:" + label;
-        }
-
-        return searchFilter;
-      }
+      return (T)importer;
     }
 
     /// <summary>
-    /// Enumerable of assets in the project that match the given search criteria.
+    /// Gets the importer for a given <paramref name="asset"/>
     /// </summary>
-    /// <seealso cref="AssetEnumerator"/>
-    public struct AssetEnumerable : IEnumerable<HierarchyProperty> {
-
-      private readonly string _root;
-      private readonly string _label;
-      private readonly Type   _type;
-
-      /// <summary>
-      /// Not intended to be called directly. Use <see cref="AssetDatabaseUtils.IterateAssets"/> instead.
-      /// </summary>
-      public AssetEnumerable(string root, string label, Type type) {
-        _type  = type;
-        _root  = root;
-        _label = label;
+    public static bool TryGetImporter<T>(UnityEngine.Object asset, out T result) where T : UnityEditor.AssetImporter {
+      var assetPath = AssetDatabase.GetAssetPath(asset);
+      if (string.IsNullOrEmpty(assetPath)) {
+        result = null;
+        return false;
       }
 
-      /// <summary>
-      /// Not intended to be called directly. Use <see cref="AssetDatabaseUtils.IterateAssets"/> instead.
-      /// </summary>
-      public AssetEnumerator GetEnumerator() => new AssetEnumerator(_root, _label, _type);
+      var importer = AssetImporter.GetAtPath(assetPath);
+      if (!importer) {
+        result = null;
+        return false;
+      }
 
-      IEnumerator<HierarchyProperty> IEnumerable<HierarchyProperty>.GetEnumerator() => GetEnumerator();
+      result = importer as T;
+      return result != null;
+    }
 
-      IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    internal static bool IsPackageHidden(UnityEditor.PackageManager.PackageInfo info) => info.type == "module" || (info.type == "feature" && info.source != PackageSource.Embedded);
+
+    // ReSharper disable once InconsistentNaming
+    internal static Type GetMainAssetTypeFromGUID(GUID guid) {
+#if UNITY_2022_3_OR_NEWER
+      return AssetDatabase.GetMainAssetTypeFromGUID(guid);
+#else
+      var path = AssetDatabase.GUIDToAssetPath(guid);
+      if (string.IsNullOrEmpty(path)) {
+        return null;
+      }
+
+      return AssetDatabase.GetMainAssetTypeAtPath(path);
+#endif
+    }
+
+    internal static long GetLocalFileIdentifier(UnityEngine.Object asset, string identifier) {
+      if (!asset) {
+        return 0;
+      }
+
+      var nativeTypeName = ObjectNames.GetClassName(asset);
+      var unityType = UnityInternal.UnityType.FindTypeByName(nativeTypeName);
+      if (unityType == null) {
+        return 0;
+      }
+
+      return UnityInternal.AssetImporter.MakeLocalFileIDWithHash(unityType.persistentTypeID, identifier, 0);
+    }
+
+    internal static T LoadHiddenAssetAtPath<T>(string assetPath) where T : UnityEngine.Object {
+      var allAssets = AssetDatabase.LoadAllAssetsAtPath(assetPath);
+      foreach (var asset in allAssets) {
+        if (asset is T result) {
+          return result;
+        }
+      }
+
+      return null;
+    }
+
+    /// <summary>
+    /// Instance-free equivalent of <see cref="UnityEditor.ObjectNames.GetClassName"/>
+    /// </summary>
+    internal static string GetNativeTypeName(Type type) {
+      if (typeof(ScriptedImporter).IsAssignableFrom(type)) {
+        return nameof(ScriptedImporter);
+      }
+
+      if (typeof(MonoBehaviour).IsAssignableFrom(type) || typeof(ScriptableObject).IsAssignableFrom(type)) {
+        return nameof(MonoBehaviour);
+      }
+
+      return type.Name;
     }
 
     /// <summary>
@@ -9244,11 +9428,243 @@ namespace Quantum.Editor {
     /// before calling <see cref="AssetDatabase.RegisterCustomDependency"/>.
     /// </summary>
     public static void RegisterCustomDependencyWithMppmWorkaround(string customDependency, Hash128 hash) {
-      QuantumMppm.MainEditor?.Send(new QuantumMppmRegisterCustomDependencyCommand() { 
-        DependencyName = customDependency, 
-        Hash = hash.ToString(),
-      });
+      if (QuantumMppm.Status == QuantumMppmStatus.VirtualInstance) {
+        return;
+      }
+      QuantumMppm.MainEditor?.Send(new QuantumMppmRegisterCustomDependencyCommand() { DependencyName = customDependency, Hash = hash.ToString(), });
       AssetDatabase.RegisterCustomDependency(customDependency, hash);
+    }
+
+    /// <summary>
+    /// Returns the address of an asset or an empty string, if either Addressables are disabled or the asset is not addressable.
+    /// </summary>
+    public static string GetAddress(UnityEngine.Object asset) {
+#if (QUANTUM_ADDRESSABLES || QUANTUM_ENABLE_ADDRESSABLES) && !QUANTUM_DISABLE_ADDRESSABLES
+      var entry = GetAddressableAssetEntry(asset);
+
+      if (entry != null) {
+        return entry.address;
+      }
+#endif
+      return string.Empty;
+    }
+
+    /// <summary>
+    /// Returns the address of an asset or an empty string, if either Addressables are disabled or the asset is not addressable.
+    /// </summary>
+    public static string GetAddress(string guid) {
+#if (QUANTUM_ADDRESSABLES || QUANTUM_ENABLE_ADDRESSABLES) && !QUANTUM_DISABLE_ADDRESSABLES
+      var entry = GetAddressableAssetEntry(guid);
+
+      if (entry != null) {
+        return entry.address;
+      }
+#endif
+      return string.Empty;
+    }
+  }
+}
+
+#endregion
+
+
+#region AssetDatabaseUtils.Enumerator.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Collections;
+  using System.Collections.Generic;
+  using System.Linq;
+  using UnityEditor;
+  using UnityEngine;
+
+#if UNITY_6000_3_OR_NEWER
+  using ObjectIdType = UnityEngine.EntityId;
+  using HierarchyIteratorType = UnityEditor.HierarchyIterator;
+#else
+  using ObjectIdType = System.Int32;
+  using HierarchyIteratorType = UnityEditor.HierarchyProperty;
+#endif
+
+  partial class AssetDatabaseUtils {
+    /// <summary>
+    /// Iterates over all assets in the project that match the given search criteria, without
+    /// actually loading them.
+    /// </summary>
+    /// <param name="root">The optional root folder</param>
+    /// <param name="label">The optional label</param>
+    internal static AssetDatabaseEnumerable IterateAssets<T>(string root = null, string label = null) where T : UnityEngine.Object {
+      return IterateAssets(root, label, typeof(T));
+    }
+
+    /// <summary>
+    /// Iterates over all assets in the project that match the given search criteria, without
+    /// actually loading them.
+    /// </summary>
+    /// <param name="root">The optional root folder</param>
+    /// <param name="label">The optional label</param>
+    /// <param name="type">The optional type</param>
+    internal static AssetDatabaseEnumerable IterateAssets(string root = null, string label = null, Type type = null) {
+      return new AssetDatabaseEnumerable(root, label, type);
+    }
+  }
+
+  /// <summary>
+  /// Enumerable of assets in the project that match the given search criteria.
+  /// </summary>
+  /// <seealso cref="AssetDatabaseEnumerator"/>
+  partial struct AssetDatabaseEnumerable : IEnumerable<HierarchyIteratorType> {
+    private readonly string _root;
+    private readonly string _label;
+    private readonly Type _type;
+
+    /// <summary>
+    /// Not intended to be called directly. Use <see cref="AssetDatabaseUtils.IterateAssets"/> instead.
+    /// </summary>
+    public AssetDatabaseEnumerable(string root, string label, Type type) {
+      _type = type;
+      _root = root;
+      _label = label;
+    }
+
+    /// <summary>
+    /// Not intended to be called directly. Use <see cref="AssetDatabaseUtils.IterateAssets"/> instead.
+    /// </summary>
+    public AssetDatabaseEnumerator GetEnumerator() => new AssetDatabaseEnumerator(_root, _label, _type);
+
+    IEnumerator<HierarchyIteratorType> IEnumerable<HierarchyIteratorType>.GetEnumerator() => GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+  }
+
+  /// <summary>
+  /// Enumerates assets in the project that match the given search criteria using <see cref="HierarchyIteratorType"/> API.
+  /// Obtained with <see cref="AssetDatabaseUtils.IterateAssets"/>.
+  /// </summary>
+  partial struct AssetDatabaseEnumerator : IEnumerator<HierarchyIteratorType> {
+    static Lazy<string[]> s_rootFolders = new Lazy<string[]>(() => new[] { "Assets" }.Concat(UnityEditor.PackageManager.PackageInfo.GetAllRegisteredPackages()
+        .Where(x => !AssetDatabaseUtils.IsPackageHidden(x))
+#if !QUANTUM_ENABLE_SEARCH_IN_UNITY_PACKAGES
+        .Where(x => !x.assetPath.StartsWith("Packages/com.unity.", StringComparison.Ordinal))
+#endif
+        .Select(x => x.assetPath))
+      .ToArray());
+
+    private HierarchyIteratorType _hierarchyProperty;
+    private int _rootFolderIndex;
+    private bool _skipFirstNext;
+
+    private readonly string[] _rootFolders;
+
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
+    public AssetDatabaseEnumerator(string root, string label, Type type) {
+      var searchFilter = MakeSearchFilter(label, type);
+      _rootFolderIndex = 0;
+      if (string.IsNullOrEmpty(root)) {
+        // search everywhere
+        _rootFolders = s_rootFolders.Value;
+        _hierarchyProperty = new HierarchyIteratorType(_rootFolders[0]);
+      } else {
+        _rootFolders = null;
+        _hierarchyProperty = new HierarchyIteratorType(root);
+      }
+
+      _skipFirstNext = false;
+
+      // are we already at the target asset
+      if (!_hierarchyProperty.isFolder) {
+        var guid = _hierarchyProperty.GetAssetGuid();
+        // first, should we even consider this asset?
+        if (guid == default) {
+          // invalid path, nothing to do
+        } else if (!string.IsNullOrEmpty(label) && !AssetDatabaseUtils.HasLabel(guid, label)) {
+          // no label, ignore
+        } else if (type == null) {
+          // we accept any type, so we're good here
+          _skipFirstNext = true;
+        } else {
+          // we only accept a matching type
+          var mainAssetType = AssetDatabaseUtils.GetMainAssetTypeFromGUID(guid);
+          if (mainAssetType != null && (mainAssetType == type || mainAssetType.IsSubclassOf(type))) {
+            _skipFirstNext = true;
+          }
+        }
+      }
+
+      _hierarchyProperty.SetSearchFilter(searchFilter, (int)SearchableEditorWindow.SearchMode.All);
+    }
+
+    /// <summary>
+    /// Updates internal <see cref="HierarchyIteratorType"/>.
+    /// </summary>
+    /// <returns></returns>
+    public bool MoveNext() {
+      if (_skipFirstNext) {
+        _skipFirstNext = false;
+        return true;
+      }
+
+      if (_hierarchyProperty.Next(null)) {
+        return true;
+      }
+
+      if (_rootFolders == null || _rootFolderIndex + 1 >= _rootFolders.Length) {
+        return false;
+      }
+
+      var newHierarchyProperty = new HierarchyIteratorType(_rootFolders[++_rootFolderIndex]);
+      UnityInternal.HierarchyIterator.CopySearchFilterFrom(newHierarchyProperty, _hierarchyProperty);
+      _hierarchyProperty = newHierarchyProperty;
+
+      // try again
+      return MoveNext();
+    }
+
+    /// <summary>
+    /// Throws <see cref="System.NotImplementedException"/>.
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Reset() {
+      throw new System.NotImplementedException();
+    }
+
+    /// <summary>
+    /// Returns the internernal <see cref="HierarchyIteratorType"/>. Most of the time
+    /// this will be the same instance as returned the last time, so do not cache
+    /// the result - check its properties intestead.
+    /// </summary>
+    public HierarchyIteratorType Current => _hierarchyProperty;
+
+    object IEnumerator.Current => Current;
+
+    /// <inheritdoc/>
+    public void Dispose() {
+    }
+
+    private static string MakeSearchFilter(string label, Type type) {
+      string searchFilter;
+
+      if (type == typeof(GameObject)) {
+        searchFilter = "t:prefab";
+      } else if (type == typeof(SceneAsset)) {
+        searchFilter = "t:scene";
+      } else if (type != null) {
+        searchFilter = "t:" + type.FullName;
+      } else {
+        searchFilter = "";
+      }
+
+      if (!string.IsNullOrEmpty(label)) {
+        if (searchFilter.Length > 0) {
+          searchFilter += " ";
+        }
+
+        searchFilter += "l:" + label;
+      }
+
+      return searchFilter;
     }
   }
 }
@@ -9260,26 +9676,59 @@ namespace Quantum.Editor {
 
 namespace Quantum.Editor {
   using System;
-  using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
   using UnityEditor;
   using UnityEngine;
+  using Object = UnityEngine.Object;
 
   struct EditorButtonDrawer {
 
-    private struct ButtonEntry {
-      public MethodInfo                                Method;
-      public GUIContent                                Content;
-      public EditorButtonAttribute                     Attribute;
-      public (DoIfAttributeBase, Func<object, object>)[] DoIfs;
+    [Flags]
+    enum ButtonFlags {
+      HasNested = 1,
+      IsNested = 2,
     }
-    
-    private Editor            _lastEditor;
-    private List<ButtonEntry> _buttons;
+
+    struct ButtonEntry {
+      public MethodInfo Method;
+      public GUIContent Content;
+      public EditorButtonAttribute Attribute;
+      public (DoIfAttributeBase, Func<object, object>)[] DoIfs;
+      public object ExceptionOrExceptionWrapper;
+      public ButtonFlags Flags;
+
+      public Exception LastError {
+        get => ExceptionOrExceptionWrapper is ExceptionWrapper wrapper ? wrapper.LastError : (Exception)ExceptionOrExceptionWrapper;
+        set {
+          if (ExceptionOrExceptionWrapper is ExceptionWrapper wrapper) {
+            wrapper.LastError = value;
+          } else {
+            ExceptionOrExceptionWrapper = value;
+          }
+        }
+      }
+
+      public ExceptionWrapper EnsureExceptionWrapper() {
+        if (ExceptionOrExceptionWrapper is ExceptionWrapper wrapper) {
+          return wrapper;
+        }
+        ExceptionOrExceptionWrapper = new ExceptionWrapper() {
+          LastError = (Exception)ExceptionOrExceptionWrapper
+        };
+        return (ExceptionWrapper)ExceptionOrExceptionWrapper;
+      }
+    }
+
+    private Editor _lastEditor;
+    private ButtonEntry[] _buttons;
+
+    class ExceptionWrapper {
+      public Exception LastError;
+    }
 
     public void Draw(Editor editor) {
-      var targets    = editor.targets;
+      var targets = editor.targets;
 
       if (_lastEditor != editor) {
         _lastEditor = editor;
@@ -9290,7 +9739,13 @@ namespace Quantum.Editor {
         return;
       }
 
-      foreach (var entry in _buttons) {
+      for (int i = 0; i < _buttons.Length; ++i) {
+
+        ref var entry = ref _buttons[i];
+
+        if ((entry.Flags & ButtonFlags.IsNested) != 0) {
+          continue;
+        }
 
         if (entry.Attribute.Visibility == EditorButtonVisibility.PlayMode && !EditorApplication.isPlaying) {
           continue;
@@ -9299,27 +9754,26 @@ namespace Quantum.Editor {
         if (entry.Attribute.Visibility == EditorButtonVisibility.EditMode && EditorApplication.isPlaying) {
           continue;
         }
-        
+
         if (!entry.Attribute.AllowMultipleTargets && editor.targets.Length > 1) {
           continue;
         }
-        
-        bool   readOnly       = false;
-        bool   hidden         = false;
+
+        bool readOnly = false;
+        bool hidden = false;
         string warningMessage = null;
-        bool warningAsBox = false;
-        
+
         foreach (var (doIf, getter) in entry.DoIfs) {
 
           bool checkResult;
-          
+
           if (getter == null) {
             checkResult = DoIfAttributeDrawer.CheckDraw(doIf, editor.serializedObject);
           } else {
             var value = getter(targets[0]);
             checkResult = DoIfAttributeDrawer.CheckCondition(doIf, value);
           }
-          
+
           if (!checkResult) {
             if (doIf is DrawIfAttribute drawIf) {
               if (drawIf.Hide) {
@@ -9330,38 +9784,98 @@ namespace Quantum.Editor {
               }
             } else if (doIf is WarnIfAttribute warnIf) {
               warningMessage = warnIf.Message;
-              warningAsBox   = warnIf.AsBox;
             }
           }
         }
-        
+
         if (hidden) {
           continue;
         }
 
-        using (warningMessage == null ? null : (IDisposable)new QuantumEditorGUI.WarningScope(warningMessage)) {
+        using (warningMessage == null ? default : new QuantumEditorGUI.WarningScope(warningMessage)) {
+
+          using var errorScope = entry.LastError == null ? default : new QuantumEditorGUI.ErrorScope(entry.LastError.Message);
+
           var rect = QuantumEditorGUI.LayoutHelpPrefix(editor, entry.Method);
+
           using (new EditorGUI.DisabledScope(readOnly)) {
-            if (GUI.Button(rect, entry.Content)) {
-              EditorGUI.BeginChangeCheck();
-              
-              if (entry.Method.IsStatic) {
-                entry.Method.Invoke(null, null);
+
+            bool isPressed;
+
+            if ((entry.Flags & ButtonFlags.HasNested) != 0) {
+              Rect dropdownRect = new(rect) { xMin = rect.xMax - 20 };
+
+              if (Event.current.type != EventType.MouseDown || !dropdownRect.Contains(Event.current.mousePosition)) {
+                isPressed = GUI.Button(rect, entry.Content, QuantumEditorSkin.DropDownListStyle);
               } else {
-                foreach (var target in targets) {
-                  entry.Method.Invoke(target, null);
-                  if (entry.Attribute.DirtyObject) {
-                    EditorUtility.SetDirty(target);
+                isPressed = false;
+
+                // since we're in a struct, exceptions need to be wrapped with a reference type
+                var entryError = entry.EnsureExceptionWrapper();
+                var genericMenu = new GenericMenu();
+
+                for (int j = i + 1; j < _buttons.Length; ++j) {
+                  ref var subEntry = ref _buttons[j];
+
+                  if ((subEntry.Flags & ButtonFlags.IsNested) == 0) {
+                    break;
                   }
+
+                  genericMenu.AddItem(subEntry.Content, false, data => {
+                    try {
+                      InvokeMethod(editor, (ButtonEntry)data, targets);
+                      entryError.LastError = default;
+                    } catch (TargetInvocationException ex) {
+                      var error = ex.InnerException ?? ex;
+                      entryError.LastError = error;
+                      QuantumEditorLog.Exception(error);
+                    }
+                  }, subEntry);
                 }
+
+                genericMenu.DropDown(rect);
+                Event.current.Use();
               }
 
-              if (EditorGUI.EndChangeCheck()) {
-                editor.serializedObject.Update();
-              }
+            } else {
+              isPressed = GUI.Button(rect, entry.Content);
+            }
+
+            if (!isPressed) {
+              continue;
+            }
+
+            try {
+              InvokeMethod(editor, entry, targets);
+              entry.LastError = default;
+            } catch (TargetInvocationException ex) {
+              var actualException = ex.InnerException ?? ex;
+              entry.LastError = actualException;
+              QuantumEditorLog.Exception(actualException);
             }
           }
         }
+      }
+    }
+
+    static void InvokeMethod(Editor editor, in ButtonEntry entry, Object[] targets) {
+
+      EditorGUI.BeginChangeCheck();
+
+      if (entry.Method.IsStatic) {
+        entry.Method.Invoke(null, null);
+      } else {
+        foreach (var target in targets) {
+          entry.Method.Invoke(target, null);
+
+          if (entry.Attribute.DirtyObject) {
+            EditorUtility.SetDirty(target);
+          }
+        }
+      }
+
+      if (EditorGUI.EndChangeCheck()) {
+        editor.serializedObject.Update();
       }
     }
 
@@ -9369,30 +9883,48 @@ namespace Quantum.Editor {
       if (editor == null) {
         throw new ArgumentNullException(nameof(editor));
       }
-      
+
       var targetType = editor.target.GetType();
 
       _buttons = targetType
-       .GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance | BindingFlags.FlattenHierarchy)
-       .Where(x => x.GetParameters().Length == 0 && x.IsDefined(typeof(EditorButtonAttribute)))
-       .Select(method => {
+        .GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance | BindingFlags.FlattenHierarchy)
+        .Where(x => x.GetParameters().Length == 0 && x.IsDefined(typeof(EditorButtonAttribute)))
+        .Select(method => {
           var attribute = method.GetCustomAttribute<EditorButtonAttribute>();
-          var label     = new GUIContent(attribute.Label ?? ObjectNames.NicifyVariableName(method.Name));
+          var label = new GUIContent(attribute.Label ?? ObjectNames.NicifyVariableName(method.Name));
           var drawIfs = method.GetCustomAttributes<DoIfAttributeBase>()
-           .Select(x => {
+            .Select(x => {
               var prop = editor.serializedObject.FindProperty(x.ConditionMember);
               return prop != null ? (x, null) : (x, targetType.CreateGetter(x.ConditionMember));
             })
-             .ToArray();
+            .ToArray();
+
           return new ButtonEntry() {
             Attribute = attribute,
-            Content   = label,
-            Method    = method,
-            DoIfs     = drawIfs,
+            Content = label,
+            Method = method,
+            DoIfs = drawIfs,
           };
         })
-       .OrderBy(x => x.Attribute.Priority)
-       .ToList();
+        .OrderBy(x => x.Attribute.Priority)
+        .ToArray();
+
+      // now check if there are nested buttons
+      for (int i = 0; i < _buttons.Length - 1; ++i) {
+        ref var entry = ref _buttons[i];
+        Assert.Check(entry.Flags == default);
+
+        while (i < _buttons.Length - 1 &&
+               _buttons[i + 1].Content.text.StartsWith(entry.Content.text) &&
+               _buttons[i + 1].Content.text.IndexOf('/') == entry.Content.text.Length) {
+          Assert.Check(_buttons[i + 1].Flags == default);
+          entry.Flags |= ButtonFlags.HasNested;
+          _buttons[i + 1].Flags |= ButtonFlags.IsNested;
+          _buttons[i + 1].Content.text = _buttons[i + 1].Content.text.Substring(entry.Content.text.Length + 1);
+          ++i;
+        }
+      }
+
     }
   }
 }
@@ -9411,23 +9943,23 @@ namespace Quantum.Editor {
   using UnityEngine;
 
   struct EnumDrawer {
-    private Mask256[]   _values;
-    private string[]    _names;
-    private bool        _isFlags;
-    private Type        _enumType;
-    private Mask256     _allBitMask;
+    private long[] _values;
+    private string[] _names;
+    private bool _isFlags;
+    private Type _enumType;
+    private long _allBitMask;
     private FieldInfo[] _fields;
-    
+
     [NonSerialized]
     private List<int> _selectedIndices;
 
-    public Mask256[]   Values   => _values;
-    public string[]    Names    => _names;
-    public bool        IsFlags  => _isFlags;
-    public Type        EnumType => _enumType;
-    public Mask256     BitMask  => _allBitMask;
-    public FieldInfo[] Fields   => _fields;
-    
+    public long[] Values => _values;
+    public string[] Names => _names;
+    public bool IsFlags => _isFlags;
+    public Type EnumType => _enumType;
+    public long BitMask => _allBitMask;
+    public FieldInfo[] Fields => _fields;
+
     public bool EnsureInitialized(Type enumType, bool includeFields) {
 
       if (enumType == null) {
@@ -9435,57 +9967,55 @@ namespace Quantum.Editor {
       }
 
       bool isEnum = enumType.IsEnum;
-      
-      if (!isEnum && !typeof(FieldsMask).IsAssignableFrom(enumType)) {
-        throw new ArgumentException("Type must be an enum or FieldsMask", nameof(enumType));
+
+      if (!isEnum) {
+        throw new ArgumentException("Type must be an enum", nameof(enumType));
       }
-      
+
       // Already initialized
       if (_enumType == enumType) {
         return false;
       }
 
-      if (isEnum) {
-        var enumUnderlyingType = Enum.GetUnderlyingType(enumType);
-        var rawValues          = Enum.GetValues(enumType);
+      var enumUnderlyingType = Enum.GetUnderlyingType(enumType);
+      var rawValues = Enum.GetValues(enumType);
 
-        _fields   = includeFields ? new FieldInfo[rawValues.Length] : null;
-        _names    = Enum.GetNames(enumType);
-        _values   = new Mask256[rawValues.Length];
-        _isFlags  = enumType.GetCustomAttribute<FlagsAttribute>() != null;
-        _enumType = enumType;
-      
-        for (int i = 0; i < rawValues.Length; ++i) {
-          if (enumUnderlyingType == typeof(int)   || 
-              enumUnderlyingType == typeof(long)  || 
-              enumUnderlyingType == typeof(short) ||
-              enumUnderlyingType == typeof(byte)) {
-            _values[i] = Convert.ToInt64(rawValues.GetValue(i));
-          } else {
-            _values[i] = unchecked((long)Convert.ToUInt64(rawValues.GetValue(i)));
-          }
-          
-          _allBitMask[0] |= _values[i][0];
-          if (includeFields) {
-            _fields[i] = enumType.GetField(_names[i], BindingFlags.Static | BindingFlags.Public);
-          } 
+      _fields = includeFields ? new FieldInfo[rawValues.Length] : null;
+      _names = Enum.GetNames(enumType);
+      _values = new long[rawValues.Length];
+      _isFlags = enumType.GetCustomAttribute<FlagsAttribute>() != null;
+      _enumType = enumType;
+
+      for (int i = 0; i < rawValues.Length; ++i) {
+        if (enumUnderlyingType == typeof(int) ||
+            enumUnderlyingType == typeof(long) ||
+            enumUnderlyingType == typeof(short) ||
+            enumUnderlyingType == typeof(byte)) {
+          _values[i] = Convert.ToInt64(rawValues.GetValue(i));
+        } else {
+          _values[i] = unchecked((long)Convert.ToUInt64(rawValues.GetValue(i)));
         }
 
-      } else {
-        // Handling for FieldsMask
-        var tType = enumType.GenericTypeArguments[0];
+        _allBitMask |= _values[i];
+        if (includeFields) {
+          _fields[i] = enumType.GetField(_names[i], BindingFlags.Static | BindingFlags.Public);
+        }
+      }
 
-        _fields   = tType.GetFields();
-        _names    = new string[_fields.Length];
-        _values   = new Mask256[_fields.Length];
-        _isFlags  = true;
-        _enumType = enumType;
-        
-        for (int i = 0; i < _values.Length; i++) {
-          long value = (long)1 << i;
-          _allBitMask.SetBit(i, true);;
-          _values[i].SetBit(i, true); //  =   (long)1 << i;
-          _names[i]   =  _fields[i].Name;
+      // remove 0s (flags only)
+      if (_isFlags) {
+        for (int i = 0; i < _values.Length; ++i) {
+          if (_values[i] != 0) {
+            continue;
+          }
+
+          ArrayUtility.RemoveAt(ref _values, i);
+          ArrayUtility.RemoveAt(ref _names, i);
+          if (includeFields) {
+            ArrayUtility.RemoveAt(ref _fields, i);
+          }
+
+          --i;
         }
       }
 
@@ -9496,47 +10026,34 @@ namespace Quantum.Editor {
       return true;
     }
 
-    public void Draw(Rect position, SerializedProperty property, Type enumType, bool isEnum) {
-      
+    public void Draw(Rect position, SerializedProperty property, Type enumType) {
+
       if (property == null) {
         throw new ArgumentNullException(nameof(property));
       }
 
       EnsureInitialized(enumType, false);
-      Mask256 currentValue;
-      
-      if (isEnum) {
-        currentValue = new Mask256(
-          property.longValue
-        );
-      } else {
-        currentValue = new Mask256(
-          property.GetFixedBufferElementAtIndex(0).longValue,
-          property.GetFixedBufferElementAtIndex(1).longValue,
-          property.GetFixedBufferElementAtIndex(2).longValue,
-          property.GetFixedBufferElementAtIndex(3).longValue
-        );
-      }
+      long currentValue = property.longValue;
 
       _selectedIndices ??= new List<int>();
       _selectedIndices.Clear();
-      
+
       // find out what to show
       for (int i = 0; i < _values.Length; ++i) {
         var value = _values[i];
         if (_isFlags == false) {
-          if (currentValue[0]== value[0]) {
+          if (currentValue == value) {
             _selectedIndices.Add(i);
             break;
           }
-        } else if (Equals(currentValue & value, value)) {
+        } else if ((currentValue & value) == value) {
           _selectedIndices.Add(i);
         }
       }
-      
+
       string labelValue;
       if (_selectedIndices.Count == 0) {
-        if (_isFlags && currentValue.IsNothing()) {
+        if (_isFlags && currentValue == 0) {
           labelValue = "Nothing";
         } else {
           labelValue = "";
@@ -9552,75 +10069,39 @@ namespace Quantum.Editor {
           labelValue = string.Join(", ", _selectedIndices.Select(x => names[x]));
         }
       }
-      
+
       if (EditorGUI.DropdownButton(position, new GUIContent(labelValue), FocusType.Keyboard)) {
-        var values  = _values;
+        var values = _values;
         var indices = _selectedIndices;
-        
+
         if (_isFlags) {
-          var       allOptions = new[] { "Nothing", "Everything" }.Concat(_names).ToArray();
+          var allOptions = new[] { "Nothing", "Everything" }.Concat(_names).ToArray();
           List<int> allIndices = new List<int>();
           if (_selectedIndices.Count == 0) {
             allIndices.Add(0); // nothing
-          }
-          else if (_selectedIndices.Count == _values.Length) {
+          } else if (_selectedIndices.Count == _values.Length) {
             allIndices.Add(1); // everything
           }
           allIndices.AddRange(_selectedIndices.Select(x => x + 2));
-          
+
           UnityInternal.EditorUtility.DisplayCustomMenu(position, allOptions, allIndices.ToArray(), (userData, options, selected) => {
             if (selected == 0) {
               // Clicked None
-              if (isEnum) {
-                property.longValue = 0;
-              }
-              else {
-                property.GetFixedBufferElementAtIndex(0).longValue = 0;
-                property.GetFixedBufferElementAtIndex(1).longValue = 0;
-                property.GetFixedBufferElementAtIndex(2).longValue = 0;
-                property.GetFixedBufferElementAtIndex(3).longValue = 0;
-              }
+              property.longValue = 0;
             } else if (selected == 1) {
               // Selected Everything
-              if (isEnum) {
-                property.longValue = 0;
-              } else {
-                property.GetFixedBufferElementAtIndex(0).longValue = 0;
-                property.GetFixedBufferElementAtIndex(1).longValue = 0;
-                property.GetFixedBufferElementAtIndex(2).longValue = 0;
-                property.GetFixedBufferElementAtIndex(3).longValue = 0;
-              }
+              long everything = 0;
               foreach (var value in values) {
-                if (isEnum) {
-                  property.longValue |= value[0];
-                } else{
-                  property.GetFixedBufferElementAtIndex(0).longValue |= value[0];
-                  property.GetFixedBufferElementAtIndex(1).longValue |= value[1];
-                  property.GetFixedBufferElementAtIndex(2).longValue |= value[2];
-                  property.GetFixedBufferElementAtIndex(3).longValue |= value[3];
-                }
+                everything |= value;
               }
+              property.longValue = everything;
             } else {
               // Toggled a value
               selected -= 2;
               if (indices.Contains(selected)) {
-                if (isEnum) {
-                  property.longValue &= ~values[selected][0];
-                } else {
-                  property.GetFixedBufferElementAtIndex(0).longValue &= ~values[selected][0];
-                  property.GetFixedBufferElementAtIndex(1).longValue &= ~values[selected][1];
-                  property.GetFixedBufferElementAtIndex(2).longValue &= ~values[selected][2];
-                  property.GetFixedBufferElementAtIndex(3).longValue &= ~values[selected][3];
-                }
+                property.longValue &= ~values[selected];
               } else {
-                if (isEnum) {
-                  property.longValue |= (long)values[selected][0];
-                } else {
-                  property.GetFixedBufferElementAtIndex(0).longValue |= (long)values[selected][0];
-                  property.GetFixedBufferElementAtIndex(1).longValue |= (long)values[selected][1];
-                  property.GetFixedBufferElementAtIndex(2).longValue |= (long)values[selected][2];
-                  property.GetFixedBufferElementAtIndex(3).longValue |= (long)values[selected][3];
-                }
+                property.longValue |= values[selected];
               }
             }
 
@@ -9630,7 +10111,7 @@ namespace Quantum.Editor {
           // non-flags enum
           UnityInternal.EditorUtility.DisplayCustomMenu(position, _names, _selectedIndices.ToArray(), (userData, options, selected) => {
             if (!indices.Contains(selected)) {
-              property.longValue = values[selected][0];
+              property.longValue = values[selected];
               property.serializedObject.ApplyModifiedProperties();
             }
           }, null);
@@ -9717,7 +10198,7 @@ namespace Quantum.Editor {
 
     public static unsafe int GetHashCodeDeterministic<T>(T* data, int initialHash = 0) where T : unmanaged {
       var hash = initialHash;
-      var ptr  = (byte*)data;
+      var ptr = (byte*)data;
       for (var i = 0; i < sizeof(T); ++i) {
         hash = hash * 31 + ptr[i];
       }
@@ -9745,7 +10226,7 @@ namespace Quantum.Editor {
     public LazyAsset(Func<T> factory) {
       _factory = factory;
     }
-    
+
     public T Value {
       get {
         if (NeedsUpdate) {
@@ -9758,7 +10239,7 @@ namespace Quantum.Editor {
         return _value;
       }
     }
-    
+
     public static implicit operator T(LazyAsset<T> lazyAsset) {
       return lazyAsset.Value;
     }
@@ -9776,21 +10257,21 @@ namespace Quantum.Editor {
 
   internal class LazyGUIStyle {
     private Func<List<Object>, GUIStyle> _factory;
-    private GUIStyle                     _value;
-    private List<Object>                 _dependencies = new List<Object>();
-    
+    private GUIStyle _value;
+    private List<Object> _dependencies = new List<Object>();
+
     public LazyGUIStyle(Func<List<Object>, GUIStyle> factory) {
       _factory = factory;
     }
-    
+
     public static LazyGUIStyle Create(Func<List<Object>, GUIStyle> factory) {
       return new LazyGUIStyle(factory);
     }
-    
+
     public static implicit operator GUIStyle(LazyGUIStyle lazyAsset) {
       return lazyAsset.Value;
     }
-    
+
     public GUIStyle Value {
       get {
         if (NeedsUpdate) {
@@ -9804,7 +10285,7 @@ namespace Quantum.Editor {
         return _value;
       }
     }
-    
+
     public bool NeedsUpdate {
       get {
         if (_value == null) {
@@ -9819,10 +10300,10 @@ namespace Quantum.Editor {
         return false;
       }
     }
-    
-    public Vector2 CalcSize(GUIContent content)                                                                         => Value.CalcSize(content);
-    public void    Draw(Rect position, GUIContent content, bool isHover, bool isActive, bool on, bool hasKeyboardFocus) => Value.Draw(position, content, isHover, isActive, on, hasKeyboardFocus);
-    public void    Draw(Rect position, bool isHover, bool isActive, bool on, bool hasKeyboardFocus)                     => Value.Draw(position, isHover, isActive, on, hasKeyboardFocus);
+
+    public Vector2 CalcSize(GUIContent content) => Value.CalcSize(content);
+    public void Draw(Rect position, GUIContent content, bool isHover, bool isActive, bool on, bool hasKeyboardFocus) => Value.Draw(position, content, isHover, isActive, on, hasKeyboardFocus);
+    public void Draw(Rect position, bool isHover, bool isActive, bool on, bool hasKeyboardFocus) => Value.Draw(position, isHover, isActive, on, hasKeyboardFocus);
 
     public Font font => Value.font;
     public FontStyle fontStyle => Value.fontStyle;
@@ -9835,24 +10316,24 @@ namespace Quantum.Editor {
     public GUIStyleState normal => Value.normal;
     public GUIStyleState onNormal => Value.onNormal;
   }
-  
+
   internal class LazyGUIContent {
     private Func<List<Object>, GUIContent> _factory;
-    private GUIContent                     _value;
-    private List<Object>                   _dependencies = new List<Object>();
-    
+    private GUIContent _value;
+    private List<Object> _dependencies = new List<Object>();
+
     public LazyGUIContent(Func<List<Object>, GUIContent> factory) {
       _factory = factory;
     }
-    
+
     public static LazyGUIContent Create(Func<List<Object>, GUIContent> factory) {
       return new LazyGUIContent(factory);
     }
-    
+
     public static implicit operator GUIContent(LazyGUIContent lazyAsset) {
       return lazyAsset.Value;
     }
-    
+
     public GUIContent Value {
       get {
         if (NeedsUpdate) {
@@ -9866,7 +10347,7 @@ namespace Quantum.Editor {
         return _value;
       }
     }
-    
+
     public bool NeedsUpdate {
       get {
         if (_value == null) {
@@ -9882,7 +10363,7 @@ namespace Quantum.Editor {
       }
     }
   }
-  
+
   internal static class LazyAsset {
     public static LazyAsset<T> Create<T>(Func<T> factory) {
       return new LazyAsset<T>(factory);
@@ -9957,7 +10438,7 @@ namespace Quantum.Editor {
         SetLogLevel(activeLogLevel.Value);
       }
     }
-    
+
     public void DrawLogLevelEnum(Rect rect) {
       EnsureInitialized();
       var activeLogLevel = GetActiveBuildTargetDefinedLogLevel();
@@ -9974,10 +10455,10 @@ namespace Quantum.Editor {
       }
     }
 
-    
+
     public void DrawLayout(ScriptableObject editor, bool inlineHelp = true) {
       EnsureInitialized();
-      
+
       {
         var activeLogLevel = GetActiveBuildTargetDefinedLogLevel();
         var invalidActiveLogLevel = activeLogLevel == null;
@@ -10008,9 +10489,9 @@ namespace Quantum.Editor {
       {
         var activeTraceChannels = GetActiveBuildTargetDefinedTraceChannels();
         var rect = inlineHelp ? QuantumEditorGUI.LayoutHelpPrefix(editor, "Trace Channels", _traceChannelsHelpContent.Value) : EditorGUILayout.GetControlRect();
-        
+
         EditorGUI.BeginChangeCheck();
-        
+
         activeTraceChannels = (TraceChannels)EditorGUI.EnumFlagsField(rect, "Trace Channels", activeTraceChannels);
 
         if (GetAllBuildTargetsDefinedTraceChannels() == null) {
@@ -10018,14 +10499,14 @@ namespace Quantum.Editor {
                                                         "the values are the same <b>for each build target</b>.")) {
           }
         }
-        
+
         if (EditorGUI.EndChangeCheck()) {
           SetTraceChannels(activeTraceChannels);
         }
       }
 
     }
-    
+
     private void SetLogLevel(LogLevel activeLogLevel) {
       foreach (var kv in _defines) {
         var target = kv.Key;
@@ -10040,22 +10521,22 @@ namespace Quantum.Editor {
           ArrayUtility.Remove(ref defines, define);
         }
         ArrayUtility.Remove(ref defines, "QUANTUM_LOGLEVEL_TRACE");
-        
+
         Debug.Assert(newDefine != null);
         if (!ArrayUtility.Contains(defines, newDefine)) {
           ArrayUtility.Add(ref defines, newDefine);
         }
-        
+
         PlayerSettings.SetScriptingDefineSymbols(target, string.Join(";", defines));
       }
 
       UpdateDefines();
     }
-    
+
     private void SetTraceChannels(TraceChannels activeTraceChannels) {
       List<string> definesToAdd = new List<string>();
       List<string> definesToRemove = new List<string>();
-      
+
       foreach (var kv in _enablingDefines) {
         var channel = kv.Value;
         if (activeTraceChannels.HasFlag(channel)) {
@@ -10064,7 +10545,7 @@ namespace Quantum.Editor {
           definesToRemove.Add(kv.Key);
         }
       }
-      
+
       foreach (var kv in _defines) {
         var target = kv.Key;
         var defines = kv.Value;
@@ -10078,11 +10559,11 @@ namespace Quantum.Editor {
             ArrayUtility.Add(ref defines, d);
           }
         }
-        
+
         PlayerSettings.SetScriptingDefineSymbols(target, string.Join(";", defines));
       }
-      
-      
+
+
       UpdateDefines();
     }
 
@@ -10096,7 +10577,7 @@ namespace Quantum.Editor {
       var activeBuildTarget = NamedBuildTarget.FromBuildTargetGroup(BuildPipeline.GetBuildTargetGroup(EditorUserBuildSettings.activeBuildTarget));
       return GetDefinedTraceChannels(activeBuildTarget);
     }
-      
+
 
     private LogLevel? GetAllBuildTargetsDefinedLogLevel() {
       LogLevel? result = null;
@@ -10117,7 +10598,7 @@ namespace Quantum.Editor {
 
       return result;
     }
-    
+
     private TraceChannels? GetAllBuildTargetsDefinedTraceChannels() {
       TraceChannels? result = null;
 
@@ -10132,7 +10613,7 @@ namespace Quantum.Editor {
 
       return result;
     }
-    
+
     private LogLevel? GetDefinedLogLevel(NamedBuildTarget group) {
       LogLevel? result = null;
       var defines = _defines[group];
@@ -10154,7 +10635,7 @@ namespace Quantum.Editor {
 
     private TraceChannels GetDefinedTraceChannels(NamedBuildTarget group) {
       var channels = default(TraceChannels);
-      
+
       var defines = _defines[group];
       foreach (var define in defines) {
         if (_enablingDefines.TryGetValue(define, out var channel)) {
@@ -10172,7 +10653,7 @@ namespace Quantum.Editor {
     }
   }
   
-  
+
 }
 
 #endregion
@@ -10185,7 +10666,7 @@ namespace Quantum.Editor {
 
   // TODO: this should be moved to the runtime part
   static partial class PathUtils {
-    
+
     public static bool TryMakeRelativeToFolder(string path, string folderWithSlashes, out string result) {
       var index = path.IndexOf(folderWithSlashes, StringComparison.Ordinal);
 
@@ -10193,7 +10674,7 @@ namespace Quantum.Editor {
         result = string.Empty;
         return false;
       }
-      
+
       if (folderWithSlashes[0] != '/' && index > 0) {
         result = string.Empty;
         return false;
@@ -10202,7 +10683,7 @@ namespace Quantum.Editor {
       result = path.Substring(index + folderWithSlashes.Length);
       return true;
     }
-    
+
     [Obsolete("Use " + nameof(TryMakeRelativeToFolder) + " instead")]
     public static bool MakeRelativeToFolder(string path, string folder, out string result) {
       result = string.Empty;
@@ -10212,7 +10693,7 @@ namespace Quantum.Editor {
         return true;
       }
       var index = formattedPath.IndexOf(folder + "/", StringComparison.Ordinal);
-      var size  = folder.Length + 1;
+      var size = folder.Length + 1;
       if (index >= 0 && formattedPath.Length >= size) {
         result = formattedPath.Substring(index + size, formattedPath.Length - index - size);
         return true;
@@ -10230,11 +10711,15 @@ namespace Quantum.Editor {
     }
 
     public static string GetPathWithoutExtension(string path) {
-      if (path == null)
+      if (path == null) {
         return null;
+      }
+
       int length;
-      if ((length = path.LastIndexOf('.')) == -1)
+      if ((length = path.LastIndexOf('.')) == -1) {
         return path;
+      }
+
       return path.Substring(0, length);
     }
 
@@ -10257,14 +10742,14 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
-  static class QuantumCodeDoc {
-    public const string Label            = "QuantumCodeDoc";
-    public const string Extension        = "xml";
+  static partial class QuantumCodeDoc {
+    public const string Label = "QuantumCodeDoc";
+    public const string Extension = "xml";
     public const string ExtensionWithDot = "." + Extension;
 
     private static readonly Dictionary<string, CodeDoc> s_parsedCodeDocs = new();
     private static readonly Dictionary<(string assemblyName, string memberKey), (GUIContent withoutType, GUIContent withType)> s_guiContentCache = new();
-    
+
     private static string CrefColor => EditorGUIUtility.isProSkin ? "#FFEECC" : "#664400";
 
     public static GUIContent FindEntry(MemberInfo member, bool addTypeInfo = true) {
@@ -10281,7 +10766,7 @@ namespace Quantum.Editor {
           throw new ArgumentOutOfRangeException(nameof(member));
       }
     }
-    
+
     public static GUIContent FindEntry(FieldInfo field, bool addTypeInfo = true) {
       if (field == null) {
         throw new ArgumentNullException(nameof(field));
@@ -10322,40 +10807,40 @@ namespace Quantum.Editor {
 
       var assemblyName = assembly.GetName().Name;
       QuantumEditorLog.Assert(assemblyName != null);
-      
+
       if (s_guiContentCache.TryGetValue((assemblyName, key), out var content)) {
         return addTypeInfo ? content.withType : content.withoutType;
       }
-      
+
       if (TryGetEntry(key, out var entry, assemblyName: assemblyName)) {
         // at this point we've got docs or not, need to save it now - in case returnType code doc search tries
         // to load the same member info, which might happen; same for inheritdoc
         content.withoutType = new GUIContent(entry.Summary ?? string.Empty, entry.Tooltip ?? string.Empty);
-        content.withType    = content.withoutType; 
+        content.withType = content.withoutType;
       }
-      
+
       s_guiContentCache.Add((assemblyName, key), content);
-      
+
       if (!string.IsNullOrEmpty(entry.InheritDocKey)) {
         // need to resolve the inheritdoc
         QuantumEditorLog.Assert(entry.InheritDocKey != key);
         if (TryResolveInheritDoc(entry.InheritDocKey, out var rootEntry)) {
           content.withoutType = new GUIContent(rootEntry.Summary, rootEntry.Tooltip);
-          content.withType    = content.withoutType;
+          content.withType = content.withoutType;
           s_guiContentCache[(assemblyName, key)] = content;
         }
       }
-      
+
       // now add type info
       Type returnType = (member as FieldInfo)?.FieldType ?? (member as PropertyInfo)?.PropertyType;
       if (returnType != null) {
-        var    typeEntry   = FindEntry(returnType);
+        var typeEntry = FindEntry(returnType);
         string typeSummary = "";
 
         if (typeEntry != null) {
           typeSummary += $"\n\n<color={CrefColor}>[{returnType.Name}]</color> {typeEntry}";
         }
-        
+
         if (returnType.IsEnum) {
           // find all the enum values
           foreach (var enumValue in returnType.GetFields(BindingFlags.Static | BindingFlags.Public)) {
@@ -10371,9 +10856,9 @@ namespace Quantum.Editor {
           s_guiContentCache[(assemblyName, key)] = content;
         }
       }
-            
+
       return addTypeInfo ? content.withType : content.withoutType;
-      
+
       GUIContent AppendContent(GUIContent existing, string append) {
         return new GUIContent((existing?.text + append).Trim('\n'), existing?.tooltip ?? string.Empty);
       }
@@ -10382,15 +10867,15 @@ namespace Quantum.Editor {
     private static bool TryResolveInheritDoc(string key, out MemberInfoEntry entry) {
       // difficult to tell which assembly this comes from; just check in them all
       // also make sure we're not in a loop
-      var visited   = new HashSet<string>();
+      var visited = new HashSet<string>();
       var currentKey = key;
 
-      for (;;) {
+      for (; ; ) {
         if (!visited.Add(currentKey)) {
           QuantumEditorLog.Error($"Inheritdoc loop detected for {key}");
           break;
         }
-        
+
         if (!TryGetEntry(currentKey, out var currentEntry)) {
           break;
         }
@@ -10399,10 +10884,10 @@ namespace Quantum.Editor {
           entry = currentEntry;
           return true;
         }
-        
+
         currentKey = currentEntry.InheritDocKey;
       }
-      
+
       entry = default;
       return false;
     }
@@ -10420,7 +10905,7 @@ namespace Quantum.Editor {
         // has this path been parsed already?
         if (!s_parsedCodeDocs.TryGetValue(path, out var parsedCodeDoc)) {
           s_parsedCodeDocs.Add(path, null);
-          
+
           QuantumEditorLog.Trace($"Trying to parse {path} for {key}");
           if (TryParseCodeDoc(path, out parsedCodeDoc)) {
             s_parsedCodeDocs[path] = parsedCodeDoc;
@@ -10452,7 +10937,7 @@ namespace Quantum.Editor {
       QuantumEditorLog.Assert(t != null);
       return t.FullName.Replace('+', '.');
     }
-    
+
     public static void InvalidateCache() {
       s_parsedCodeDocs.Clear();
       s_guiContentCache.Clear();
@@ -10487,15 +10972,15 @@ namespace Quantum.Editor {
         result = null;
         return false;
       }
-      
+
       var entries = new Dictionary<string, MemberInfoEntry>();
-      
+
       foreach (XmlNode node in members) {
         QuantumEditorLog.Assert(node.Attributes != null);
-        var key     = node.Attributes["name"].Value;
+        var key = node.Attributes["name"].Value;
         var inherit = node.SelectSingleNode("inheritdoc");
         if (inherit != null) {
-          
+
           // hold on to the ref, will need to resolve it later
           QuantumEditorLog.Assert(inherit.Attributes != null);
           var cref = inherit.Attributes["cref"]?.Value;
@@ -10516,18 +11001,17 @@ namespace Quantum.Editor {
         summary = summary.Replace("`1", "");
 
         // fork tooltip and help summaries
-        var help    = Reformat(summary, false);
+        var help = Reformat(summary, false);
         var tooltip = Reformat(summary, true);
 
-        entries.Add(key, new MemberInfoEntry() {
-          Summary = help,
-          Tooltip = tooltip
-        });
+        if (!entries.TryAdd(key, new MemberInfoEntry() { Summary = help, Tooltip = tooltip })) {
+          QuantumEditorLog.Warn($"Failed to add {key} with {help}: entry already exists ({path})");
+        }
       }
-     
+
       result = new CodeDoc() {
         AssemblyName = assemblyName,
-        Entries      = entries,
+        Entries = entries,
       };
       return true;
     }
@@ -10544,7 +11028,7 @@ namespace Quantum.Editor {
         summary = Regexes.See.Replace(summary, colorstring);
       }
 
-      
+
       summary = Regexes.XmlCodeBracket.Replace(summary, "$1");
 
       // Reduce all sequential whitespace characters into a single space.
@@ -10554,9 +11038,9 @@ namespace Quantum.Editor {
       summary = Regex.Replace(summary, @"</para>\s?<para>", "\n\n"); // prevent back to back paras from producing 4 line returns.
       summary = Regex.Replace(summary, @"</?para>\s?", "\n\n");
       summary = Regex.Replace(summary, @"</?br\s?/?>\s?", "\n\n");
-      
+
       // handle lists
-      for (;;) {
+      for (; ; ) {
         var listMatch = Regexes.BulletPointList.Match(summary);
         if (!listMatch.Success) {
           break;
@@ -10566,7 +11050,7 @@ namespace Quantum.Editor {
         summary = summary.Substring(0, listMatch.Index) + innerText + summary.Substring(listMatch.Index + listMatch.Length);
       }
 
-      
+
       // unescape <>
       summary = summary.Replace("&lt;", "<");
       summary = summary.Replace("&gt;", ">");
@@ -10576,7 +11060,7 @@ namespace Quantum.Editor {
 
       return summary;
     }
-    
+
     private struct MemberInfoEntry {
       public string Summary;
       public string Tooltip;
@@ -10584,50 +11068,194 @@ namespace Quantum.Editor {
     }
 
     private class CodeDoc {
-      public string                              AssemblyName;
+      public string AssemblyName;
       public Dictionary<string, MemberInfoEntry> Entries;
     }
-
+    
     private class Postprocessor : AssetPostprocessor {
-      private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
+      static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
         foreach (var path in importedAssets) {
-          if (!path.StartsWith("Assets/") || !path.EndsWith(ExtensionWithDot)) {
+          if (!(path.StartsWith("Assets/") || path.StartsWith("Packages/")) || !path.EndsWith(ExtensionWithDot)) {
             continue;
-          } 
-          
+          }
+
           if (AssetDatabaseUtils.HasLabel(path, Label)) {
             QuantumEditorLog.Trace($"Code doc {path} was imported, refreshing");
             InvalidateCache();
-            continue;
+            return;
           }
-
-          // is there a dll with the same name?
-          if (!File.Exists(path.Substring(0, path.Length - ExtensionWithDot.Length) + ".dll")) {
-            QuantumEditorLog.Trace($"No DLL next to {path}, not going to add label {Label}.");
-            continue;
-          }
-
-          if (!path.StartsWith("Assets/Photon/")) {
-            QuantumEditorLog.Trace($"DLL is out of supported folder, not going to add label: {path}");
-            continue;
-          }
-
-          QuantumEditorLog.Trace($"Detected a dll next to {path}, applying label and refreshing.");
-          AssetDatabaseUtils.SetLabel(path, Label, true);
-          InvalidateCache();
         }
       }
     }
-    
+
     private static class Regexes {
-      public static readonly Regex SeeWithCref          = new(@"<see\w* (?:cref|langword)=""(?:\w: ?)?([\w\.\d]*?)(?:\(.*?\))?"" ?\/>", RegexOptions.None);
-      public static readonly Regex See                  = new(@"<see\w* .*>([\w\.\d]*)<\/see\w*>", RegexOptions.None);
-      public static readonly Regex WhitespaceString     = new(@"\s+");
-      public static readonly Regex XmlCodeBracket       = new(@"<code>([\s\S]*?)</code>");
+      public static readonly Regex SeeWithCref = new(@"<see\w* (?:cref|langword)=""(?:\w: ?)?([\w\.\d]*?)(?:\(.*?\))?"" ?\/>", RegexOptions.None);
+      public static readonly Regex See = new(@"<see\w* .*>([\w\.\d]*)<\/see\w*>", RegexOptions.None);
+      public static readonly Regex WhitespaceString = new(@"\s+");
+      public static readonly Regex XmlCodeBracket = new(@"<code>([\s\S]*?)</code>");
       public static readonly Regex XmlEmphasizeBrackets = new(@"<\w>([\s\S]*?)</\w>");
-      public static readonly Regex BulletPointList      = new(@"<list type=""bullet"">([\s\S]*?)</list>");
-      public static readonly Regex ListItemBracket      = new(@"<item>\s*<description>([\s\S]*?)</description>\s*</item>");
+      public static readonly Regex BulletPointList = new(@"<list type=""bullet"">([\s\S]*?)</list>");
+      public static readonly Regex ListItemBracket = new(@"<item>\s*<description>([\s\S]*?)</description>\s*</item>");
     }
+  }
+}
+
+#endregion
+
+
+#region QuantumCustomDependency.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Diagnostics;
+  using System.Reflection;
+  using UnityEditor;
+  using UnityEngine;
+
+  /// <summary>
+  /// A wrapper around Unity's custom dependencies. Allows refresh to be deferred (if circumstances permit) and works around issues with custom dependencies in MPPM.
+  /// </summary>
+  public class QuantumCustomDependency {
+    /// <summary>
+    /// Name of the dependency.
+    /// </summary>
+    public readonly string Name;
+
+    readonly EditorApplication.CallbackFunction _applyHash;
+    readonly Action<PlayModeStateChange> _applyHashBeforePlayMode;
+    readonly Func<Hash128?> _getter;
+
+    /// <summary>
+    /// Global force immediate switch. Set to true to force all the refreshes to be synchronous.
+    /// </summary>
+    // ReSharper disable once FieldCanBeMadeReadOnly.Global
+    // ReSharper disable once ConvertToConstant.Global
+    public static bool IsGlobalImmediateRefreshEnabled = false;
+
+    /// <param name="name">Name of the dependency</param>
+    /// <param name="getter">Hash value getter. If returns null, the dependency will not be updated.</param>
+    public QuantumCustomDependency(string name, Func<Hash128?> getter) {
+      Name = name;
+      _getter = getter;
+      _applyHash = () => {
+        EditorApplication.playModeStateChanged -= _applyHashBeforePlayMode;
+        Update(refreshAssetDB: true);
+      };
+      // a refresh deferred to delayCall would otherwise land in play mode and reimport assets from under the running game
+      _applyHashBeforePlayMode = change => {
+        if (change != PlayModeStateChange.ExitingEditMode) {
+          return;
+        }
+        QuantumEditorLog.TraceImport($"Applying custom dependency update before entering play mode ({Name})");
+        EditorApplication.playModeStateChanged -= _applyHashBeforePlayMode;
+        EditorApplication.delayCall -= _applyHash;
+        Update(refreshAssetDB: true);
+      };
+    }
+
+    /// <summary>
+    /// Refreshes the dependency. Under normal circumstances, this will enqueue the operation until the next <see cref="EditorApplication.delayCall"/>.
+    /// The hash will be calculated immediately if any of these is true:
+    /// - <paramref name="forceImmediate"/>
+    /// - <see cref="IsGlobalImmediateRefreshEnabled"/>
+    /// - <see cref="Application.isBatchMode"/>
+    ///
+    /// Note that if <see cref="AssetDatabase.IsAssetImportWorkerProcess"/> returns true, the immediate refresh will result with an error.
+    /// </summary>
+    /// <param name="forceImmediate"></param>
+    public void Refresh(bool forceImmediate = false) {
+      if (QuantumMppm.Status == QuantumMppmStatus.VirtualInstance) {
+        return;
+      }
+      if (IsGlobalImmediateRefreshEnabled || forceImmediate || Application.isBatchMode) {
+        if (EditorApplication.isUpdating) {
+          QuantumEditorLog.WarnImport($"Can't update custom dependencies during Asset import ({Name}), scheduling to OnPostprocessAllAssets");
+          LateDependencyRefreshAssetPostprocessor.Callbacks -= _applyHash;
+          LateDependencyRefreshAssetPostprocessor.Callbacks += _applyHash;
+        } else if (AssetDatabase.IsAssetImportWorkerProcess()) {
+          QuantumEditorLog.ErrorImport($"Can't update custom dependencies in a worker process ({Name})");
+        } else {
+          Update(refreshAssetDB: true);
+        }
+      } else {
+        QuantumEditorLog.TraceImport($"Going to update custom dependency in delayCall ({Name})");
+        EditorApplication.delayCall -= _applyHash;
+        EditorApplication.delayCall += _applyHash;
+        EditorApplication.playModeStateChanged -= _applyHashBeforePlayMode;
+        EditorApplication.playModeStateChanged += _applyHashBeforePlayMode;
+      }
+    }
+
+
+    /// <summary/>
+    protected void Update(bool refreshAssetDB) {
+      // ReSharper disable once RedundantAssignment
+      var sw = Stopwatch.StartNew();
+      var hash = _getter();
+      if (hash.HasValue) {
+        QuantumEditorLog.TraceImport($"Refreshing {Name} dependency hash: {hash}, took: {sw.Elapsed}");
+        AssetDatabaseUtils.RegisterCustomDependencyWithMppmWorkaround(Name, hash.Value);
+        if (refreshAssetDB) {
+          AssetDatabase.Refresh();
+        }
+      } else {
+        QuantumEditorLog.TraceImport($"Not refreshing {Name} dependency hash, returned null");
+      }
+    }
+
+    class LateDependencyRefreshAssetPostprocessor : AssetPostprocessor {
+      public override int GetPostprocessOrder() => int.MaxValue;
+      public static EditorApplication.CallbackFunction Callbacks;
+      
+      static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
+        var callbacks = Callbacks;
+        Callbacks = null;
+        callbacks?.Invoke();
+      }
+    }
+
+    [InitializeOnLoadMethod]
+    static void InitializeEager() {
+      if (AssetDatabase.IsAssetImportWorkerProcess()) {
+        return;
+      }
+
+      if (SessionState.GetBool($"QuantumCustomDependency/RegisteredEagerDependencies", false)) {
+        return;
+      }
+
+      SessionState.SetBool($"QuantumCustomDependency/RegisteredEagerDependencies", true);
+
+      foreach (var field in TypeCache.GetFieldsWithAttribute<QuantumCustomDependencyEagerAttribute>()) {
+        Assert.Always(field.FieldType == typeof(QuantumCustomDependency));
+
+        // make sure static constructor has run
+        System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(field.DeclaringType!.TypeHandle);
+
+        var dependency = (QuantumCustomDependency)field.GetValue(null);
+        Assert.Always(dependency != null);
+
+        dependency.Update(refreshAssetDB: false);
+      }
+    }
+  }
+}
+
+#endregion
+
+
+#region QuantumCustomDependencyEagerAttribute.cs
+
+namespace Quantum.Editor {
+  using System;
+
+  /// <summary>
+  /// If added to a <see cref="QuantumCustomDependency"/> field, the dependency will be calculated
+  /// on the first InitializeOnLoad, but without AssetDatabase.Refresh. This is to avoid refreshing
+  /// assets due to initial 0 value of the dependency hash.
+  /// </summary>
+  [AttributeUsage(AttributeTargets.Field)]
+  public class QuantumCustomDependencyEagerAttribute : Attribute {
   }
 }
 
@@ -10637,8 +11265,6 @@ namespace Quantum.Editor {
 #region QuantumEditor.cs
 
 namespace Quantum.Editor {
-  using UnityEditor;
-
   /// <summary>
   /// Base class for all Photon Common editors. Supports <see cref="EditorButtonAttribute"/> and <see cref="ScriptHelpAttribute"/>.
   /// </summary>
@@ -10650,7 +11276,7 @@ namespace Quantum.Editor {
 #endif
   {
     private EditorButtonDrawer _buttonDrawer;
-    
+
     /// <summary>
     /// Prepares the editor by initializing the script header drawer.
     /// </summary>
@@ -10664,7 +11290,7 @@ namespace Quantum.Editor {
     protected void DrawEditorButtons() {
       _buttonDrawer.Draw(this);
     }
-    
+
     /// <inheritdoc/>
     public override void OnInspectorGUI() {
       PrepareOnInspectorGUI();
@@ -10684,10 +11310,10 @@ namespace Quantum.Editor {
     /// Draws the default inspector.
     /// </summary>
     public new bool DrawDefaultInspector() {
-      EditorGUI.BeginChangeCheck();
+      UnityEditor.EditorGUI.BeginChangeCheck();
       base.DrawDefaultInspector();
-      return EditorGUI.EndChangeCheck();
-    } 
+      return UnityEditor.EditorGUI.EndChangeCheck();
+    }
 #else
     /// <summary>
     /// Empty implementations, provided for compatibility with OdinEditor class.
@@ -10704,7 +11330,6 @@ namespace Quantum.Editor {
   }
 }
 
-
 #endregion
 
 
@@ -10719,11 +11344,11 @@ namespace Quantum.Editor {
   using UnityEngine;
 
   static partial class QuantumEditorGUI {
-    private const float SCROLL_WIDTH     = 16f;
+    private const float SCROLL_WIDTH = 16f;
     private const float LEFT_HELP_INDENT = 8f;
-    
+
     private static (object, string, int) s_expandedHelp;
-    
+
     internal static Rect GetInlineHelpButtonRect(Rect position, bool expectFoldout = true, bool forScriptHeader = false) {
       var style = QuantumEditorSkin.HelpButtonStyle;
 
@@ -10732,11 +11357,11 @@ namespace Quantum.Editor {
 
       // this 2 lower than line height, but makes it look better
       const float FirstLineHeight = 16;
-      
-      int offsetY    = forScriptHeader ? -1 : 1;
-      
-      var buttonRect = new Rect(position.x - width, position.y + (FirstLineHeight - height) / 2 + + offsetY, width, height);
-      using (new IndentLevelScope(EditorGUI.indentLevel + (expectFoldout ? - 1 : 0))) {
+
+      int offsetY = forScriptHeader ? -1 : 1;
+
+      var buttonRect = new Rect(position.x - width, position.y + (FirstLineHeight - height) / 2 + +offsetY, width, height);
+      using (new IndentLevelScope(EditorGUI.indentLevel + (expectFoldout ? -1 : 0))) {
         buttonRect.x = EditorGUI.IndentedRect(buttonRect).x;
         // give indented items a little extra padding - no need for them to be so crammed
         if (buttonRect.x > 8) {
@@ -10747,11 +11372,11 @@ namespace Quantum.Editor {
       return buttonRect;
     }
 
-    
+
     internal static bool DrawInlineHelpButton(Rect buttonRect, bool state, bool doButton = true, bool doIcon = true) {
 
       var style = QuantumEditorSkin.HelpButtonStyle;
-      
+
       var result = false;
       if (doButton) {
         EditorGUIUtility.AddCursorRect(buttonRect, MouseCursor.Link);
@@ -10773,15 +11398,15 @@ namespace Quantum.Editor {
     internal static Vector2 GetInlineBoxSize(GUIContent content) {
 
       // const int InlineBoxExtraHeight = 4;
-      
+
       var outerStyle = QuantumEditorSkin.InlineBoxFullWidthStyle;
       var innerStyle = QuantumEditorSkin.RichLabelStyle;
-      
-      var outerMargin  = outerStyle.margin;
+
+      var outerMargin = outerStyle.margin;
       var outerPadding = outerStyle.padding;
 
       var width = UnityInternal.EditorGUIUtility.contextWidth - outerMargin.left - outerMargin.right;
-      
+
       // well... we do this, because there's no way of knowing the indent and scroll bar existence
       // when property height is calculated
       width -= 25.0f;
@@ -10789,18 +11414,18 @@ namespace Quantum.Editor {
       if (content == null || width <= 0) {
         return default;
       }
-      
+
       width -= outerPadding.left + outerPadding.right;
-      
+
       var height = innerStyle.CalcHeight(content, width);
-      
+
       // assume min height
       height = Mathf.Max(height, EditorGUIUtility.singleLineHeight);
-      
+
       // add back all the padding
       height += outerPadding.top + outerPadding.bottom;
       height += outerMargin.top + outerMargin.bottom;
-      
+
       return new Vector2(width, Mathf.Max(0, height));
     }
 
@@ -10822,23 +11447,23 @@ namespace Quantum.Editor {
           using (new BackgroundColorScope(color)) {
             QuantumEditorSkin.InlineBoxFullWidthStyle.Draw(boxRect, false, false, false, false);
 
-            var labelRect = boxRect;
-            labelRect = QuantumEditorSkin.InlineBoxFullWidthStyle.padding.Remove(labelRect);
-            QuantumEditorSkin.RichLabelStyle.Draw(labelRect, content, false, false, false, false);
-            
-            if (drawSelector) {
-              var selectorMargin = QuantumEditorSkin.InlineSelectorStyle.margin;
+              var labelRect = boxRect;
+              labelRect = QuantumEditorSkin.InlineBoxFullWidthStyle.padding.Remove(labelRect);
+              QuantumEditorSkin.RichLabelStyle.Draw(labelRect, content, false, false, false, false);
 
-              var selectorRect = new Rect() {
-                x      = selectorMargin.left,
-                y      = propertyRect.y - selectorMargin.top,
-                width  = propertyRect.x - selectorMargin.horizontal,
-                height = propertyRect.height - boxSize.y - selectorMargin.bottom,
-              };
+              if (drawSelector) {
+                var selectorMargin = QuantumEditorSkin.InlineSelectorStyle.margin;
 
-              if (hasFoldout) {
-                selectorRect.width -= 20.0f;
-              }
+                var selectorRect = new Rect() {
+                  x = selectorMargin.left,
+                  y = propertyRect.y - selectorMargin.top,
+                  width = propertyRect.x - selectorMargin.horizontal,
+                  height = propertyRect.height - boxSize.y - selectorMargin.bottom,
+                };
+
+                if (hasFoldout) {
+                  selectorRect.width -= 20.0f;
+                }
 
               QuantumEditorSkin.InlineSelectorStyle.Draw(selectorRect, false, false, false, false);
             }
@@ -10855,14 +11480,14 @@ namespace Quantum.Editor {
       if (Event.current.type != EventType.Repaint) {
         return;
       }
-      
-      var style     = QuantumEditorSkin.ScriptHeaderBackgroundStyle;
+
+      var style = QuantumEditorSkin.ScriptHeaderBackgroundStyle;
       var boxMargin = style.margin;
 
       var boxRect = new Rect() {
-        x      = boxMargin.left,
-        y      = position.y - boxMargin.top,
-        width  = UnityInternal.EditorGUIUtility.contextWidth - boxMargin.horizontal,
+        x = boxMargin.left,
+        y = position.y - boxMargin.top,
+        width = UnityInternal.EditorGUIUtility.contextWidth - boxMargin.horizontal,
         height = position.height + boxMargin.bottom,
       };
 
@@ -10876,21 +11501,21 @@ namespace Quantum.Editor {
         return;
       }
 
-      var style     = QuantumEditorSkin.ScriptHeaderIconStyle;
+      var style = QuantumEditorSkin.ScriptHeaderIconStyle;
       var boxMargin = style.margin;
-      var boxRect   = boxMargin.Remove(position);
+      var boxRect = boxMargin.Remove(position);
 
       style.Draw(boxRect, false, false, false, false);
     }
 
-    internal static bool InjectScriptHeaderDrawer(Editor editor)                               => InjectScriptHeaderDrawer(editor, out _);
+    internal static bool InjectScriptHeaderDrawer(Editor editor) => InjectScriptHeaderDrawer(editor, out _);
     internal static bool InjectScriptHeaderDrawer(Editor editor, out ScriptFieldDrawer drawer) => InjectScriptHeaderDrawer(editor.serializedObject, out drawer);
-    internal static bool InjectScriptHeaderDrawer(SerializedObject serializedObject)           => InjectScriptHeaderDrawer(serializedObject, out _);
-    
+    internal static bool InjectScriptHeaderDrawer(SerializedObject serializedObject) => InjectScriptHeaderDrawer(serializedObject, out _);
+
     internal static bool InjectScriptHeaderDrawer(SerializedObject serializedObject, out ScriptFieldDrawer drawer) {
-      var sp       = serializedObject.FindPropertyOrThrow(ScriptPropertyName);
+      var sp = serializedObject.FindPropertyOrThrow(ScriptPropertyName);
       var rootType = serializedObject.targetObject.GetType();
-      
+
       var injected = TryInjectDrawer(sp, null, () => null, () => new ScriptFieldDrawer(), out drawer);
       if (drawer.attribute == null) {
         UnityInternal.PropertyDrawer.SetAttribute(drawer, rootType.GetCustomAttributes<ScriptHelpAttribute>(true).SingleOrDefault() ?? new ScriptHelpAttribute());
@@ -10898,7 +11523,7 @@ namespace Quantum.Editor {
 
       return injected;
     }
-    
+
     internal static void SetScriptFieldHidden(Editor editor, bool hidden) {
       var sp = editor.serializedObject.FindPropertyOrThrow(ScriptPropertyName);
       TryInjectDrawer(sp, null, () => null, () => new ScriptFieldDrawer(), out var drawer);
@@ -10910,7 +11535,7 @@ namespace Quantum.Editor {
       if (fieldInfo == null) {
         return EditorGUILayout.GetControlRect(true);
       }
-      
+
       var help = QuantumCodeDoc.FindEntry(fieldInfo);
       return LayoutHelpPrefix(editor, property.propertyPath, help);
     }
@@ -10922,32 +11547,32 @@ namespace Quantum.Editor {
     
     internal static Rect LayoutHelpPrefix(ScriptableObject editor, string path, GUIContent help) {
       var rect = EditorGUILayout.GetControlRect(true);
-      
+
       if (help == null) {
         return rect;
       }
-      
-      var buttonRect  = GetInlineHelpButtonRect(rect, false);
+
+      var buttonRect = GetInlineHelpButtonRect(rect, false);
       var wasExpanded = IsHelpExpanded(editor, path);
 
       if (wasExpanded) {
         var helpSize = GetInlineBoxSize(help);
-        var r        = EditorGUILayout.GetControlRect(false, helpSize.y);
-        r.y      =  rect.y;
+        var r = EditorGUILayout.GetControlRect(false, helpSize.y);
+        r.y = rect.y;
         r.height += rect.height;
         DrawInlineBoxUnderProperty(help, r, QuantumEditorSkin.HelpInlineBoxColor, true);
       }
-      
+
       if (DrawInlineHelpButton(buttonRect, wasExpanded, doButton: true, doIcon: true)) {
         SetHelpExpanded(editor, path, !wasExpanded);
       }
-      
+
       return rect;
     }
 
     private static void AddDrawer(SerializedProperty property, PropertyDrawer drawer) {
       var handler = UnityInternal.ScriptAttributeUtility.GetHandler(property);
-      
+
       if (handler.m_PropertyDrawers == null) {
         handler.m_PropertyDrawers = new List<PropertyDrawer>();
       }
@@ -10959,7 +11584,7 @@ namespace Quantum.Editor {
       where DrawerType : PropertyDrawer {
 
       var handler = UnityInternal.ScriptAttributeUtility.GetHandler(property);
-      
+
       drawer = GetPropertyDrawer<DrawerType>(handler.m_PropertyDrawers);
       if (drawer != null) {
         return false;
@@ -10982,7 +11607,7 @@ namespace Quantum.Editor {
 
       return true;
     }
-    
+
     internal static bool IsHelpExpanded(object id, int pathHash) {
       return s_expandedHelp == (id, default, pathHash);
     }
@@ -10998,7 +11623,7 @@ namespace Quantum.Editor {
         s_expandedHelp = default;
       }
     }
-    
+
     internal static void SetHelpExpanded(object id, int pathHash, bool value) {
       if (value) {
         s_expandedHelp = (id, default, pathHash);
@@ -11006,11 +11631,11 @@ namespace Quantum.Editor {
         s_expandedHelp = default;
       }
     }
-    
+
     private static bool HasPropertyDrawer<T>(IEnumerable<PropertyDrawer> orderedDrawers) where T : PropertyDrawer {
       return orderedDrawers?.Any(x => x is T) ?? false;
     }
-    
+
     private static T GetPropertyDrawer<T>(IEnumerable<PropertyDrawer> orderedDrawers) where T : PropertyDrawer {
       return orderedDrawers?.OfType<T>().FirstOrDefault();
     }
@@ -11034,7 +11659,7 @@ namespace Quantum.Editor {
     }
 
     internal static class InlineHelpStyle {
-      public const  float      MarginOuter       = 16.0f;
+      public const float MarginOuter = 16.0f;
       public static GUIContent HideInlineContent = new("", "Hide");
       public static GUIContent ShowInlineContent = new("", "");
     }
@@ -11053,7 +11678,7 @@ namespace Quantum.Editor {
         return lazy.Value;
       }
     }
-    
+
 
     private class PropertyDrawerOrderComparer : IComparer<PropertyDrawer> {
       public static readonly PropertyDrawerOrderComparer Instance = new();
@@ -11098,7 +11723,7 @@ namespace Quantum.Editor {
       return EditorGUI.ObjectField(position, value, objectType, allowSceneObjects);
 #endif
     }
-    
+
     internal static UnityEngine.Object ForwardObjectField(Rect position, GUIContent label, UnityEngine.Object value, Type objectType, bool allowSceneObjects) {
 #if ODIN_INSPECTOR && !QUANTUM_ODIN_DISABLED
       return SirenixEditorFields.UnityObjectField(position, label, value, objectType, allowSceneObjects);
@@ -11107,7 +11732,7 @@ namespace Quantum.Editor {
 #endif
     }
 
-    
+
     internal static bool ForwardPropertyField(Rect position, SerializedProperty property, GUIContent label, bool includeChildren, bool lastDrawer = true) {
 #if ODIN_INSPECTOR && !QUANTUM_ODIN_DISABLED
       if (lastDrawer) {
@@ -11210,7 +11835,7 @@ namespace Quantum.Editor {
             }
 
           default:
-            break; 
+            break;
         }
       }
 #endif
@@ -11234,11 +11859,11 @@ namespace Quantum.Editor {
   using UnityEngine;
 
   static partial class QuantumEditorGUI {
- 
+
     public sealed class CustomEditorScope : IDisposable {
 
       private SerializedObject serializedObject;
-      public  bool             HadChanges { get; private set; }
+      public bool HadChanges { get; private set; }
 
       public CustomEditorScope(SerializedObject so) {
         serializedObject = so;
@@ -11252,12 +11877,12 @@ namespace Quantum.Editor {
         serializedObject.ApplyModifiedProperties();
       }
     }
-    
-    public struct EnabledScope: IDisposable {
+
+    public struct EnabledScope : IDisposable {
       private readonly bool value;
 
       public EnabledScope(bool enabled) {
-        value       = GUI.enabled;
+        value = GUI.enabled;
         GUI.enabled = enabled;
       }
 
@@ -11270,7 +11895,7 @@ namespace Quantum.Editor {
       private readonly Color value;
 
       public BackgroundColorScope(Color color) {
-        value               = GUI.backgroundColor;
+        value = GUI.backgroundColor;
         GUI.backgroundColor = color;
       }
 
@@ -11279,11 +11904,11 @@ namespace Quantum.Editor {
       }
     }
 
-    public struct ColorScope: IDisposable {
+    public struct ColorScope : IDisposable {
       private readonly Color value;
 
       public ColorScope(Color color) {
-        value     = GUI.color;
+        value = GUI.color;
         GUI.color = color;
       }
 
@@ -11292,11 +11917,11 @@ namespace Quantum.Editor {
       }
     }
 
-    public struct ContentColorScope: IDisposable {
+    public struct ContentColorScope : IDisposable {
       private readonly Color value;
 
       public ContentColorScope(Color color) {
-        value            = GUI.contentColor;
+        value = GUI.contentColor;
         GUI.contentColor = color;
       }
 
@@ -11305,11 +11930,11 @@ namespace Quantum.Editor {
       }
     }
 
-    public struct FieldWidthScope: IDisposable {
+    public struct FieldWidthScope : IDisposable {
       private readonly float value;
 
       public FieldWidthScope(float fieldWidth) {
-        value                       = EditorGUIUtility.fieldWidth;
+        value = EditorGUIUtility.fieldWidth;
         EditorGUIUtility.fieldWidth = fieldWidth;
       }
 
@@ -11318,11 +11943,11 @@ namespace Quantum.Editor {
       }
     }
 
-    public struct HierarchyModeScope: IDisposable {
+    public struct HierarchyModeScope : IDisposable {
       private readonly bool value;
 
       public HierarchyModeScope(bool value) {
-        this.value                     = EditorGUIUtility.hierarchyMode;
+        this.value = EditorGUIUtility.hierarchyMode;
         EditorGUIUtility.hierarchyMode = value;
       }
 
@@ -11331,11 +11956,11 @@ namespace Quantum.Editor {
       }
     }
 
-    public struct IndentLevelScope: IDisposable {
+    public struct IndentLevelScope : IDisposable {
       private readonly int value;
 
       public IndentLevelScope(int indentLevel) {
-        value                 = EditorGUI.indentLevel;
+        value = EditorGUI.indentLevel;
         EditorGUI.indentLevel = indentLevel;
       }
 
@@ -11344,11 +11969,11 @@ namespace Quantum.Editor {
       }
     }
 
-    public struct LabelWidthScope: IDisposable {
+    public struct LabelWidthScope : IDisposable {
       private readonly float value;
 
       public LabelWidthScope(float labelWidth) {
-        value                       = EditorGUIUtility.labelWidth;
+        value = EditorGUIUtility.labelWidth;
         EditorGUIUtility.labelWidth = labelWidth;
       }
 
@@ -11357,11 +11982,11 @@ namespace Quantum.Editor {
       }
     }
 
-    public struct ShowMixedValueScope: IDisposable {
+    public struct ShowMixedValueScope : IDisposable {
       private readonly bool value;
 
       public ShowMixedValueScope(bool show) {
-        value                    = EditorGUI.showMixedValue;
+        value = EditorGUI.showMixedValue;
         EditorGUI.showMixedValue = show;
       }
 
@@ -11379,7 +12004,7 @@ namespace Quantum.Editor {
         EditorGUI.EndDisabledGroup();
       }
     }
-    
+
     public struct PropertyScope : IDisposable {
       public PropertyScope(Rect position, GUIContent label, SerializedProperty property) {
         EditorGUI.BeginProperty(position, label, property);
@@ -11395,8 +12020,8 @@ namespace Quantum.Editor {
 
       public PropertyScopeWithPrefixLabel(Rect position, GUIContent label, SerializedProperty property, out Rect indentedPosition) {
         EditorGUI.BeginProperty(position, label, property);
-        indentedPosition      = EditorGUI.PrefixLabel(position, label);
-        indent                = EditorGUI.indentLevel;
+        indentedPosition = EditorGUI.PrefixLabel(position, label);
+        indent = EditorGUI.indentLevel;
         EditorGUI.indentLevel = 0;
       }
 
@@ -11406,10 +12031,10 @@ namespace Quantum.Editor {
       }
     }
 
-    public readonly struct BoxScope: IDisposable {
-      
+    public readonly struct BoxScope : IDisposable {
+
       private readonly int _indent;
-      
+
       /// <summary>
       ///if fields include inline help (?) buttons, use indent : 1 
       /// </summary>
@@ -11429,66 +12054,80 @@ namespace Quantum.Editor {
           EditorGUI.indentLevel += indent;
         }
       }
-      
+
       public void Dispose() {
         EditorGUI.indentLevel = _indent;
         EditorGUILayout.EndVertical();
       }
     }
-    public struct WarningScope: IDisposable {
+    public struct WarningScope : IDisposable {
+
+      bool _isValid;
+
       public WarningScope(string message, float space = 0.0f) {
 
         var backgroundColor = GUI.backgroundColor;
-        
+
         GUI.backgroundColor = QuantumEditorSkin.WarningInlineBoxColor;
         EditorGUILayout.BeginVertical(QuantumEditorSkin.InlineBoxFullWidthScopeStyle);
         GUI.backgroundColor = backgroundColor;
-        
+
         EditorGUILayout.LabelField(new GUIContent(message, QuantumEditorSkin.WarningIcon), QuantumEditorSkin.RichLabelStyle);
         if (space > 0.0f) {
           GUILayout.Space(space);
         }
+
+        _isValid = true;
       }
-      
+
       public void Dispose() {
-        EditorGUILayout.EndVertical();
+        if (_isValid) {
+          EditorGUILayout.EndVertical();
+        }
       }
     }
 
     public struct ErrorScope : IDisposable {
+
+      bool _isValid;
+
       public ErrorScope(string message, float space = 0.0f) {
         var backgroundColor = GUI.backgroundColor;
-        
+
         GUI.backgroundColor = QuantumEditorSkin.ErrorInlineBoxColor;
         EditorGUILayout.BeginVertical(QuantumEditorSkin.InlineBoxFullWidthScopeStyle);
         GUI.backgroundColor = backgroundColor;
-        
+
         EditorGUILayout.LabelField(new GUIContent(message, QuantumEditorSkin.ErrorIcon), QuantumEditorSkin.RichLabelStyle);
         if (space > 0.0f) {
           GUILayout.Space(space);
         }
+
+        _isValid = true;
       }
-      
+
       public void Dispose() {
-        EditorGUILayout.EndVertical();
+        if (_isValid) {
+          EditorGUILayout.EndVertical();
+        }
       }
     }
 
     public readonly struct GUIContentScope : IDisposable {
 
-      private readonly string     _text;
-      private readonly string     _tooltip;
+      private readonly string _text;
+      private readonly string _tooltip;
       private readonly GUIContent _content;
 
       public GUIContentScope(GUIContent content) {
         _content = content;
-        _text    = content?.text;
+        _text = content?.text;
         _tooltip = content?.tooltip;
       }
 
       public void Dispose() {
         if (_content != null) {
-          _content.text    = _text;
+          _content.text = _text;
           _content.tooltip = _tooltip;
         }
       }
@@ -11533,9 +12172,9 @@ namespace Quantum.Editor {
         rect.xMin += EditorGUIUtility.labelWidth;
       }
 
-      var content  = EditorGUIUtility.TrTextContentWithIcon(string.Empty, tooltip, messageType);
+      var content = EditorGUIUtility.TrTextContentWithIcon(string.Empty, tooltip, messageType);
       var iconRect = rect;
-      iconRect.width =  Mathf.Min(16, rect.width);
+      iconRect.width = Mathf.Min(16, rect.width);
 
       if (rightAligned) {
         iconRect.x = rect.xMax - iconRect.width;
@@ -11543,8 +12182,8 @@ namespace Quantum.Editor {
         iconRect.xMin -= iconRect.width;
       }
 
-      iconRect.y      += (iconRect.height - IconHeight) / 2;
-      iconRect.height =  IconHeight;
+      iconRect.y += (iconRect.height - IconHeight) / 2;
+      iconRect.height = IconHeight;
 
       if (drawButton) {
         using (new EnabledScope(true)) {
@@ -11588,7 +12227,7 @@ namespace Quantum.Editor {
     internal static void ScriptPropertyField(Editor editor) {
       ScriptPropertyField(editor.serializedObject);
     }
-    
+
     internal static void ScriptPropertyField(SerializedObject obj) {
       var scriptProperty = obj.FindProperty(ScriptPropertyName);
       if (scriptProperty != null) {
@@ -11601,11 +12240,11 @@ namespace Quantum.Editor {
     internal static void Overlay(Rect position, string label) {
       GUI.Label(position, label, QuantumEditorSkin.OverlayLabelStyle);
     }
-    
+
     internal static void Overlay(Rect position, GUIContent label) {
       GUI.Label(position, label, QuantumEditorSkin.OverlayLabelStyle);
     }
-    
+
     internal static float GetLinesHeight(int count) {
       return count * (EditorGUIUtility.singleLineHeight) + (count - 1) * EditorGUIUtility.standardVerticalSpacing;
     }
@@ -11616,19 +12255,17 @@ namespace Quantum.Editor {
       }
       return count * (EditorGUIUtility.singleLineHeight) + (count - 1) * EditorGUIUtility.standardVerticalSpacing;
     }
-    
+
     internal static System.Type GetDrawerTypeIncludingWorkarounds(System.Attribute attribute) {
       var drawerType = UnityInternal.ScriptAttributeUtility.GetDrawerTypeForType(attribute.GetType(), false);
-      if (drawerType == null) {
-        return null;
-      }
-
+#if !UNITY_6000_0_OR_NEWER
       if (drawerType == typeof(PropertyDrawerForArrayWorkaround)) {
         drawerType = PropertyDrawerForArrayWorkaround.GetDrawerType(attribute.GetType());
       }
+#endif
       return drawerType;
     }
-    
+
     internal static void DisplayTypePickerMenu(Rect position, Type[] baseTypes, Action<Type> callback, Func<Type, bool> filter, string noneOptionLabel = "[None]", Type selectedType = null, QuantumEditorGUIDisplayTypePickerMenuFlags flags = QuantumEditorGUIDisplayTypePickerMenuFlags.Default) {
 
       var types = new List<Type>();
@@ -11667,7 +12304,7 @@ namespace Quantum.Editor {
               typeName = typeName.Substring(t.Namespace.Length + 1);
             }
           }
-          
+
           string path;
           if ((flags & QuantumEditorGUIDisplayTypePickerMenuFlags.GroupByNamespace) != 0) {
             path = ns.Key + "/" + typeName;
@@ -11694,18 +12331,18 @@ namespace Quantum.Editor {
         callback(newType);
       }, actualTypes);
     }
-    
-        
+
+
     internal static void DisplayTypePickerMenu(Rect position, Type[] baseTypes, Action<Type> callback, string noneOptionLabel = "[None]", Type selectedType = null, bool enableAbstract = false, bool enableGenericTypeDefinitions = false, QuantumEditorGUIDisplayTypePickerMenuFlags flags = QuantumEditorGUIDisplayTypePickerMenuFlags.Default) {
-      DisplayTypePickerMenu(position, baseTypes, callback, 
+      DisplayTypePickerMenu(position, baseTypes, callback,
         x => (enableAbstract || !x.IsAbstract) && (enableGenericTypeDefinitions || !x.IsGenericTypeDefinition),
         noneOptionLabel: noneOptionLabel,
         flags: flags,
         selectedType: selectedType);
     }
-    
+
     internal static void DisplayTypePickerMenu(Rect position, Type baseType, Action<Type> callback, string noneOptionLabel = "[None]", Type selectedType = null, bool enableAbstract = false, bool enableGenericTypeDefinitions = false, QuantumEditorGUIDisplayTypePickerMenuFlags flags = QuantumEditorGUIDisplayTypePickerMenuFlags.Default) {
-      DisplayTypePickerMenu(position, new [] { baseType }, callback, 
+      DisplayTypePickerMenu(position, new[] { baseType }, callback,
         x => (enableAbstract || !x.IsAbstract) && (enableGenericTypeDefinitions || !x.IsGenericTypeDefinition),
         noneOptionLabel: noneOptionLabel,
         flags: flags,
@@ -11716,7 +12353,7 @@ namespace Quantum.Editor {
       return EditorGUI.GetPropertyHeight(property, WhitespaceContent, property.isExpanded || property.IsArrayProperty());
     }
   }
-  
+
   /// <summary>
   /// Flags for the <see cref="QuantumEditorGUI.DisplayTypePickerMenu(UnityEngine.Rect,System.Type[],System.Action{System.Type},System.Func{System.Type,bool},string,System.Type,Quantum.Editor.QuantumEditorGUIDisplayTypePickerMenuFlags)"/> method
   /// and its overloads.
@@ -11726,7 +12363,7 @@ namespace Quantum.Editor {
     /// <summary>
     /// No special flags
     /// </summary>
-    None             = 0,
+    None = 0,
     /// <summary>
     /// Group types by their namespace
     /// </summary>
@@ -11734,11 +12371,11 @@ namespace Quantum.Editor {
     /// <summary>
     /// Show the full name of the type including the namespace
     /// </summary>
-    ShowFullName     = 1 << 0,
+    ShowFullName = 1 << 0,
     /// <summary>
     /// The default flags
     /// </summary>
-    Default          = GroupByNamespace,
+    Default = GroupByNamespace,
   }
 }
 
@@ -11755,19 +12392,19 @@ namespace Quantum.Editor {
     /// <summary>
     /// Top priority.
     /// </summary>
-    TOP           = 1000,
+    TOP = 1000,
     /// <summary>
     /// Generic section 1.
     /// </summary>
-    SECTION_1     = 2000,
+    SECTION_1 = 2000,
     /// <summary>
     /// Demo and sample entries.
     /// </summary>
-    Demo          = SECTION_1 + 0,
+    Demo = SECTION_1 + 0,
     /// <summary>
     /// Export entries.
     /// </summary>
-    Export        = SECTION_1 + 9,
+    Export = SECTION_1 + 9,
     /// <summary>
     /// Configuration entries.
     /// </summary>
@@ -11775,32 +12412,35 @@ namespace Quantum.Editor {
     /// <summary>
     /// Select windows.
     /// </summary>
-    Profilers     = SECTION_1 + 27,
+    Profilers = SECTION_1 + 27,
     /// <summary>
     /// Setup and create entries.
     /// </summary>
-    Setup         = SECTION_1 + 36,
+    Setup = SECTION_1 + 36,
     /// <summary>
     /// Select windows.
     /// </summary>
-    Window        = SECTION_1 + 45,
-    SECTION_2     = 3000,
+    Window = SECTION_1 + 45,
+    /// <summary>
+    /// Generic section 2
+    /// </summary>
+    SECTION_2 = 3000,
     /// <summary>
     /// Map baking menu items.
     /// </summary>
-    Bake          = SECTION_2 + 0,
+    Bake = SECTION_2 + 0,
     /// <summary>
     /// Generic section 3
     /// </summary>
-    SECTION_3     = 4000,
+    SECTION_3 = 4000,
     /// <summary>
     /// code gen menu items.
     /// </summary>
-    CodeGen       = SECTION_3 + 0,
+    CodeGen = SECTION_3 + 0,
     /// <summary>
     /// Bottom priority.
     /// </summary>
-    BOTTOM        = 5000,
+    BOTTOM = 5000,
   }
 }
 
@@ -11810,7 +12450,18 @@ namespace Quantum.Editor {
 #region QuantumEditorUtility.cs
 
 namespace Quantum.Editor {
+  using System;
+  using System.Collections.Generic;
+  using System.Diagnostics;
+  using System.Linq;
   using UnityEditor;
+  using UnityEngine;
+
+#if UNITY_6000_3_OR_NEWER
+  using ObjectIdType = UnityEngine.EntityId;
+#else 
+  using ObjectIdType = System.Int32;
+#endif
 
   partial class QuantumEditorUtility {
     public static void DelayCall(EditorApplication.CallbackFunction callback) {
@@ -11818,6 +12469,120 @@ namespace Quantum.Editor {
       EditorApplication.delayCall -= callback;
       EditorApplication.delayCall += callback;
     }
+
+
+    public static (int? ExitCode, string[] Output) StartAndJoinDotNetProcessWithCancelableProgressBar(string arguments, string workingDirectory = null) {
+#if UNITY_EDITOR_WIN
+      var path = "dotnet";
+#else
+      // search paths are minimal without a login shell on Mac
+      // likely the same for Linux
+      var path = "sh";
+      arguments = $" --login -c 'dotnet {arguments}'";
+#endif
+      var startInfo = new ProcessStartInfo() {
+        FileName = path,
+        Arguments = arguments,
+        UseShellExecute = false,
+        RedirectStandardError = true,
+        RedirectStandardInput = true,
+        RedirectStandardOutput = true,
+        CreateNoWindow = true,
+        WorkingDirectory = workingDirectory ?? string.Empty,
+      };
+
+      var p = new Process() { StartInfo = startInfo };
+
+      List<string> output = new();
+      p.OutputDataReceived += (sender, args) => {
+        output.Add(args.Data);
+      };
+      p.ErrorDataReceived += (sender, args) => {
+        output.Add(args.Data);
+      };
+
+      p.Start();
+      p.BeginErrorReadLine();
+      p.BeginOutputReadLine();
+
+      var exitCode = JoinProcessWithCancelableProgressBar(p, $"Executing: {startInfo.FileName} {startInfo.Arguments}", () => output.LastOrDefault());
+      return (exitCode, output.ToArray());
+    }
+
+    public static int? JoinProcessWithCancelableProgressBar(Process p, string title, Func<string> info) {
+      try {
+        for (; ; ) {
+          if (p.WaitForExit(10)) {
+            return p.ExitCode;
+          }
+
+          if (EditorUtility.DisplayCancelableProgressBar(title, info() ?? string.Empty, -1)) {
+            return null;
+          }
+        }
+      } finally {
+        EditorUtility.ClearProgressBar();
+      }
+    }
+    
+    public static UnityEngine.Object IdToObject(ulong id) {
+#if UNITY_6000_4_OR_NEWER
+      return UnityEditor.EditorUtility.EntityIdToObject(UnityEngine.EntityId.FromULong(id));
+#else
+      var intId = unchecked((int)(uint)id);
+#if UNITY_6000_3_OR_NEWER
+      return UnityEditor.EditorUtility.EntityIdToObject(intId);
+#else
+      return UnityEditor.EditorUtility.InstanceIDToObject(intId);
+#endif
+#endif
+    }
+
+    public static UnityEngine.Object IdToObject(ObjectIdType id) {
+#if UNITY_6000_3_OR_NEWER
+      return EditorUtility.EntityIdToObject(id);
+#else
+      return EditorUtility.InstanceIDToObject(id);
+#endif
+    }
+    
+#if UNITY_6000_4_OR_NEWER
+    // ReSharper disable once InconsistentNaming
+    public static event EditorApplication.HierarchyWindowItemByEntityIdCallback hierarchyWindowItemOnGUI {
+      add => EditorApplication.hierarchyWindowItemByEntityIdOnGUI += value;
+      remove => EditorApplication.hierarchyWindowItemByEntityIdOnGUI -= value;
+    }
+#elif UNITY_6000_3_OR_NEWER
+    // ReSharper disable once InconsistentNaming
+    class HierarchyWindowDelegateWrapper {
+      public readonly System.Action<EntityId, Rect> action;
+      public HierarchyWindowDelegateWrapper(System.Action<EntityId, Rect> action) { this.action = action; }
+      public void Invoke(int id, Rect rect) => action((EntityId)id, rect);
+    }
+    public static event System.Action<EntityId, Rect> hierarchyWindowItemOnGUI {
+      add {
+        EditorApplication.hierarchyWindowItemOnGUI += new HierarchyWindowDelegateWrapper(value).Invoke;
+      }
+      remove {
+        if (EditorApplication.hierarchyWindowItemOnGUI == null) {
+          return;
+        }
+        
+        foreach (var del in EditorApplication.hierarchyWindowItemOnGUI.GetInvocationList()) {
+          if (del.Target is HierarchyWindowDelegateWrapper h && h.action == value) {
+            EditorApplication.hierarchyWindowItemOnGUI -= (EditorApplication.HierarchyWindowItemCallback)del;
+            return;
+          }
+        }
+      }
+    }
+#else
+    // ReSharper disable once InconsistentNaming
+    public static event EditorApplication.HierarchyWindowItemCallback hierarchyWindowItemOnGUI {
+      add => EditorApplication.hierarchyWindowItemOnGUI += value;
+      remove => EditorApplication.hierarchyWindowItemOnGUI -= value;
+    }
+#endif
   }
 }
 
@@ -11838,6 +12603,7 @@ namespace Quantum.Editor {
       var defaultAssetPath = QuantumGlobalScriptableObjectUtils.FindDefaultAssetPath(type, fallbackToSearchWithoutLabel: true);
       if (string.IsNullOrEmpty(defaultAssetPath)) {
         return default;
+
       }
 
       var result = (QuantumGlobalScriptableObject)AssetDatabase.LoadAssetAtPath(defaultAssetPath, type);
@@ -11876,7 +12642,7 @@ namespace Quantum.Editor {
     public static void SetDirty(this QuantumGlobalScriptableObject obj) {
       EditorUtility.SetDirty(obj);
     }
-    
+
     /// <summary>
     /// Locates the asset that is going to be used as a global asset for the given type, that is
     /// an asset marked with the <see cref="GlobalAssetLabel"/> label. If there are multiple such assets,
@@ -11949,9 +12715,9 @@ namespace Quantum.Editor {
         EditorUtility.SetDirty(instance);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        
+
         QuantumEditorLog.TraceImport($"Created new global {type.Name} instance at {attribute.DefaultPath}");
-        
+
         return instance;
       } else {
         string defaultContents = null;
@@ -11966,7 +12732,7 @@ namespace Quantum.Editor {
         if (defaultContents == null) {
           defaultContents = attribute.DefaultContents;
         }
-        
+
         File.WriteAllText(attribute.DefaultPath, defaultContents ?? string.Empty);
         AssetDatabase.ImportAsset(attribute.DefaultPath, ImportAssetOptions.ForceUpdate);
 
@@ -11974,13 +12740,13 @@ namespace Quantum.Editor {
         if (!instance) {
           throw new InvalidOperationException($"Failed to load a newly created asset at '{attribute.DefaultPath}'");
         }
-        
+
         SetGlobal(instance);
         QuantumEditorLog.TraceImport($"Created new global {type.Name} instance at {attribute.DefaultPath}");
         return instance;
       }
     }
-    
+
     private static bool IsDefault(this QuantumGlobalScriptableObject obj) {
       return Array.IndexOf(AssetDatabase.GetLabels(obj), GlobalAssetLabel) >= 0;
     }
@@ -12104,39 +12870,45 @@ namespace Quantum.Editor {
   using UnityEngine;
   using Object = UnityEngine.Object;
 
+#if UNITY_6000_2_OR_NEWER
+  using TreeViewState = UnityEditor.IMGUI.Controls.TreeViewState<int>;
+  using TreeViewItem = UnityEditor.IMGUI.Controls.TreeViewItem<int>;
+  using TreeView = UnityEditor.IMGUI.Controls.TreeView<int>;
+#endif
+
   [Serializable]
   class QuantumGridState : TreeViewState {
     public MultiColumnHeaderState HeaderState;
-    public bool                   SyncSelection;
+    public bool SyncSelection;
   }
-  
+
   class QuantumGridItem : TreeViewItem {
     public virtual Object TargetObject => null;
   }
-  
-  abstract class QuantumGrid<TItem> : QuantumGrid<TItem, QuantumGridState> 
+
+  [Serializable]
+  abstract class QuantumGrid<TItem> : QuantumGrid<TItem, QuantumGridState>
     where TItem : QuantumGridItem {
   }
-  
+
   [Serializable]
-  abstract class QuantumGrid<TItem, TState> 
-    where TState : QuantumGridState, new() 
-    where TItem : QuantumGridItem
-  {
-    [SerializeField] public bool   HasValidState;
+  abstract class QuantumGrid<TItem, TState>
+    where TState : QuantumGridState, new()
+    where TItem : QuantumGridItem {
+    [SerializeField] public bool HasValidState;
     [SerializeField] public TState State;
-    [SerializeField] public float  UpdatePeriod = 1.0f;
-    
+    [SerializeField] public float UpdatePeriod = 1.0f;
+
     class GUIState {
-      public InternalTreeView  TreeView;
+      public InternalTreeView TreeView;
       public MultiColumnHeader MultiColumnHeader;
-      public SearchField       SearchField;
+      public SearchField SearchField;
     }
 
     [NonSerialized] private Lazy<GUIState> _gui;
     [NonSerialized] private Lazy<Column[]> _columns;
-    [NonSerialized] private float          _nextUpdateTime;
-    [NonSerialized] private int            _lastContentHash;
+    [NonSerialized] private float _nextUpdateTime;
+    [NonSerialized] private int _lastContentHash;
 
     public virtual int GetContentHash() {
       return 0;
@@ -12157,7 +12929,7 @@ namespace Quantum.Editor {
         return columns;
       });
     }
-    
+
     void ResetGUI() {
       _gui = new Lazy<GUIState>(() => {
 
@@ -12173,8 +12945,8 @@ namespace Quantum.Editor {
         return result;
       });
     }
-    
-    
+
+
     public void OnInspectorUpdate() {
       if (!HasValidState) {
         return;
@@ -12183,13 +12955,13 @@ namespace Quantum.Editor {
       if (!_gui.IsValueCreated) {
         return;
       }
-      
+
       if (_nextUpdateTime > Time.realtimeSinceStartup) {
         return;
       }
-      
+
       _nextUpdateTime = Time.realtimeSinceStartup + UpdatePeriod;
-      
+
       var hash = GetContentHash();
       if (_lastContentHash == hash) {
         return;
@@ -12198,18 +12970,18 @@ namespace Quantum.Editor {
       _lastContentHash = hash;
       _gui.Value.TreeView.Reload();
     }
-    
+
     public void OnEnable() {
       if (HasValidState) {
         return;
       }
-      
+
       var visibleColumns = new List<int>();
       int sortingColumn = -1;
 
       for (int i = 0; i < _columns.Value.Length; ++i) {
         var column = _columns.Value[i];
-        
+
         if (sortingColumn < 0 && column.initiallySorted) {
           sortingColumn = i;
           column.sortedAscending = column.initiallySortedAscending;
@@ -12218,10 +12990,10 @@ namespace Quantum.Editor {
         if (!column.initiallyVisible) {
           continue;
         }
-        
+
         visibleColumns.Add(i);
       }
-      
+
       var headerState = new MultiColumnHeaderState(_columns.Value.Cast<MultiColumnHeaderState.Column>().ToArray()) {
         visibleColumns = visibleColumns.ToArray(),
         sortedColumnIndex = sortingColumn,
@@ -12231,11 +13003,11 @@ namespace Quantum.Editor {
       HasValidState = true;
       ResetGUI();
     }
-    
+
     public void OnGUI(Rect rect) {
       _gui.Value.TreeView.OnGUI(rect);
     }
-    
+
     public void DrawToolbarReloadButton() {
       if (GUILayout.Button(new GUIContent(QuantumEditorSkin.RefreshIcon, "Refresh"), EditorStyles.toolbarButton, GUILayout.ExpandWidth(false))) {
         _gui.Value.TreeView.Reload();
@@ -12262,13 +13034,13 @@ namespace Quantum.Editor {
         ResetColumns();
       }
     }
-    
+
     public void ResetTree() {
       ResetGUI();
     }
 
     protected abstract IEnumerable<Column> CreateColumns();
-    protected abstract IEnumerable<TItem>  CreateRows();
+    protected abstract IEnumerable<TItem> CreateRows();
 
     protected virtual GenericMenu CreateContextMenu(TItem item, TreeView treeView) {
       return null;
@@ -12282,7 +13054,7 @@ namespace Quantum.Editor {
       } else {
         throw new ArgumentException("Expression is not a member access expression.");
       }
-      
+
       var accessor = propertyExpression.Compile();
       Func<TItem, string> toString = item => $"{accessor(item)}";
 
@@ -12292,46 +13064,46 @@ namespace Quantum.Editor {
       if (string.IsNullOrEmpty(column.headerContent.text) && string.IsNullOrEmpty(column.headerContent.tooltip)) {
         column.headerContent = new GUIContent(propertyName);
       }
-        
+
       return column;
     }
-    
-    public class Column  : MultiColumnHeaderState.Column {
-      public Func<TItem, string>             getSearchText;
-      public Func<int, Comparison<TItem>>    getComparer;
+
+    public class Column : MultiColumnHeaderState.Column {
+      public Func<TItem, string> getSearchText;
+      public Func<int, Comparison<TItem>> getComparer;
       public Action<TItem, Rect, bool, bool> cellGUI;
-      public bool                            initiallyVisible = true;
-      public bool                            initiallySorted;
-      public bool                            initiallySortedAscending = true;
+      public bool initiallyVisible = true;
+      public bool initiallySorted;
+      public bool initiallySortedAscending = true;
 
       //
       // [Obsolete("Do not use", true)]
       // public new int userData => throw new NotImplementedException();
     }
-    
+
     class InternalTreeView : TreeView {
       public InternalTreeView(QuantumGrid<TItem, TState> grid, MultiColumnHeader header) : base(grid.State, header) {
         Grid = grid;
         showAlternatingRowBackgrounds = true;
         this.Reload();
       }
-      
+
       public new TState state => (TState)base.state;
-      
+
       public QuantumGrid<TItem, TState> Grid { get; }
 
-      
+
       protected override void SelectionChanged(IList<int> selectedIds) {
         base.SelectionChanged(selectedIds);
         if (state.SyncSelection) {
           SyncSelection();
         }
       }
-      
+
       protected override void SingleClickedItem(int id) {
         if (state.SyncSelection) {
           var item = (TItem)FindItem(id, rootItem);
-          var obj  = item.TargetObject;
+          var obj = item.TargetObject;
           if (obj) {
             EditorGUIUtility.PingObject(obj);
           }
@@ -12339,7 +13111,7 @@ namespace Quantum.Editor {
 
         base.SingleClickedItem(id);
       }
-      
+
       public void SyncSelection() {
         List<Object> selection = new List<Object>();
         foreach (var id in this.state.selectedIDs) {
@@ -12354,31 +13126,31 @@ namespace Quantum.Editor {
         }
         Selection.objects = selection.ToArray();
       }
-      
-      
+
+
       private Column GetColumnForIndex(int index) {
         var column = multiColumnHeader.GetColumn(index);
         var ud = column.userData;
         return Grid._columns.Value[ud];
       }
-      
+
       protected override TreeViewItem BuildRoot() {
         var allItems = new List<TItem>();
 
         var root = new TreeViewItem {
-          id          = 0,
-          depth       = -1,
+          id = 0,
+          depth = -1,
           displayName = "Root"
         };
-        
+
         foreach (var row in Grid.CreateRows()) {
           allItems.Add(row);
         }
-        
+
         SetupParentsAndChildrenFromDepths(root, allItems.Cast<TreeViewItem>().ToList());
         return root;
       }
-      
+
       private class ComparisonComparer : IComparer<TItem> {
         public Comparison<TItem> Comparison;
         public int Compare(TItem x, TItem y) => Comparison(x, y);
@@ -12398,7 +13170,7 @@ namespace Quantum.Editor {
         if (comparision == null) {
           return base.BuildRows(root);
         }
-        
+
         // stable sort
         return base.BuildRows(root).OrderBy(x => (TItem)x, new ComparisonComparer() { Comparison = comparision }).ToArray();
       }
@@ -12424,7 +13196,7 @@ namespace Quantum.Editor {
           column.cellGUI?.Invoke(item, cellRect, args.selected, args.focused);
         }
       }
-      
+
       protected override bool DoesItemMatchSearch(TreeViewItem item_, string search) {
         var item = item_ as TItem;
         if (item == null) {
@@ -12443,7 +13215,7 @@ namespace Quantum.Editor {
             continue;
           }
 
-          
+
           var column = GetColumnForIndex(i);
           var text = column.getSearchText?.Invoke(item);
 
@@ -12467,9 +13239,9 @@ namespace Quantum.Editor {
         return false;
       }
     }
-    
+
     class InternalTreeViewItem : TreeViewItem {
-      
+
     }
   }
 }
@@ -12483,6 +13255,7 @@ namespace Quantum.Editor {
   using UnityEditor;
 
   [CustomEditor(typeof(QuantumMonoBehaviour), true)]
+  [CanEditMultipleObjects]
   internal class QuantumMonoBehaviourDefaultEditor : QuantumEditor {
   }
 }
@@ -12497,7 +13270,7 @@ namespace Quantum.Editor {
 
   [AttributeUsage(AttributeTargets.Class)]
   class QuantumPropertyDrawerMetaAttribute : Attribute {
-    public bool HasFoldout   { get; set; }
+    public bool HasFoldout { get; set; }
     public bool HandlesUnits { get; set; }
   }
 }
@@ -12529,8 +13302,8 @@ namespace Quantum.Editor {
 
   struct RawDataDrawer {
     private StringBuilder _builder;
-    private GUIContent    _lastValue;
-    private int           _lastHash;
+    private GUIContent _lastValue;
+    private int _lastHash;
 
     public void Clear() {
       _builder?.Clear();
@@ -12542,8 +13315,8 @@ namespace Quantum.Editor {
 
     public unsafe void Refresh<T>(Span<T> data, int maxLength = 2048, bool addSpaces = true) where T : unmanaged {
 
-      int charactersPerElement = 2 * sizeof(T); 
-        
+      int charactersPerElement = 2 * sizeof(T);
+
       int arrayHash = 0;
       int effectiveArraySize;
       {
@@ -12584,7 +13357,7 @@ namespace Quantum.Editor {
 
     public void Refresh(IList<byte> values, int maxLength = 2048) {
       Assert.Check(values != null);
-      
+
       const int charactersPerElement = 2;
       int arraySize = values.Count;
       int arrayHash = 0;
@@ -12620,7 +13393,7 @@ namespace Quantum.Editor {
         Debug.Assert(_lastValue != null);
       }
     }
-    
+
     public void Refresh(SerializedProperty property, int maxLength = 2048) {
       Assert.Check(property != null);
       Assert.Check(property.isArray);
@@ -12687,7 +13460,7 @@ namespace Quantum.Editor {
     }
 
     public string Draw(Rect position) => Draw(GUIContent.none, position);
-    
+
     public string Draw(GUIContent label, Rect position) {
       var id = GUIUtility.GetControlID(UnityInternal.EditorGUI.DelayedTextFieldHash, FocusType.Keyboard, position);
       return UnityInternal.EditorGUI.DelayedTextFieldInternal(position, id, label, _lastValue.text ?? string.Empty, "0123456789abcdefABCDEF ", QuantumEditorSkin.RawDataStyle);
@@ -12716,6 +13489,46 @@ namespace Quantum.Editor {
   static partial class ReflectionUtils {
     public const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
     
+#if UNITY_6000_4_OR_NEWER
+    static IReadOnlyList<Assembly> GetLoadedAssemblies() => UnityEngine.Assemblies.CurrentAssemblies.GetLoadedAssemblies();
+#else
+    static IReadOnlyList<Assembly> GetLoadedAssemblies() => AppDomain.CurrentDomain.GetAssemblies(); 
+#endif
+    
+    public static Assembly FindAssembly(string assemblyName) {
+      return GetLoadedAssemblies().FirstOrDefault(a => a.GetName().Name == assemblyName);
+    }
+
+    public static Type FindTypeByFullName(string fullTypeName) {
+      foreach (var assembly in GetLoadedAssemblies()) {
+        Type type = assembly.GetType(fullTypeName);
+        if (type != null) {
+          return type;
+        }
+      }
+
+      return null;
+    }
+
+    public static Type FindTypeByName(string typeName) {
+      foreach (var assembly in GetLoadedAssemblies()) {
+        Type[] types;
+        try {
+          types = assembly.GetTypes();
+        } catch (ReflectionTypeLoadException ex) {
+          types = ex.Types;
+        }
+
+        foreach (var t in types) {
+          if (t?.Name.Equals(typeName) == true) {
+            return t;
+          }
+        }
+      }
+      
+      return null;
+    }
+
     public static Type GetUnityLeafType(this Type type) {
       if (type.HasElementType) {
         type = type.GetElementType();
@@ -12759,19 +13572,19 @@ namespace Quantum.Editor {
         throw new InvalidOperationException(CreateMethodExceptionMessage(assembly, typeName, methodName, flags, delegateType), ex);
       }
     }
-    
+
     internal static T CreateMethodDelegate<T>(this Type type, string methodName, BindingFlags flags, Type delegateType, params DelegateSwizzle[] fallbackSwizzles) where T : Delegate {
       try {
         delegateType ??= typeof(T);
-        
-        
+
+
         var method = GetMethodOrThrow(type, methodName, flags, delegateType, fallbackSwizzles, out var swizzle);
         if (swizzle == null && typeof(T) == delegateType) {
           return (T)Delegate.CreateDelegate(typeof(T), method);
         }
 
         var delegateParameters = typeof(T).GetMethod("Invoke").GetParameters();
-        var parameters         = new List<ParameterExpression>();
+        var parameters = new List<ParameterExpression>();
 
         for (var i = 0; i < delegateParameters.Length; ++i) {
           parameters.Add(Expression.Parameter(delegateParameters[i].ParameterType, $"param_{i}"));
@@ -12790,8 +13603,8 @@ namespace Quantum.Editor {
             }
           }
         }
-        
-        
+
+
         MethodCallExpression callExpression;
         if (method.IsStatic) {
           callExpression = Expression.Call(method, convertedParameters);
@@ -12800,14 +13613,14 @@ namespace Quantum.Editor {
           callExpression = Expression.Call(instance, method, convertedParameters);
         }
 
-        var l   = Expression.Lambda(typeof(T), callExpression, parameters);
+        var l = Expression.Lambda(typeof(T), callExpression, parameters);
         var del = l.Compile();
         return (T)del;
       } catch (Exception ex) {
         throw new InvalidOperationException(CreateMethodExceptionMessage<T>(type.Assembly, type.FullName, methodName, flags), ex);
       }
     }
-    
+
     /// <summary>
     ///   Returns the first found member of the given name. Includes private members.
     /// </summary>
@@ -12921,7 +13734,7 @@ namespace Quantum.Editor {
 
       return property;
     }
-    
+
     public static MethodInfo GetMethodOrThrow(this Type type, string methodName, BindingFlags flags = DefaultBindingFlags) {
       var method = type.GetMethod(methodName, flags);
       if (method == null) {
@@ -12952,20 +13765,20 @@ namespace Quantum.Editor {
     public static Func<object, object> CreateGetter(this Type type, string memberName, BindingFlags flags = DefaultBindingFlags) {
       return CreateGetter<object>(type, memberName, flags);
     }
-    
+
     public static Func<object, T> CreateGetter<T>(this Type type, string memberName, BindingFlags flags = DefaultBindingFlags) {
       var candidates = type.GetMembers(flags).Where(x => x.Name == memberName)
        .ToList();
-      
+
       if (candidates.Count > 1) {
         throw new InvalidOperationException($"Multiple members with name {memberName} found in type {type.FullName}");
       }
       if (candidates.Count == 0) {
-        throw new ArgumentOutOfRangeException(nameof(memberName),$"No members with name {memberName} found in type {type.FullName}");
+        throw new ArgumentOutOfRangeException(nameof(memberName), $"No members with name {memberName} found in type {type.FullName}");
       }
 
-      var  candidate = candidates[0];
-      bool isStatic  = false;
+      var candidate = candidates[0];
+      bool isStatic = false;
       switch (candidate) {
         case FieldInfo field:
           isStatic = field.IsStatic;
@@ -12989,7 +13802,7 @@ namespace Quantum.Editor {
     public static InstanceAccessor<object> CreateFieldAccessor(this Type type, string fieldName, Type expectedFieldType = null, BindingFlags flags = DefaultBindingFlags) {
       return CreateFieldAccessor<object>(type, fieldName, expectedFieldType);
     }
-    
+
     public static InstanceAccessor<FieldType> CreateFieldAccessor<FieldType>(this Type type, string fieldName, Type expectedFieldType = null, BindingFlags flags = DefaultBindingFlags) {
       var field = type.GetFieldOrThrow(fieldName, expectedFieldType ?? typeof(FieldType), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
       return CreateAccessorInternal<FieldType>(field);
@@ -13159,12 +13972,12 @@ namespace Quantum.Editor {
 
     private static Type GetFuncType(int argumentCount) {
       switch (argumentCount) {
-        case 1:  return typeof(Func<>);
-        case 2:  return typeof(Func<,>);
-        case 3:  return typeof(Func<,,>);
-        case 4:  return typeof(Func<,,,>);
-        case 5:  return typeof(Func<,,,,>);
-        case 6:  return typeof(Func<,,,,,>);
+        case 1: return typeof(Func<>);
+        case 2: return typeof(Func<,>);
+        case 3: return typeof(Func<,,>);
+        case 4: return typeof(Func<,,,>);
+        case 5: return typeof(Func<,,,,>);
+        case 6: return typeof(Func<,,,,,>);
         default: throw new ArgumentOutOfRangeException(nameof(argumentCount));
       }
     }
@@ -13179,12 +13992,12 @@ namespace Quantum.Editor {
 
     private static Type GetActionType(int argumentCount) {
       switch (argumentCount) {
-        case 1:  return typeof(Action<>);
-        case 2:  return typeof(Action<,>);
-        case 3:  return typeof(Action<,,>);
-        case 4:  return typeof(Action<,,,>);
-        case 5:  return typeof(Action<,,,,>);
-        case 6:  return typeof(Action<,,,,,>);
+        case 1: return typeof(Action<>);
+        case 2: return typeof(Action<,>);
+        case 3: return typeof(Action<,,>);
+        case 4: return typeof(Action<,,,>);
+        case 5: return typeof(Action<,,,,>);
+        case 6: return typeof(Action<,,,,,>);
         default: throw new ArgumentOutOfRangeException(nameof(argumentCount));
       }
     }
@@ -13192,40 +14005,40 @@ namespace Quantum.Editor {
     private static StaticAccessor<T> CreateStaticAccessorInternal<T>(MemberInfo member) {
       try {
         var valueParameter = Expression.Parameter(typeof(T), "value");
-        var canWrite       = true;
+        var canWrite = true;
 
-        UnaryExpression  valueExpression;
+        UnaryExpression valueExpression;
         Expression memberExpression;
-        
+
         switch (member) {
           case PropertyInfo property:
-            valueExpression  = Expression.Convert(valueParameter, property.PropertyType);
+            valueExpression = Expression.Convert(valueParameter, property.PropertyType);
             memberExpression = Expression.Property(null, property);
-            canWrite         = property.CanWrite;
+            canWrite = property.CanWrite;
             break;
           case FieldInfo field:
-            valueExpression  = Expression.Convert(valueParameter, field.FieldType);
+            valueExpression = Expression.Convert(valueParameter, field.FieldType);
             memberExpression = Expression.Field(null, field);
-            canWrite         = field.IsInitOnly == false;
+            canWrite = field.IsInitOnly == false;
             break;
           case MethodInfo method when method.GetParameters().Length == 0:
-            valueExpression  = null;
+            valueExpression = null;
             memberExpression = Expression.Call(method);
-            canWrite         = false;
+            canWrite = false;
             break;
           default:
             throw new InvalidOperationException($"Unsupported member type {member.GetType().Name}");
         }
-        
+
         Func<T> getter;
-        var     getExpression = Expression.Convert(memberExpression, typeof(T));
-        var     getLambda     = Expression.Lambda<Func<T>>(getExpression);
+        var getExpression = Expression.Convert(memberExpression, typeof(T));
+        var getLambda = Expression.Lambda<Func<T>>(getExpression);
         getter = getLambda.Compile();
 
         Action<T> setter = null;
         if (canWrite) {
           var setExpression = Expression.Assign(memberExpression, valueExpression);
-          var setLambda     = Expression.Lambda<Action<T>>(setExpression, valueParameter);
+          var setLambda = Expression.Lambda<Action<T>>(setExpression, valueParameter);
           setter = setLambda.Compile();
         }
 
@@ -13240,43 +14053,43 @@ namespace Quantum.Editor {
 
     private static InstanceAccessor<T> CreateAccessorInternal<T>(MemberInfo member) {
       try {
-        var instanceParameter  = Expression.Parameter(typeof(object), "instance");
+        var instanceParameter = Expression.Parameter(typeof(object), "instance");
         var instanceExpression = Expression.Convert(instanceParameter, member.DeclaringType);
 
         var valueParameter = Expression.Parameter(typeof(T), "value");
-        var canWrite       = true;
+        var canWrite = true;
 
-        UnaryExpression  valueExpression;
+        UnaryExpression valueExpression;
         Expression memberExpression;
 
         switch (member) {
           case PropertyInfo property:
-            valueExpression  = Expression.Convert(valueParameter, property.PropertyType);
+            valueExpression = Expression.Convert(valueParameter, property.PropertyType);
             memberExpression = Expression.Property(instanceExpression, property);
-            canWrite         = property.CanWrite;
+            canWrite = property.CanWrite;
             break;
           case FieldInfo field:
-            valueExpression  = Expression.Convert(valueParameter, field.FieldType);
+            valueExpression = Expression.Convert(valueParameter, field.FieldType);
             memberExpression = Expression.Field(instanceExpression, field);
-            canWrite         = field.IsInitOnly == false;
+            canWrite = field.IsInitOnly == false;
             break;
           case MethodInfo method when method.GetParameters().Length == 0:
-            valueExpression  = null;
+            valueExpression = null;
             memberExpression = Expression.Call(instanceExpression, method);
-            canWrite         = false;
+            canWrite = false;
             break;
           default:
             throw new InvalidOperationException($"Unsupported member type {member.GetType().Name}");
         }
 
         var getExpression = Expression.Convert(memberExpression, typeof(T));
-        var getLambda     = Expression.Lambda<Func<object, T>>(getExpression, instanceParameter);
+        var getLambda = Expression.Lambda<Func<object, T>>(getExpression, instanceParameter);
         var getter = getLambda.Compile();
 
         Action<object, T> setter = null;
         if (canWrite) {
           var setExpression = Expression.Assign(memberExpression, valueExpression);
-          var setLambda     = Expression.Lambda<Action<object, T>>(setExpression, instanceParameter, valueParameter);
+          var setLambda = Expression.Lambda<Action<object, T>>(setExpression, instanceParameter, valueParameter);
           setter = setLambda.Compile();
         }
 
@@ -13290,26 +14103,26 @@ namespace Quantum.Editor {
     }
 
     public struct InstanceAccessor<TValue> {
-      public Func<object, TValue>   GetValue;
+      public Func<object, TValue> GetValue;
       public Action<object, TValue> SetValue;
     }
 
     public struct StaticAccessor<TValue> {
-      public Func<TValue>   GetValue;
+      public Func<TValue> GetValue;
       public Action<TValue> SetValue;
     }
 
     internal static class DelegateSwizzle<In0, In1> {
       public static DelegateSwizzle Make<Out0>(Expression<Func<In0, In1, Out0>> out0) {
-        return new DelegateSwizzle(new Expression[] { out0 }, new [] { typeof(Out0)});
+        return new DelegateSwizzle(new Expression[] { out0 }, new[] { typeof(Out0) });
       }
-      
+
       public static DelegateSwizzle Make<Out0, Out1>(Expression<Func<In0, In1, Out0>> out0, Expression<Func<In0, In1, Out1>> out1) {
-        return new DelegateSwizzle(new Expression[] { out0, out1 }, new [] { typeof(Out0), typeof(Out1)});
+        return new DelegateSwizzle(new Expression[] { out0, out1 }, new[] { typeof(Out0), typeof(Out1) });
       }
-      
+
       public static DelegateSwizzle Make<Out0, Out1, Out3>(Expression<Func<In0, In1, Out0>> out0, Expression<Func<In0, In1, Out1>> out1, Expression<Func<In0, In1, Out3>> out3) {
-        return new DelegateSwizzle(new Expression[] { out0, out1, out3 }, new [] { typeof(Out0), typeof(Out1), typeof(Out3)});
+        return new DelegateSwizzle(new Expression[] { out0, out1, out3 }, new[] { typeof(Out0), typeof(Out1), typeof(Out3) });
       }
     }
 
@@ -13324,7 +14137,7 @@ namespace Quantum.Editor {
     }
 
 #if UNITY_EDITOR
-    
+
     public static T CreateEditorMethodDelegate<T>(string editorAssemblyTypeName, string methodName, BindingFlags flags) where T : Delegate {
       return CreateMethodDelegate<T>(typeof(Editor).Assembly, editorAssemblyTypeName, methodName, flags);
     }
@@ -13346,7 +14159,9 @@ namespace Quantum.Editor {
   using System;
   using System.Collections;
   using System.Collections.Generic;
+  using System.Reflection;
   using UnityEditor;
+  using UnityEngine;
 
   static partial class SerializedPropertyUtilities {
     public static SerializedProperty FindPropertyOrThrow(this SerializedObject so, string propertyPath) {
@@ -13377,9 +14192,8 @@ namespace Quantum.Editor {
     }
 
     public static SerializedProperty FindPropertyRelativeToParent(this SerializedProperty property, string relativePath) {
-      
       ReadOnlySpan<char> parentPath = property.propertyPath;
-      
+
       int startIndex = 0;
 
       do {
@@ -13401,18 +14215,105 @@ namespace Quantum.Editor {
         } else {
           parentPath = parentPath.Slice(0, lastDotIndex);
         }
-
       } while (relativePath[startIndex++] == '^');
 
       if (startIndex > 1) {
         relativePath = relativePath.Substring(startIndex - 1);
       }
-      
+
       if (parentPath.Length == 0) {
         return property.serializedObject.FindProperty(relativePath);
       } else {
         return property.serializedObject.FindProperty($"{parentPath.ToString()}.{relativePath}");
       }
+    }
+
+    /// <summary>
+    /// Get the index this element is at.
+    /// </summary>
+    public static int GetArrayIndex(this SerializedProperty element) {
+      string path = element.propertyPath;
+      int start = path.LastIndexOf('[');
+      int end = path.LastIndexOf(']');
+
+      if (start != -1 && end != -1) {
+        string indexString = path.Substring(start + 1, end - start - 1);
+        return int.Parse(indexString);
+      }
+
+      return -1;
+    }
+
+    /// <summary>
+    /// Gets the object the property represents.
+    /// </summary>
+    public static object GetTargetObject(this SerializedProperty property, out FieldInfo fieldInfo, out object parent) {
+      fieldInfo = null;
+      parent = null;
+
+      if (property == null) {
+        throw new ArgumentNullException(nameof(property));
+      }
+
+      var path = property.propertyPath.Replace(".Array.data[", "[");
+      object targetObject = property.serializedObject.targetObject;
+      var elements = path.Split('.');
+
+      foreach (var element in elements) {
+        if (element.Contains("[")) {
+          var elementName = element.Substring(0, element.IndexOf("[", StringComparison.Ordinal));
+          var index = Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.Ordinal)).Replace("[", string.Empty).Replace("]", string.Empty));
+          parent = targetObject;
+          targetObject = GetFieldValue(targetObject, elementName, index, out fieldInfo);
+        } else {
+          parent = targetObject;
+          targetObject = GetFieldValue(targetObject, element, out fieldInfo);
+        }
+
+        if (targetObject == null) {
+          return null;
+        }
+      }
+
+      return targetObject;
+    }
+
+    private static object GetFieldValue(object source, string name, out FieldInfo fieldInfo) {
+      fieldInfo = null;
+      if (source == null) {
+        return null;
+      }
+
+      var type = source.GetType();
+
+      while (type != null) {
+        var field = type.GetField(name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+        if (field != null) {
+          fieldInfo = field;
+          return field.GetValue(source);
+        }
+
+        type = type.BaseType;
+      }
+
+      return null;
+    }
+
+    private static object GetFieldValue(object source, string name, int index, out FieldInfo fieldInfo) {
+      var enumerable = GetFieldValue(source, name, out fieldInfo) as IEnumerable;
+      if (enumerable == null) {
+        return null;
+      }
+
+      var enumerator = enumerable.GetEnumerator();
+
+      for (int i = 0; i <= index; i++) {
+        if (!enumerator.MoveNext()) {
+          return null;
+        }
+      }
+
+      return enumerator.Current;
     }
 
     public static bool IsArrayElement(string propertyPath) {
@@ -13432,7 +14333,7 @@ namespace Quantum.Editor {
         index = -1;
         return false;
       }
-      
+
       var propertyPath = sp.propertyPath;
       if (!propertyPath.EndsWith("]", StringComparison.Ordinal)) {
         index = -1;
@@ -13450,8 +14351,8 @@ namespace Quantum.Editor {
     }
 
     public static SerializedProperty GetArrayFromArrayElement(this SerializedProperty sp) {
-      var path  = sp.propertyPath;
-      
+      var path = sp.propertyPath;
+
       if (path.EndsWith("]", StringComparison.Ordinal)) {
         int arrayDataIndex = path.LastIndexOf(".Array.data[", StringComparison.Ordinal);
         if (arrayDataIndex >= 0) {
@@ -13459,7 +14360,7 @@ namespace Quantum.Editor {
           return sp.serializedObject.FindProperty(arrayPath);
         }
       }
-      
+
       throw new ArgumentException($"Property is not an array element: {path}");
     }
 
@@ -13470,16 +14371,56 @@ namespace Quantum.Editor {
     public static bool ShouldIncludeChildren(this SerializedProperty sp) {
       return sp.isExpanded || sp.propertyType == SerializedPropertyType.Generic || sp.IsArrayProperty();
     }
-    
-    
+
+#if UNITY_6000_4_OR_NEWER
+    public static UnityEngine.EntityId GetObjectReferenceValue(this SerializedProperty sp) {
+      return sp.objectReferenceEntityIdValue;
+    }
+#else
+    public static int GetObjectReferenceValue(this SerializedProperty sp) {
+      return sp.objectReferenceInstanceIDValue;
+    }
+#endif
+
+#if UNITY_6000_4_OR_NEWER
+    public static long GetObjectReferenceValueAsLong(this SerializedProperty sp) {
+      return unchecked((long)UnityEngine.EntityId.ToULong(sp.objectReferenceEntityIdValue));
+    }
+#else
+    public static long GetObjectReferenceValueAsLong(this SerializedProperty sp) {
+      return sp.objectReferenceInstanceIDValue;
+    }
+#endif
+
+
     // public static int GetHashCodeForPropertyPath(this SerializedProperty sp) {
     //   return UnityInternal.SerializedProperty.hashCodeForPropertyPath.GetValue(sp);
     // }
-    
+
     public static int GetHashCodeForPropertyPathWithoutArrayIndex(this SerializedProperty sp) {
       return UnityInternal.SerializedProperty.hashCodeForPropertyPathWithoutArrayIndex.GetValue(sp);
     }
-    
+
+    public static SerializedProperty GetArraySizePropertyOrThrow(this SerializedProperty prop) {
+      if (prop == null) {
+        throw new ArgumentNullException(nameof(prop));
+      }
+
+      if (!prop.isArray) {
+        throw new ArgumentException("Not an array", nameof(prop));
+      }
+
+      var copy = prop.Copy();
+      if (!copy.Next(true) || !copy.Next(true)) {
+        throw new InvalidOperationException();
+      }
+
+      if (copy.propertyType != SerializedPropertyType.ArraySize) {
+        throw new InvalidOperationException();
+      }
+
+      return copy;
+    }
 
     public static SerializedPropertyEnumerable GetChildren(this SerializedProperty property, bool visibleOnly = true) {
       return new SerializedPropertyEnumerable(property, visibleOnly);
@@ -13494,76 +14435,76 @@ namespace Quantum.Editor {
 
       public int GetHashCode(SerializedProperty p) {
         bool enterChildren;
-        var  isFirst  = true;
-        var  hashCode = 0;
-        var  minDepth = p.depth + 1;
+        var isFirst = true;
+        var hashCode = 0;
+        var minDepth = p.depth + 1;
 
         do {
           enterChildren = false;
 
           switch (p.propertyType) {
             case SerializedPropertyType.Integer:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.intValue);
+              hashCode = HashCode.Combine(hashCode, p.intValue);
               break;
             case SerializedPropertyType.Boolean:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.boolValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.boolValue.GetHashCode());
               break;
             case SerializedPropertyType.Float:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.floatValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.floatValue.GetHashCode());
               break;
             case SerializedPropertyType.String:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.stringValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.stringValue.GetHashCode());
               break;
             case SerializedPropertyType.Color:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.colorValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.colorValue.GetHashCode());
               break;
             case SerializedPropertyType.ObjectReference:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.objectReferenceInstanceIDValue);
+              hashCode = HashCode.Combine(hashCode, p.GetObjectReferenceValue().GetHashCode());
               break;
             case SerializedPropertyType.LayerMask:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.intValue);
+              hashCode = HashCode.Combine(hashCode, p.intValue);
               break;
             case SerializedPropertyType.Enum:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.intValue);
+              hashCode = HashCode.Combine(hashCode, p.intValue);
               break;
             case SerializedPropertyType.Vector2:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.vector2Value.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.vector2Value.GetHashCode());
               break;
             case SerializedPropertyType.Vector3:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.vector3Value.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.vector3Value.GetHashCode());
               break;
             case SerializedPropertyType.Vector4:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.vector4Value.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.vector4Value.GetHashCode());
               break;
             case SerializedPropertyType.Vector2Int:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.vector2IntValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.vector2IntValue.GetHashCode());
               break;
             case SerializedPropertyType.Vector3Int:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.vector3IntValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.vector3IntValue.GetHashCode());
               break;
             case SerializedPropertyType.Rect:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.rectValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.rectValue.GetHashCode());
               break;
             case SerializedPropertyType.RectInt:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.rectIntValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.rectIntValue.GetHashCode());
               break;
             case SerializedPropertyType.ArraySize:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.intValue);
+              hashCode = HashCode.Combine(hashCode, p.intValue);
               break;
             case SerializedPropertyType.Character:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.intValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.intValue.GetHashCode());
               break;
             case SerializedPropertyType.AnimationCurve:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.animationCurveValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.animationCurveValue.GetHashCode());
               break;
             case SerializedPropertyType.Bounds:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.boundsValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.boundsValue.GetHashCode());
               break;
             case SerializedPropertyType.BoundsInt:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.boundsIntValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.boundsIntValue.GetHashCode());
               break;
             case SerializedPropertyType.ExposedReference:
-              hashCode = HashCodeUtilities.CombineHashCodes(hashCode, p.exposedReferenceValue.GetHashCode());
+              hashCode = HashCode.Combine(hashCode, p.exposedReferenceValue.GetHashCode());
               break;
             default: {
               enterChildren = true;
@@ -13579,7 +14520,7 @@ namespace Quantum.Editor {
             }
 
             // since property is going to be traversed, a copy needs to be made
-            p       = p.Copy();
+            p = p.Copy();
             isFirst = false;
           }
         } while (p.Next(enterChildren) && p.depth >= minDepth);
@@ -13587,14 +14528,14 @@ namespace Quantum.Editor {
         return hashCode;
       }
     }
-    
+
     public struct SerializedPropertyEnumerable : IEnumerable<SerializedProperty> {
       private SerializedProperty property;
-      private bool               visible;
+      private bool visible;
 
       public SerializedPropertyEnumerable(SerializedProperty property, bool visible) {
         this.property = property;
-        this.visible  = visible;
+        this.visible = visible;
       }
 
       public SerializedPropertyEnumerator GetEnumerator() {
@@ -13612,15 +14553,15 @@ namespace Quantum.Editor {
 
     public struct SerializedPropertyEnumerator : IEnumerator<SerializedProperty> {
       private SerializedProperty current;
-      private bool               enterChildren;
-      private bool               visible;
-      private int                parentDepth;
+      private bool enterChildren;
+      private bool visible;
+      private int parentDepth;
 
       public SerializedPropertyEnumerator(SerializedProperty parent, bool visible) {
-        current       = parent.Copy();
+        current = parent.Copy();
         enterChildren = true;
-        parentDepth   = parent.depth;
-        this.visible  = visible;
+        parentDepth = parent.depth;
+        this.visible = visible;
       }
 
       public SerializedProperty Current => current;
@@ -13639,9 +14580,11 @@ namespace Quantum.Editor {
         if (!entered) {
           return false;
         }
+
         if (current.depth <= parentDepth) {
           return false;
         }
+
         return true;
       }
 
@@ -13649,7 +14592,7 @@ namespace Quantum.Editor {
         throw new NotImplementedException();
       }
     }
-    
+
     private static int[] _updateFixedBufferTemp = Array.Empty<int>();
 
     internal static bool UpdateFixedBuffer(this SerializedProperty sp, Action<int[], int> fill, Action<int[], int> update, bool write, bool force = false) {
@@ -13692,7 +14635,7 @@ namespace Quantum.Editor {
               _updateFixedBufferTemp[i] = element.intValue;
             }
           }
-          
+
           update(_updateFixedBufferTemp, count);
           return true;
         } else {
@@ -13702,509 +14645,6 @@ namespace Quantum.Editor {
     }
   }
 }
-
-#endregion
-
-
-#region UnityInternal.cs
-
-// ReSharper disable InconsistentNaming
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-namespace Quantum.Editor {
-  using System;
-  using System.Collections;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Reflection;
-  using UnityEditor;
-  using UnityEngine;
-  using static ReflectionUtils;
-
-
-  static partial class UnityInternal {
-    
-    static Assembly FindAssembly(string name) {
-      return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == name);
-    }
-    
-    [UnityEditor.InitializeOnLoad]
-    public static class Event {
-      static readonly StaticAccessor<UnityEngine.Event> s_Current_ = typeof(UnityEngine.Event).CreateStaticFieldAccessor<UnityEngine.Event>(nameof(s_Current));
-      public static UnityEngine.Event s_Current => s_Current_.GetValue();
-    }
-    
-    [UnityEditor.InitializeOnLoad]
-    public static class Editor {
-      public delegate bool DoDrawDefaultInspectorDelegate(SerializedObject obj);
-      public delegate void BoolSetterDelegate(UnityEditor.Editor editor, bool value);
-      
-      public static readonly DoDrawDefaultInspectorDelegate DoDrawDefaultInspector = typeof(UnityEditor.Editor).CreateMethodDelegate<DoDrawDefaultInspectorDelegate>(nameof(DoDrawDefaultInspector));
-      public static readonly BoolSetterDelegate             InternalSetHidden      = typeof(UnityEditor.Editor).CreateMethodDelegate<BoolSetterDelegate>(nameof(InternalSetHidden), BindingFlags.NonPublic | BindingFlags.Instance);
-    }
-
-
-    [UnityEditor.InitializeOnLoad]
-    public static class EditorGUI {
-      public delegate string DelayedTextFieldInternalDelegate(Rect position, int id, GUIContent label, string value, string allowedLetters, GUIStyle style);
-      public delegate Rect   MultiFieldPrefixLabelDelegate(Rect totalPosition, int id, GUIContent label, int columns);
-      public delegate string TextFieldInternalDelegate(int id, Rect position, string text, GUIStyle style);
-      public delegate string ToolbarSearchFieldDelegate(int id, Rect position, string text, bool showWithPopupArrow);
-      public delegate bool   DefaultPropertyFieldDelegate(Rect position, UnityEditor.SerializedProperty property, GUIContent label);
-      
-      
-      public static readonly MultiFieldPrefixLabelDelegate    MultiFieldPrefixLabel    = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<MultiFieldPrefixLabelDelegate>(nameof(MultiFieldPrefixLabel));
-      public static readonly TextFieldInternalDelegate        TextFieldInternal        = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<TextFieldInternalDelegate>(nameof(TextFieldInternal));
-      public static readonly ToolbarSearchFieldDelegate       ToolbarSearchField       = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<ToolbarSearchFieldDelegate>(nameof(ToolbarSearchField));
-      public static readonly DelayedTextFieldInternalDelegate DelayedTextFieldInternal = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<DelayedTextFieldInternalDelegate>(nameof(DelayedTextFieldInternal));
-      public static readonly DefaultPropertyFieldDelegate     DefaultPropertyField     = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<DefaultPropertyFieldDelegate>(nameof(DefaultPropertyField));
-      
-      private static readonly FieldInfo             s_TextFieldHash           = typeof(UnityEditor.EditorGUI).GetFieldOrThrow(nameof(s_TextFieldHash));
-      private static readonly FieldInfo             s_DelayedTextFieldHash    = typeof(UnityEditor.EditorGUI).GetFieldOrThrow(nameof(s_DelayedTextFieldHash));
-      private static readonly StaticAccessor<float> s_indent                  = typeof(UnityEditor.EditorGUI).CreateStaticPropertyAccessor<float>(nameof(indent));
-      public static readonly  Action                EndEditingActiveTextField = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<Action>(nameof(EndEditingActiveTextField));
-      
-      public static   int   TextFieldHash        => (int)s_TextFieldHash.GetValue(null);
-      public static   int   DelayedTextFieldHash => (int)s_DelayedTextFieldHash.GetValue(null);
-      internal static float indent               => s_indent.GetValue();
-    }
-    
-    [UnityEditor.InitializeOnLoad]
-    public static class EditorUtility {
-      public delegate void DisplayCustomMenuDelegate(Rect position, string[] options, int[] selected, UnityEditor.EditorUtility.SelectMenuItemFunction callback, object userData);
-
-      public static DisplayCustomMenuDelegate DisplayCustomMenu = typeof(UnityEditor.EditorUtility).CreateMethodDelegate<DisplayCustomMenuDelegate>(nameof(DisplayCustomMenu), BindingFlags.NonPublic | BindingFlags.Static);
-    }
-
-    [UnityEditor.InitializeOnLoad]
-    public static class GUIClip {
-      public static Type InternalType = typeof(UnityEngine.GUIUtility).Assembly.GetType("UnityEngine.GUIClip", true);
-      
-      private static readonly StaticAccessor<Rect> _visibleRect = InternalType.CreateStaticPropertyAccessor<Rect>(nameof(visibleRect));
-      public static Rect visibleRect => _visibleRect.GetValue();
-    }
-    
-    [UnityEditor.InitializeOnLoad]
-    public static class HandleUtility {
-      public static readonly Action ApplyWireMaterial = typeof(UnityEditor.HandleUtility).CreateMethodDelegate<Action>(nameof(ApplyWireMaterial));
-    }
-
-
-    [UnityEditor.InitializeOnLoad]
-    public static class LayerMatrixGUI {
-      private const string TypeName =
-#if UNITY_2023_1_OR_NEWER
-        "UnityEditor.LayerCollisionMatrixGUI2D";
-#else
-        "UnityEditor.LayerMatrixGUI";
-#endif
-
-      private static readonly Type InternalType =
-#if UNITY_2023_1_OR_NEWER
-        FindAssembly("UnityEditor.Physics2DModule")?.GetType(TypeName, true);
-#else 
-        typeof(UnityEditor.Editor).Assembly.GetType(TypeName, true);
-#endif
-      
-      private static readonly Type InternalGetValueFuncType = InternalType?.GetNestedTypeOrThrow(nameof(GetValueFunc), BindingFlags.Public);
-      private static readonly Type InternalSetValueFuncType = InternalType?.GetNestedTypeOrThrow(nameof(SetValueFunc), BindingFlags.Public);
-      
-#if UNITY_2023_1_OR_NEWER
-      private static readonly Delegate _Draw = InternalType?.CreateMethodDelegate(nameof(Draw), BindingFlags.Public | BindingFlags.Static, 
-        typeof(Action<,,>).MakeGenericType(
-          typeof(GUIContent), InternalGetValueFuncType, InternalSetValueFuncType)
-      );
-#else 
-      private delegate void Ref2Action<T1, T2, T3, T4>(T1 t1, ref T2 t2, T3 t3, T4 t4);
-
-      private static readonly Delegate _DoGUI = InternalType?.CreateMethodDelegate("DoGUI", BindingFlags.Public | BindingFlags.Static,
-        typeof(Ref2Action<,,,>).MakeGenericType(
-          typeof(GUIContent), typeof(bool), InternalGetValueFuncType, InternalSetValueFuncType)
-      );
-#endif
-      
-      public delegate bool GetValueFunc(int layerA, int layerB);
-      public delegate void SetValueFunc(int layerA, int layerB, bool val);
-
-      public static void Draw(GUIContent label, GetValueFunc getValue, SetValueFunc setValue) {
-        if (InternalType == null) {
-          throw new InvalidOperationException($"{TypeName} not found");
-        }
-        
-        var getter = Delegate.CreateDelegate(InternalGetValueFuncType, getValue.Target, getValue.Method);
-        var setter = Delegate.CreateDelegate(InternalSetValueFuncType, setValue.Target, setValue.Method);
-        
-#if UNITY_2023_1_OR_NEWER
-        _Draw.DynamicInvoke(label, getter, setter);
-#else
-        bool show = true;
-        var args = new object[] { label, show, getter, setter };
-        _DoGUI.DynamicInvoke(args);
-#endif
-      }
-    }
-
-
-    [UnityEditor.InitializeOnLoad]
-    public static class DecoratorDrawer {
-      private static InstanceAccessor<PropertyAttribute> m_Attribute = typeof(UnityEditor.DecoratorDrawer).CreateFieldAccessor<PropertyAttribute>(nameof(m_Attribute));
-
-      public static void SetAttribute(UnityEditor.DecoratorDrawer drawer, PropertyAttribute attribute) {
-        m_Attribute.SetValue(drawer, attribute);
-      }
-    }
-
-    [UnityEditor.InitializeOnLoad]
-    public static class PropertyDrawer {
-      private static InstanceAccessor<PropertyAttribute> m_Attribute = typeof(UnityEditor.PropertyDrawer).CreateFieldAccessor<PropertyAttribute>(nameof(m_Attribute));
-      private static InstanceAccessor<FieldInfo>         m_FieldInfo = typeof(UnityEditor.PropertyDrawer).CreateFieldAccessor<FieldInfo>(nameof(m_FieldInfo));
-
-      public static void SetAttribute(UnityEditor.PropertyDrawer drawer, PropertyAttribute attribute) {
-        m_Attribute.SetValue(drawer, attribute);
-      }
-
-      public static void SetFieldInfo(UnityEditor.PropertyDrawer drawer, FieldInfo fieldInfo) {
-        m_FieldInfo.SetValue(drawer, fieldInfo);
-      }
-    }
-
-    [UnityEditor.InitializeOnLoad]
-    public static class EditorGUIUtility {
-      private static readonly StaticAccessor<int> s_LastControlID = typeof(UnityEditor.EditorGUIUtility).CreateStaticFieldAccessor<int>(nameof(s_LastControlID));
-
-      private static readonly StaticAccessor<float> _contentWidth = typeof(UnityEditor.EditorGUIUtility).CreateStaticPropertyAccessor<float>(nameof(contextWidth));
-      public static           int                   LastControlID => s_LastControlID.GetValue();
-      public static           float                 contextWidth  => _contentWidth.GetValue();
-      
-      public delegate UnityEngine.Object GetScriptDelegate(string scriptClass);
-      public delegate Texture2D          GetIconForObjectDelegate(UnityEngine.Object obj);
-      public delegate GUIContent         TempContentDelegate(string text);
-      public delegate Texture2D          GetHelpIconDelegate(MessageType type);
-      
-      public static readonly GetScriptDelegate        GetScript        = typeof(UnityEditor.EditorGUIUtility).CreateMethodDelegate<GetScriptDelegate>(nameof(GetScript));
-      public static readonly GetIconForObjectDelegate GetIconForObject = typeof(UnityEditor.EditorGUIUtility).CreateMethodDelegate<GetIconForObjectDelegate>(nameof(GetIconForObject));
-      public static readonly TempContentDelegate      TempContent      = typeof(UnityEditor.EditorGUIUtility).CreateMethodDelegate<TempContentDelegate>(nameof(TempContent));
-      public static readonly GetHelpIconDelegate      GetHelpIcon      = typeof(UnityEditor.EditorGUIUtility).CreateMethodDelegate<GetHelpIconDelegate>(nameof(GetHelpIcon));
-    }
-
-    [UnityEditor.InitializeOnLoad]
-    public static class HierarchyProperty {
-      public delegate void CopySearchFilterFromDelegate(UnityEditor.HierarchyProperty to, UnityEditor.HierarchyProperty from);
-      public static CopySearchFilterFromDelegate CopySearchFilterFrom = typeof(UnityEditor.HierarchyProperty).CreateMethodDelegate<CopySearchFilterFromDelegate>(nameof(CopySearchFilterFrom), 
-        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-    }
-    
-    [UnityEditor.InitializeOnLoad]
-    public static class ScriptAttributeUtility {
-      
-      public static readonly Type InternalType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.ScriptAttributeUtility", true);
-      
-      public delegate FieldInfo GetFieldInfoFromPropertyDelegate(UnityEditor.SerializedProperty property, out Type type);
-      public static readonly GetFieldInfoFromPropertyDelegate GetFieldInfoFromProperty =
-        InternalType.CreateMethodDelegate<GetFieldInfoFromPropertyDelegate>(
-          "GetFieldInfoFromProperty",
-          BindingFlags.Static | BindingFlags.NonPublic);
-      
-      public delegate Type GetDrawerTypeForTypeDelegate(Type type, bool isManagedReference);
-      public static readonly GetDrawerTypeForTypeDelegate GetDrawerTypeForType =
-        InternalType.CreateMethodDelegate<GetDrawerTypeForTypeDelegate>(
-          "GetDrawerTypeForType",
-          BindingFlags.Static | BindingFlags.NonPublic,
-          null,
-          DelegateSwizzle<Type, bool>.Make((t, b) => t), // post 2023.3
-          DelegateSwizzle<Type, bool>.Make((t, b) => t, (t, b) => (Type[])null, (t, b) => b) // pre 2023.3.23
-        );
-      
-      public delegate Type GetDrawerTypeForPropertyAndTypeDelegate(UnityEditor.SerializedProperty property, Type type);
-      public static readonly GetDrawerTypeForPropertyAndTypeDelegate GetDrawerTypeForPropertyAndType = 
-        InternalType.CreateMethodDelegate<GetDrawerTypeForPropertyAndTypeDelegate>(
-          "GetDrawerTypeForPropertyAndType",
-          BindingFlags.Static | BindingFlags.NonPublic);
-
-      private static readonly GetHandlerDelegate _GetHandler = InternalType.CreateMethodDelegate<GetHandlerDelegate>("GetHandler", BindingFlags.NonPublic | BindingFlags.Static,
-        MakeFuncType(typeof(UnityEditor.SerializedProperty), PropertyHandler.InternalType)
-      );
-
-      public delegate List<PropertyAttribute> GetFieldAttributesDelegate(FieldInfo field);
-      public static readonly GetFieldAttributesDelegate GetFieldAttributes = InternalType.CreateMethodDelegate<GetFieldAttributesDelegate>(nameof(GetFieldAttributes));
-
-      private static readonly StaticAccessor<object> _propertyHandlerCache = InternalType.CreateStaticPropertyAccessor(nameof(propertyHandlerCache), PropertyHandlerCache.InternalType);
-
-      private static readonly StaticAccessor<object> s_SharedNullHandler = InternalType.CreateStaticFieldAccessor("s_SharedNullHandler", PropertyHandler.InternalType);
-      private static readonly StaticAccessor<object> s_NextHandler       = InternalType.CreateStaticFieldAccessor("s_NextHandler", PropertyHandler.InternalType);
-
-      public static PropertyHandlerCache propertyHandlerCache => new() {
-        _instance = _propertyHandlerCache.GetValue()
-      };
-
-      public static PropertyHandler sharedNullHandler => PropertyHandler.Wrap(s_SharedNullHandler.GetValue());
-      public static PropertyHandler nextHandler => PropertyHandler.Wrap(s_NextHandler.GetValue());
-      
-      public static PropertyHandler GetHandler(UnityEditor.SerializedProperty property) {
-        return PropertyHandler.Wrap(_GetHandler(property));
-      }
-
-      private delegate object GetHandlerDelegate(UnityEditor.SerializedProperty property);
-    }
-
-    public struct PropertyHandlerCache {
-      [UnityEditor.InitializeOnLoad]
-      private static class Statics {
-        public static readonly Type                    InternalType    = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.PropertyHandlerCache", true);
-        public static readonly GetPropertyHashDelegate GetPropertyHash = InternalType.CreateMethodDelegate<GetPropertyHashDelegate>(nameof(GetPropertyHash));
-
-        public static readonly GetHandlerDelegate GetHandler = InternalType.CreateMethodDelegate<GetHandlerDelegate>(nameof(GetHandler), BindingFlags.NonPublic | BindingFlags.Instance,
-          MakeFuncType(InternalType, typeof(UnityEditor.SerializedProperty), PropertyHandler.InternalType));
-
-        public static readonly SetHandlerDelegate SetHandler = InternalType.CreateMethodDelegate<SetHandlerDelegate>(nameof(SetHandler), BindingFlags.NonPublic | BindingFlags.Instance,
-          MakeActionType(InternalType, typeof(UnityEditor.SerializedProperty), PropertyHandler.InternalType));
-        
-        public static readonly FieldInfo m_PropertyHandlers = InternalType.GetFieldOrThrow(nameof(m_PropertyHandlers));
-      }
-
-      public static Type InternalType => Statics.InternalType;
-
-      public delegate int GetPropertyHashDelegate(UnityEditor.SerializedProperty property);
-
-      public delegate object GetHandlerDelegate(object instance, UnityEditor.SerializedProperty property);
-
-      public delegate void SetHandlerDelegate(object instance, UnityEditor.SerializedProperty property, object handlerInstance);
-
-      public object _instance;
-
-      public PropertyHandler GetHandler(UnityEditor.SerializedProperty property) {
-        return new PropertyHandler {
-          _instance = Statics.GetHandler(_instance, property)
-        };
-      }
-
-      public void SetHandler(UnityEditor.SerializedProperty property, PropertyHandler newHandler) {
-        Statics.SetHandler(_instance, property, newHandler._instance);
-      }
-
-      public IEnumerable<(int, PropertyHandler)> PropertyHandlers {
-        get {
-          var dict = (IDictionary)Statics.m_PropertyHandlers.GetValue(_instance);
-          foreach (DictionaryEntry entry in dict) {
-            yield return ((int)entry.Key, PropertyHandler.Wrap(entry.Value));
-          }
-        }
-      }
-    }
-
-    public struct PropertyHandler : IEquatable<PropertyHandler> {
-      [UnityEditor.InitializeOnLoad]
-      private static class Statics {
-        public static readonly Type                                                InternalType       = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.PropertyHandler", true);
-        public static readonly InstanceAccessor<List<UnityEditor.DecoratorDrawer>> m_DecoratorDrawers = InternalType.CreateFieldAccessor<List<UnityEditor.DecoratorDrawer>>(nameof(m_DecoratorDrawers));
-        public static readonly InstanceAccessor<List<UnityEditor.PropertyDrawer>> m_PropertyDrawers = InternalType.CreateFieldAccessor<List<UnityEditor.PropertyDrawer>>(nameof(m_PropertyDrawers));
-      }
-
-
-      public static Type InternalType => Statics.InternalType;
-
-      public object _instance;
-
-      internal static PropertyHandler Wrap(object instance) {
-        return new() {
-          _instance = instance
-        };
-      }
-
-      public static PropertyHandler New() {
-        return Wrap(Activator.CreateInstance(InternalType));
-      }
-      
-      public List<UnityEditor.PropertyDrawer> m_PropertyDrawers {
-        get => Statics.m_PropertyDrawers.GetValue(_instance);
-        set => Statics.m_PropertyDrawers.SetValue(_instance, value);
-      }
-
-      public bool Equals(PropertyHandler other) {
-        return _instance == other._instance;
-      }
-
-      public override int GetHashCode() {
-        return _instance?.GetHashCode() ?? 0;
-      }
-
-      public override bool Equals(object obj) {
-        return obj is PropertyHandler h ? Equals(h) : false;
-      }
-
-      public List<UnityEditor.DecoratorDrawer> decoratorDrawers {
-        get => Statics.m_DecoratorDrawers.GetValue(_instance);
-        set => Statics.m_DecoratorDrawers.SetValue(_instance, value);
-      }
-    }
-
-    [UnityEditor.InitializeOnLoad]
-    public static class EditorApplication {
-      public static readonly Action Internal_CallAssetLabelsHaveChanged = typeof(UnityEditor.EditorApplication).CreateMethodDelegate<Action>(nameof(Internal_CallAssetLabelsHaveChanged));
-    }
-
-    public struct ObjectSelector {
-      [UnityEditor.InitializeOnLoad]
-      private static class Statics {
-        public static readonly Type                         InternalType  = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.ObjectSelector", true);
-        public static readonly StaticAccessor<bool>         _tooltip      = InternalType.CreateStaticPropertyAccessor<bool>(nameof(isVisible));
-        public static readonly StaticAccessor<EditorWindow> _get          = InternalType.CreateStaticPropertyAccessor<EditorWindow>(nameof(get), InternalType);
-        public static readonly InstanceAccessor<string>     _searchFilter = InternalType.CreatePropertyAccessor<string>(nameof(searchFilter));
-      }
-
-      private EditorWindow _instance;
-
-      public static bool isVisible => Statics._tooltip.GetValue();
-
-      public static ObjectSelector get => new() {
-        _instance = Statics._get.GetValue()
-      };
-
-      public string searchFilter {
-        get => Statics._searchFilter.GetValue(_instance);
-        set => Statics._searchFilter.SetValue(_instance, value);
-      }
-
-      private static readonly InstanceAccessor<int> _objectSelectorID = Statics.InternalType.CreateFieldAccessor<int>(nameof(objectSelectorID));
-      public                  int                   objectSelectorID => _objectSelectorID.GetValue(_instance);
-    }
-
-    [UnityEditor.InitializeOnLoad]
-    public class InspectorWindow {
-      public static readonly Type                   InternalType      = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.InspectorWindow", true);
-      public static readonly InstanceAccessor<bool> _isLockedAccessor = InternalType.CreatePropertyAccessor<bool>(nameof(isLocked));
-
-      private readonly EditorWindow _instance;
-
-      public InspectorWindow(EditorWindow instance) {
-        if (instance == null) {
-          throw new ArgumentNullException(nameof(instance));
-        }
-
-        _instance = instance;
-      }
-
-      public bool isLocked {
-        get => _isLockedAccessor.GetValue(_instance);
-        set => _isLockedAccessor.SetValue(_instance, value);
-      }
-    }
-
-    [UnityEditor.InitializeOnLoad]
-    public static class SerializedProperty {
-      //public static readonly InstanceAccessor<int> hashCodeForPropertyPath                  = typeof(UnityEditor.SerializedProperty).CreatePropertyAccessor<int>(nameof(hashCodeForPropertyPath));
-      public static readonly InstanceAccessor<int> hashCodeForPropertyPathWithoutArrayIndex = typeof(UnityEditor.SerializedProperty).CreatePropertyAccessor<int>(nameof(hashCodeForPropertyPathWithoutArrayIndex));
-    }
-    
-    [UnityEditor.InitializeOnLoad]
-    public static class SplitterGUILayout {
-      public static readonly Action EndHorizontalSplit = CreateMethodDelegate<Action>(typeof(UnityEditor.Editor).Assembly,
-        "UnityEditor.SplitterGUILayout", "EndHorizontalSplit", BindingFlags.Public | BindingFlags.Static
-      );
-
-      public static readonly Action EndVerticalSplit = CreateMethodDelegate<Action>(typeof(UnityEditor.Editor).Assembly,
-        "UnityEditor.SplitterGUILayout", "EndVerticalSplit", BindingFlags.Public | BindingFlags.Static
-      );
-
-      public static void BeginHorizontalSplit(SplitterState splitterState, GUIStyle style, params GUILayoutOption[] options) {
-        _beginHorizontalSplit.DynamicInvoke(splitterState.InternalState, style, options);
-      }
-
-      public static void BeginVerticalSplit(SplitterState splitterState, GUIStyle style, params GUILayoutOption[] options) {
-        _beginVerticalSplit.DynamicInvoke(splitterState.InternalState, style, options);
-      }
-
-      private static readonly Delegate _beginHorizontalSplit = CreateMethodDelegate(typeof(UnityEditor.Editor).Assembly,
-        "UnityEditor.SplitterGUILayout", "BeginHorizontalSplit", BindingFlags.Public | BindingFlags.Static,
-        typeof(Action<,,>).MakeGenericType(SplitterState.InternalType, typeof(GUIStyle), typeof(GUILayoutOption[]))
-      );
-
-      private static readonly Delegate _beginVerticalSplit = CreateMethodDelegate(typeof(UnityEditor.Editor).Assembly,
-        "UnityEditor.SplitterGUILayout", "BeginVerticalSplit", BindingFlags.Public | BindingFlags.Static,
-        typeof(Action<,,>).MakeGenericType(SplitterState.InternalType, typeof(GUIStyle), typeof(GUILayoutOption[]))
-      );
-    }
-
-    [UnityEditor.InitializeOnLoad]
-    [Serializable]
-    public class SplitterState : ISerializationCallbackReceiver {
-
-      public static readonly Type InternalType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.SplitterState", true);
-      private static readonly FieldInfo _relativeSizes = InternalType.GetFieldOrThrow("relativeSizes");
-      private static readonly FieldInfo _realSizes = InternalType.GetFieldOrThrow("realSizes");
-      private static readonly FieldInfo _splitSize = InternalType.GetFieldOrThrow("splitSize");
-
-      public string Json = "{}";
-
-      [NonSerialized]
-      public object InternalState = FromRelativeInner(new[] { 1.0f });
-
-      void ISerializationCallbackReceiver.OnAfterDeserialize() {
-        InternalState = JsonUtility.FromJson(Json, InternalType);
-      }
-
-      void ISerializationCallbackReceiver.OnBeforeSerialize() {
-        Json = JsonUtility.ToJson(InternalState);
-      }
-
-      public static SplitterState FromRelative(float[] relativeSizes, int[] minSizes = null, int[] maxSizes = null, int splitSize = 0) {
-        var result = new SplitterState();
-        result.InternalState = FromRelativeInner(relativeSizes, minSizes, maxSizes, splitSize);
-        return result;
-      }
-
-
-      private static object FromRelativeInner(float[] relativeSizes, int[] minSizes = null, int[] maxSizes = null, int splitSize = 0) {
-        return Activator.CreateInstance(InternalType, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.CreateInstance,
-          null,
-          new object[] { relativeSizes, minSizes, maxSizes, splitSize },
-          null, null);
-      }
-
-      public float[] realSizes => ConvertArray((Array)_realSizes.GetValue(InternalState));
-      public float[] relativeSizes => ConvertArray((Array)_relativeSizes.GetValue(InternalState));
-      public float splitSize => Convert.ToSingle(_splitSize.GetValue(InternalState));
-
-      private static float[] ConvertArray(Array value) {
-        float[] result = new float[value.Length];
-        for (int i = 0; i < value.Length; ++i) {
-          result[i] = Convert.ToSingle(value.GetValue(i));
-        }
-        return result;
-      }
-    }
-    
-    public sealed class InternalStyles {
-      public static InternalStyles Instance = new InternalStyles();
-      
-      internal LazyGUIStyle InspectorTitlebar                => LazyGUIStyle.Create(_ => GetStyle("IN Title"));
-      internal LazyGUIStyle FoldoutTitlebar                  => LazyGUIStyle.Create(_ => GetStyle("Titlebar Foldout", "Foldout"));
-      internal LazyGUIStyle BoxWithBorders                   => LazyGUIStyle.Create(_ => GetStyle("OL Box"));
-      internal LazyGUIStyle HierarchyTreeViewLine            => LazyGUIStyle.Create(_ => GetStyle("TV Line"));
-      internal LazyGUIStyle HierarchyTreeViewSceneBackground => LazyGUIStyle.Create(_ => GetStyle("SceneTopBarBg", "ProjectBrowserTopBarBg"));
-      internal LazyGUIStyle OptionsButtonStyle               => LazyGUIStyle.Create(_ => GetStyle("PaneOptions"));
-      internal LazyGUIStyle AddComponentButton               => LazyGUIStyle.Create(_ => GetStyle("AC Button"));
-      internal LazyGUIStyle AnimationEventTooltip            => LazyGUIStyle.Create(_ => GetStyle("AnimationEventTooltip"));
-      internal LazyGUIStyle AnimationEventTooltipArrow       => LazyGUIStyle.Create(_ => GetStyle("AnimationEventTooltipArrow"));
-      
-      private static GUIStyle GetStyle(params string[] names) {
-        var skin = GUI.skin;
-
-        foreach (var name in names) {
-          var result = skin.FindStyle(name);
-          if (result != null) {
-            return result;
-          }
-        }
-
-        throw new ArgumentOutOfRangeException($"Style not found: {string.Join(", ", names)}", nameof(names));
-      }
-    }
-    
-    public static InternalStyles Styles => InternalStyles.Instance;
-  }
-}
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-// ReSharper enable InconsistentNaming
 
 #endregion
 
@@ -14246,7 +14686,7 @@ namespace Quantum.Editor {
           }
 
           var arraySize = values.Count;
-          var attr      = Attribute.SourceAttribute;
+          var attr = Attribute.SourceAttribute;
           if (arraySize < attr.MinLength) {
             arraySize = attr.MinLength;
           } else if (arraySize > attr.MaxLength) {
@@ -14358,7 +14798,7 @@ namespace Quantum.Editor {
                 anyPassed = true;
               } else {
                 allPassed = false;
-              }  
+              }
             }
           }
         } else {
@@ -14397,7 +14837,7 @@ namespace Quantum.Editor {
     static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, DrawIfAttribute attribute) {
       return new[] { new OdinAttributeProxy() { SourceAttribute = attribute } };
     }
-    
+
     class OdinAttributeProxy : OdinProxyAttributeBase {
     }
 
@@ -14452,15 +14892,15 @@ namespace Quantum.Editor {
     static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, ErrorIfAttribute attribute) {
       return new[] { new OdinAttributeProxy() { SourceAttribute = attribute } };
     }
-    
+
     class OdinAttributeProxy : OdinProxyAttributeBase {
     }
-    
+
     [DrawerPriority(DrawerPriorityLevel.WrapperPriority)]
     class OdinDrawer : OdinDrawerBase<OdinAttributeProxy> {
       protected override void DrawPropertyLayout(GUIContent label, bool allPassed, bool anyPassed) {
         var attribute = (ErrorIfAttribute)Attribute.SourceAttribute;
-        
+
         base.CallNextDrawer(label);
 
         if (anyPassed) {
@@ -14492,7 +14932,7 @@ namespace Quantum.Editor {
     static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, FieldEditorButtonAttribute attribute) {
       return new[] { new OdinAttributeProxy() { SourceAttribute = attribute } };
     }
-    
+
     class OdinAttributeProxy : Attribute {
       public FieldEditorButtonAttribute SourceAttribute;
     }
@@ -14507,8 +14947,8 @@ namespace Quantum.Editor {
         CallNextDrawer(label);
 
         var buttonRect = EditorGUI.IndentedRect(EditorGUILayout.GetControlRect());
-        var attribute  = Attribute.SourceAttribute;
-        var root       = this.Property.SerializationRoot;
+        var attribute = Attribute.SourceAttribute;
+        var root = this.Property.SerializationRoot;
         var targetType = root.ValueEntry.TypeOfValue;
         var targetObjects = root.ValueEntry.WeakValues
          .OfType<UnityEngine.Object>()
@@ -14554,12 +14994,12 @@ namespace Quantum.Editor {
   using UnityEngine;
 
   partial class InlineHelpAttributeDrawer {
-    
+
     [QuantumOdinAttributeConverter]
     static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, InlineHelpAttribute attribute) {
       return new[] { new OdinAttributeProxy() { SourceAttribute = attribute } };
     }
-    
+
     class OdinAttributeProxy : Attribute {
       public InlineHelpAttribute SourceAttribute;
     }
@@ -14578,7 +15018,7 @@ namespace Quantum.Editor {
 
         return true;
       }
-      
+
       private Rect _lastRect;
 
       private bool GetHasFoldout() {
@@ -14593,12 +15033,12 @@ namespace Quantum.Editor {
 
       protected override void DrawPropertyLayout(GUIContent label) {
 
-        Rect buttonRect  = default;
+        Rect buttonRect = default;
         bool wasExpanded = false;
 
-        bool hasFoldout   = GetHasFoldout();
+        bool hasFoldout = GetHasFoldout();
         Rect propertyRect = _lastRect;
-        var  helpContent  = GetHelpContent(Property, Attribute.SourceAttribute.ShowTypeHelp);
+        var helpContent = GetHelpContent(Property, Attribute.SourceAttribute.ShowTypeHelp);
 
         using (new QuantumEditorGUI.GUIContentScope(label)) {
 
@@ -14654,20 +15094,25 @@ namespace Quantum.Editor {
     static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, LayerMatrixAttribute attribute) {
       return new[] { new OdinAttributeProxy() { SourceAttribute = attribute } };
     }
-    
+
     class OdinAttributeProxy : Attribute {
       public LayerMatrixAttribute SourceAttribute;
     }
 
     class OdinDrawer : OdinAttributeDrawer<OdinAttributeProxy> {
       protected override void DrawPropertyLayout(GUIContent label) {
+        EditorGUILayout.LabelField(label);
 
-        var rect = EditorGUILayout.GetControlRect();
-        var valueRect = EditorGUI.PrefixLabel(rect, label);
-        if (GUI.Button(valueRect, "Edit")) {
-          int[] values = (int[])this.Property.ValueEntry.WeakValues[0];
-
-          PopupWindow.Show(valueRect, new LayerMatrixPopup(label.text, (layerA, layerB) => {
+        var layerNamesProperty = this.Property.FindPropertyRelativeToParentOrThrow(Attribute.SourceAttribute.LayerNamesField);
+        
+        var layerNames = (string[])layerNamesProperty.ValueEntry.WeakValues[0];
+        var values = (int[])Property.ValueEntry.WeakValues[0];
+        
+        var activeIndices = LayerMatrixGUI.GetActiveIndices(layerNames, out float maxLabelWidth);
+        var height = LayerMatrixGUI.GetHeight(activeIndices.Count, maxLabelWidth);
+        var matrixRect = EditorGUILayout.GetControlRect(GUILayout.Height(height));
+        LayerMatrixGUI.Draw(matrixRect, layerNames, activeIndices, maxLabelWidth, 
+          (layerA, layerB) => {
             if (layerA >= values.Length) {
               return false;
             }
@@ -14676,7 +15121,7 @@ namespace Quantum.Editor {
             if (Mathf.Max(layerA, layerB) >= values.Length) {
               Array.Resize(ref values, Mathf.Max(layerA, layerB) + 1);
             }
-            
+
             if (val) {
               values[layerA] |= (1 << layerB);
               values[layerB] |= (1 << layerA);
@@ -14684,15 +15129,14 @@ namespace Quantum.Editor {
               values[layerA] &= ~(1 << layerB);
               values[layerB] &= ~(1 << layerA);
             }
-            
+
             // sync other values
             for (int i = 1; i < this.Property.ValueEntry.ValueCount; ++i) {
               this.Property.ValueEntry.WeakValues.ForceSetValue(i, values.Clone());
             }
-            
+
             Property.MarkSerializationRootDirty();
-          }));
-        }
+          });
       }
     }
   }
@@ -14730,7 +15174,7 @@ namespace Quantum.Editor {
       for (int i = 0; i < attributes.Count; ++i) {
         var attribute = attributes[i];
         if (attribute is PropertyAttribute) {
-          
+
           var drawerType = QuantumEditorGUI.GetDrawerTypeIncludingWorkarounds(attribute);
           if (drawerType != null) {
 
@@ -14806,25 +15250,25 @@ namespace Quantum.Editor {
 
     public static int GetValueDepth(this InspectorProperty property) {
       int depth = 0;
-      
+
       var parent = property.GetValueParent();
       while (parent?.IsTreeRoot == false) {
         ++depth;
         parent = parent.GetValueParent();
       }
-      
+
       return depth;
     }
 
     public static InspectorProperty GetValueParent(this InspectorProperty property) {
-      
+
       var parent = property.Parent;
       while (parent?.Info.PropertyType == PropertyType.Group) {
         parent = parent.Parent;
       }
       return parent;
     }
-    
+
     public static SerializedPropertyType GetUnityPropertyType(this InspectorProperty inspectorProperty) {
       if (inspectorProperty == null) {
         throw new ArgumentNullException(nameof(inspectorProperty));
@@ -14888,14 +15332,14 @@ namespace Quantum.Editor {
         if (referenceProperty.GetValueParent() == null) {
           return null;
         }
-        
+
         referenceProperty = referenceProperty.GetValueParent();
       } while (path[parentIndex++] == '^');
 
       if (parentIndex > 1) {
         path = path.Substring(parentIndex - 1);
       }
-      
+
       var parts = path.Split('.');
       if (parts.Length == 0) {
         return null;
@@ -14911,6 +15355,15 @@ namespace Quantum.Editor {
       }
 
       return referenceProperty;
+    }
+
+    public static InspectorProperty FindPropertyRelativeToParentOrThrow(this InspectorProperty property, string relativePropertyPath) {
+      var result = FindPropertyRelativeToParent(property, relativePropertyPath);
+      if (result == null) {
+        throw new ArgumentOutOfRangeException(nameof(relativePropertyPath), $"Property not found: {relativePropertyPath} (relative to \"{property.Path}\")");
+      }
+
+      return result;
     }
 
     public static (QuantumPropertyDrawerMetaAttribute, Attribute) GetNextPropertyDrawerMetaAttribute(this InspectorProperty property, Attribute referenceAttribute) {
@@ -14934,7 +15387,7 @@ namespace Quantum.Editor {
         }
       }
 
-      
+
       var propertyDrawerType = UnityInternal.ScriptAttributeUtility.GetDrawerTypeForType(property.ValueEntry.TypeOfValue, false);
 
       if (propertyDrawerType != null) {
@@ -14986,9 +15439,9 @@ namespace Quantum.Editor {
 
   partial class SerializeReferenceTypePickerAttributeDrawer {
     [QuantumOdinAttributeConverter]
-      static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, SerializeReferenceTypePickerAttribute attribute) {
-        return Array.Empty<System.Attribute>();
-      }
+    static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, SerializeReferenceTypePickerAttribute attribute) {
+      return Array.Empty<System.Attribute>();
+    }
   }
 }
 #endif
@@ -15011,21 +15464,21 @@ namespace Quantum.Editor {
     static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, UnitAttribute attribute) {
       return new[] { new OdinAttributeProxy() { SourceAttribute = attribute } };
     }
-    
+
     class OdinAttributeProxy : Attribute {
       public UnitAttribute SourceAttribute;
     }
-  
+
     [DrawerPriority(DrawerPriorityLevel.WrapperPriority)]
-    class OdinUnitAttributeDrawer :  Sirenix.OdinInspector.Editor.OdinAttributeDrawer<OdinAttributeProxy> {
+    class OdinUnitAttributeDrawer : Sirenix.OdinInspector.Editor.OdinAttributeDrawer<OdinAttributeProxy> {
       private GUIContent _label;
-      private Rect       _lastRect;
-    
+      private Rect _lastRect;
+
       protected override bool CanDrawAttributeProperty(Sirenix.OdinInspector.Editor.InspectorProperty property) {
 
-        for (Attribute attrib = null;;) {
+        for (Attribute attrib = null; ;) {
           var (meta, nextAttribute) = property.GetNextPropertyDrawerMetaAttribute(attrib);
-          attrib                    = nextAttribute;
+          attrib = nextAttribute;
           if (meta?.HandlesUnits == true) {
             if (attrib is OdinAttributeProxy == false) {
               return false;
@@ -15044,7 +15497,7 @@ namespace Quantum.Editor {
             return true;
         }
       }
-    
+
       protected sealed override void DrawPropertyLayout(GUIContent label) {
 
         using (new EditorGUILayout.VerticalScope()) {
@@ -15056,8 +15509,8 @@ namespace Quantum.Editor {
         }
 
         if (_lastRect.width > 1 && _lastRect.height > 1) {
-          _label      ??= new GUIContent();
-          _label.text =   UnitToLabel(this.Attribute.SourceAttribute.Unit);
+          _label ??= new GUIContent();
+          _label.text = UnitToLabel(this.Attribute.SourceAttribute.Unit);
           DrawUnitOverlay(_lastRect, _label, Property.GetUnityPropertyType(), false, odinStyle: true);
         }
       }
@@ -15082,15 +15535,15 @@ namespace Quantum.Editor {
     static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, WarnIfAttribute attribute) {
       return new[] { new OdinAttributeProxy() { SourceAttribute = attribute } };
     }
-    
+
     class OdinAttributeProxy : OdinProxyAttributeBase {
     }
-    
+
     [DrawerPriority(DrawerPriorityLevel.WrapperPriority)]
     class OdinDrawer : OdinDrawerBase<OdinAttributeProxy> {
       protected override void DrawPropertyLayout(GUIContent label, bool allPassed, bool anyPassed) {
         var attribute = (WarnIfAttribute)Attribute.SourceAttribute;
-        
+
         base.CallNextDrawer(label);
 
         if (anyPassed) {
@@ -15112,15 +15565,21 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
-  internal partial class ArrayLengthAttributeDrawer : DecoratingPropertyAttributeDrawer, INonApplicableOnArrayElements {
+  [CustomPropertyDrawer(typeof(ArrayLengthAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(ArrayLengthAttribute), typeof(ArrayLengthAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
+  internal partial class ArrayLengthAttributeDrawer : DecoratingPropertyAttributeDrawer {
 
     private GUIStyle _style;
 
     private GUIStyle GetStyle() {
       if (_style == null) {
-        _style                  = new GUIStyle(EditorStyles.miniLabel);
-        _style.alignment        = TextAnchor.MiddleRight;
-        _style.contentOffset    = new Vector2(-2, 0);
+        _style = new GUIStyle(EditorStyles.miniLabel);
+        _style.alignment = TextAnchor.MiddleRight;
+        _style.contentOffset = new Vector2(-2, 0);
         _style.normal.textColor = EditorGUIUtility.isProSkin ? new Color(255f / 255f, 221 / 255f, 0 / 255f, 1f) : Color.blue;
       }
 
@@ -15133,7 +15592,7 @@ namespace Quantum.Editor {
       if (!property.isArray) {
         return;
       }
-      
+
       var overlayRect = position;
       overlayRect.height = EditorGUIUtility.singleLineHeight;
 
@@ -15150,11 +15609,6 @@ namespace Quantum.Editor {
         property.serializedObject.ApplyModifiedProperties();
       }
     }
-  }
-  
-  [CustomPropertyDrawer(typeof(ArrayLengthAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(ArrayLengthAttribute), typeof(ArrayLengthAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround {
   }
 }
 
@@ -15183,18 +15637,18 @@ namespace Quantum.Editor {
     enum AsmDefType {
       Predefined = 1 << 0,
       InPackages = 1 << 1,
-      InAssets   = 1 << 2,
-      Editor     = 1 << 3,
-      Runtime    = 1 << 4,
-      All        = Predefined | InPackages | InAssets | Editor | Runtime,
+      InAssets = 1 << 2,
+      Editor = 1 << 3,
+      Runtime = 1 << 4,
+      All = Predefined | InPackages | InAssets | Editor | Runtime,
     }
 
     Dictionary<string, AssemblyInfo> _allAssemblies;
 
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
-      var  assemblyName = property.stringValue;
-      bool notFound     = false;
-      
+      var assemblyName = property.stringValue;
+      bool notFound = false;
+
       if (!string.IsNullOrEmpty(assemblyName)) {
         if (_allAssemblies == null) {
           _allAssemblies = GetAssemblies(AsmDefType.All).ToDictionary(x => x.Name, x => x);
@@ -15215,13 +15669,13 @@ namespace Quantum.Editor {
       using (new QuantumEditorGUI.PropertyScope(position, label, property)) {
         EditorGUI.BeginChangeCheck();
 
-        assemblyName = EditorGUI.TextField(new Rect(position) { xMax = position.xMax - DropdownWidth }, 
-          label, 
+        assemblyName = EditorGUI.TextField(new Rect(position) { xMax = position.xMax - DropdownWidth },
+          label,
           assemblyName,
-          notFound ? 
+          notFound ?
             new GUIStyle(EditorStyles.textField) {
-              fontStyle = FontStyle.Italic, 
-              normal    = new GUIStyleState() { textColor = Color.gray }
+              fontStyle = FontStyle.Italic,
+              normal = new GUIStyleState() { textColor = Color.gray }
             } : EditorStyles.textField
         );
 
@@ -15273,14 +15727,21 @@ namespace Quantum.Editor {
       var result = new Dictionary<string, AsmDefData>(StringComparer.OrdinalIgnoreCase);
 
       if (types.HasFlag(AsmDefType.Predefined)) {
+        bool allowUnsafeCode =
+#if UNITY_6000_7_OR_NEWER
+          true;
+#else
+          PlayerSettings.allowUnsafeCode;
+#endif
+
         if (types.HasFlag(AsmDefType.Runtime)) {
-          yield return new AssemblyInfo("Assembly-CSharp-firstpass", PlayerSettings.allowUnsafeCode, true);
-          yield return new AssemblyInfo("Assembly-CSharp", PlayerSettings.allowUnsafeCode, true);
+          yield return new AssemblyInfo("Assembly-CSharp-firstpass", allowUnsafeCode, true);
+          yield return new AssemblyInfo("Assembly-CSharp", allowUnsafeCode, true);
         }
 
         if (types.HasFlag(AsmDefType.Editor)) {
-          yield return new AssemblyInfo("Assembly-CSharp-Editor-firstpass", PlayerSettings.allowUnsafeCode, true);
-          yield return new AssemblyInfo("Assembly-CSharp-Editor", PlayerSettings.allowUnsafeCode, true);
+          yield return new AssemblyInfo("Assembly-CSharp-Editor-firstpass", allowUnsafeCode, true);
+          yield return new AssemblyInfo("Assembly-CSharp-Editor", allowUnsafeCode, true);
         }
       }
 
@@ -15288,13 +15749,13 @@ namespace Quantum.Editor {
         var query = AssetDatabase.FindAssets("t:asmdef")
          .Select(x => AssetDatabase.GUIDToAssetPath(x))
          .Where(x => {
-            if (types.HasFlag(AsmDefType.InAssets) && x.StartsWith("Assets/")) {
-              return true;
-            } else if (types.HasFlag(AsmDefType.InPackages) && x.StartsWith("Packages/")) {
-              return true;
-            } else {
-              return false;
-            }
+           if (types.HasFlag(AsmDefType.InAssets) && x.StartsWith("Assets/")) {
+             return true;
+           } else if (types.HasFlag(AsmDefType.InPackages) && x.StartsWith("Packages/")) {
+             return true;
+           } else {
+             return false;
+           }
          })
          .Select(x => JsonUtility.FromJson<AsmDefData>(File.ReadAllText(x)))
          .Where(x => {
@@ -15307,7 +15768,7 @@ namespace Quantum.Editor {
              return false;
            }
          });
-        
+
         foreach (var asmdef in query) {
           yield return new AssemblyInfo(asmdef.name, asmdef.allowUnsafeCode, false);
         }
@@ -15317,19 +15778,19 @@ namespace Quantum.Editor {
     [Serializable]
     private class AsmDefData {
       public string[] includePlatforms = Array.Empty<string>();
-      public string   name             = string.Empty;
-      public bool     allowUnsafeCode;
+      public string name = string.Empty;
+      public bool allowUnsafeCode;
     }
-    
+
     private struct AssemblyInfo {
       public string Name;
-      public bool   AllowUnsafeCode;
-      public bool   IsPredefined;
-      
+      public bool AllowUnsafeCode;
+      public bool IsPredefined;
+
       public AssemblyInfo(string name, bool allowUnsafeCode, bool isPredefined) {
-        Name           = name;
+        Name = name;
         AllowUnsafeCode = allowUnsafeCode;
-        IsPredefined   = isPredefined;
+        IsPredefined = isPredefined;
       }
     }
   }
@@ -15344,6 +15805,12 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
+  [CustomPropertyDrawer(typeof(BinaryDataAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(BinaryDataAttribute), typeof(BinaryDataAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
   internal partial class BinaryDataAttributeDrawer : PropertyDrawerWithErrorHandling, INonApplicableOnArrayElements {
     
     private int           MaxLines  = 16;
@@ -15352,7 +15819,7 @@ namespace Quantum.Editor {
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
       using (new QuantumEditorGUI.PropertyScope(position, label, property)) {
         bool wasExpanded = property.isExpanded;
-        
+
         var foldoutPosition = new Rect(position) { height = EditorGUIUtility.singleLineHeight };
         property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, label);
 
@@ -15365,36 +15832,30 @@ namespace Quantum.Editor {
         if (!wasExpanded) {
           return;
         }
-        
+
         position.yMin += foldoutPosition.height + EditorGUIUtility.standardVerticalSpacing;
         using (new QuantumEditorGUI.EnabledScope(true)) {
           _drawer.Draw(GUIContent.none, position);
         }
       }
     }
-    
+
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
 
       if (!property.isExpanded) {
         return EditorGUIUtility.singleLineHeight;
       }
-      
+
       _drawer.Refresh(property);
 
       // space for scrollbar and indent
-      var width  = UnityInternal.EditorGUIUtility.contextWidth - 32.0f;
+      var width = UnityInternal.EditorGUIUtility.contextWidth - 32.0f;
       var height = _drawer.GetHeight(width);
-      
+
       return EditorGUIUtility.singleLineHeight +
         EditorGUIUtility.standardVerticalSpacing +
         Mathf.Min(QuantumEditorGUI.GetLinesHeight(MaxLines), height);
     }
-  }
-  
-    
-  [CustomPropertyDrawer(typeof(BinaryDataAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(BinaryDataAttribute), typeof(BinaryDataAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround {
   }
 }
 
@@ -15470,15 +15931,13 @@ namespace Quantum.Editor {
 
 namespace Quantum.Editor {
   using System;
-  using System.Collections.Generic;
   using System.Linq;
-  using Unity.Profiling;
   using UnityEditor;
   using UnityEngine;
 
   internal abstract class DecoratingPropertyAttributeDrawer : PropertyDrawer {
     bool _isLastDrawer;
-    int  _nestingLevel;
+    int _nestingLevel;
     bool _isInitialized;
 
     public PropertyDrawer NextDrawer { get; private set; }
@@ -15486,7 +15945,7 @@ namespace Quantum.Editor {
     public DecoratingPropertyAttributeDrawer() {
       QuantumEditorLog.TraceInspector(GetLogMessage("constructor"));
     }
-    
+
     [Obsolete("Derived classes should override and call OnGUIInternal", true)]
 #pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
     public sealed override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -15511,7 +15970,7 @@ namespace Quantum.Editor {
 
     protected virtual void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
       QuantumEditorLog.TraceInspector(GetLogMessage($"OnGUIInternal({position}, {property.propertyPath}, {label})"));
-      
+
       if (_nestingLevel != 0) {
         QuantumEditorLog.Assert(false, $"{property.propertyPath} {GetType().FullName}");
       }
@@ -15530,7 +15989,7 @@ namespace Quantum.Editor {
         QuantumEditorGUI.ForwardPropertyField(position, prop, label, prop.ShouldIncludeChildren(), _isLastDrawer);
       }
     }
-    
+
     private float InvokeGetPropertyHeightOnNextDrawer(SerializedProperty prop, GUIContent label) {
       if (NextDrawer != null) {
         return NextDrawer.GetPropertyHeight(prop, label);
@@ -15559,7 +16018,7 @@ namespace Quantum.Editor {
         return GetPropertyHeightInternal(prop, label);
       }
     }
-    
+
     protected virtual bool EnsureInitialized(SerializedProperty property) {
       if (_isInitialized) {
         return false;
@@ -15571,15 +16030,15 @@ namespace Quantum.Editor {
         QuantumEditorLog.Assert(field != null, $"Could not find field for property {property.propertyPath} of type {property.serializedObject.targetObject.GetType().FullName} (I'm {GetType().FullName} {GetHashCode()})");
         UnityInternal.PropertyDrawer.SetFieldInfo(this, field);
       }
-      
+
       QuantumEditorLog.Assert(attribute != null);
       QuantumEditorLog.Assert(attribute is DecoratingPropertyAttribute, $"Expected attribute to be of type {nameof(DecoratingPropertyAttribute)} but it's {attribute.GetType().FullName}");
 
       _isInitialized = true;
       NextDrawer = null;
-      
+
       var isLastDrawer = false;
-      var foundSelf    = false;
+      var foundSelf = false;
 
       var fieldAttributes = fieldInfo != null ? UnityInternal.ScriptAttributeUtility.GetFieldAttributes(fieldInfo) : null;
 
@@ -15595,11 +16054,13 @@ namespace Quantum.Editor {
             QuantumEditorLog.TraceInspector(GetLogMessage($"No drawer for {attributeDrawerType}"));
             continue;
           }
-          
+
+#if !UNITY_6000_0_OR_NEWER
           if (attributeDrawerType == typeof(PropertyDrawerForArrayWorkaround)) {
             attributeDrawerType = PropertyDrawerForArrayWorkaround.GetDrawerType(fieldAttribute.GetType());
           }
-          
+#endif
+
           if (attributeDrawerType.IsSubclassOf(typeof(DecoratorDrawer))) {
             // decorators are their own thing
             continue;
@@ -15614,7 +16075,7 @@ namespace Quantum.Editor {
 
           if (!foundSelf && fieldAttribute.Equals(attribute)) {
             // self
-            foundSelf    = true;
+            foundSelf = true;
             isLastDrawer = true;
             QuantumEditorLog.TraceInspector(GetLogMessage($"Found self at {i} ({this})"));
             continue;
@@ -15626,11 +16087,11 @@ namespace Quantum.Editor {
 
       if (NextDrawer == null && isLastDrawer && fieldInfo != null) {
         // try creating type drawer instead
-        var fieldType      = fieldInfo.FieldType;
+        var fieldType = fieldInfo.FieldType;
         if (property.IsArrayElement()) {
           fieldType = fieldType.GetUnityLeafType();
         }
-        
+
         var typeDrawerType = UnityInternal.ScriptAttributeUtility.GetDrawerTypeForPropertyAndType(property, fieldType);
         if (typeDrawerType != null) {
           var drawer = (PropertyDrawer)Activator.CreateInstance(typeDrawerType);
@@ -15656,10 +16117,10 @@ namespace Quantum.Editor {
       if (NextDrawer != null) {
         return NextDrawer;
       }
-      
+
       var handler = UnityInternal.ScriptAttributeUtility.propertyHandlerCache.GetHandler(property);
       var drawers = handler.m_PropertyDrawers;
-      var index   = drawers.IndexOf(this);
+      var index = drawers.IndexOf(this);
       if (index >= 0 && index < drawers.Count - 1) {
         return drawers[index + 1];
       }
@@ -15669,6 +16130,91 @@ namespace Quantum.Editor {
 
     private string GetLogMessage(string message) {
       return $"[{GetType().FullName}] [{GetHashCode():X8}] [{fieldInfo?.DeclaringType?.Name}.{fieldInfo?.Name}] {message}";
+    }
+  }
+}
+
+#endregion
+
+
+#region DirectoryPathAttributeDrawer.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.IO;
+  using UnityEditor;
+  using UnityEngine;
+
+  [CustomPropertyDrawer(typeof(DirectoryPathAttribute))]
+  class DirectoryPathAttributeDrawer : PropertyDrawerWithErrorHandling {
+    const int MinWidthRequired = 150;
+    static readonly GUIContent ButtonContent = new GUIContent("...");
+    static (string PropertyPath, string Path) _awaitingProperty;
+
+
+    protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
+      if (property.propertyType != SerializedPropertyType.String) {
+        throw new InvalidOperationException($"Only applicable on string properties");
+      }
+
+      if (position.width >= MinWidthRequired) {
+        var buttonWidth = EditorStyles.miniButton.CalcSize(ButtonContent);
+        position.width -= buttonWidth.x;
+
+        if (GUI.Button(new Rect(position.xMax, position.y, buttonWidth.x, EditorGUIUtility.singleLineHeight), ButtonContent)) {
+          string propertyPath = property.propertyPath;
+          string initialFolder = ExpandAndMakeAbsoluteSafe(property.stringValue);
+          if (!Directory.Exists(initialFolder)) {
+            initialFolder = "Assets";
+          }
+
+          // this can't be done synchronously - something beaks within Unity drawer stack and there's a cryptic
+          // exception logged
+          EditorApplication.delayCall += () => {
+            var path = EditorUtility.OpenFolderPanel("", folder: initialFolder, "");
+
+            if (string.IsNullOrEmpty(path)) {
+              return;
+            }
+
+            path = Path.GetRelativePath(".", path);
+            path = PathUtils.Normalize(path);
+
+            _awaitingProperty = (propertyPath, path);
+            EditorApplication.delayCall += () => {
+              // clear the awaiter in case the property is no longer there
+              _awaitingProperty = default;
+            };
+          };
+        }
+      }
+
+      EditorGUI.PropertyField(position, property, label);
+
+      if (_awaitingProperty.PropertyPath?.Equals(property.propertyPath) == true) {
+        property.stringValue = _awaitingProperty.Path;
+        property.serializedObject.ApplyModifiedProperties();
+        _awaitingProperty = default;
+      }
+
+      if (Directory.Exists(ExpandAndMakeAbsoluteSafe(property.stringValue))) {
+        ClearError();
+      } else {
+        SetError($"Folder does not exist");
+      }
+    }
+
+    static string ExpandAndMakeAbsoluteSafe(string path) {
+      var expanded = Environment.ExpandEnvironmentVariables(path);
+      if (string.IsNullOrEmpty(expanded)) {
+        return string.Empty;
+      }
+
+      try {
+        return Path.GetFullPath(expanded);
+      } catch {
+        return string.Empty;
+      }
     }
   }
 }
@@ -15688,15 +16234,15 @@ namespace Quantum.Editor {
   [CustomPropertyDrawer(typeof(DisplayAsEnumAttribute))]
   internal class DisplayAsEnumAttributeDrawer : PropertyDrawerWithErrorHandling {
 
-    private EnumDrawer                 _enumDrawer;
+    private EnumDrawer _enumDrawer;
     private Dictionary<(Type, string), Func<object, Type>> _cachedGetters = new Dictionary<(Type, string), Func<object, Type>>();
 
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
-      var attr     = (DisplayAsEnumAttribute)attribute;
+      var attr = (DisplayAsEnumAttribute)attribute;
       var enumType = attr.EnumType;
 
       if (enumType == null && !string.IsNullOrEmpty(attr.EnumTypeMemberName)) {
-      
+
         var objType = property.serializedObject.targetObject.GetType();
         if (!_cachedGetters.TryGetValue((objType, attr.EnumTypeMemberName), out var getter)) {
           // maybe this is a top-level property then and we can use reflection?
@@ -15709,10 +16255,10 @@ namespace Quantum.Editor {
               QuantumEditorLog.ErrorInspector($"Can't get enum type for {property.propertyPath}: unable to create getter for {attr.EnumTypeMemberName} with exception {e}");
             }
           }
-      
+
           _cachedGetters.Add((objType, attr.EnumTypeMemberName), getter);
         }
-      
+
         enumType = getter(property.serializedObject.targetObject);
       }
 
@@ -15723,7 +16269,7 @@ namespace Quantum.Editor {
           SetError($"Type {enumType} is not an enum type");
         } else {
           ClearError();
-          _enumDrawer.Draw(valueRect, property, enumType, true);
+          _enumDrawer.Draw(valueRect, property, enumType);
         }
       }
     }
@@ -15739,7 +16285,12 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
-  //[CustomPropertyDrawer(typeof(DisplayNameAttribute))]
+  [CustomPropertyDrawer(typeof(DisplayNameAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(DisplayNameAttribute), typeof(DisplayNameAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
   internal class DisplayNameAttributeDrawer : DecoratingPropertyAttributeDrawer, INonApplicableOnArrayElements {
     private GUIContent _label = new GUIContent();
     
@@ -15752,23 +16303,18 @@ namespace Quantum.Editor {
         base.OnGUIInternal(position, property, label);
         return;
       }
-      _label.text    = ((DisplayNameAttribute)attribute).Name;
-      _label.image   = label.image;
+      _label.text = ((DisplayNameAttribute)attribute).Name;
+      _label.image = label.image;
       _label.tooltip = label.tooltip;
       base.OnGUIInternal(position, property, _label);
     }
-    
+
 #if ODIN_INSPECTOR && !QUANTUM_ODIN_DISABLED
     [QuantumOdinAttributeConverter]
     static System.Attribute[] ConvertToOdinAttributes(System.Reflection.MemberInfo memberInfo, DisplayNameAttribute attribute) {
       return new[] { new Sirenix.OdinInspector.LabelTextAttribute(attribute.Name) };
     }
 #endif
-  }
-  
-  [CustomPropertyDrawer(typeof(DisplayNameAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(DisplayNameAttribute), typeof(DisplayNameAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround {
   }
 }
 
@@ -15793,17 +16339,17 @@ namespace Quantum.Editor {
       if (compareProperty != null) {
         return CheckProperty(doIf, compareProperty);
       }
-      
+
       return CheckGetter(doIf, serializedObject, 0, string.Empty) == true;
     }
-    
+
     internal static bool CheckDraw(DoIfAttributeBase doIf, SerializedProperty property) {
       var compareProperty = property.depth < 0 ? property.FindPropertyRelative(doIf.ConditionMember) : property.FindPropertyRelativeToParent(doIf.ConditionMember);
 
       if (compareProperty != null) {
         return CheckProperty(doIf, compareProperty);
       }
-      
+
       return CheckGetter(doIf, property.serializedObject, property.depth, property.propertyPath) == true;
     }
 
@@ -15816,17 +16362,20 @@ namespace Quantum.Editor {
           return CheckCondition(doIf, compareProperty.longValue);
 
         case SerializedPropertyType.ObjectReference:
-          return CheckCondition(doIf, compareProperty.objectReferenceInstanceIDValue);
+          return CheckCondition(doIf, compareProperty.GetObjectReferenceValueAsLong());
 
         case SerializedPropertyType.Float:
           return CheckCondition(doIf, compareProperty.doubleValue);
+        
+        case SerializedPropertyType.Generic when compareProperty.isArray:
+          return CheckCondition(doIf, compareProperty.arraySize);
 
         default:
           QuantumEditorLog.ErrorInspector($"Can't check condition for {compareProperty.propertyPath}: unsupported property type {compareProperty.propertyType}");
           return true;
       }
     }
-    
+
     private static bool? CheckGetter(DoIfAttributeBase doIf, SerializedObject serializedObject, int depth, string referencePath) {
       var objType = serializedObject.targetObject.GetType();
       if (!_cachedGetters.TryGetValue((objType, doIf.ConditionMember), out var getter)) {
@@ -15847,7 +16396,7 @@ namespace Quantum.Editor {
 
         _cachedGetters.Add((objType, doIf.ConditionMember), getter);
       }
-      
+
       if (getter != null) {
         bool? result = null;
         foreach (var target in serializedObject.targetObjects) {
@@ -15864,40 +16413,44 @@ namespace Quantum.Editor {
         return true;
       }
     }
-    
+
     public static bool CheckCondition(DoIfAttributeBase attribute, double value) {
-      if (!attribute._isDouble) throw new InvalidOperationException();
+      if (!attribute._isDouble) {
+        throw new InvalidOperationException();
+      }
 
       var doubleValue = attribute._doubleValue;
       switch (attribute.Compare) {
-        case CompareOperator.Equal:                  return value == doubleValue;
-        case CompareOperator.NotEqual:               return value != doubleValue;
-        case CompareOperator.Less:                   return value < doubleValue;
-        case CompareOperator.LessOrEqual:            return value <= doubleValue;
-        case CompareOperator.GreaterOrEqual:         return value >= doubleValue;
-        case CompareOperator.Greater:                return value > doubleValue;
-        case CompareOperator.NotZero:                return value != 0;
-        case CompareOperator.IsZero:                 return value == 0;
+        case CompareOperator.Equal: return value == doubleValue;
+        case CompareOperator.NotEqual: return value != doubleValue;
+        case CompareOperator.Less: return value < doubleValue;
+        case CompareOperator.LessOrEqual: return value <= doubleValue;
+        case CompareOperator.GreaterOrEqual: return value >= doubleValue;
+        case CompareOperator.Greater: return value > doubleValue;
+        case CompareOperator.NotZero: return value != 0;
+        case CompareOperator.IsZero: return value == 0;
         case CompareOperator.BitwiseAndNotEqualZero: throw new NotSupportedException();
-        default:                                     throw new ArgumentOutOfRangeException();
+        default: throw new ArgumentOutOfRangeException();
       }
     }
 
     public static bool CheckCondition(DoIfAttributeBase attribute, long value) {
-      if (attribute._isDouble) throw new InvalidOperationException();
+      if (attribute._isDouble) {
+        throw new InvalidOperationException();
+      }
 
       var _longValue = attribute._longValue;
       switch (attribute.Compare) {
-        case CompareOperator.Equal:                  return value == _longValue;
-        case CompareOperator.NotEqual:               return value != _longValue;
-        case CompareOperator.Less:                   return value < _longValue;
-        case CompareOperator.LessOrEqual:            return value <= _longValue;
-        case CompareOperator.GreaterOrEqual:         return value >= _longValue;
-        case CompareOperator.Greater:                return value > _longValue;
-        case CompareOperator.NotZero:                return value != 0;
-        case CompareOperator.IsZero:                 return value == 0;
+        case CompareOperator.Equal: return value == _longValue;
+        case CompareOperator.NotEqual: return value != _longValue;
+        case CompareOperator.Less: return value < _longValue;
+        case CompareOperator.LessOrEqual: return value <= _longValue;
+        case CompareOperator.GreaterOrEqual: return value >= _longValue;
+        case CompareOperator.Greater: return value > _longValue;
+        case CompareOperator.NotZero: return value != 0;
+        case CompareOperator.IsZero: return value == 0;
         case CompareOperator.BitwiseAndNotEqualZero: return (value & _longValue) != 0;
-        default:                                     throw new ArgumentOutOfRangeException();
+        default: throw new ArgumentOutOfRangeException();
       }
     }
 
@@ -15942,6 +16495,12 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
+  [CustomPropertyDrawer(typeof(DrawIfAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(DrawIfAttribute), typeof(DrawIfAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
   internal partial class DrawIfAttributeDrawer : DoIfAttributeDrawer {
     public DrawIfAttribute Attribute => (DrawIfAttribute)attribute;
 
@@ -15949,13 +16508,13 @@ namespace Quantum.Editor {
       if (Attribute.Mode == DrawIfMode.ReadOnly || CheckDraw(Attribute, property)) {
         return base.GetPropertyHeightInternal(property, label);
       }
-      
+
       return -EditorGUIUtility.standardVerticalSpacing;
     }
 
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
       var readOnly = Attribute.Mode == DrawIfMode.ReadOnly;
-      var draw     = CheckDraw(Attribute, property);
+      var draw = CheckDraw(Attribute, property);
 
       if (readOnly || draw) {
         EditorGUI.BeginDisabledGroup(!draw);
@@ -15966,11 +16525,8 @@ namespace Quantum.Editor {
       }
     }
   }
-  
-  [CustomPropertyDrawer(typeof(DrawIfAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(DrawIfAttribute), typeof(DrawIfAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround {
-  }
+
+
 }
 
 #endregion
@@ -15987,7 +16543,7 @@ namespace Quantum.Editor {
   internal partial class DrawInlineAttributeDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       EditorGUI.BeginProperty(position, label, property);
-      
+
       foreach (var childProperty in property.GetChildren()) {
         position.height = QuantumEditorGUI.GetPropertyHeight(childProperty);
         EditorGUI.PropertyField(position, childProperty, true);
@@ -16019,22 +16575,22 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
-  internal partial class ErrorIfAttributeDrawer : MessageIfDrawerBase {
-    private new ErrorIfAttribute Attribute => (ErrorIfAttribute)attribute;
-
-    protected override bool        IsBox          => Attribute.AsBox;
-    protected override string      Message        => Attribute.Message;
-    protected override MessageType MessageType    => MessageType.Error;
-    override protected Color       InlineBoxColor => QuantumEditorSkin.ErrorInlineBoxColor;
-    protected override Texture     MessageIcon    => QuantumEditorSkin.ErrorIcon;
-  }
-  
   [CustomPropertyDrawer(typeof(ErrorIfAttribute))]
+#if !UNITY_6000_0_OR_NEWER
   [RedirectCustomPropertyDrawer(typeof(ErrorIfAttribute), typeof(ErrorIfAttributeDrawer))]
   partial class PropertyDrawerForArrayWorkaround {
   }
-}
+#endif
+  internal partial class ErrorIfAttributeDrawer : MessageIfDrawerBase {
+    private new ErrorIfAttribute Attribute => (ErrorIfAttribute)attribute;
 
+    protected override bool IsBox => Attribute.AsBox;
+    protected override string Message => Attribute.Message;
+    protected override MessageType MessageType => MessageType.Error;
+    protected override Color InlineBoxColor => QuantumEditorSkin.ErrorInlineBoxColor;
+    protected override Texture MessageIcon => QuantumEditorSkin.ErrorIcon;
+  }
+}
 
 #endregion
 
@@ -16049,17 +16605,17 @@ namespace Quantum.Editor {
 
   [CustomPropertyDrawer(typeof(ExpandableEnumAttribute))]
   internal class ExpandableEnumAttributeDrawer : PropertyDrawerWithErrorHandling {
-    
+
     private const float ToggleIndent = 5;
 
-    private readonly GUIContent[]            _gridOptions = new[] { new GUIContent("Nothing"), new GUIContent("Everything") };
-    private          EnumDrawer              _enumDrawer;
-    private readonly LazyGUIStyle            _buttonStyle = LazyGUIStyle.Create(_ => new GUIStyle(EditorStyles.miniButton) { fontSize = EditorStyles.miniButton.fontSize - 1 });
-    
-    private new    ExpandableEnumAttribute attribute => (ExpandableEnumAttribute)base.attribute;
-    
+    private readonly GUIContent[] _gridOptions = new[] { new GUIContent("Nothing"), new GUIContent("Everything") };
+    private EnumDrawer _enumDrawer;
+    private readonly LazyGUIStyle _buttonStyle = LazyGUIStyle.Create(_ => new GUIStyle(EditorStyles.miniButton) { fontSize = EditorStyles.miniButton.fontSize - 1 });
+
+    private new ExpandableEnumAttribute attribute => (ExpandableEnumAttribute)base.attribute;
+
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
-      
+
       bool wasExpanded = attribute.AlwaysExpanded || property.isExpanded;
 
       var rowRect = new Rect(position) {
@@ -16067,23 +16623,10 @@ namespace Quantum.Editor {
       };
 
       using (new QuantumEditorGUI.PropertyScope(position, label, property)) {
-        var  valueRect = EditorGUI.PrefixLabel(rowRect, label);
-        
-        bool isEnum        = property.propertyType == SerializedPropertyType.Enum;
-        var  maskProperty  = isEnum ? property : property.FindPropertyRelative("Mask").FindPropertyRelative("values");
+        var valueRect = EditorGUI.PrefixLabel(rowRect, label);
 
-        Mask256 rawValue;
-        if (isEnum) {
-          rawValue = new Mask256(maskProperty.longValue);
-          
-        } else {
-          rawValue = new Mask256(
-            maskProperty.GetFixedBufferElementAtIndex(0).longValue, 
-            maskProperty.GetFixedBufferElementAtIndex(1).longValue, 
-            maskProperty.GetFixedBufferElementAtIndex(2).longValue, 
-            maskProperty.GetFixedBufferElementAtIndex(3).longValue 
-            );
-        }
+        long rawValue = property.longValue;
+
         var foldoutRect = new Rect(valueRect) { width = QuantumEditorGUI.FoldoutWidth };
         valueRect.xMin += foldoutRect.width;
 
@@ -16091,33 +16634,28 @@ namespace Quantum.Editor {
         if (wasExpanded) {
           if (_enumDrawer.IsFlags && attribute.ShowFlagsButtons) {
             int gridValue = -1;
-            if (rawValue.IsNothing()) {
+            if (rawValue == 0) {
               // nothing
               gridValue = 0;
-            } else if (Equals(_enumDrawer.BitMask & rawValue, _enumDrawer.BitMask)) {
-
-              var test = _enumDrawer.BitMask & rawValue;
-              if (Equals(test, _enumDrawer.BitMask))
+            } else if ((_enumDrawer.BitMask & rawValue) == _enumDrawer.BitMask) {
               // everything
               gridValue = 1;
             }
 
             // traverse values in reverse; make sure the first alias is used in case there are multiple
-            if (isEnum) {
-              for (int i = _enumDrawer.Values.Length; i-- > 0;) {
-                if (_enumDrawer.Values[i] == 0) {
-                  _gridOptions[0].text = _enumDrawer.Names[i];
-                } else if ( _enumDrawer.Values[i] == _enumDrawer.BitMask[0]) {
-                  // Unity's drawer does not replace "Everything"
-                  _gridOptions[1].text = _enumDrawer.Names[i];
-                }
-              }              
+            for (int i = _enumDrawer.Values.Length; i-- > 0;) {
+              if (_enumDrawer.Values[i] == 0) {
+                _gridOptions[0].text = _enumDrawer.Names[i];
+              } else if (_enumDrawer.Values[i] == _enumDrawer.BitMask) {
+                // Unity's drawer does not replace "Everything"
+                _gridOptions[1].text = _enumDrawer.Names[i];
+              }
             }
 
             var gridSelection = GUI.SelectionGrid(valueRect, gridValue, _gridOptions, _gridOptions.Length, _buttonStyle);
             if (gridSelection != gridValue) {
               if (gridSelection == 0) {
-                rawValue = default;
+                rawValue = 0;
               } else if (gridSelection == 1) {
                 rawValue = _enumDrawer.BitMask;
               }
@@ -16127,30 +16665,18 @@ namespace Quantum.Editor {
             EditorGUI.LabelField(valueRect, GUIContent.none);
           }
         } else {
-          if (isEnum) {
-            var enumValue = (Enum)Enum.ToObject(_enumDrawer.EnumType, rawValue[0]);
-            if (_enumDrawer.IsFlags) {
-              enumValue = EditorGUI.EnumFlagsField(valueRect, enumValue);
-            } else {
-              enumValue = EditorGUI.EnumPopup(valueRect, enumValue);
-            }
-
-            rawValue[0] = Convert.ToInt64(enumValue);            
+          var enumValue = (Enum)Enum.ToObject(_enumDrawer.EnumType, rawValue);
+          if (_enumDrawer.IsFlags) {
+            enumValue = EditorGUI.EnumFlagsField(valueRect, enumValue);
           } else {
-            // Droplist for FieldsMask<T>
-            _enumDrawer.Draw(valueRect, maskProperty, fieldInfo.FieldType, false);
+            enumValue = EditorGUI.EnumPopup(valueRect, enumValue);
           }
+
+          rawValue = Convert.ToInt64(enumValue);
         }
 
         if (EditorGUI.EndChangeCheck()) {
-          if (isEnum) {
-            maskProperty.longValue = rawValue[0];
-          } else {
-            maskProperty.GetFixedBufferElementAtIndex(0).longValue = rawValue[0];
-            maskProperty.GetFixedBufferElementAtIndex(1).longValue = rawValue[1];
-            maskProperty.GetFixedBufferElementAtIndex(2).longValue = rawValue[2];
-            maskProperty.GetFixedBufferElementAtIndex(3).longValue = rawValue[3];
-          }
+          property.longValue = rawValue;
           property.serializedObject.ApplyModifiedProperties();
         }
 
@@ -16170,7 +16696,7 @@ namespace Quantum.Editor {
           rowRect.xMin += ToggleIndent;
 
           for (int i = 0; i < _enumDrawer.Values.Length; ++i) {
-            if (_enumDrawer.IsFlags && _enumDrawer.Values[i].IsNothing()) {
+            if (_enumDrawer.IsFlags && _enumDrawer.Values[i] == 0) {
               continue;
             }
 
@@ -16180,14 +16706,14 @@ namespace Quantum.Editor {
             var buttonRect = new Rect();
             if (attribute.ShowInlineHelp) {
               // move the button to keep it in the box
-              buttonRect      =  QuantumEditorGUI.GetInlineHelpButtonRect(rowRect);
+              buttonRect = QuantumEditorGUI.GetInlineHelpButtonRect(rowRect);
               toggleRect.xMin += buttonRect.width + 0;
-              buttonRect.x    += buttonRect.width - 3;
+              buttonRect.x += buttonRect.width - 3;
             }
 
             bool wasSelected = _enumDrawer.IsFlags
-              ? Equals(rawValue & _enumDrawer.Values[i], _enumDrawer.Values[i])
-              : Equals(rawValue, _enumDrawer.Values[i]);
+              ? (rawValue & _enumDrawer.Values[i]) == _enumDrawer.Values[i]
+              : rawValue == _enumDrawer.Values[i];
             if (EditorGUI.ToggleLeft(toggleRect, _enumDrawer.Names[i], wasSelected) != wasSelected) {
               if (_enumDrawer.IsFlags) {
                 if (wasSelected) {
@@ -16204,19 +16730,19 @@ namespace Quantum.Editor {
               var helpContent = QuantumCodeDoc.FindEntry(_enumDrawer.Fields[i], false);
               if (helpContent != null) {
                 var helpPath = GetHelpPath(property, _enumDrawer.Fields[i]);
-                
+
                 var wasHelpExpanded = QuantumEditorGUI.IsHelpExpanded(this, helpPath);
                 if (wasHelpExpanded) {
                   var helpSize = QuantumEditorGUI.GetInlineBoxSize(helpContent);
                   var helpRect = rowRect;
-                  helpRect.y      += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-                  helpRect.height =  helpSize.y;
-                  
+                  helpRect.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+                  helpRect.height = helpSize.y;
+
                   rowRect.y += helpSize.y;
-                  
+
                   QuantumEditorGUI.DrawInlineBoxUnderProperty(helpContent, helpRect, QuantumEditorSkin.HelpInlineBoxColor, true);
                 }
-                
+
                 buttonRect.x += buttonRect.width;
                 if (QuantumEditorGUI.DrawInlineHelpButton(buttonRect, wasHelpExpanded, doButton: true, doIcon: true)) {
                   QuantumEditorGUI.SetHelpExpanded(this, helpPath, !wasHelpExpanded);
@@ -16226,14 +16752,7 @@ namespace Quantum.Editor {
           }
 
           if (EditorGUI.EndChangeCheck()) {
-            if (isEnum) {
-              maskProperty.longValue = rawValue[0];
-            } else {
-              maskProperty.GetFixedBufferElementAtIndex(0).longValue = rawValue[0];
-              maskProperty.GetFixedBufferElementAtIndex(1).longValue = rawValue[1];
-              maskProperty.GetFixedBufferElementAtIndex(2).longValue = rawValue[2];
-              maskProperty.GetFixedBufferElementAtIndex(3).longValue = rawValue[3];
-            }
+            property.longValue = rawValue;
             property.serializedObject.ApplyModifiedProperties();
           }
         }
@@ -16243,20 +16762,20 @@ namespace Quantum.Editor {
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
 
-      var enumType = property.propertyType == SerializedPropertyType.Enum ? fieldInfo.FieldType.GetUnityLeafType() : fieldInfo.FieldType;
+      var enumType = fieldInfo.FieldType.GetUnityLeafType();
       _enumDrawer.EnsureInitialized(enumType, attribute.ShowInlineHelp);
 
       int rowCount = 0;
 
       float height;
-      
+
       var forceExpand = attribute.AlwaysExpanded;
-      var showHelp    = attribute.ShowInlineHelp;
+      var showHelp = attribute.ShowInlineHelp;
 
       if (forceExpand || property.isExpanded) {
         if (_enumDrawer.IsFlags) {
           foreach (var value in _enumDrawer.Values) {
-            if (value.IsNothing()) {
+            if (value == 0) {
               continue;
             }
 
@@ -16278,7 +16797,7 @@ namespace Quantum.Editor {
             }
           }
         }
-        
+
       } else {
         height = EditorGUIUtility.singleLineHeight;
       }
@@ -16304,6 +16823,12 @@ namespace Quantum.Editor {
   using UnityEngine;
   using Object = UnityEngine.Object;
 
+  [CustomPropertyDrawer(typeof(FieldEditorButtonAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(FieldEditorButtonAttribute), typeof(FieldEditorButtonAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
   internal partial class FieldEditorButtonAttributeDrawer : DecoratingPropertyAttributeDrawer {
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
 
@@ -16315,8 +16840,8 @@ namespace Quantum.Editor {
       var buttonPosition = position;
       buttonPosition.yMin = position.yMax - EditorGUIUtility.singleLineHeight;
 
-      var attribute        = (FieldEditorButtonAttribute)this.attribute;
-      var targetObjects    = property.serializedObject.targetObjects;
+      var attribute = (FieldEditorButtonAttribute)this.attribute;
+      var targetObjects = property.serializedObject.targetObjects;
       var targetObjectType = property.serializedObject.targetObject.GetType();
 
       if (DrawButton(buttonPosition, attribute, targetObjectType, targetObjects)) {
@@ -16352,11 +16877,6 @@ namespace Quantum.Editor {
       return base.GetPropertyHeightInternal(property, label) + EditorGUIUtility.standardVerticalSpacing + EditorGUIUtility.singleLineHeight;
     }
   }
-  
-  [CustomPropertyDrawer(typeof(FieldEditorButtonAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(FieldEditorButtonAttribute), typeof(FieldEditorButtonAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround { 
-  }
 }
 
 #endregion
@@ -16389,24 +16909,29 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
-  //[CustomPropertyDrawer(typeof(InlineHelpAttribute))]
-  internal partial class InlineHelpAttributeDrawer : DecoratingPropertyAttributeDrawer, INonApplicableOnArrayElements {
-    bool       _initialized;
+  [CustomPropertyDrawer(typeof(InlineHelpAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(InlineHelpAttribute), typeof(InlineHelpAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
+  internal partial class InlineHelpAttributeDrawer : DecoratingPropertyAttributeDrawer {
+    bool _initialized;
     GUIContent _helpContent;
     GUIContent _labelContent;
-    
-    protected new InlineHelpAttribute attribute => (InlineHelpAttribute)base.attribute; 
 
-    
+    protected new InlineHelpAttribute attribute => (InlineHelpAttribute)base.attribute;
+
+
     protected override float GetPropertyHeightInternal(SerializedProperty property, GUIContent label) {
-      
+
       var height = base.GetPropertyHeightInternal(property, label);
       if (height <= 0) {
         return height;
       }
-      
+
       EnsureContentInitialized(property);
-      
+
       if (QuantumEditorGUI.IsHelpExpanded(this, property.GetHashCodeForPropertyPathWithoutArrayIndex())) {
         if (_helpContent != null) {
           height += QuantumEditorGUI.GetInlineBoxSize(_helpContent).y;
@@ -16422,9 +16947,9 @@ namespace Quantum.Editor {
         base.OnGUIInternal(position, property, label);
         return;
       }
-      
+
       QuantumEditorLog.Assert(_initialized);
-      
+
       var nextDrawer = GetNextDrawer(property);
       var hasFoldout = HasFoldout(nextDrawer, property);
 
@@ -16436,11 +16961,11 @@ namespace Quantum.Editor {
           propertyRect.height -= QuantumEditorGUI.GetInlineBoxSize(_helpContent).y;
         }
         base.OnGUIInternal(propertyRect, property, label);
-        
+
         DrawInlineHelpAfterProperty(buttonRect, wasExpanded, _helpContent, position);
       }
     }
-    
+
     private void EnsureContentInitialized(SerializedProperty property) {
       if (_initialized) {
         return;
@@ -16450,10 +16975,10 @@ namespace Quantum.Editor {
       if (fieldInfo == null) {
         return;
       }
-      
+
       _helpContent = QuantumCodeDoc.FindEntry(fieldInfo, attribute.ShowTypeHelp);
     }
-    
+
     private bool HasFoldout(PropertyDrawer nextDrawer, SerializedProperty property) {
       var drawerMeta = nextDrawer?.GetType().GetCustomAttribute<QuantumPropertyDrawerMetaAttribute>();
       if (drawerMeta != null) {
@@ -16470,9 +16995,9 @@ namespace Quantum.Editor {
 
       return false;
     }
-    
+
     public static (bool expanded, Rect buttonRect) DrawInlineHelpBeforeProperty(GUIContent label, GUIContent helpContent, Rect propertyRect, int pathHash, int depth, bool hasFoldout, object context, bool drawHelp = false) {
-      
+
       if (label != null) {
         if (!string.IsNullOrEmpty(label.tooltip)) {
           label.tooltip += "\n\n";
@@ -16491,7 +17016,7 @@ namespace Quantum.Editor {
         }
 
         var wasExpanded = QuantumEditorGUI.IsHelpExpanded(context, pathHash);
-        
+
         if (QuantumEditorGUI.DrawInlineHelpButton(buttonRect, wasExpanded, doButton: true, doIcon: false)) {
           QuantumEditorGUI.SetHelpExpanded(context, pathHash, !wasExpanded);
         }
@@ -16501,7 +17026,7 @@ namespace Quantum.Editor {
 
       return default;
     }
-    
+
     public static void DrawInlineHelpAfterProperty(Rect buttonRect, bool wasExpanded, GUIContent helpContent, Rect propertyRect) {
 
       if (buttonRect.width <= 0 && buttonRect.height <= 0) {
@@ -16515,15 +17040,9 @@ namespace Quantum.Editor {
       if (!wasExpanded) {
         return;
       }
-      
-      QuantumEditorGUI.DrawInlineBoxUnderProperty(helpContent, propertyRect, QuantumEditorSkin.HelpInlineBoxColor, true);
+
+      QuantumEditorGUI.DrawInlineBoxUnderProperty(helpContent, propertyRect, QuantumEditorSkin.HelpInlineBoxColor, drawSelector: true);
     }
-  }
-  
-  
-  [CustomPropertyDrawer(typeof(InlineHelpAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(InlineHelpAttribute), typeof(InlineHelpAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround {
   }
 }
 
@@ -16572,9 +17091,17 @@ namespace Quantum.Editor {
 #region LayerMatrixAttributeDrawer.cs
 
 namespace Quantum.Editor {
+  using System;
+  using System.Collections.Generic;
   using UnityEditor;
   using UnityEngine;
 
+  [CustomPropertyDrawer(typeof(LayerMatrixAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(LayerMatrixAttribute), typeof(LayerMatrixAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround { 
+  }
+#endif
   internal partial class LayerMatrixAttributeDrawer : PropertyDrawerWithErrorHandling, INonApplicableOnArrayElements {
 
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
@@ -16654,11 +17181,6 @@ namespace Quantum.Editor {
       }
     }
   }
-  
-  [CustomPropertyDrawer(typeof(LayerMatrixAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(LayerMatrixAttribute), typeof(LayerMatrixAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround { 
-  }
 }
 
 #endregion
@@ -16672,20 +17194,22 @@ namespace Quantum.Editor {
 
   [CustomPropertyDrawer(typeof(MaxStringByteCountAttribute))]
   internal class MaxStringByteCountAttributeDrawer : PropertyDrawerWithErrorHandling {
-    
+
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
       var attribute = (MaxStringByteCountAttribute)this.attribute;
-      
-      var encoding  = System.Text.Encoding.GetEncoding(attribute.Encoding);
-      var byteCount = encoding.GetByteCount(property.stringValue);
 
       using (new QuantumEditorGUI.PropertyScope(position, label, property)) {
         QuantumEditorGUI.ForwardPropertyField(position, property, label, true);
       }
 
+      DrawByteCountOverlay(position, property.stringValue, attribute.Encoding, attribute.ByteCount);
+    }
+
+    public static void DrawByteCountOverlay(Rect position, string value, string encoding, int maxByteCount) {
+      var byteCount = System.Text.Encoding.GetEncoding(encoding).GetByteCount(value);
       QuantumEditorGUI.Overlay(position, $"({byteCount} B)");
-      if (byteCount > attribute.ByteCount) {
-        QuantumEditorGUI.Decorate(position, $"{attribute.Encoding} string max size ({attribute.ByteCount} B) exceeded: {byteCount} B", MessageType.Error, hasLabel: true);
+      if (byteCount > maxByteCount) {
+        QuantumEditorGUI.Decorate(position, $"{encoding} string max size ({maxByteCount} B) exceeded: {byteCount} B", MessageType.Error, hasLabel: true);
       }
     }
   }
@@ -16701,11 +17225,11 @@ namespace Quantum.Editor {
   using UnityEngine;
 
   internal abstract class MessageIfDrawerBase : DoIfAttributeDrawer {
-    protected abstract bool        IsBox          { get; }
-    protected abstract string      Message        { get; }
-    protected abstract MessageType MessageType    { get; }
-    protected abstract Color       InlineBoxColor { get; }
-    protected abstract Texture     MessageIcon    { get; }
+    protected abstract bool IsBox { get; }
+    protected abstract string Message { get; }
+    protected abstract MessageType MessageType { get; }
+    protected abstract Color InlineBoxColor { get; }
+    protected abstract Texture MessageIcon { get; }
 
     public DoIfAttributeBase Attribute => (DoIfAttributeBase)attribute;
 
@@ -16738,41 +17262,41 @@ namespace Quantum.Editor {
         base.OnGUIInternal(position, property, label);
       } else {
         if (!IsBox) {
-          
+
           var decorateRect = position;
-          decorateRect.height =  EditorGUIUtility.singleLineHeight;
-          decorateRect.xMin   += EditorGUIUtility.labelWidth;
-          
+          decorateRect.height = EditorGUIUtility.singleLineHeight;
+          decorateRect.xMin += EditorGUIUtility.labelWidth;
+
           // TODO: should the border be resized for arrays?
           // if (property.IsArrayProperty()) {
           //   decorateRect.xMin = decorateRect.xMax - 48f;
           // }
 
           QuantumEditorGUI.AppendTooltip(MessageContent.text, ref label);
-          
+
           base.OnGUIInternal(position, property, label);
-          
+
           QuantumEditorGUI.Decorate(decorateRect, MessageContent.text, MessageType);
         } else {
 
           position = QuantumEditorGUI.DrawInlineBoxUnderProperty(MessageContent, position, InlineBoxColor);
           base.OnGUIInternal(position, property, label);
-          
+
           //position.y      += position.height;
           //position.height =  extra;
           //EditorGUI.HelpBox(position, MessageContent.text, MessageType);
-          
+
         }
       }
     }
-    
+
     private float CalcBoxHeight() {
       // const float SCROLL_WIDTH     = 16f;
       // const float LEFT_HELP_INDENT = 8f;
       //
       // var width = UnityInternal.EditorGUIUtility.contextWidth - /*InlineHelpStyle.MarginOuter -*/ SCROLL_WIDTH - LEFT_HELP_INDENT;
       // return EditorStyles.helpBox.CalcHeight(MessageContent, width);
-      
+
       return QuantumEditorGUI.GetInlineBoxSize(MessageContent).y;
     }
   }
@@ -16783,7 +17307,7 @@ namespace Quantum.Editor {
 
 #region PropertyDrawerForArrayWorkaround.cs
 
-//#define QUANTUM_EDITOR_TRACE
+#if !UNITY_6000_0_OR_NEWER
 namespace Quantum.Editor {
   using System;
   using System.Collections.Generic;
@@ -16797,37 +17321,38 @@ namespace Quantum.Editor {
     internal class RedirectCustomPropertyDrawerAttribute : Attribute {
       public RedirectCustomPropertyDrawerAttribute(Type attributeType, Type drawerType) {
         AttributeType = attributeType;
-        DrawerType    = drawerType;
+        DrawerType = drawerType;
       }
-    
+
       public Type AttributeType { get; }
-      public Type DrawerType    { get; }
+      public Type DrawerType { get; }
     }
-    
-    
+
+
     private static Dictionary<Type, Type> _attributeToDrawer = typeof(PropertyDrawerForArrayWorkaround)
      .GetCustomAttributes<RedirectCustomPropertyDrawerAttribute>()
      .ToDictionary(x => x.AttributeType, x => x.DrawerType);
-    
+
     private UnityInternal.PropertyHandler _handler;
-    private PropertyDrawer                _drawer;
-    private bool                          _initialized;
-    
+    private PropertyDrawer _drawer;
+    private bool _initialized;
+
     public PropertyDrawerForArrayWorkaround() {
       _handler = UnityInternal.ScriptAttributeUtility.nextHandler;
-      
+
       // this handler is going to have a drawer eventually,
       // but now we need to make sure it looks like it has drawers before we can actually
       // inject them
       _handler.m_PropertyDrawers ??= new List<PropertyDrawer>() { new DummyPropertyDrawer() };
     }
-    
+
     public override float GetHeight() {
       if (_initialized) {
         return 0;
       }
 
       _initialized = true;
+
       if (!_attributeToDrawer.TryGetValue(attribute.GetType(), out var drawerType)) {
         QuantumEditorLog.ErrorInspector($"No drawer for {attribute.GetType()}");
       } else if (_handler.decoratorDrawers?.Contains(this) != true) {
@@ -16842,6 +17367,7 @@ namespace Quantum.Editor {
         if (propertyDrawers.Count > 0 && propertyDrawers[0] is DummyPropertyDrawer) {
           propertyDrawers.RemoveAt(0);
         }
+
         int i = 0;
         for (; i < propertyDrawers.Count; ++i) {
           if (propertyDrawers[i].attribute == null) {
@@ -16860,7 +17386,7 @@ namespace Quantum.Editor {
             }
           }
         }
-          
+
         QuantumEditorLog.Trace($"Inserting {drawerType} at {i}");
         _handler.m_PropertyDrawers.Insert(i, drawer);
       }
@@ -16875,7 +17401,7 @@ namespace Quantum.Editor {
     class DummyPropertyDrawer : PropertyDrawer {
 
       static bool _errorReported = false;
-      
+
       public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
         if (!_errorReported) {
           _errorReported = true;
@@ -16886,6 +17412,7 @@ namespace Quantum.Editor {
     }
   }
 }
+#endif
 
 #endregion
 
@@ -16902,8 +17429,8 @@ namespace Quantum.Editor {
     private SerializedProperty _currentProperty;
 
     private readonly Dictionary<string, Entry> _errors = new();
-    private          bool                      _hadError;
-    private          string                    _info;
+    private bool _hadError;
+    private string _info;
 
     public sealed override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       QuantumEditorLog.Assert(_currentProperty == null);
@@ -16916,8 +17443,8 @@ namespace Quantum.Editor {
 
 
       _currentProperty = property;
-      _hadError        = false;
-      _info            = null;
+      _hadError = false;
+      _info = null;
 
       EditorGUI.BeginChangeCheck();
 
@@ -16943,7 +17470,7 @@ namespace Quantum.Editor {
 
     private void DrawDecoration(Rect position, (string, MessageType, bool) decoration, bool hasLabel, bool drawButton = true, bool drawIcon = true) {
       var iconPosition = position;
-      iconPosition.height =  EditorGUIUtility.singleLineHeight;
+      iconPosition.height = EditorGUIUtility.singleLineHeight;
       QuantumEditorGUI.Decorate(iconPosition, decoration.Item1, decoration.Item2, hasLabel, drawButton: drawButton, drawBorder: decoration.Item3);
     }
 
@@ -16980,10 +17507,10 @@ namespace Quantum.Editor {
       _hadError = true;
       _errors[_currentProperty.propertyPath] = new Entry {
         message = error,
-        type    = MessageType.Error
+        type = MessageType.Error
       };
     }
-    
+
     protected void SetError(Exception error) {
       SetError(error.ToString());
     }
@@ -16995,23 +17522,23 @@ namespace Quantum.Editor {
 
       _errors[_currentProperty.propertyPath] = new Entry {
         message = warning,
-        type    = MessageType.Warning
+        type = MessageType.Warning
       };
     }
 
     protected void SetInfo(string message) {
-      if (_errors.TryGetValue(_currentProperty.propertyPath, out var entry) && entry.type == MessageType.Error || entry.type == MessageType.Warning ) {
+      if (_errors.TryGetValue(_currentProperty.propertyPath, out var entry) && entry.type == MessageType.Error || entry.type == MessageType.Warning) {
         return;
       }
-      
+
       _errors[_currentProperty.propertyPath] = new Entry {
         message = message,
-        type    = MessageType.Info
+        type = MessageType.Info
       };
     }
 
     private struct Entry {
-      public string      message;
+      public string message;
       public MessageType type;
     }
   }
@@ -17023,16 +17550,21 @@ namespace Quantum.Editor {
 #region RangeExAttributeDrawer.cs
 
 namespace Quantum.Editor {
+  using JetBrains.Annotations;
+  using System;
   using UnityEditor;
   using UnityEngine;
 
   [CustomPropertyDrawer(typeof(RangeExAttribute))]
   internal partial class RangeExAttributeDrawer : PropertyDrawerWithErrorHandling {
 
-    const float FieldWidth     = 100.0f;
-    const float Spacing        = 5.0f;
-    const float SliderOffset   = 2.0f;
-    const float MinSliderWidth = 40.0f;
+    internal const float FieldWidth = 100.0f;
+    internal const float Spacing = 5.0f;
+    internal const float SliderOffset = 2.0f;
+    internal const float MinSliderWidth = 40.0f;
+
+    [CanBeNull]
+    GUIContent[] _popupOptions;
 
     partial void GetFloatValue(SerializedProperty property, ref float? floatValue);
     partial void GetIntValue(SerializedProperty property, ref int? intValue);
@@ -17044,10 +17576,10 @@ namespace Quantum.Editor {
 
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
       var attrib = (RangeExAttribute)this.attribute;
-      var min    = attrib.Min;
-      var max    = attrib.Max;
+      var min = attrib.Min;
+      var max = attrib.Max;
 
-      int?   intValue   = null;
+      int? intValue = null;
       float? floatValue = null;
 
       if (property.propertyType == SerializedPropertyType.Float) {
@@ -17056,45 +17588,88 @@ namespace Quantum.Editor {
         intValue = property.intValue;
       } else {
         GetFloatValue(property, ref floatValue);
+
         if (!floatValue.HasValue) {
           GetIntValue(property, ref intValue);
+
+          // ReSharper disable once ConditionIsAlwaysTrueOrFalse
           if (!intValue.HasValue) {
             EditorGUI.LabelField(position, label.text, "Use RangeEx with float or int.");
             return;
           }
         }
       }
-      
+
       Debug.Assert(floatValue.HasValue || intValue.HasValue);
-      
+
       EditorGUI.BeginChangeCheck();
 
       using (new QuantumEditorGUI.PropertyScope(position, label, property)) {
         if (attrib.UseSlider) {
 
           // slider offset is applied to look like the built-in RangeDrawer
-          var sliderRect = new Rect(position) {
-            xMin = position.xMin + EditorGUIUtility.labelWidth + SliderOffset,
-            xMax = position.xMax - FieldWidth - Spacing
-          };
+          var sliderRect = new Rect(position) { xMin = position.xMin + EditorGUIUtility.labelWidth + SliderOffset, xMax = position.xMax - FieldWidth - Spacing };
 
           using (new QuantumEditorGUI.LabelWidthScope(position.width - FieldWidth)) {
             if (floatValue.HasValue) {
-              if (sliderRect.width > MinSliderWidth) {
-                using (new EditorGUI.IndentLevelScope(-EditorGUI.indentLevel)) {
-                  floatValue = GUI.HorizontalSlider(sliderRect, floatValue.Value, (float)min, (float)max);
+              if (attrib.Values != null) {
+                int valueIndex = FindValueIndex(floatValue.Value);
+
+                if (sliderRect.width > MinSliderWidth) {
+                  using (new EditorGUI.IndentLevelScope(-EditorGUI.indentLevel)) {
+                    EditorGUI.BeginChangeCheck();
+                    valueIndex = Mathf.RoundToInt(GUI.HorizontalSlider(sliderRect, valueIndex, 0, attrib.Values.Length + 1));
+                    if (EditorGUI.EndChangeCheck()) {
+                      ApplyValue();
+                    }
+                  }
                 }
+
+                floatValue = (float)DrawValuePopup(position, label, valueIndex, attrib.Min, attrib.Max, attrib.Values);
+              } else {
+                if (sliderRect.width > MinSliderWidth) {
+                  using (new EditorGUI.IndentLevelScope(-EditorGUI.indentLevel)) {
+                    EditorGUI.BeginChangeCheck();
+                    floatValue = GUI.HorizontalSlider(sliderRect, floatValue.Value, (float)min, (float)max);
+                    if (EditorGUI.EndChangeCheck()) {
+                      ApplyValue();
+                    }
+                  }
+                }
+
+                floatValue = DrawValue(property, position, label, floatValue.Value);
               }
 
-              floatValue = DrawValue(property, position, label, floatValue.Value);
+
             } else {
-              if (sliderRect.width > MinSliderWidth) {
-                using (new EditorGUI.IndentLevelScope(-EditorGUI.indentLevel)) {
-                  intValue = Mathf.RoundToInt(GUI.HorizontalSlider(sliderRect, intValue.Value, (float)min, (float)max));
-                }
-              }
+              if (attrib.Values != null) {
+                int valueIndex = FindValueIndex(intValue.Value);
 
-              intValue = DrawValue(property, position, label, intValue.Value);
+                if (sliderRect.width > MinSliderWidth) {
+                  using (new EditorGUI.IndentLevelScope(-EditorGUI.indentLevel)) {
+                    EditorGUI.BeginChangeCheck();
+                    valueIndex = Mathf.RoundToInt(GUI.HorizontalSlider(sliderRect, valueIndex, 0, attrib.Values.Length + 1));
+                    if (EditorGUI.EndChangeCheck()) {
+                      ApplyValue();
+                    }
+                  }
+                }
+
+                intValue = Mathf.RoundToInt((float)DrawValuePopup(position, label, valueIndex, attrib.Min, attrib.Max, attrib.Values));
+              } else {
+
+                if (sliderRect.width > MinSliderWidth) {
+                  using (new EditorGUI.IndentLevelScope(-EditorGUI.indentLevel)) {
+                    EditorGUI.BeginChangeCheck();
+                    intValue = Mathf.RoundToInt(GUI.HorizontalSlider(sliderRect, intValue.Value, (float)min, (float)max));
+                    if (EditorGUI.EndChangeCheck()) {
+                      ApplyValue();
+                    }
+                  }
+                }
+
+                intValue = DrawValue(property, position, label, intValue.Value);
+              }
             }
           }
         } else {
@@ -17107,10 +17682,25 @@ namespace Quantum.Editor {
       }
 
       if (EditorGUI.EndChangeCheck()) {
+        ApplyValue();
+        property.serializedObject.ApplyModifiedProperties();
+      }
+
+      int FindValueIndex(double val) {
+        if (val <= attrib.Min) {
+          return 0;
+        } else if (val >= attrib.Max) {
+          return attrib.Values.Length + 1;
+        } else {
+          return Array.IndexOf(attrib.Values, val) + 1;
+        }
+      }
+
+      void ApplyValue() {
         if (floatValue.HasValue) {
           floatValue = Clamp(floatValue.Value, attrib);
         } else {
-          Debug.Assert(floatValue != null);
+          Debug.Assert(intValue != null);
           intValue = Clamp(intValue.Value, attrib);
         }
 
@@ -17120,28 +17710,48 @@ namespace Quantum.Editor {
         } else if (property.propertyType == SerializedPropertyType.Integer) {
           Debug.Assert(intValue != null);
           property.intValue = intValue.Value;
+          // ReSharper disable once ConditionIsAlwaysTrueOrFalse
         } else if (floatValue.HasValue) {
           ApplyFloatValue(property, floatValue.Value);
         } else {
           ApplyIntValue(property, intValue.Value);
         }
+      }
+    }
 
-        property.serializedObject.ApplyModifiedProperties();
+    double DrawValuePopup(Rect position, GUIContent label, int index, double min, double max, double[] values) {
+      if (_popupOptions == null) {
+        _popupOptions = new GUIContent[2 + values.Length];
+        _popupOptions[0] = new GUIContent($"{min}");
+        for (int i = 0; i < values.Length; ++i) {
+          _popupOptions[i + 1] = new GUIContent($"{values[i]}");
+        }
+        _popupOptions[values.Length + 1] = new GUIContent($"{max}");
+      }
+
+      index = EditorGUI.Popup(position, label, index, _popupOptions);
+
+      if (index <= 0) {
+        return min;
+      } else if (index < values.Length + 1) {
+        return values[index - 1];
+      } else {
+        return max;
       }
     }
 
     private float Clamp(float value, RangeExAttribute attrib) {
-      return Mathf.Clamp(value, 
+      return Mathf.Clamp(value,
         attrib.ClampMin ? (float)attrib.Min : float.MinValue,
         attrib.ClampMax ? (float)attrib.Max : float.MaxValue);
     }
-    
+
     private int Clamp(int value, RangeExAttribute attrib) {
-      return Mathf.Clamp(value, 
+      return Mathf.Clamp(value,
         attrib.ClampMin ? (int)attrib.Min : int.MinValue,
         attrib.ClampMax ? (int)attrib.Max : int.MaxValue);
     }
-    
+
     float DrawValue(SerializedProperty property, Rect position, GUIContent label, float floatValue) {
       if (property.propertyType == SerializedPropertyType.Float) {
         return EditorGUI.FloatField(position, label, floatValue);
@@ -17150,7 +17760,7 @@ namespace Quantum.Editor {
         return floatValue;
       }
     }
-    
+
     int DrawValue(SerializedProperty property, Rect position, GUIContent label, int intValue) {
       if (property.propertyType == SerializedPropertyType.Integer) {
         return EditorGUI.IntField(position, label, intValue);
@@ -17171,20 +17781,21 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
+  [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(ReadOnlyAttribute), typeof(ReadOnlyAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
   internal partial class ReadOnlyAttributeDrawer : DecoratingPropertyAttributeDrawer, INonApplicableOnArrayElements {
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
       var  attribute  = (ReadOnlyAttribute)this.attribute;
       bool isPlayMode = EditorApplication.isPlayingOrWillChangePlaymode;
-      
+
       using (new EditorGUI.DisabledGroupScope(isPlayMode ? attribute.InPlayMode : attribute.InEditMode)) {
         base.OnGUIInternal(position, property, label);
       }
     }
-  }
-
-  [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
-  [RedirectCustomPropertyDrawer(typeof(ReadOnlyAttribute), typeof(ReadOnlyAttributeDrawer))]
-  partial class PropertyDrawerForArrayWorkaround {
   }
 }
 
@@ -17248,12 +17859,12 @@ namespace Quantum.Editor {
   using UnityEngine;
 
   internal class ScriptFieldDrawer : PropertyDrawer {
-    
+
     private new ScriptHelpAttribute attribute => (ScriptHelpAttribute)base.attribute;
 
     public bool ForceHide = false;
 
-    private bool       _initialized;
+    private bool _initialized;
     private GUIContent _helpContent;
     private GUIContent _headerContent;
 
@@ -17267,12 +17878,12 @@ namespace Quantum.Editor {
         EditorGUI.PropertyField(position, property, label);
         return;
       }
-      
+
       EnsureInitialized(property);
 
-      var  helpButtonRect  = QuantumEditorGUI.GetInlineHelpButtonRect(position, false);
+      var helpButtonRect = QuantumEditorGUI.GetInlineHelpButtonRect(position, false);
       bool wasHelpExpanded = _helpContent != null && QuantumEditorGUI.IsHelpExpanded(this, property.GetHashCodeForPropertyPathWithoutArrayIndex());
-      
+
       if (wasHelpExpanded) {
         position = QuantumEditorGUI.DrawInlineBoxUnderProperty(_helpContent, position, QuantumEditorSkin.HelpInlineBoxColor);
       }
@@ -17284,7 +17895,7 @@ namespace Quantum.Editor {
           }
         }
       }
-      
+
       if (attribute.Style == ScriptHeaderStyle.Unity) {
         EditorGUI.PropertyField(position, property, label);
       } else {
@@ -17313,7 +17924,7 @@ namespace Quantum.Editor {
           QuantumEditorGUI.DrawScriptHeaderIcon(position);
         }
       }
-      
+
       if (_helpContent != null) {
         using (new QuantumEditorGUI.EnabledScope(true)) {
           // paint over what the inspector has drawn
@@ -17331,13 +17942,13 @@ namespace Quantum.Editor {
       if (attribute == null) {
         return EditorGUIUtility.singleLineHeight;
       }
-      
+
       var height = EditorGUIUtility.singleLineHeight;
 
       if (QuantumEditorGUI.IsHelpExpanded(this, property.GetHashCodeForPropertyPathWithoutArrayIndex()) && _helpContent != null) {
         height += QuantumEditorGUI.GetInlineBoxSize(_helpContent).y;
       }
-      
+
       return height;
     }
 
@@ -17347,11 +17958,11 @@ namespace Quantum.Editor {
       }
 
       _initialized = true;
-      
-      var type     = property.serializedObject.targetObject.GetType();
-      
+
+      var type = property.serializedObject.targetObject.GetType();
+
       _headerContent = new GUIContent(ObjectNames.NicifyVariableName(type.Name).ToUpper());
-      _helpContent   = QuantumCodeDoc.FindEntry(type);
+      _helpContent = QuantumCodeDoc.FindEntry(type);
     }
   }
 }
@@ -17372,11 +17983,11 @@ namespace Quantum.Editor {
   [CustomPropertyDrawer(typeof(SerializableTypeAttribute))]
   internal class SerializableTypeDrawer : PropertyDrawerWithErrorHandling {
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
-      
+
       var attr = (SerializableTypeAttribute)attribute;
-      
-      var baseType     = typeof(object);
-      var leafType     = fieldInfo.FieldType.GetUnityLeafType();
+
+      var baseType = typeof(object);
+      var leafType = fieldInfo.FieldType.GetUnityLeafType();
       if (leafType.IsGenericType && leafType.GetGenericTypeDefinition() == typeof(SerializableType<>)) {
         baseType = leafType.GetGenericArguments()[0];
       }
@@ -17385,14 +17996,14 @@ namespace Quantum.Editor {
       }
 
       position = EditorGUI.PrefixLabel(position, label);
-      
+
       var (content, msgType, msg) = GetTypeContent(property, attr?.WarnIfNoPreserveAttribute == true, out var valueProperty);
       if (msgType == MessageType.Warning) {
         SetWarning(msg);
       } else if (msgType == MessageType.Error) {
         SetError(msg);
       }
-      
+
       if (EditorGUI.DropdownButton(position, new GUIContent(content), FocusType.Keyboard)) {
         ClearError();
         QuantumEditorGUI.DisplayTypePickerMenu(position, baseType, t => {
@@ -17400,14 +18011,14 @@ namespace Quantum.Editor {
           if (t != null) {
             typeName = attr?.UseFullAssemblyQualifiedName == false ? SerializableType.GetShortAssemblyQualifiedName(t) : t.AssemblyQualifiedName;
           }
-          
+
           valueProperty.stringValue = typeName;
           valueProperty.serializedObject.ApplyModifiedProperties();
         });
       }
     }
-    
-        
+
+
     public static (string, MessageType, string) GetTypeContent(SerializedProperty property, bool requirePreserveAttribute, out SerializedProperty valueProperty) {
       if (property.propertyType == SerializedPropertyType.String) {
         valueProperty = property;
@@ -17450,9 +18061,9 @@ namespace Quantum.Editor {
 
   [CustomPropertyDrawer(typeof(SerializeReferenceTypePickerAttribute))]
   partial class SerializeReferenceTypePickerAttributeDrawer : DecoratingPropertyAttributeDrawer {
-    
+
     const string NullContent = "Null";
-    
+
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
 
       var attribute = (SerializeReferenceTypePickerAttribute)this.attribute;
@@ -17464,18 +18075,18 @@ namespace Quantum.Editor {
       } else {
         pickerRect = EditorGUI.PrefixLabel(new Rect(position) { height = EditorGUIUtility.singleLineHeight }, QuantumEditorGUI.WhitespaceContent);
       }
-      
+
       object instance = property.managedReferenceValue;
       var instanceType = instance?.GetType();
-      
+
       if (EditorGUI.DropdownButton(pickerRect, new GUIContent(instanceType?.FullName ?? NullContent), FocusType.Keyboard)) {
 
         var types = attribute.Types;
         if (!types.Any()) {
           types = new[] { fieldInfo.FieldType.GetUnityLeafType() };
         }
-        
-        QuantumEditorGUI.DisplayTypePickerMenu(pickerRect, types, 
+
+        QuantumEditorGUI.DisplayTypePickerMenu(pickerRect, types,
           t => {
             if (t == null) {
               instance = null;
@@ -17487,12 +18098,41 @@ namespace Quantum.Editor {
             }
             property.managedReferenceValue = instance;
             property.serializedObject.ApplyModifiedProperties();
-          }, 
-          noneOptionLabel: NullContent, 
-          selectedType: instanceType, 
+          },
+          noneOptionLabel: NullContent,
+          selectedType: instanceType,
           flags: (attribute.GroupTypesByNamespace ? QuantumEditorGUIDisplayTypePickerMenuFlags.GroupByNamespace : 0) | (attribute.ShowFullName ? QuantumEditorGUIDisplayTypePickerMenuFlags.ShowFullName : 0));
       }
-      
+
+      base.OnGUIInternal(position, property, label);
+    }
+  }
+}
+
+#endregion
+
+
+#region SpaceAfterAttributeDrawer.cs
+
+namespace Quantum.Editor {
+  using UnityEditor;
+  using UnityEngine;
+
+  [CustomPropertyDrawer(typeof(SpaceAfterAttribute))]
+#if !UNITY_6000_0_OR_NEWER
+  [RedirectCustomPropertyDrawer(typeof(SpaceAfterAttribute), typeof(SpaceAfterAttributeDrawer))]
+  partial class PropertyDrawerForArrayWorkaround {
+  }
+#endif
+  class SpaceAfterAttributeDrawer : DecoratingPropertyAttributeDrawer, INonApplicableOnArrayElements {
+    protected override float GetPropertyHeightInternal(SerializedProperty property, GUIContent label) {
+      var attr = (SpaceAfterAttribute)attribute;
+      return base.GetPropertyHeightInternal(property, label) + attr.Height;
+    }
+
+    protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
+      var attr = (SpaceAfterAttribute)attribute;
+      position.height -= attr.Height;
       base.OnGUIInternal(position, property, label);
     }
   }
@@ -17548,7 +18188,7 @@ namespace Quantum.Editor {
 
     protected override void OnGUIInternal(Rect position, SerializedProperty property, GUIContent label) {
       base.OnGUIInternal(position, property, label);
-      
+
       // check if any of the next drawers handles the unit
       for (var nextDrawer = GetNextDrawer(property); nextDrawer != null; nextDrawer = (nextDrawer as DecoratingPropertyAttributeDrawer)?.GetNextDrawer(property)) {
         var meta = nextDrawer.GetType().GetCustomAttribute<QuantumPropertyDrawerMetaAttribute>();
@@ -17560,8 +18200,8 @@ namespace Quantum.Editor {
       EnsureInitialized();
 
       var propertyType = property.propertyType;
-      var isExpanded  = property.isExpanded;
-      
+      var isExpanded = property.isExpanded;
+
       DrawUnitOverlay(position, _label, propertyType, isExpanded);
     }
 
@@ -17571,50 +18211,50 @@ namespace Quantum.Editor {
         case SerializedPropertyType.Vector2 when odinStyle:
         case SerializedPropertyType.Vector3 when odinStyle:
         case SerializedPropertyType.Vector4 when odinStyle: {
-          var pos = position;
-          int memberCount = (propertyType == SerializedPropertyType.Vector2) ? 2 : 
-                            (propertyType == SerializedPropertyType.Vector3) ? 3 : 4;
-          pos.xMin   += EditorGUIUtility.labelWidth;
-          pos.yMin   =  pos.yMax - EditorGUIUtility.singleLineHeight;
-          pos.width  /= memberCount;
-          pos.height =  EditorGUIUtility.singleLineHeight;
-          
-          for (int i = 0; i < memberCount; ++i) {
-            QuantumEditorGUI.Overlay(pos, label);
-            pos.x += pos.width;
+            var pos = position;
+            int memberCount = (propertyType == SerializedPropertyType.Vector2) ? 2 :
+                              (propertyType == SerializedPropertyType.Vector3) ? 3 : 4;
+            pos.xMin += EditorGUIUtility.labelWidth;
+            pos.yMin = pos.yMax - EditorGUIUtility.singleLineHeight;
+            pos.width /= memberCount;
+            pos.height = EditorGUIUtility.singleLineHeight;
+
+            for (int i = 0; i < memberCount; ++i) {
+              QuantumEditorGUI.Overlay(pos, label);
+              pos.x += pos.width;
+            }
+
+            break;
           }
-          
-          break;
-        }
 
         case SerializedPropertyType.Vector2:
         case SerializedPropertyType.Vector3: {
-          Rect pos = position;
-          // vector properties get broken down into two lines when there's not enough space
-          if (EditorGUIUtility.wideMode) {
-            pos.xMin  += EditorGUIUtility.labelWidth;
-            pos.width /= 3;
-          } else {
-            pos.xMin  += 12;
-            pos.yMin  =  pos.yMax - EditorGUIUtility.singleLineHeight;
-            pos.width /= (propertyType == SerializedPropertyType.Vector2) ? 2 : 3;
-          }
+            Rect pos = position;
+            // vector properties get broken down into two lines when there's not enough space
+            if (EditorGUIUtility.wideMode) {
+              pos.xMin += EditorGUIUtility.labelWidth;
+              pos.width /= 3;
+            } else {
+              pos.xMin += 12;
+              pos.yMin = pos.yMax - EditorGUIUtility.singleLineHeight;
+              pos.width /= (propertyType == SerializedPropertyType.Vector2) ? 2 : 3;
+            }
 
-          pos.height = EditorGUIUtility.singleLineHeight;
-          QuantumEditorGUI.Overlay(pos, label);
-          pos.x += pos.width;
-          QuantumEditorGUI.Overlay(pos, label);
-          if (propertyType == SerializedPropertyType.Vector3) {
+            pos.height = EditorGUIUtility.singleLineHeight;
+            QuantumEditorGUI.Overlay(pos, label);
             pos.x += pos.width;
             QuantumEditorGUI.Overlay(pos, label);
-          }
+            if (propertyType == SerializedPropertyType.Vector3) {
+              pos.x += pos.width;
+              QuantumEditorGUI.Overlay(pos, label);
+            }
 
-          break;
-        }
+            break;
+          }
         case SerializedPropertyType.Vector4:
           if (isExpanded) {
             Rect pos = position;
-            pos.yMin   = pos.yMax - 4 * EditorGUIUtility.singleLineHeight - 3 * EditorGUIUtility.standardVerticalSpacing;
+            pos.yMin = pos.yMax - 4 * EditorGUIUtility.singleLineHeight - 3 * EditorGUIUtility.standardVerticalSpacing;
             pos.height = EditorGUIUtility.singleLineHeight;
             for (int i = 0; i < 4; ++i) {
               QuantumEditorGUI.Overlay(pos, label);
@@ -17624,40 +18264,40 @@ namespace Quantum.Editor {
 
           break;
         default: {
-          var pos = position;
-          pos.height = EditorGUIUtility.singleLineHeight;
-          QuantumEditorGUI.Overlay(pos, label);
-        }
+            var pos = position;
+            pos.height = EditorGUIUtility.singleLineHeight;
+            QuantumEditorGUI.Overlay(pos, label);
+          }
           break;
       }
     }
 
     public static string UnitToLabel(Units units) {
       switch (units) {
-        case Units.None:                 return string.Empty;
-        case Units.Ticks:                return "ticks";
-        case Units.Seconds:              return "s";
-        case Units.MilliSecs:            return "ms";
-        case Units.Kilobytes:            return "kB";
-        case Units.Megabytes:            return "MB";
-        case Units.Normalized:           return "normalized";
-        case Units.Multiplier:           return "multiplier";
-        case Units.Percentage:           return "%";
+        case Units.None: return string.Empty;
+        case Units.Ticks: return "ticks";
+        case Units.Seconds: return "s";
+        case Units.MilliSecs: return "ms";
+        case Units.Kilobytes: return "kB";
+        case Units.Megabytes: return "MB";
+        case Units.Normalized: return "normalized";
+        case Units.Multiplier: return "multiplier";
+        case Units.Percentage: return "%";
         case Units.NormalizedPercentage: return "n%";
-        case Units.Degrees:              return "\u00B0";
-        case Units.PerSecond:            return "hz";
-        case Units.DegreesPerSecond:     return "\u00B0/sec";
-        case Units.Radians:              return "rad";
-        case Units.RadiansPerSecond:     return "rad/s";
-        case Units.TicksPerSecond:       return "ticks/s";
-        case Units.Units:                return "units";
-        case Units.Bytes:                return "B";
-        case Units.Count:                return "count";
-        case Units.Packets:              return "packets";
-        case Units.Frames:               return "frames";
-        case Units.FramesPerSecond:      return "fps";
-        case Units.SquareMagnitude:      return "mag\u00B2";
-        default:                         throw new ArgumentOutOfRangeException(nameof(units), $"{units}");
+        case Units.Degrees: return "\u00B0";
+        case Units.PerSecond: return "hz";
+        case Units.DegreesPerSecond: return "\u00B0/sec";
+        case Units.Radians: return "rad";
+        case Units.RadiansPerSecond: return "rad/s";
+        case Units.TicksPerSecond: return "ticks/s";
+        case Units.Units: return "units";
+        case Units.Bytes: return "B";
+        case Units.Count: return "count";
+        case Units.Packets: return "packets";
+        case Units.Frames: return "frames";
+        case Units.FramesPerSecond: return "fps";
+        case Units.SquareMagnitude: return "mag\u00B2";
+        default: throw new ArgumentOutOfRangeException(nameof(units), $"{units}");
       }
     }
   }
@@ -17685,7 +18325,7 @@ namespace Quantum.Editor {
         Object asset = null;
 
         var runtimeKey = property.stringValue;
-        
+
         if (!string.IsNullOrEmpty(runtimeKey)) {
           if (!QuantumAddressablesUtils.TryParseAddress(runtimeKey, out var _, out var _)) {
             SetError($"Not a valid address: {runtimeKey}");
@@ -17696,10 +18336,10 @@ namespace Quantum.Editor {
             }
           }
         }
-        
+
         using (new QuantumEditorGUI.EnabledScope(asset)) {
-          position.x     += position.width;
-          position.width =  40;
+          position.x += position.width;
+          position.width = 40;
           if (GUI.Button(position, "Ping")) {
             EditorGUIUtility.PingObject(asset);
           }
@@ -17747,8 +18387,8 @@ namespace Quantum.Editor {
       }
 
       using (new QuantumEditorGUI.EnabledScope(!string.IsNullOrEmpty(assetPath))) {
-        position.x     += position.width;
-        position.width =  40;
+        position.x += position.width;
+        position.width = 40;
 
         if (GUI.Button(position, "Ping")) {
           EditorGUIUtility.PingObject(AssetDatabase.LoadMainAssetAtPath(assetPath));
@@ -17820,8 +18460,8 @@ namespace Quantum.Editor {
       dst[6] = src[7];
       dst[7] = src[6];
 
-      dst[8]  = src[8];
-      dst[9]  = src[9];
+      dst[8] = src[8];
+      dst[9] = src[9];
       dst[10] = src[10];
       dst[11] = src[11];
       dst[12] = src[12];
@@ -17866,10 +18506,10 @@ namespace Quantum.Editor {
             SetInfo(AssetDatabase.GetAssetPath(asset));
           }
         }
-        
+
         using (new QuantumEditorGUI.EnabledScope(asset)) {
-          position.x     += position.width;
-          position.width =  40;
+          position.x += position.width;
+          position.width = 40;
           if (GUI.Button(position, "Ping")) {
             EditorGUIUtility.PingObject(asset);
           }
@@ -17888,22 +18528,22 @@ namespace Quantum.Editor {
   using UnityEditor;
   using UnityEngine;
 
-  partial class WarnIfAttributeDrawer : MessageIfDrawerBase {
-    private new WarnIfAttribute Attribute   => (WarnIfAttribute)attribute;
-
-    protected override bool        IsBox          => Attribute.AsBox;
-    protected override string      Message        => Attribute.Message;
-    protected override MessageType MessageType    => MessageType.Warning;
-    protected override Color       InlineBoxColor => QuantumEditorSkin.WarningInlineBoxColor;
-    protected override Texture     MessageIcon    => QuantumEditorSkin.WarningIcon;
-  }
-  
   [CustomPropertyDrawer(typeof(WarnIfAttribute))]
+#if !UNITY_6000_0_OR_NEWER
   [RedirectCustomPropertyDrawer(typeof(WarnIfAttribute), typeof(WarnIfAttributeDrawer))]
   partial class PropertyDrawerForArrayWorkaround {
   }
-}
+#endif
+  partial class WarnIfAttributeDrawer : MessageIfDrawerBase {
+    private new WarnIfAttribute Attribute => (WarnIfAttribute)attribute;
 
+    protected override bool IsBox => Attribute.AsBox;
+    protected override string Message => Attribute.Message;
+    protected override MessageType MessageType => MessageType.Warning;
+    protected override Color InlineBoxColor => QuantumEditorSkin.WarningInlineBoxColor;
+    protected override Texture MessageIcon => QuantumEditorSkin.WarningIcon;
+  }
+}
 
 #endregion
 
@@ -17916,7 +18556,9 @@ namespace Quantum.Editor {
 
 namespace Quantum.Editor {
   using System;
+  using System.Collections.Generic;
   using System.Linq;
+  using System.Reflection;
 
   partial class ReflectionUtils {
     public static string GetCSharpTypeName(this Type type, string suffix = null, bool includeNamespace = true, bool includeGenerics = true, bool useGenericNames = false) {
@@ -17952,6 +18594,19 @@ namespace Quantum.Editor {
       return result.Replace('+', '.');
     }
   }
+
+  public static partial class QuantumEditorHubSrpTools {
+    static partial void BeforeOpenSceneUser() {
+      QuantumUnityDBUtilities.RefreshGlobalDB();
+    }
+  }
+  
+  public partial struct AssetDatabaseEnumerable {
+  }
+  
+  public partial struct AssetDatabaseEnumerator {
+  }
+
 }
 
 #endregion
@@ -18040,8 +18695,6 @@ namespace Quantum.Editor {
         return;
       }
 
-      QuantumEditorLog.LogImport($"Auto baking {scene.path}");
-
       switch (buildTrigger) {
         case BuildTrigger.Build:
           BakeScene(scene, settings.AutoBuildOnBuild, buildTrigger);
@@ -18087,7 +18740,7 @@ namespace Quantum.Editor {
           if (string.IsNullOrEmpty(path))
             continue;
 
-          var id = mapData?.Identifier;
+          AssetObjectIdentifier id = mapData != null ? mapData.Identifier : default;
 
           try {
             QuantumEditorLog.LogImport($"Baking map {id} (scene: {path})");
@@ -18131,6 +18784,7 @@ namespace Quantum.Editor {
       var mapsData = scene.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<QuantumMapData>()).ToList();
 
       if (mapsData.Count == 1) {
+        QuantumEditorLog.LogImport($"Auto baking {scene.path}");
         BakeMap(mapsData[0], mode, buildTrigger);
       } else if (mapsData.Count > 1) {
         QuantumEditorLog.ErrorImport($"There are multiple {nameof(QuantumMapData)} components on scene {scene.name}. This is not supported.");
@@ -18144,7 +18798,7 @@ namespace Quantum.Editor {
     }
 
     public static void BakeMap(QuantumMapData data, QuantumMapDataBakeFlags buildFlags, BuildTrigger buildTrigger = BuildTrigger.Manual) {
-      if (data.Asset == null)
+      if (data.AssetRef == default)
         return;
 
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -18195,7 +18849,10 @@ namespace Quantum.Editor {
 #endif
 
       EditorUtility.SetDirty(data);
-      EditorUtility.SetDirty(data.Asset);
+      var asset = data.GetAsset(true);
+      if (asset) {
+        EditorUtility.SetDirty(asset);  
+      }
 
       if (buildFlags.HasFlag(QuantumMapDataBakeFlags.SaveUnityAssets)) {
         AssetDatabase.SaveAssets();
@@ -18287,6 +18944,14 @@ namespace Quantum {
           saveAsset = true;
         }
 
+#if QUANTUM_ENABLE_INPUTSYSTEM
+        if (defaultConfigsAsset.InputActionAsset == null) {
+          var path = AssetDatabase.GUIDToAssetPath("8a2679cf1c581ca41a337897e3dc5a06");
+          defaultConfigsAsset.InputActionAsset = AssetDatabase.LoadAssetAtPath<UnityEngine.InputSystem.InputActionAsset>(path);
+          saveAsset = true;
+        }
+#endif
+
         if (saveAsset) {
           EditorUtility.SetDirty(defaultConfigsAsset);
           AssetDatabase.SaveAssets();
@@ -18305,7 +18970,7 @@ namespace Quantum {
         AssetDatabase.AddObjectToAsset(asset, mainAsset);
       }
 
-      var (unityAssetGuid, fileId) = AssetDatabaseUtils.GetGUIDAndLocalFileIdentifierOrThrow(asset.GetInstanceID());
+      var (unityAssetGuid, fileId) = AssetDatabaseUtils.GetGUIDAndLocalFileIdentifierOrThrow(asset);
       var expectedAssetGuid = QuantumUnityDBUtilities.GetExpectedAssetGuid(new GUID(unityAssetGuid), fileId, out _);
       return (asset, expectedAssetGuid);
     }
@@ -18330,7 +18995,7 @@ namespace Quantum.Editor {
   using PopupWindow = UnityEditor.PopupWindow;
   using RangeAttribute = UnityEngine.RangeAttribute;
 
-  [Icon("Assets/Photon/Quantum/Editor/EditorResources/QuantumEditorTextureQtnIcon.png")]
+  [Icon(QuantumUnityEditorPaths.Root + "/Editor/EditorResources/QuantumEditorTextureQtnIcon.png")]
   [Overlay(typeof(SceneView), QuantumGameGizmosSettings.ID, DISPLAY_NAME, true)]
   internal class QuantumEditorGizmoOverlay : Overlay {
     const string DISPLAY_NAME = "Quantum Gizmos";
@@ -18352,7 +19017,7 @@ namespace Quantum.Editor {
 
     readonly Dictionary<QuantumGizmoEntry, ToolbarToggle> _gizmoEntryToToggle =
       new Dictionary<QuantumGizmoEntry, ToolbarToggle>();
-    
+
     readonly BindingFlags _flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
 
     private VisualElement FindParentWithClass(VisualElement element, string className) {
@@ -18369,7 +19034,7 @@ namespace Quantum.Editor {
       return null;
     }
 
-    public override VisualElement CreatePanelContent() {
+    public override VisualElement CreatePanelContent() { 
       var root = new VisualElement();
 
       if (QuantumGameGizmosSettingsScriptableObject.TryGetGlobal(out var settings) == false) {
@@ -18445,6 +19110,10 @@ namespace Quantum.Editor {
               _flags)?
             .GetValue(this) as VisualElement;
 
+          if (modalPopup == null) {
+            return;
+          }
+          
           var bg = modalPopup.Q(className: bgClassName);
           bg.style.backgroundColor = unityDark;
         }
@@ -18477,7 +19146,7 @@ namespace Quantum.Editor {
           if (child.name == "Header") {
             continue;
           }
-          
+
           var nameElement = child.Q<Label>();
 
           if (nameElement == null)
@@ -18500,7 +19169,7 @@ namespace Quantum.Editor {
       container.Add(label);
 
       var img = new Image();
-      img.image = AssetDatabase.LoadAssetAtPath("Assets/Photon/Quantum/Editor/EditorResources/Quantum-logo-2x.png",
+      img.image = AssetDatabase.LoadAssetAtPath(QuantumUnityEditorPaths.Root + "/Editor/EditorResources/Quantum-logo-2x.png",
         typeof(Texture2D)) as Texture2D;
 
       img.style.alignSelf = Align.FlexEnd;
@@ -18604,12 +19273,16 @@ namespace Quantum.Editor {
           out var togglesParent
         );
 
-        var help = QuantumCodeDoc.FindEntry(entry.Field, false);
+        element.RegisterCallback<PointerEnterEvent>(evt => {
+          if (string.IsNullOrEmpty(element.tooltip)) {
+            var help = QuantumCodeDoc.FindEntry(entry.Field, false);
 
-        if (help != null) {
-          element.tooltip = help.text;
-        }
-
+            if (help != null) {
+              element.tooltip = help.text;
+            }
+          }
+        }, TrickleDown.TrickleDown);
+        
         enabledField.tooltip = "Enable/Disable Gizmo";
         styleButton.tooltip = "Edit Gizmo Style";
 
@@ -18635,6 +19308,8 @@ namespace Quantum.Editor {
             out var scaleStyle,
             out var scaleLabel
           );
+
+          var fillStyleOverriden = false;
 
           colorField.value = gizmoEntry.Color;
           ToggleElement(fillStyle, false);
@@ -18680,9 +19355,11 @@ namespace Quantum.Editor {
             sColorField.value = navMeshBorder.BorderNormalColor;
             ToggleElement(sColorField.parent, true);
             sColorField.parent.Q<Label>().text = "Normal Color";
+
             ToggleElement(fillStyle, true);
             fillStyle.text = "Draw Normals";
             fillStyle.value = navMeshBorder.DrawNormals;
+            fillStyleOverriden = true;
 
             fillStyle.RegisterCallback<ChangeEvent<bool>>(evt => {
               _serializedObject.Update();
@@ -18699,6 +19376,20 @@ namespace Quantum.Editor {
             });
           }
 
+          if (gizmoEntry is NavMeshLinkGizmoEntry navMeshLink) {
+            ToggleElement(fillStyle, true);
+            // Don't replace fille, fix layouting issues
+            fillStyle.text = "Draw Triangle Id";
+            fillStyle.value = navMeshLink.DrawTriangleId;
+            fillStyleOverriden = true;
+            fillStyle.RegisterCallback<ChangeEvent<bool>>(evt => {
+              _serializedObject.Update();
+              navMeshLink.DrawTriangleId = evt.newValue;
+              _serializedObject.ApplyModifiedProperties();
+              EditorUtility.SetDirty(so);
+            });
+          }
+
           if (gizmoEntry.Scale > 0) {
             scaleStyle.value = gizmoEntry.Scale;
 
@@ -18708,7 +19399,7 @@ namespace Quantum.Editor {
 
             var field = typeof(QuantumGizmoEntry).GetField(nameof(QuantumGizmoEntry.Scale));
             var value = (float)field.GetValue(gizmoEntry);
-            
+
             if (field.GetCustomAttributes(typeof(RangeAttribute), true).FirstOrDefault() is RangeAttribute range) {
               min = range.min;
               max = range.max;
@@ -18735,12 +19426,14 @@ namespace Quantum.Editor {
             EditorUtility.SetDirty(so);
           });
 
-          fillStyle.RegisterCallback<ChangeEvent<bool>>(evt => {
-            _serializedObject.Update();
-            gizmoEntry.DisableFill = evt.newValue;
-            _serializedObject.ApplyModifiedProperties();
-            EditorUtility.SetDirty(so);
-          });
+          if (fillStyleOverriden == false) {
+            fillStyle.RegisterCallback<ChangeEvent<bool>>(evt => {
+              _serializedObject.Update();
+              gizmoEntry.DisableFill = evt.newValue;
+              _serializedObject.ApplyModifiedProperties();
+              EditorUtility.SetDirty(so);
+            });
+          }
 
           colorField.RegisterCallback<ChangeEvent<Color>>(evt => {
             _serializedObject.Update();
@@ -18831,7 +19524,7 @@ namespace Quantum.Editor {
             if (selectionMethod?.ReturnType == typeof(bool) == false) {
               Log.Error("Selection validation method must return a boolean: " + attr.SelectionValidation);
             }
-            
+
             return selectionMethod != null;
           }
         }
@@ -19079,6 +19772,7 @@ namespace Quantum.Editor {
 #region QuantumEditorHubCondition.cs
 
 namespace Quantum.Editor {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   using System;
   using System.Collections.Generic;
   using System.Linq;
@@ -19103,6 +19797,7 @@ namespace Quantum.Editor {
     SceneNotExists,
     DefineEnabled,
     DefineMissing,
+    GlobalScriptableObjectExists,
     Custom = 100,
   }
 
@@ -19137,6 +19832,7 @@ namespace Quantum.Editor {
       }
     }
   }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
 
 #endregion
@@ -19145,12 +19841,12 @@ namespace Quantum.Editor {
 #region QuantumEditorHubPage.cs
 
 namespace Quantum.Editor {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.IO;
   using System.Linq;
-  using System.Reflection;
   using System.Text.RegularExpressions;
   using UnityEditor;
   using UnityEditor.SceneManagement;
@@ -19318,7 +20014,11 @@ namespace Quantum.Editor {
 
           window.DrawButtonAction(widget.Icon, widget.Text, widget.Subtext,
             statusIcon: widget.StatusIcon,
-            callback: QuantumEditorHubWindow.HubUtils.OpenURL(widget.Url));
+            callback: () => {
+              Application.OpenURL(widget.Url);
+              widget.OnButtonClicked();
+            });
+            
           break;
 
         case QuantumEditorHubWidgetTypeEnum.PingAsset:
@@ -19339,13 +20039,10 @@ namespace Quantum.Editor {
           
           if (string.IsNullOrEmpty(widget.Type.ScriptableObject) == false) {
             
-            Type globalObjectType = FindType(widget.Type.ScriptableObject);
-            Type globalTypeWrapped = typeof(QuantumGlobalScriptableObject<>).MakeGenericType(globalObjectType);
-            MethodInfo tryGetGlobalMethod = globalTypeWrapped .GetMethod("TryGetGlobal", BindingFlags.Public | BindingFlags.Static);
-            
-            object[] parameters = new object[1];
-            bool result = (bool)tryGetGlobalMethod.Invoke(null, parameters);
-            objToPing = (Object)parameters[0];
+            Type globalObjectType = QuantumEditorHubWindow.HubUtils.FindType(widget.Type.ScriptableObject);
+            if (QuantumEditorHubWindow.HubUtils.TryGetGlobalScriptableObjectRefl(globalObjectType, out var globalScriptableObj)) {
+              objToPing = globalScriptableObj;
+            }
           }
           
           window.DrawButtonAction(widget.Icon, widget.Text, widget.Subtext,
@@ -19355,7 +20052,21 @@ namespace Quantum.Editor {
             });
           
           break;
-        
+
+        case QuantumEditorHubWidgetTypeEnum.EnsureGlobalScriptableObjectExists:
+          if (widget.State.IsDrawn == false) { break; }
+
+          if (string.IsNullOrEmpty(widget.Type.ScriptableObject) == false) {
+            window.DrawButtonAction(widget.Icon, widget.Text, widget.Subtext,
+              statusIcon: widget.StatusIcon,
+              callback: () => {
+                Type globalObjectType = QuantumEditorHubWindow.HubUtils.FindType(widget.Type.ScriptableObject);
+                QuantumEditorHubWindow.HubUtils.EnsureGlobalScriptableObjectExistsRefl(globalObjectType);
+              });
+          }
+
+          break;
+
         case QuantumEditorHubWidgetTypeEnum.AppIdBox:
           if (widget.State.IsDrawn == false) { break; }
 
@@ -19377,7 +20088,11 @@ namespace Quantum.Editor {
           if (widget.State.IsDrawn == false) { break; }
 
           window.DrawButtonAction(widget.Icon, widget.Text, widget.Subtext, statusIcon: widget.StatusIcon, callback: () => {
+#if UNITY_6000_6_OR_NEWER
+            UnityEditor.AssetPackage.Package.Import(AssetDatabase.GetAssetPath(widget.Asset.asset), false);
+#else
             AssetDatabase.ImportPackage(AssetDatabase.GetAssetPath(widget.Asset.asset), false);
+#endif
           });
 
           break;
@@ -19415,39 +20130,46 @@ namespace Quantum.Editor {
         case QuantumEditorHubWidgetTypeEnum.Changelog:
           if (widget.State.IsDrawn == false) { break; }
 
-          if (string.IsNullOrEmpty(widget.State.CachedString)) {
-            widget.State.CachedString = ParseReleaseNotes(widget.Asset.asset as TextAsset);
+          if (widget.State.HasCachedString == false) {
+            widget.State.CacheString(ParseReleaseNotes(widget.Asset.asset as TextAsset));
           }
 
-          GUILayout.Label(widget.State.CachedString, window.Styles.ReleaseNotes);
+          foreach (var line in widget.State.CachedStrings) {
+            GUILayout.Label(line, window.Styles.ReleaseNotes);
+          }
+
           break;
 
         case QuantumEditorHubWidgetTypeEnum.Textfile:
           if (widget.State.IsDrawn == false) { break; }
 
-          if (string.IsNullOrEmpty(widget.State.CachedString)) {
+          if (widget.State.HasCachedString == false) {
             try {
-              widget.State.CachedString = (widget.Asset.asset as TextAsset).text;
+              widget.State.CacheString((widget.Asset.asset as TextAsset).text);
             }
             catch {
-              widget.State.CachedString = "File unreadable";
+              widget.State.CacheString("File unreadable");
             }
           }
 
-          GUILayout.Label(widget.State.CachedString);
+          foreach (var line in widget.State.CachedStrings) {
+            GUILayout.Label(line, window.Styles.TextFile);
+          }
 
           break;
 
         case QuantumEditorHubWidgetTypeEnum.BuildInfoFile:
           if (widget.State.IsDrawn == false) { break; }
-
-          if (string.IsNullOrEmpty(widget.State.CachedString)) {
-            widget.State.CachedString = ParseBuildInfo(widget.Asset.asset as TextAsset);
+          
+          if (widget.State.HasCachedString == false) {
+            widget.State.CacheString(ParseBuildInfo(widget.Asset.asset as TextAsset));
           }
 
           GUILayout.BeginVertical();
           GUILayout.Space(5);
-          GUILayout.Label(widget.State.CachedString, window.Styles.TextLabel);
+          foreach (var line in widget.State.CachedStrings) {
+            GUILayout.Label(line, window.Styles.TextFile);
+          }
           GUILayout.EndVertical();
 
           break;
@@ -19455,44 +20177,31 @@ namespace Quantum.Editor {
         case QuantumEditorHubWidgetTypeEnum.AssemblyVersion:
           if (widget.State.IsDrawn == false) { break; }
 
-          if (string.IsNullOrEmpty(widget.State.CachedString)) {
-            widget.State.CachedString = ParseAssemblyVersion(widget.Type.Class);
+          if (widget.State.HasCachedString == false) {
+            widget.State.CacheString(ParseAssemblyVersion(widget.Type.Class));
           }
 
-          GUILayout.Label(widget.State.CachedString, window.Styles.TextLabel);
+          foreach (var line in widget.State.CachedStrings) {
+            GUILayout.Label(line, window.Styles.TextFile);
+          }
 
           break;
       }
-    }
-    
-    static Type FindType(string typeName)
-    {
-      foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-      {
-        Type type = assembly.GetType(typeName);
-        if (type != null)
-          return type;
-      }
-
-      return null;
     }
 
     string ParseAssemblyVersion(string typeName) { 
       const string ColorTemplate = "<color=#FFDDBB>{0}</color>: {1}";
 
-      var type = AppDomain.CurrentDomain.GetAssemblies()
-        .SelectMany(x => x.GetTypes())
-        .Where(t => t != null && t.Name.Equals(typeName)).First();
+      var type = ReflectionUtils.FindTypeByName(typeName);
 
       try {
         if (type == null) {
           
         }
 
-        var codeBase = Assembly.GetAssembly(type).CodeBase;
-        var path = Uri.UnescapeDataString(new UriBuilder(codeBase).Path);
+        var path = QuantumPlatform.GetLoadedPath(System.Reflection.Assembly.GetAssembly(type));
         var fileVersionInfo = FileVersionInfo.GetVersionInfo(path);
-        return string.Format(ColorTemplate, Path.GetFileName(codeBase), fileVersionInfo.ProductVersion);
+        return string.Format(ColorTemplate, Path.GetFileName(path), fileVersionInfo.ProductVersion);
       } catch {
         return "Type not found";
       }
@@ -19523,14 +20232,14 @@ namespace Quantum.Editor {
       try {
         var text = textAssset.text;
         // #
-        text = Regex.Replace(text, @"^# (.*)", string.Format(TitleVersionReformat, "$1"));
-        text = Regex.Replace(text, @"(?<=\n)# (.*)", string.Format(Header1Reformat, "$1"));
+        text = Regex.Replace(text, @"^# ([^\r\n]*)", string.Format(TitleVersionReformat, "$1"));
+        text = Regex.Replace(text, @"(?<=\n)# ([^\r\n]*)", string.Format(Header1Reformat, "$1"));
         // ##
-        text = Regex.Replace(text, @"(?<=\n)## (.*)", string.Format(Header2Reformat, "$1"));
+        text = Regex.Replace(text, @"(?<=\n)## ([^\r\n]*)", string.Format(Header2Reformat, "$1"));
         // ###
-        text = Regex.Replace(text, @"(?<=\n)### (.*)", string.Format(Header3Reformat, "$1"));
+        text = Regex.Replace(text, @"(?<=\n)### ([^\r\n]*)", string.Format(Header3Reformat, "$1"));
         // **Changes**
-        text = Regex.Replace(text, @"(?<=\n)\*\*(.*)\*\*", string.Format(SectionReformat, "$1"));
+        text = Regex.Replace(text, @"(?<=\n)\*\*([^\r\n]*)\*\*", string.Format(SectionReformat, "$1"));
         // `Class`
         text = Regex.Replace(text, @"\`([^\`]*)\`", string.Format(ClassReformat, "$1"));
         return text;
@@ -19595,6 +20304,7 @@ namespace Quantum.Editor {
             AssetDatabase.ImportAsset(Path.GetDirectoryName(packagePath), ImportAssetOptions.ImportRecursive);
 
             if (string.IsNullOrEmpty(widget.Scene) == false) {
+              QuantumEditorHubSrpTools.ConvertSampleToSrp(new List<string>(){widget.Scene});
               if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) {
                 EditorSceneManager.OpenScene(widget.Scene);
               }
@@ -19623,6 +20333,291 @@ namespace Quantum.Editor {
       }
     }
   }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+}
+
+#endregion
+
+
+#region QuantumEditorHubSrpTools.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Collections.Generic;
+  using System.IO;
+  using System.Linq;
+  using UnityEditor;
+  using UnityEditor.SceneManagement;
+  using UnityEngine;
+  using UnityEngine.Rendering;
+  using UnityEngine.SceneManagement;
+
+  /// <summary>
+  /// Utilities for converting scene and prefab materials to the used SRP. This allows intro samples to imported into a project with any SRP.
+  /// </summary>
+  public static partial class QuantumEditorHubSrpTools {
+    private static Dictionary<Material, Material> materialsCache = new Dictionary<Material, Material>();
+
+    static partial void BeforeOpenSceneUser();
+
+    private static void ConvertMeshRendererForRenderPipeline(RenderPipelineAsset renderPipeline, MeshRenderer meshRenderer) {
+      var suffix = "URP";
+# if QUANTUM_ENABLE_HDRP
+      suffix = "HDRP";
+#endif
+
+      var materials = meshRenderer.sharedMaterials;
+
+      for (int i = 0; i < materials.Length; i++) {
+        var oldMaterial = materials[i];
+        if (materialsCache.TryGetValue(oldMaterial, out var value)) {
+          materials[i] = value;
+        } else {
+          var oldMaterialPath = AssetDatabase.GetAssetPath(oldMaterial);
+          var newMaterial = new Material(renderPipeline.defaultMaterial);
+          newMaterial.color = oldMaterial.color;
+          newMaterial.mainTexture = oldMaterial.mainTexture;
+          newMaterial.mainTextureOffset = oldMaterial.mainTextureOffset;
+          newMaterial.mainTextureScale = oldMaterial.mainTextureScale;
+          AssetDatabase.CreateAsset(newMaterial, oldMaterialPath.Replace(".mat", $"_{suffix}.mat"));
+          materials[i] = newMaterial;
+          materialsCache.Add(oldMaterial, newMaterial);
+        }
+      }
+
+      meshRenderer.sharedMaterials = materials;
+    }
+
+    static Material[] LoadMaterials(string folder) =>
+      AssetDatabase.FindAssets("t:Material", new[] { folder })
+          .Select(AssetDatabase.GUIDToAssetPath)
+          .Select(AssetDatabase.LoadAssetAtPath<Material>)
+          .Where(m => m != null)
+          .ToArray();
+
+#if UNITY_6000_5_OR_NEWER && QUANTUM_ENABLE_URP
+    public static void UpgradeMaterialsForURP(string scenePath) {
+      var index = scenePath.IndexOf("/Scenes", StringComparison.Ordinal);
+      if (index == -1) { // no folder structure with scenes in "Scenes" folder for sample
+        return;
+      }
+
+      var folderPath = scenePath.Substring(0, index);
+
+      var materials = LoadMaterials(folderPath);
+      if (materials.Length == 0) return;
+
+      Log.Info($"Migrating {materials.Length} Asteroids material(s) to URP");
+
+      var upgrader = new UnityEditor.Rendering.Universal.StandardUpgrader("Standard");
+
+      foreach (var material in materials) {
+        if (material.shader != null && material.shader.name == "Standard") {
+          UnityEditor.Rendering.MaterialUpgrader.Upgrade(material, upgrader, UnityEditor.Rendering.MaterialUpgrader.UpgradeFlags.None);
+        }
+      }
+      AssetDatabase.SaveAssets();
+    }
+#endif
+
+#if UNITY_6000_5_OR_NEWER && QUANTUM_ENABLE_HDRP
+    private static void UpgradeMaterialsForHDRP(string scenePath) {
+      var index = scenePath.IndexOf("/Scenes", StringComparison.Ordinal);
+      if (index == -1) { // no folder structure with scenes in "Scenes" folder for sample
+        return;
+      }
+
+      var folderPath = scenePath.Substring(0, index);
+
+      var materials = LoadMaterials(folderPath);
+      if (materials.Length == 0) return;
+
+      Log.Info($"Migrating {materials.Length} Asteroids material(s) to HDRP");
+
+      var prev = Selection.objects;
+      Selection.objects = materials;
+      EditorApplication.ExecuteMenuItem("Edit/Rendering/Materials/Convert Selected Built-In Materials to Current SRP");
+      Selection.objects = prev;
+    }
+
+    private static void UpdateSceneForHDRP(Scene scene) {
+      // HDRP does not render correctly without Fog enabled.
+      // Unity enabled it in their default scenes, but not in their default HDRP setup. Here we detect HDRP and enable Fog.
+      var go = new GameObject("Global Volume");
+      SceneManager.MoveGameObjectToScene(go, scene);
+      var volume = go.AddComponent<UnityEngine.Rendering.Volume>();
+      volume.isGlobal = true;
+      volume.weight = 1.0f;
+
+      string sceneDirectory = System.IO.Path.GetDirectoryName(scene.path);
+      string profilePath = $"{sceneDirectory}/{scene.name}_VolumeProfile.asset";
+      var profile = ScriptableObject.CreateInstance<UnityEngine.Rendering.VolumeProfile>();
+
+      var fog = profile.Add<UnityEngine.Rendering.HighDefinition.Fog>();
+      fog.enabled.value = true;
+
+      UnityEditor.AssetDatabase.CreateAsset(profile, profilePath);
+      UnityEditor.AssetDatabase.AddObjectToAsset(fog, profile);
+      UnityEditor.AssetDatabase.SaveAssets();
+
+      volume.sharedProfile = profile;
+
+      const float fixedExposureEv = 13f; // tune to taste; lower = brighter image
+
+      fog.enabled.Override(false);
+
+      var visualEnvironment = profile.Add<UnityEngine.Rendering.HighDefinition.VisualEnvironment>();
+      visualEnvironment.skyType.Override(0); // 0 == "None"
+      AssetDatabase.AddObjectToAsset(visualEnvironment, profile);
+
+      // Fixed exposure stops HDRP auto-exposure from pumping the dark scene up to white.
+      var exposure = profile.Add<UnityEngine.Rendering.HighDefinition.Exposure>();
+      exposure.mode.Override(UnityEngine.Rendering.HighDefinition.ExposureMode.Fixed);
+      exposure.fixedExposure.Override(fixedExposureEv);
+      AssetDatabase.AddObjectToAsset(exposure, profile);
+
+      // Bloom intensity 0 removes the glow.
+      var bloom = profile.Add<UnityEngine.Rendering.HighDefinition.Bloom>();
+      bloom.intensity.Override(0f);
+      AssetDatabase.AddObjectToAsset(bloom, profile);
+
+      AssetDatabase.SaveAssets();
+
+      // Sky = None alone does NOT clear the camera to black in HDRP — the cameras lack
+      // HDAdditionalCameraData and default to clearing to the sky. Force a solid black background.
+      foreach (var root in scene.GetRootGameObjects()) {
+        foreach (var camera in root.GetComponentsInChildren<Camera>(includeInactive: true)) {
+          var hdCameraData = camera.GetComponent<UnityEngine.Rendering.HighDefinition.HDAdditionalCameraData>();
+          if (hdCameraData == null) {
+            hdCameraData = camera.gameObject.AddComponent<UnityEngine.Rendering.HighDefinition.HDAdditionalCameraData>();
+          }
+          hdCameraData.clearColorMode = UnityEngine.Rendering.HighDefinition.HDAdditionalCameraData.ClearColorMode.Color;
+          hdCameraData.backgroundColorHDR = Color.black;
+        }
+      }
+    }
+
+#endif
+
+    internal static void ConvertSampleToSrp(List<string> scenePaths) {
+#if UNITY_6000_5_OR_NEWER && QUANTUM_ENABLE_URP
+      UpgradeMaterialsForURP(scenePaths[0]);
+#elif UNITY_6000_5_OR_NEWER && QUANTUM_ENABLE_HDRP
+      UpgradeMaterialsForHDRP(scenePaths[0]);
+
+      // E.g. refresh asset db (RefreshGlobalDB)
+      BeforeOpenSceneUser();
+
+      EditorSceneManager.SaveOpenScenes();
+      EditorSceneManager.OpenScene(scenePaths[0], OpenSceneMode.Additive);
+      var sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePaths[0]);
+      var scene = SceneManager.GetSceneByName(sceneName);
+      UpdateSceneForHDRP(scene);
+      EditorSceneManager.MarkSceneDirty(scene);
+      EditorSceneManager.SaveScene(scene);
+      if (SceneManager.loadedSceneCount > 1) {
+        SceneManager.UnloadSceneAsync(scene);
+      }
+#else
+      var renderPipeline = GraphicsSettings.defaultRenderPipeline;
+      if (renderPipeline == null || renderPipeline.defaultMaterial == null)
+        return;
+
+      materialsCache.Clear();
+
+      ConvertSamplePrefabsToSrp(scenePaths[0]);
+
+      // E.g. refresh asset db (RefreshGlobalDB)
+      BeforeOpenSceneUser();
+
+      EditorSceneManager.SaveOpenScenes();
+      foreach (var scenePath in scenePaths) {
+        EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
+        var sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+        var scene = SceneManager.GetSceneByName(sceneName);
+        ConvertScenetoSrp(scene);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        // used instead of SceneManager.loadedSceneCount to support Unity 2022 and older. Shouldn't matter because it's unlikely something else is loading / unloading a scene while the hub runs this
+        if (SceneManager.sceneCount > 1) { 
+          SceneManager.UnloadSceneAsync(scene);
+        }
+      }
+#endif
+    }
+
+    private static void ConvertSamplePrefabsToSrp(string scenePath) {
+      var renderPipeline = GraphicsSettings.defaultRenderPipeline;
+      
+      var index = scenePath.IndexOf("/Scenes", StringComparison.Ordinal);
+      if (index == -1) // no folder structure with scenes in "Scenes" folder for sample
+      {
+        return;
+      }
+
+      List<string> assetPaths = new List<string>();
+      
+      var folderPath = scenePath.Substring(0, index) + "/Prefabs/";
+      if (Directory.Exists(folderPath)) {
+        assetPaths.AddRange( AssetDatabase.FindAssets("t:GameObject", new[] { folderPath }));
+      }
+      
+      folderPath =  scenePath.Substring(0, index) + "/Resources/";
+      if (Directory.Exists(folderPath)) {
+        assetPaths.AddRange( AssetDatabase.FindAssets("t:GameObject", new[] { folderPath }));
+      }
+    
+      foreach (string assetGuid in assetPaths) {
+        string path = AssetDatabase.GUIDToAssetPath(assetGuid);
+        GameObject asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+        var meshRenderers = asset.GetComponentsInChildren<MeshRenderer>(includeInactive: true);
+
+        foreach (var meshRenderer in meshRenderers) {
+          ConvertMeshRendererForRenderPipeline(renderPipeline, meshRenderer);
+        }
+
+        AssetDatabase.SaveAssetIfDirty(asset);
+      }
+    }
+
+
+    private static void ConvertScenetoSrp(Scene scene) {
+      var renderPipeline = GraphicsSettings.defaultRenderPipeline;
+
+      var rootGameObjects = scene.GetRootGameObjects();
+
+      foreach (var gameObject in rootGameObjects) {
+        var meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(includeInactive: true);
+
+        foreach (var meshRenderer in meshRenderers) {
+          ConvertMeshRendererForRenderPipeline(renderPipeline, meshRenderer);
+        }
+      }
+
+#if QUANTUM_ENABLE_HDRP
+      // HDRP does not render correctly without Fog enabled.
+      // Unity enabled it in their default scenes, but not in their default HDRP setup. Here we detect HDRP and enable Fog.
+        var go = new GameObject("Global Volume");
+        SceneManager.MoveGameObjectToScene(go, scene);
+        var volume = go.AddComponent<UnityEngine.Rendering.Volume>();
+        volume.isGlobal = true;
+        volume.weight = 1.0f;
+
+        string sceneDirectory = System.IO.Path.GetDirectoryName(scene.path);
+        string profilePath = $"{sceneDirectory}/{scene.name}_VolumeProfile.asset";
+        var profile = ScriptableObject.CreateInstance<UnityEngine.Rendering.VolumeProfile>();
+ 
+        var fog = profile.Add<UnityEngine.Rendering.HighDefinition.Fog>();
+        fog.enabled.value = true;
+
+        UnityEditor.AssetDatabase.CreateAsset(profile, profilePath);
+        UnityEditor.AssetDatabase.AddObjectToAsset(fog, profile);
+        UnityEditor.AssetDatabase.SaveAssets();
+        
+        volume.sharedProfile = profile;
+#endif
+    }
+  }
 }
 
 #endregion
@@ -19631,11 +20626,12 @@ namespace Quantum.Editor {
 #region QuantumEditorHubWidget.cs
 
 namespace Quantum.Editor {
-  using System.Collections.Generic;
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   using System;
+  using System.Collections.Generic;
+  using System.IO;
   using UnityEditor;
   using UnityEngine;
-  using System.IO;
 
   /// <summary>
   /// Structured as such that a subclass has child elements to prevent Unity inspector recursion problems.
@@ -19668,13 +20664,30 @@ namespace Quantum.Editor {
     internal class HubWidgetState {
       private SaveData _saveData;
       private string _playerPrefsKey;
+      string[] _cachedStrings = Array.Empty<string>();
+
+      const int CachedStringSplitSize = 1000;
 
       public bool IsHidden { get; set; }
       public bool IsAutoCompleted { get; set; }
       public int StepIndex { get; set; }
       public bool IsComplete => IsAutoCompleted || _saveData.IsMarkedCompleted || _saveData.IsMarkedSkipped;
       public bool IsDrawn => IsComplete == false && IsHidden == false;
-      public string CachedString { get; set; }
+
+
+      public string[] CachedStrings => _cachedStrings;
+      public bool HasCachedString =>
+        _cachedStrings != null &&
+        (_cachedStrings.Length > 0 && _cachedStrings[0].Length > 0 ||
+         _cachedStrings.Length > 1);
+
+      public void CacheString(string value) {
+        if (string.IsNullOrEmpty(value) || value.Length < CachedStringSplitSize) {
+          _cachedStrings = new[] { value };
+        } else {
+          _cachedStrings = value.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+        }
+      }
 
       public HubWidgetState(string playerPrefsKey = "") {
         _playerPrefsKey = playerPrefsKey;
@@ -19805,8 +20818,8 @@ namespace Quantum.Editor {
       }
     }
 
-    // TODO: potentially slow
-    public bool HasTypeAndTypeIsValid =>
+    /// TODO: potentially slow 
+    internal bool HasTypeAndTypeIsValid =>
       (string.IsNullOrEmpty(Type.ScriptableObject) == false && QuantumEditorHubWindow.HubUtils.FindType<ScriptableObject>(Type.ScriptableObject) != null) ||
       (string.IsNullOrEmpty(Type.Class) == false && QuantumEditorHubWindow.HubUtils.FindType<object>(Type.Class) != null);
 
@@ -19852,11 +20865,20 @@ namespace Quantum.Editor {
             var define = AssetDatabaseUtils.HasScriptingDefineSymbol(Url);
             return !(define.HasValue && define.Value);
           }
+
+        case QuantumEditorHubConditionEnum.GlobalScriptableObjectExists: {
+            if (string.IsNullOrEmpty(Type.ScriptableObject) == false) {
+              Type globalObjectType = QuantumEditorHubWindow.HubUtils.FindType(Type.ScriptableObject);
+              return QuantumEditorHubWindow.HubUtils.HasGlobalScriptableObjectCached(globalObjectType);
+            }
+            return false;
+          }
       }
 
       return false;
     }
   }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
 
 #endregion
@@ -19865,14 +20887,16 @@ namespace Quantum.Editor {
 #region QuantumEditorHubWidgetType.cs
 
 namespace Quantum.Editor {
-  using System.Collections.Generic;
   using System;
+  using System.Collections.Generic;
+  using System.Linq;
   using UnityEditor;
   using UnityEngine;
-  using System.Linq;
 
+  /// <summary/>
   [Serializable]
   public struct QuantumEditorHubWidgetType {
+    /// <summary/>
     public string Value;
   }
 
@@ -19883,6 +20907,7 @@ namespace Quantum.Editor {
     LinkButton,
     PingAsset,
     PingGlobalScriptableObject,
+    EnsureGlobalScriptableObjectExists,
     InstallPackage,
     ToggleDefine,
     Step,
@@ -19945,6 +20970,16 @@ namespace Quantum.Editor {
 
   internal partial class QuantumEditorHubWindow {
     Quantum.Editor.LogSettingsDrawer _logSettingsDrawer;
+    private string Footer {
+      get {
+        if (string.IsNullOrEmpty(_footer)) {
+          _footer = $"\u00A9 2024-{DateTime.Now.Year}, Exit Games GmbH. All rights reserved.";
+        }
+        return _footer;
+      }
+    }
+
+    string _footer;
 
     public void DrawButtonAction(Texture2D icon, string header, string description = null, bool enabled = true, Action callback = null, int? width = null, Texture2D statusIcon = null) {
       var height = IconSize + GUI.skin.button.padding.top + GUI.skin.button.padding.bottom;
@@ -20014,25 +21049,6 @@ namespace Quantum.Editor {
       }
     }
 
-    protected void DrawGlobalObjectStatus<T>() where T : QuantumGlobalScriptableObject<T> {
-      var attribute = typeof(T).GetCustomAttribute<QuantumGlobalScriptableObjectAttribute>();
-      Debug.Assert(attribute != null);
-      Debug.Assert(attribute.DefaultPath.StartsWith("Assets/"));
-
-      var nicePath = PathUtils.GetPathWithoutExtension(attribute.DefaultPath.Substring("Assets/".Length));
-
-      using (new EditorGUILayout.HorizontalScope()) {
-        bool hasDefaultInstance = QuantumGlobalScriptableObject<T>.TryGetGlobal(out var defaultInstance);
-        using (new EditorGUI.DisabledScope(!hasDefaultInstance)) {
-          if (GUILayout.Button(nicePath, HubSkin.label)) {
-            EditorGUIUtility.PingObject(defaultInstance);
-          }
-        }
-
-        GUILayout.Label(GetStatusIcon(hasDefaultInstance), GUILayout.Width(StatusIconWidthDefault.x), GUILayout.Height(StatusIconWidthDefault.y));
-      }
-    }
-
     void DrawLeftNavMenu() {
       for (int i = 0; i < Pages.Count; ++i) {
         if (DrawNavButton(Pages[i], CurrentPage == i)) {
@@ -20048,7 +21064,7 @@ namespace Quantum.Editor {
 
     void DrawFooter() {
       GUILayout.BeginHorizontal(HubSkin.window);
-      GUILayout.Label("\u00A9 2024, Exit Games GmbH. All rights reserved.");
+      GUILayout.Label(Footer);
       GUILayout.EndHorizontal();
     }
 
@@ -20070,6 +21086,7 @@ namespace Quantum.Editor {
 #region QuantumEditorHubWindow.Skin.cs
 
 namespace Quantum.Editor {
+  using System;
   using UnityEngine;
 
   internal partial class QuantumEditorHubWindow {
@@ -20096,7 +21113,7 @@ namespace Quantum.Editor {
     public virtual GUIStyle GetBoxStyle => HubSkin.GetStyle("Box");
     public virtual GUIStyle GetButtonPaneStyle => HubSkin.GetStyle("Button");
 
-    public HubStyles Styles;
+    [NonSerialized] public HubStyles Styles;
 
     public Texture2D GetStatusIcon(bool isValid) {
       return isValid ? CorrectIcon : MissingIcon;
@@ -20107,6 +21124,7 @@ namespace Quantum.Editor {
       public GUIStyle TextLabel;
       public GUIStyle HeaderLabel;
       public GUIStyle ReleaseNotes;
+      public GUIStyle TextFile;
       public GUIStyle HeaderText;
       public GUIStyle ButtonActive;
 
@@ -20140,6 +21158,14 @@ namespace Quantum.Editor {
 
         ReleaseNotes = new GUIStyle(TextLabel) {
           richText = true,
+          // Remove padding because of the way long text is cached and drawn
+          padding = new RectOffset(TextLabel.padding.left, TextLabel.padding.right, 0, 0)
+        };
+
+        TextFile = new GUIStyle(TextLabel) {
+          richText = true,
+          // Remove padding because of the way long text is cached and drawn
+          padding = new RectOffset(TextLabel.padding.left, TextLabel.padding.right, 0, 0)
         };
       }
     }
@@ -20155,13 +21181,15 @@ namespace Quantum.Editor {
   using System;
   using System.Collections.Generic;
   using System.IO;
+  using System.Reflection;
   using UnityEditor;
   using UnityEngine;
 
   internal partial class QuantumEditorHubWindow {
-    static Dictionary<string, Type> _typeCache = new Dictionary<string, Type>();
-
     public class HubUtils {
+      static Dictionary<string, Type> _typeCache = new Dictionary<string, Type>();
+      internal static HashSet<Type> GlobalInstanceMissing = new();
+
       public static bool IsValidGuid(string appId) {
         try {
           return new Guid(appId) != null;
@@ -20186,6 +21214,17 @@ namespace Quantum.Editor {
         return null;
       }
 
+
+      public static Type FindType(string name) {
+        if (_typeCache.TryGetValue(name, out var result)) {
+          return result;
+        }
+
+        var type = ReflectionUtils.FindTypeByFullName(name);
+        _typeCache.Add(name, type);
+        return type;
+      }
+
       public static Action OpenURL(string url, params object[] args) {
         return () => {
           if (args.Length > 0) {
@@ -20204,6 +21243,56 @@ namespace Quantum.Editor {
         }
 
         return PathUtils.Normalize(basePath.Replace(Application.dataPath, Path.GetFileName(Application.dataPath)));
+      }
+
+      internal static bool TryGetGlobalScriptableObjectRefl(Type type, out QuantumGlobalScriptableObject result) {
+        result = null;
+        Type globalTypeWrapped = typeof(QuantumGlobalScriptableObject<>).MakeGenericType(type);
+        MethodInfo tryGetGlobalMethod = globalTypeWrapped.GetMethod("TryGetGlobalInternal", BindingFlags.NonPublic | BindingFlags.Static);
+        object[] parameters = new object[1];
+        if ((bool)tryGetGlobalMethod.Invoke(null, parameters)) {
+          result = parameters[0] as QuantumGlobalScriptableObject;
+          return true;
+        }
+
+        return false;
+      }
+
+      internal static bool EnsureGlobalScriptableObjectExistsRefl(Type type) {
+        MethodInfo tryGetGlobalMethod = typeof(QuantumGlobalScriptableObjectUtils).GetMethod("EnsureAssetExists")
+          .MakeGenericMethod(type);
+        return (bool)tryGetGlobalMethod.Invoke(null, null);
+      }
+
+      internal static bool HasGlobalScriptableObjectCached(Type type) {
+        if (GlobalInstanceMissing.Contains(type)) {
+          return false;
+        } else {
+          if (TryGetGlobalScriptableObjectRefl(type, out var globalScriptableObject)) {
+            return true;
+          } else {
+            GlobalInstanceMissing.Add(type);
+            return false;
+          }
+        }
+      }
+
+      internal static bool TryGetGlobalScriptableObjectCached<T>(out T result) where T : QuantumGlobalScriptableObject {
+        if (TryGetGlobalScriptableObjectCached(typeof(T), out var globalScriptableObject)) {
+          result = globalScriptableObject as T;
+          return true;
+        }
+        result = null;
+        return false;
+      }
+
+
+      internal static bool TryGetGlobalScriptableObjectCached(Type type, out QuantumGlobalScriptableObject result) {
+        result = null;
+        if (HasGlobalScriptableObjectCached(type)) {
+          return HubUtils.TryGetGlobalScriptableObjectRefl(type, out result);
+        }
+        return false;
       }
     }
   }
@@ -20269,7 +21358,7 @@ namespace Quantum.Editor {
   /// Create Quantum asset and script files using the context menu.
   /// </summary>
   public static class QuantumEditorMenuCreateAssets {
-    const string ScriptTemplateFolder = "Assets/Photon/Quantum/Editor/ScriptTemplates";
+    const string ScriptTemplateFolder = QuantumUnityEditorPaths.Root + "/Editor/ScriptTemplates";
     
     [MenuItem("Assets/Create/Quantum/Qtn", false, priority: EditorDefines.AssetMenuPriorityScripts)]
     private static void CreateQtnFile() {
@@ -20277,7 +21366,11 @@ namespace Quantum.Editor {
       // TODO: find better folder when used from the menu instead of the contect menu
       //string clickedAssetGuid = Selection.assetGUIDs[0];
       //string clickedPath = AssetDatabase.GUIDToAssetPath(clickedAssetGuid)
+#if UNITY_6000_4_OR_NEWER
+      ProjectWindowUtil.CreateAssetWithTextContent("QuantumDefinition.qtn", string.Empty);
+#else
       ProjectWindowUtil.CreateAssetWithContent("QuantumDefinition.qtn", string.Empty);
+#endif
     }
 
     [MenuItem("Assets/Create/Quantum/System", false, priority: EditorDefines.AssetMenuPriorityScripts + 1)]
@@ -20295,33 +21388,37 @@ namespace Quantum.Editor {
       ProjectWindowUtil.CreateScriptAssetFromTemplateFile($"{ScriptTemplateFolder}/QuantumScriptTemplateSystemSignalsOnly.cs.txt", "NewQuantumSystem.cs");
     }
 
-    [MenuItem("Assets/Create/Quantum/AssetScript", false, priority: EditorDefines.AssetMenuPriorityScripts + 4)]
+    [MenuItem("Assets/Create/Quantum/Command", false, priority: EditorDefines.AssetMenuPriorityScripts + 4)]
+    private static void CreateQuantumCommandFile() {
+      ProjectWindowUtil.CreateScriptAssetFromTemplateFile($"{ScriptTemplateFolder}/QuantumScriptTemplateCommand.cs.txt", "NewQuantumCommand.cs");
+    }
+
+    [MenuItem("Assets/Create/Quantum/AssetScript", false, priority: EditorDefines.AssetMenuPriorityScripts + 5)]
     private static void CreateQuantumAssetScriptFile() {
       ProjectWindowUtil.CreateScriptAssetFromTemplateFile($"{ScriptTemplateFolder}/QuantumScriptTemplateAssetScript.cs.txt", "NewQuantumAsset.cs");
     }
 
-    [MenuItem("Assets/Create/Quantum/InputScript", false, priority: EditorDefines.AssetMenuPriorityScripts + 5)]
+    [MenuItem("Assets/Create/Quantum/InputScript", false, priority: EditorDefines.AssetMenuPriorityScripts + 6)]
     private static void CreateQuantumInputScriptFile() {
       ProjectWindowUtil.CreateScriptAssetFromTemplateFile($"{ScriptTemplateFolder}/QuantumScriptTemplateInputScript.cs.txt", "NewQuantumInput.cs");
     }
 
-    [MenuItem("Assets/Create/Quantum/EntityViewContext", false, priority: EditorDefines.AssetMenuPriorityScripts + 6)]
+    [MenuItem("Assets/Create/Quantum/EntityViewContext", false, priority: EditorDefines.AssetMenuPriorityScripts + 7)]
     private static void CreateQuantumEntityViewContextFile() {
       ProjectWindowUtil.CreateScriptAssetFromTemplateFile($"{ScriptTemplateFolder}/QuantumScriptTemplateEntityViewContext.cs.txt", "NewQuantumEntityViewContext.cs");
     }
 
-    [MenuItem("Assets/Create/Quantum/EntityViewComponent", false, priority: EditorDefines.AssetMenuPriorityScripts + 7)]
+    [MenuItem("Assets/Create/Quantum/EntityViewComponent", false, priority: EditorDefines.AssetMenuPriorityScripts + 8)]
     private static void CreateQuantumEntityViewComponentFile() {
       ProjectWindowUtil.CreateScriptAssetFromTemplateFile($"{ScriptTemplateFolder}/QuantumScriptTemplateEntityViewComponent.cs.txt", "NewQuantumEntityViewComponent.cs");
     }
 
-    [MenuItem("Assets/Create/Quantum/EntityViewComponent With Context", false, priority: EditorDefines.AssetMenuPriorityScripts + 8)]
+    [MenuItem("Assets/Create/Quantum/EntityViewComponent With Context", false, priority: EditorDefines.AssetMenuPriorityScripts + 9)]
     private static void CreateQuantumEntityViewComponentWithContextFile() {
       ProjectWindowUtil.CreateScriptAssetFromTemplateFile($"{ScriptTemplateFolder}/QuantumScriptTemplateEntityViewComponentWithContext.cs.txt", "NewQuantumEntityViewComponent.cs");
     }
 
-
-    [MenuItem("Assets/Create/Quantum/Scene", false, priority: EditorDefines.AssetMenuPriorityScripts + 9)]
+    [MenuItem("Assets/Create/Quantum/Scene", false, priority: EditorDefines.AssetMenuPriorityScripts + 10)]
     private static void CreateQuantumScene() {
       if (Selection.assetGUIDs.Length > 0) {
         string clickedAssetGuid = Selection.assetGUIDs[0];
@@ -20478,25 +21575,49 @@ namespace Quantum.Editor {
     /// </summary>
     /// <param name="scenePath">Path to scene to be created</param>
     public static void CreateSimpleConnectionScene(string scenePath) {
-      QuantumDefaultConfigs.TryGetGlobal(out var defaultConfigs);
-      Assert.Always(defaultConfigs != null, "No global QuantumDefaultConfigs found.");
+      if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) {
+        QuantumDefaultConfigs.TryGetGlobal(out var defaultConfigs);
+        Assert.Always(defaultConfigs != null, "No global QuantumDefaultConfigs found.");
 
-      var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+        var map = QuantumUnityDB.FindGlobalAssetGuids(typeof(Map)).FirstOrDefault();
+        if (TryLoadRuntimeConfigFromMap(map, out var runtimeConfig) == false) {
+          runtimeConfig = new RuntimeConfig {
+            Map = map,
+            SimulationConfig = defaultConfigs.SimulationConfig,
+            SystemsConfig = defaultConfigs.SystemsConfig
+          };
+        }
 
-      var go = new GameObject("SimpleConnectGUI");
-      var component = go.AddComponent<QuantumSimpleConnectionGUI>();
-      component.RuntimeConfig = new RuntimeConfig {
-        Map = QuantumUnityDB.FindGlobalAssetGuids(typeof(Map)).FirstOrDefault(),
-        SimulationConfig = defaultConfigs.SimulationConfig,
-        SystemsConfig = defaultConfigs.SystemsConfig
-      };
+        var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
-      var newScenePath = AssetDatabase.GenerateUniqueAssetPath(scenePath);
-      if (EditorSceneManager.SaveScene(scene, newScenePath)) {
-        AddSceneToBuildSettings(scene);
+        var go = new GameObject("SimpleConnectGUI");
+        var component = go.AddComponent<QuantumSimpleConnectionGUI>();
+        component.RuntimePlayers = new List<RuntimePlayer>() { new RuntimePlayer() };
+        component.RuntimeConfig = runtimeConfig;
+
+        var newScenePath = AssetDatabase.GenerateUniqueAssetPath(scenePath);
+        if (EditorSceneManager.SaveScene(scene, newScenePath)) {
+          AddSceneToBuildSettings(scene);
+        }
+
+        QuantumEditorLog.Log("Created new Quantum simple connection sample scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
+      }
+    }
+
+    static bool TryLoadRuntimeConfigFromMap(AssetGuid map, out RuntimeConfig runtimeConfig) {
+      runtimeConfig = null;
+
+      var mapAsset = QuantumUnityDB.GetGlobalAsset<Map>(map);
+      if (mapAsset != null && File.Exists(mapAsset.ScenePath)) {
+        EditorSceneManager.OpenScene(mapAsset.ScenePath);
+        var quantumRunnerLocalDebug = FindAnyObjectByType<QuantumRunnerLocalDebug>();
+        if (quantumRunnerLocalDebug != null) {
+          runtimeConfig = quantumRunnerLocalDebug.RuntimeConfig;
+        }
+        return runtimeConfig != null;
       }
 
-      QuantumEditorLog.Log("Created new Quantum simple connection sample scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
+      return false;
     }
 
     /// <summary>
@@ -20547,8 +21668,8 @@ namespace Quantum.Editor {
       }
 
       if (FindAnyObjectByType<QuantumDebugInput>() == null) {
-        var debugInputGameobject = new GameObject("QuantumDebugInput");
-        debugInputGameobject.AddComponent<QuantumDebugInput>();
+        var debugInputGameObject = new GameObject("QuantumDebugInput");
+        debugInputGameObject.AddComponent<QuantumDebugInput>();
       }
 
       var mapAsset = ScriptableObject.CreateInstance<Quantum.Map>();
@@ -20560,7 +21681,9 @@ namespace Quantum.Editor {
       EditorUtility.SetDirty(mapAsset);
 
       debugRunner.RuntimeConfig.Map = mapAsset;
-      quantumMap.Asset = mapAsset;
+      quantumMap.AssetRef = mapAsset;
+
+      QuantumUnityDBUtilities.RefreshGlobalDB();
 
       QuantumEditorLog.Log("Created new Quantum map asset", AssetDatabase.LoadAssetAtPath<Map>(mapAssetPath));
 
@@ -20632,6 +21755,61 @@ namespace Quantum.Editor {
         EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
       }
     }
+
+
+    /// <summary>
+    /// Add the connection mini menu to the current scene.
+    /// </summary>
+    [MenuItem("Tools/Quantum/Setup/Add Start UI To Current Scene", false, (int)QuantumEditorMenuPriority.Setup + 14)]
+    public static void AddStartUI() {
+      var go = new GameObject("Canvas");
+      var canvas = go.AddComponent<Canvas>();
+      canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+      var canvasScaler = go.AddComponent<UnityEngine.UI.CanvasScaler>();
+      canvasScaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+      canvasScaler.referenceResolution = new Vector2(1920, 1080);
+      canvasScaler.screenMatchMode = UnityEngine.UI.CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+      canvasScaler.matchWidthOrHeight = 0.9f;
+
+      go.AddComponent<UnityEngine.UI.GraphicRaycaster>();
+
+      var menuPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath("f2cb881c6a9772246bd6e3c119cf6f35"));
+      var menu = (GameObject)PrefabUtility.InstantiatePrefab(menuPrefab);
+      menu.transform.SetParent(go.transform, false);
+
+      var menuConnection = menu.AddComponent<QuantumStartUIConnection>();
+      PhotonServerSettings.TryGetGlobal(out menuConnection.ServerSettings);
+      menuConnection.SessionConfig = QuantumDeterministicSessionConfigAsset.Global;
+      menuConnection.Players = new RuntimePlayer[] { new RuntimePlayer() };
+      menuConnection.AppVersionMachineIdPostfix = $"-{SceneManager.GetActiveScene().name}";
+
+      // Overwrite initial settings with clones from the local debug runner
+      var debugRunner = FindAnyObjectByType<QuantumRunnerLocalDebug>();
+      if (debugRunner != null) {
+        menuConnection.DeltaTimeType = debugRunner.DeltaTimeType;
+        menuConnection.RecordingFlags = debugRunner.RecordingFlags;
+        menuConnection.InstantReplayConfig = debugRunner.InstantReplayConfig;
+
+        if (debugRunner.LocalPlayers.Length > 0) {
+          menuConnection.Players = debugRunner.LocalPlayers.Select(p => new QuantumUnityJsonSerializer().ClonePlayer(p)).ToArray();
+        }
+        
+        if (debugRunner.RuntimeConfig != null) {
+          menuConnection.RuntimeConfig = new QuantumUnityJsonSerializer().CloneConfig(debugRunner.RuntimeConfig);
+        }
+
+        if (debugRunner.SessionConfig != null) {
+          menuConnection.SessionConfig = debugRunner.SessionConfig;
+        }
+      }
+
+      EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+
+#if QUANTUM_ENABLE_TEXTMESHPRO
+      var checkTMPInstallation = TMPro.TMP_Settings.instance;
+#endif
+    }
   }
 }
 
@@ -20668,11 +21846,11 @@ namespace Quantum.Editor {
     [MenuItem("Tools/Quantum/Export/SessionConfig (Selected)", false, (int)QuantumEditorMenuPriority.Export + 11)]
     private static void ExportSessionConfig() {
       var instance = Selection.activeObject as QuantumDeterministicSessionConfigAsset;
-      if (instance?.Config != null) {
+      if (instance != null && instance.Config != null) {
         // Make a copy
         var copy = DeterministicSessionConfig.FromByteArray(DeterministicSessionConfig.ToByteArray(instance.Config));
 
-        // Calcuate fixed size
+        // Calculate fixed size
         var stream = new FrameSerializer(DeterministicFrameSerializeMode.Serialize, null, 1024);
         stream.Writing = true;
         stream.InputMode = true;
@@ -20738,14 +21916,13 @@ namespace Quantum.Editor {
     /// <summary>
     /// Directory where the Quantum DLLs (Debug or Release) are extracted to.
     /// </summary>
-    public const string ExtractToDirectory = "Assets/Photon/Quantum/Assemblies";
+    public const string ExtractToDirectory = QuantumUnityEditorPaths.Root + "/Assemblies";
 
-    const string DebugPackageTemplate = "Assets/Photon/Quantum/Assemblies/Quantum.{0}.zip";
+    const string DebugPackageTemplate = QuantumUnityEditorPaths.Root + "/Assemblies/Quantum.{0}.zip";
 
     static string GetAssemblyFileVersion<T>() {
       try {
-        var codeBase = Assembly.GetAssembly(typeof(T)).CodeBase;
-        var path = Uri.UnescapeDataString(new UriBuilder(codeBase).Path);
+        var path = QuantumPlatform.GetLoadedPath(Assembly.GetAssembly(typeof(T)));
         var fileVersionInfo = FileVersionInfo.GetVersionInfo(path);
         return fileVersionInfo.ProductVersion;
       } catch { }
@@ -20844,7 +22021,7 @@ namespace Quantum.Editor {
     /// <summary>
     /// Generate the math lookup tables.
     /// </summary>
-    [MenuItem("Tools/Quantum/Setup/Generate Math Lookup Tables", priority = (int)QuantumEditorMenuPriority.Setup + 14)]
+    [MenuItem("Tools/Quantum/Setup/Generate Math Lookup Tables", priority = (int)QuantumEditorMenuPriority.Setup + 34)]
     public static void Generate() {
       FPLut.GenerateTables(Quantum.PathUtils.Combine(Application.dataPath, "Photon/Quantum/Resources/LUT"));
 
@@ -20877,7 +22054,9 @@ namespace Quantum.Editor {
   /// Utility methods to create and set up a Quantum Unity scene.
   /// </summary>
   public static class QuantumEditorMenuProfilers {
+#if !QUANTUM_DISABLE_GRAPHPROFILER
     const string ProfilerPrefabGuid = "e7b1355f609cb304da5529115986eb8b";
+#endif
     const string QuantumStatsPrefabGuid = "9e5addbaa78b7264889bf147e593db91";
 
     /// <summary>
@@ -20885,6 +22064,7 @@ namespace Quantum.Editor {
     /// </summary>
     [MenuItem("Tools/Quantum/Profilers/Add Graph Profilers Prefab", false, (int)QuantumEditorMenuPriority.Profilers + 0)]
     public static void AddGraphProfilersToCurrentScene() {
+#if !QUANTUM_DISABLE_GRAPHPROFILER
       var profiler = FindAnyObjectByType<QuantumGraphProfilingTools>();
       if (profiler != null) {
         Debug.LogWarning("QuantumGraphProfilers already exist in the scene.", profiler);
@@ -20893,8 +22073,23 @@ namespace Quantum.Editor {
 
       var path = AssetDatabase.GUIDToAssetPath(ProfilerPrefabGuid);
       var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-      var go = GameObject.Instantiate(prefab);
+      var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+
       go.name = "QuantumGraphProfilers";
+
+      // Set all profilers to be enabled on awake
+      foreach (var graphProfiler in go.GetComponentsInChildren(typeof(QuantumMonoBehaviour))) {
+        var so = new SerializedObject(graphProfiler);
+        var prop = so.FindProperty("_enableOnAwake");
+        if (prop != null) { 
+          prop.boolValue = true;
+          so.ApplyModifiedProperties();
+        }
+      }
+#else
+      QuantumEditorSettings.TryGetGlobal(out var editorSettings);
+      QuantumEditorLog.Warn("Quantum graph profiler code is disabled, use the QuantumEditorSettings inspector to toggle or remove the QUANTUM_DISABLE_GRAPHPROFILER scripting define", editorSettings);
+#endif
     }
 
     /// <summary>
@@ -20910,7 +22105,7 @@ namespace Quantum.Editor {
 
       var path = AssetDatabase.GUIDToAssetPath(QuantumStatsPrefabGuid);
       var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-      var go = GameObject.Instantiate(prefab);
+      var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
       go.name = "QuantumStats";
     }
   }
@@ -20962,9 +22157,12 @@ namespace Quantum.Editor {
       .Finish(mc, select: "Sprite");
 #endif
 
+
     [MenuItem("GameObject/Quantum/2D/Quad Entity", false, 10)]
     private static GameObject CreateQuadEntity(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Cube)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAlter<MeshFilter>(x => x.sharedMesh = QuadMesh)
       .ThenAdd<QuantumEntityPrototype>(x => {
         x.TransformMode = QuantumEntityPrototypeTransformMode.Transform2D;
@@ -20977,10 +22175,11 @@ namespace Quantum.Editor {
       .ThenAdd<QuantumEntityView>()
       .Finish(mc);
 
-
     [MenuItem("GameObject/Quantum/2D/Circle Entity", false, 10)]
     private static GameObject CreateCircleEntity2D(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Sphere)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAlter<MeshFilter>(x => x.sharedMesh = CircleMesh)
       .ThenAdd<QuantumEntityPrototype>(x => {
         x.TransformMode = QuantumEntityPrototypeTransformMode.Transform2D;
@@ -20995,7 +22194,9 @@ namespace Quantum.Editor {
 
     [MenuItem("GameObject/Quantum/2D/Capsule Entity", false, 10)]
     private static GameObject CreateCapsuleEntity2D(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Capsule)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenRemove<MeshFilter>()
       .ThenRemove<MeshRenderer>()
       .ThenAdd<QuantumEntityPrototype>(x => {
@@ -21013,21 +22214,27 @@ namespace Quantum.Editor {
 
     [MenuItem("GameObject/Quantum/2D/Static Quad Collider", false, 10)]
     private static GameObject CreateQuadStaticCollider(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Cube)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAlter<MeshFilter>(x => x.sharedMesh = QuadMesh)
       .ThenAdd<QuantumStaticBoxCollider2D>(x => x.Size = FPVector2.One)
       .Finish(mc);
 
     [MenuItem("GameObject/Quantum/2D/Static Circle Collider", false, 10)]
     private static GameObject CreateCircleStaticCollider(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Sphere)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAlter<MeshFilter>(x => x.sharedMesh = CircleMesh)
       .ThenAdd<QuantumStaticCircleCollider2D>(x => x.Radius = FP._0_50)
       .Finish(mc);
 
     [MenuItem("GameObject/Quantum/2D/Static Capsule Collider", false, 10)]
     private static GameObject CreateCapsuleStaticCollider2D(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Capsule)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenRemove<MeshFilter>()
       .ThenRemove<MeshRenderer>()
       .ThenAdd<QuantumStaticCapsuleCollider2D>(x =>{ x.Size = new FPVector2(1,2);})
@@ -21037,7 +22244,9 @@ namespace Quantum.Editor {
 
     [MenuItem("GameObject/Quantum/3D/Box Entity", false, 10)]
     private static GameObject CreateBoxEntity(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Cube)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAdd<QuantumEntityPrototype>(x => {
         x.TransformMode = QuantumEntityPrototypeTransformMode.Transform3D;
         x.PhysicsCollider.IsEnabled = true;
@@ -21051,7 +22260,9 @@ namespace Quantum.Editor {
 
     [MenuItem("GameObject/Quantum/3D/Sphere Entity", false, 10)]
     private static GameObject CreateSphereEntity(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Sphere)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAdd<QuantumEntityPrototype>(x => {
         x.TransformMode = QuantumEntityPrototypeTransformMode.Transform3D;
         x.PhysicsCollider.IsEnabled = true;
@@ -21065,7 +22276,9 @@ namespace Quantum.Editor {
 
     [MenuItem("GameObject/Quantum/3D/Capsule Entity", false, 10)]
     private static GameObject CreateCapsuleEntity(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Capsule)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAdd<QuantumEntityPrototype>(x => {
         x.TransformMode = QuantumEntityPrototypeTransformMode.Transform3D;
         x.PhysicsCollider.IsEnabled = true;
@@ -21111,26 +22324,34 @@ namespace Quantum.Editor {
 
     [MenuItem("GameObject/Quantum/3D/Static Box Collider", false, 10)]
     private static GameObject CreateBoxStaticCollider(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Cube)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAdd<QuantumStaticBoxCollider3D>(x => x.Size = FPVector3.One)
       .Finish(mc);
 
 
     [MenuItem("GameObject/Quantum/3D/Static Sphere Collider", false, 10)]
     private static GameObject CreateSphereStaticCollider(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Sphere)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAdd<QuantumStaticSphereCollider3D>(x => x.Radius = FP._0_50)
       .Finish(mc);
 
     [MenuItem("GameObject/Quantum/3D/Static Capsule Collider", false, 10)]
     private static GameObject CreateCapsuleStaticCollider(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Capsule)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAdd<QuantumStaticCapsuleCollider3D>(x =>{ x.Radius = FP._0_50; x.Height = FP._2;})
       .Finish(mc);
 
     [MenuItem("GameObject/Quantum/3D/Static Mesh Collider", false, 10)]
     private static GameObject CreateMeshStaticCollider(MenuCommand mc) => ObjectFactory.CreatePrimitive(PrimitiveType.Cube)
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       .ThenRemove<Collider>()
+#endif
       .ThenAdd<QuantumStaticMeshCollider3D>()
       .Finish(mc);
 
@@ -21178,7 +22399,10 @@ namespace Quantum.Editor {
       }
 
       if (!string.IsNullOrEmpty(select)) {
-        Selection.activeObject = go.transform.Find(select)?.gameObject;
+        var selectedObject = go.transform.Find(select);
+        if (selectedObject != null) {
+          Selection.activeObject = selectedObject.gameObject;
+        }
       } else {
         Selection.activeObject = go;
       }
@@ -21247,7 +22471,7 @@ namespace Quantum.Editor {
     public static readonly LazyAsset<Texture2D> _2DIcon              = LazyAsset.Create(() => FindTextureOrThrow("d_PositionAsUV1 Icon"));
     public static readonly LazyAsset<Texture2D> ConsoleIcon          = LazyAsset.Create(() => FindTextureOrThrow("UnityEditor.ConsoleWindow@2x"));
     public static readonly LazyGUIStyle         ScriptTextStyle      = new LazyGUIStyle(_ => new GUIStyle("ScriptText"));
-    public static readonly LazyAsset<Texture2D> QuantumIcon          = LazyAsset.Create(() => AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Photon/Quantum/Editor/EditorResources/QuantumEditorTextureQtnIcon.png"));
+    public static readonly LazyAsset<Texture2D> QuantumIcon          = LazyAsset.Create(() => AssetDatabase.LoadAssetAtPath<Texture2D>(QuantumUnityEditorPaths.Root + "/Editor/EditorResources/QuantumEditorTextureQtnIcon.png"));
   }
 }
 
@@ -21257,6 +22481,97 @@ namespace Quantum.Editor {
 #region Assets/Photon/Quantum/Editor/QuantumEditorToolbarUtilities.cs
 
 namespace Quantum.Editor {
+#if UNITY_6000_3_OR_NEWER
+  using System.IO;
+  using System.Linq;
+  using UnityEditor;
+  using UnityEditor.SceneManagement;
+  using UnityEditor.Toolbars;
+  using UnityEngine;
+  using UnityEngine.SceneManagement;
+
+  /// <summary>
+  /// Docking Quantum toolbar scene open dropdown into Unity 6.3 toolbar.
+  /// Slightly changed scene menu code from https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Toolbars.MainToolbarDropdown.html
+  /// </summary>
+  public class QuantumEditorToolbarUtilities {
+    const string ToolbarPathScenes = "Tools/Quantum/Open Scene Bar";
+    const int ToolbarPrioScenes = 1000;
+    static string[] _scenePaths;
+
+    [MainToolbarElement(ToolbarPathScenes, defaultDockPosition = MainToolbarDockPosition.Middle, menuPriority = ToolbarPrioScenes)]
+    public static MainToolbarElement CreateSceneSelectorDropdown() {
+      string activeSceneName;
+      if (Application.isPlaying)
+        activeSceneName = SceneManager.GetActiveScene().name;
+      else
+        activeSceneName = EditorSceneManager.GetActiveScene().name;
+      if (activeSceneName.Length == 0)
+        activeSceneName = "Untitled";
+
+      var icon = EditorGUIUtility.IconContent(EditorGUIUtility.isProSkin ? "SceneAsset Icon" : "d_SceneAsset Icon").image as Texture2D;
+      var content = new MainToolbarContent(activeSceneName, icon, "Select active scene");
+      return new MainToolbarDropdown(content, ShowDropdownMenuScenes);
+    }
+
+    static void ShowDropdownMenuScenes(Rect dropDownRect) {
+      var menu = new GenericMenu();
+      if (_scenePaths.Length == 0) {
+        menu.AddDisabledItem(new GUIContent("No Scenes in Project"));
+      }
+      foreach (string scenePath in _scenePaths) {
+        string sceneName = Path.GetFileNameWithoutExtension(scenePath);
+        menu.AddItem(new GUIContent(sceneName), false, () => {
+          SwitchScene(scenePath);
+        });
+      }
+      menu.DropDown(dropDownRect);
+    }
+
+    static void SwitchScene(string scenePath) {
+      if (Application.isPlaying) {
+        string sceneName = Path.GetFileNameWithoutExtension(scenePath);
+        if (Application.CanStreamedLevelBeLoaded(sceneName)) {
+          // Expecting a single player scene switch, so shutdown all Quantum runners.
+          QuantumRunner.ShutdownAll();
+          SceneManager.LoadScene(sceneName);
+        } else {
+          Debug.LogError($"Scene '{sceneName}' is not in the Build Settings.");
+        }
+      } else {
+        if (File.Exists(scenePath)) {
+          if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) {
+            EditorSceneManager.OpenScene(scenePath);
+          }
+        } else {
+          Debug.LogError($"Scene at path '{scenePath}' does not exist.");
+        }
+      }
+    }
+
+    static void RefreshSceneList() {
+      _scenePaths = EditorBuildSettings.scenes
+        .Where(scene => scene.path == null || scene.path.StartsWith("Assets"))
+        .Select(scene => Application.dataPath + scene.path.Substring(6)).ToArray();
+
+      // If no scenes have been added to the build settings yet, display all of them.
+      if (_scenePaths.Length == 0) {
+        _scenePaths = Directory.GetFiles("Assets", "*.unity", SearchOption.AllDirectories);
+      }
+    }
+
+    static void SceneSwitched(Scene oldScene, Scene newScene) {
+      MainToolbar.Refresh(ToolbarPathScenes);
+    }
+
+    static QuantumEditorToolbarUtilities() {
+      RefreshSceneList();
+      EditorApplication.projectChanged += RefreshSceneList;
+      SceneManager.activeSceneChanged += SceneSwitched;
+      EditorSceneManager.activeSceneChangedInEditMode += SceneSwitched;
+    }
+  }
+#else
   using System;
   using System.Collections.Generic;
   using System.IO;
@@ -21274,8 +22589,10 @@ namespace Quantum.Editor {
   [InitializeOnLoad]
   public class QuantumEditorToolbarUtilities {
     private static ScriptableObject _toolbar;
-    private static string[] _scenePaths;
-    private static string[] _sceneNames;
+    private static List<string>     _scenePaths;
+    private static string[]         _sceneNames;
+    private static HashSet<string>  _renamedMap;
+    private static bool             _hasEditorSettings = true;
 
     static QuantumEditorToolbarUtilities() {
       EditorApplication.delayCall += () => {
@@ -21285,7 +22602,12 @@ namespace Quantum.Editor {
     }
 
     private static void Update() {
+      if (!_hasEditorSettings) {
+        return;
+      }
+      
       if (QuantumEditorSettings.Get(x => x.UseQuantumToolbarUtilities) != true) {
+        _hasEditorSettings = false;
         return;
       }
 
@@ -21320,9 +22642,26 @@ namespace Quantum.Editor {
         }
       }
 
-      if (_scenePaths == null || _scenePaths.Length != EditorBuildSettings.scenes.Length) {
-        List<string> scenePaths = new List<string>();
-        List<string> sceneNames = new List<string>();
+      // Using renamed map to detect if a scene has been renamed.
+      if (_renamedMap != null && _renamedMap.Count > 0) {
+        for (int i = 0; i < EditorBuildSettings.scenes.Length; i++) {
+          if (_renamedMap.Contains(EditorBuildSettings.scenes[i].path) == false) {
+            _scenePaths?.Clear();
+            _sceneNames = null;
+            _renamedMap.Clear();
+            break;
+          }
+        }
+      }
+
+      // Cache scene names and paths.
+      if (_scenePaths == null || _scenePaths.Count != EditorBuildSettings.scenes.Length) {
+        _scenePaths ??= new List<string>();
+        _renamedMap ??= new HashSet<string>();
+        var sceneNames = new List<string>();
+
+        _scenePaths.Clear();
+        _renamedMap.Clear();
 
         foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes) {
           if (scene.path == null || scene.path.StartsWith("Assets") == false)
@@ -21330,20 +22669,21 @@ namespace Quantum.Editor {
 
           string scenePath = Application.dataPath + scene.path.Substring(6);
 
-          scenePaths.Add(scenePath);
+          _scenePaths.Add(scenePath);
           sceneNames.Add(Path.GetFileNameWithoutExtension(scenePath));
+          _renamedMap.Add(scene.path);
         }
 
-        _scenePaths = scenePaths.ToArray();
         _sceneNames = sceneNames.ToArray();
       }
 
-      if (_scenePaths != null && _scenePaths.Length == 0) {
-        // If no scene have been added to build settings, yet, display all of them.
+      // If no scenes have been added to the build settings yet, display all of them.
+      if (_scenePaths != null && _scenePaths.Count == 0) {
         var sceneGuids = AssetDatabase.FindAssets("t:scene");
-        if (_scenePaths.Length != sceneGuids.Length) {
-          _scenePaths = sceneGuids.Select(assetGuid => AssetDatabase.GUIDToAssetPath(assetGuid)).ToArray();
+        if (_scenePaths.Count != sceneGuids.Length) {
+          _scenePaths = sceneGuids.Select(assetGuid => AssetDatabase.GUIDToAssetPath(assetGuid)).ToList();
           _sceneNames = _scenePaths.Select(scenePath => Path.GetFileNameWithoutExtension(scenePath)).ToArray();
+          _renamedMap.Clear();
         }
       }
     }
@@ -21373,7 +22713,85 @@ namespace Quantum.Editor {
       }
     }
   }
+#endif
+  }
+
+#endregion
+
+
+#region Assets/Photon/Quantum/Editor/QuantumEditorUPMTools.cs
+
+namespace Quantum.Editor {
+  using System.IO;
+  using System.Linq;
+  using UnityEditor;
+  using UnityEngine;
+
+  /// <summary>
+  /// Tools to work with Unity Package Manager.
+  /// </summary>
+  public static class QuantumEditorUPMTools {
+    /// <summary>
+    /// Moves PhotonLibs, PhotonRealtime and Quantum folders into the project folder and adds them as local packages.
+    /// </summary>
+    [MenuItem("Tools/Quantum/Export/Convert SDK to local UPM packages", false, (int)QuantumEditorMenuPriority.Export + 50)]
+    public static void ConvertToLocalPackages() {
+      var directories = new string[]
+      {
+        "Photon/PhotonLibs",
+        "Photon/PhotonRealtime",
+        "Photon/Quantum"
+      };
+
+      foreach (var directory in directories) {
+        MoveToProjectDirectory(directory);
+      }
+
+      if (File.Exists(MakeAbsolutePath("Photon/license.txt"))) {
+        File.Move(MakeAbsolutePath("Photon/license.txt"), MakeAbsolutePath("../Photon/license.txt"));
+        File.Move(MakeAbsolutePath("Photon/license.txt.meta"), MakeAbsolutePath("../Photon/license.txt.meta"));
+      }
+
+      if (Directory.Exists(MakeAbsolutePath("Photon")) && IsDirectoryEmpty(MakeAbsolutePath("Photon"))) {
+        Directory.Delete(MakeAbsolutePath("Photon"));
+        File.Delete(MakeAbsolutePath("Photon.meta"));
+      }
+
+      UnityEditor.PackageManager.Client.AddAndRemove(directories.Select(d => $"file:../{d}").ToArray(), System.Array.Empty<string>());
+      UnityEditor.PackageManager.Client.Resolve();
+    }
+
+    private static bool IsDirectoryEmpty(string path) => Directory.EnumerateFileSystemEntries(path).Any() == false;
+
+    private static string MakeAbsolutePath(string assetsPath) => Path.GetFullPath($"{Application.dataPath}/{assetsPath}");
+
+    private static void MoveToProjectDirectory(string relativePath) {
+      var sourcePath = MakeAbsolutePath(relativePath);
+      var destinationPath = MakeAbsolutePath($"../{relativePath}");
+
+      if (Directory.Exists(sourcePath) && IsDirectoryEmpty(sourcePath) == false) {
+        // Clear any old data in the local UPM folder
+        if (Directory.Exists(destinationPath)) {
+          Directory.Delete(destinationPath, recursive: true);
+        }
+
+        // Create subfolders
+        var parentSourceDirectory = Directory.GetParent(destinationPath);
+        if (parentSourceDirectory != null && parentSourceDirectory.Exists == false) {
+          Directory.CreateDirectory(parentSourceDirectory.FullName);
+        }
+
+        Directory.Move(sourcePath, destinationPath);
+
+        // Move the meta file
+        if (File.Exists($"{sourcePath}.meta")) {
+          File.Move($"{sourcePath}.meta", $"{destinationPath}.meta");
+        }
+      }
+    }
+  }
 }
+
 
 #endregion
 
@@ -21457,8 +22875,8 @@ namespace Quantum.Editor {
         "        {" + Environment.NewLine +
         "            // The system collection is already filled with systems coming from the SystemsConfig. " + Environment.NewLine +
         "            // Add or remove systems to the collection: systems.Add(new SystemFoo());" + Environment.NewLine +
+        "        }" + Environment.NewLine +
         "    }" + Environment.NewLine +
-        "  }" + Environment.NewLine +
         "}";
 
     /// <summary>
@@ -21558,12 +22976,12 @@ namespace Quantum.Editor {
       "/Scenes                   The default location for the initial demo scenes." + Environment.NewLine +
       "/Simulation               This is the simulation code and will be added to the Quantum.Simulation.dll. Place game code and Qtn files in here." + Environment.NewLine +
       "/Simulation/Generated     Result of the Qtn file CodeGen." + Environment.NewLine +
-      "/View                     It's content is added to the Quantum.Unity.dll." + Environment.NewLine +
-      "/View/Generated           Quantum asset script generated by the Quantum Unity CodeGen";
+      "/View                     An optional place to create Unity view scripts, which can also be anywhere else (except the Generated folder)." + Environment.NewLine +
+      "/View/Generated           Quantum asset script generated by the Quantum Unity CodeGen, files inside are added to the Quantum.Unity.dll.";
 
-  #endregion
+    #endregion
 
-  static bool FilesExist(UserFile[] files) {
+    static bool FilesExist(UserFile[] files) {
       for (int i = 0; i < files.Length; i++) {
         if (string.IsNullOrEmpty(files[i].Guid) == false) {
           var assetPath = AssetDatabase.GUIDToAssetPath(files[i].Guid);
@@ -21647,7 +23065,7 @@ namespace Quantum.Editor {
       File.WriteAllText(path, content, System.Text.Encoding.UTF8);
       QuantumEditorLog.Log($"{Path.GetFileNameWithoutExtension(assetPath)} generated at {path}");
 
-      if (string.IsNullOrEmpty(guid)) {
+      if (string.IsNullOrEmpty(guid) == false) {
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         RewriteGuid(assetPath, guid);
@@ -21919,9 +23337,10 @@ namespace Quantum.Editor {
     /// <summary>
     /// Add the current open Unity scene to a QuantumMenuConfig.
     /// </summary>
+    /// <param name="target">The scene info object to populate</param>
     /// <param name="runtimeConfig">Set an optional <see cref="RuntimeConfig"/></param>
     public static void SetToCurrentScene(QuantumMenuSceneInfo target, RuntimeConfig runtimeConfig) {
-      var mapData = FindFirstObjectByType<QuantumMapData>();
+      var mapData = FindAnyObjectByType<QuantumMapData>();
       if (mapData == null) {
         QuantumEditorLog.Error($"Map asset not found in current scene");
         return;
@@ -21935,11 +23354,13 @@ namespace Quantum.Editor {
 
       target.Name = scene.name;
       target.ScenePath = scenePath;
-      target.RuntimeConfig = runtimeConfig ?? debugRunner?.RuntimeConfig ?? new RuntimeConfig();
+      target.RuntimeConfig = runtimeConfig ?? (debugRunner != null ? debugRunner.RuntimeConfig : null) ?? new RuntimeConfig();
 
       if (target.Map.IsValid == false) {
-        target.RuntimeConfig.Map = mapData.Asset;
+        target.RuntimeConfig.Map = mapData.AssetRef;
       }
+
+      EditorUtility.SetDirty(target);
 
       AddScenePathToBuildSettings(scenePath);
     }
@@ -22089,6 +23510,95 @@ namespace Quantum.Editor {
   }
 #endif
 }
+
+#endregion
+
+
+#region Assets/Photon/Quantum/Editor/QuantumSystemsLinkerProcessor.cs
+
+#if !QUANTUM_DISABLE_SYSTEMS_LINKER_PROCESSOR
+namespace Quantum.Editor {
+  using System;
+  using System.Collections.Generic;
+  using System.IO;
+  using System.Text;
+  using UnityEditor.Build;
+  using UnityEditor.Build.Reporting;
+  using UnityEditor.UnityLinker;
+
+  class QuantumSystemsLinkerProcessor : IUnityLinkerProcessor {
+
+    public const int    CallbackOrder = 1000;
+    
+    public int callbackOrder => CallbackOrder;
+
+    public string GenerateAdditionalLinkXmlFile(BuildReport report, UnityLinkerBuildPipelineData data) {
+      Dictionary<string, HashSet<string>> assemblies = new();
+      HashSet<string> unresolvedTypes = new();
+
+      foreach (var it in AssetDatabaseUtils.IterateAssets<SystemsConfig>()) {
+        var asset = (SystemsConfig)it.pptrValue;
+        foreach (var entry in asset.Entries) {
+          Traverse(entry);
+        }
+      }
+
+      StringBuilder sb = new StringBuilder();
+      sb.AppendLine("<linker>");
+
+      foreach (var (assemblyName, types) in assemblies) {
+        sb.AppendLine($"  <assembly fullname=\"{assemblyName}\">");
+        foreach (var typeName in types) {
+          sb.AppendLine($"    <type fullname=\"{FormatForXml(typeName)}\" preserve=\"all\"/>");  
+        }
+        sb.AppendLine("  </assembly>");  
+      }
+
+      sb.AppendLine("</linker>");
+      
+      // Create a file with the content 
+      var filePathName = "Temp/QuantumSystems.xml";
+      File.WriteAllText(filePathName, sb.ToString());
+
+      if (unresolvedTypes.Count > 0) {
+        QuantumEditorLog.Warn($"Failed to resolve following system types:\n{string.Join("\n", unresolvedTypes)}");
+      }
+      
+      // Return the file path & name
+      return filePathName;
+      
+      
+      void Traverse(SystemsConfig.SystemEntryBase entry) {
+        if (entry.SystemType.IsValid) {
+          var type = Type.GetType(entry.SystemType.AssemblyQualifiedName, throwOnError: false);
+          if (type == null) {
+            unresolvedTypes.Add(entry.SystemType.AssemblyQualifiedName);
+          } else {
+            var assemblyName = type.Assembly.FullName;
+            var typeName = type.FullName;
+            
+            if (!assemblies.TryGetValue(assemblyName, out var types)) {
+              types = new HashSet<string>();
+              assemblies.Add(assemblyName, types);
+            }
+        
+            types.Add(typeName);
+          }
+        }
+
+        foreach (var child in entry.GetChildren()) {
+          Traverse(child);
+        }
+      }
+
+      static string FormatForXml(string typeName) {
+        return typeName.Replace("+", "/").Replace("<", "&lt;").Replace(">", "&gt;");
+      }
+
+    }
+  }
+}
+#endif
 
 #endregion
 
@@ -23073,6 +24583,12 @@ namespace Quantum.Editor {
   using UnityEditor.IMGUI.Controls;
   using UnityEngine;
 
+#if UNITY_6000_2_OR_NEWER
+  using TreeViewState = UnityEditor.IMGUI.Controls.TreeViewState<int>;
+  using TreeViewItem = UnityEditor.IMGUI.Controls.TreeViewItem<int>;
+  using TreeView = UnityEditor.IMGUI.Controls.TreeView<int>;
+#endif
+  
   internal class QuantumTypeSelectorPopupContent : PopupWindowContent {
     private readonly SearchField _searchField;
 
@@ -23272,6 +24788,857 @@ namespace Quantum.Editor {
 #endregion
 
 
+#region Assets/Photon/Quantum/Editor/QuantumUnityInternal.Common.cs
+
+// merged UnityInternal
+
+#region UnityInternal.AssetDatabase.cs
+
+namespace Quantum.Editor {
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class AssetDatabase {
+      public delegate bool TryGetAssetFolderInfoDelegate(string path, out bool rootFolder, out bool immutable);
+      public static readonly TryGetAssetFolderInfoDelegate TryGetAssetFolderInfo = typeof(UnityEditor.AssetDatabase).CreateMethodDelegate<TryGetAssetFolderInfoDelegate>(
+#if UNITY_6000_0_OR_NEWER
+        nameof(TryGetAssetFolderInfo)
+#else
+        "GetAssetFolderInfo"
+#endif
+);
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.AssetImporter.cs
+
+namespace Quantum.Editor {
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class AssetImporter {
+      public delegate long MakeLocalFileIDWithHashDelegate(int persistentTypeId, string name, long offset);
+      public static readonly MakeLocalFileIDWithHashDelegate MakeLocalFileIDWithHash = typeof(UnityEditor.AssetImporter).CreateMethodDelegate<MakeLocalFileIDWithHashDelegate>(nameof(MakeLocalFileIDWithHash));
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.cs
+
+namespace Quantum.Editor {
+  static partial class UnityInternal {
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.DecoratorDrawer.cs
+
+namespace Quantum.Editor {
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class DecoratorDrawer {
+      private static InstanceAccessor<PropertyAttribute> m_Attribute = typeof(UnityEditor.DecoratorDrawer).CreateFieldAccessor<PropertyAttribute>(nameof(m_Attribute));
+
+      public static void SetAttribute(UnityEditor.DecoratorDrawer drawer, PropertyAttribute attribute) {
+        m_Attribute.SetValue(drawer, attribute);
+      }
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.Editor.cs
+
+namespace Quantum.Editor {
+  using System.Reflection;
+  using UnityEditor;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class Editor {
+      public delegate bool DoDrawDefaultInspectorDelegate(SerializedObject obj);
+      public delegate void BoolSetterDelegate(UnityEditor.Editor editor, bool value);
+
+      public static readonly DoDrawDefaultInspectorDelegate DoDrawDefaultInspector = typeof(UnityEditor.Editor).CreateMethodDelegate<DoDrawDefaultInspectorDelegate>(nameof(DoDrawDefaultInspector));
+      public static readonly BoolSetterDelegate InternalSetHidden = typeof(UnityEditor.Editor).CreateMethodDelegate<BoolSetterDelegate>(nameof(InternalSetHidden), BindingFlags.NonPublic | BindingFlags.Instance);
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.EditorApplication.cs
+
+namespace Quantum.Editor {
+  using System;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class EditorApplication {
+      public static readonly Action Internal_CallAssetLabelsHaveChanged = typeof(UnityEditor.EditorApplication).CreateMethodDelegate<Action>(nameof(Internal_CallAssetLabelsHaveChanged));
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.EditorGUI.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Reflection;
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class EditorGUI {
+      public delegate string DelayedTextFieldInternalDelegate(Rect position, int id, GUIContent label, string value, string allowedLetters, GUIStyle style);
+      public delegate Rect MultiFieldPrefixLabelDelegate(Rect totalPosition, int id, GUIContent label, int columns);
+      public delegate string TextFieldInternalDelegate(int id, Rect position, string text, GUIStyle style);
+      public delegate string ToolbarSearchFieldDelegate(int id, Rect position, string text, bool showWithPopupArrow);
+      public delegate bool DefaultPropertyFieldDelegate(Rect position, UnityEditor.SerializedProperty property, GUIContent label);
+
+
+      public static readonly MultiFieldPrefixLabelDelegate MultiFieldPrefixLabel = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<MultiFieldPrefixLabelDelegate>(nameof(MultiFieldPrefixLabel));
+      public static readonly TextFieldInternalDelegate TextFieldInternal = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<TextFieldInternalDelegate>(nameof(TextFieldInternal));
+      public static readonly ToolbarSearchFieldDelegate ToolbarSearchField = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<ToolbarSearchFieldDelegate>(nameof(ToolbarSearchField));
+      public static readonly DelayedTextFieldInternalDelegate DelayedTextFieldInternal = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<DelayedTextFieldInternalDelegate>(nameof(DelayedTextFieldInternal));
+      public static readonly DefaultPropertyFieldDelegate DefaultPropertyField = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<DefaultPropertyFieldDelegate>(nameof(DefaultPropertyField));
+
+      private static readonly FieldInfo s_TextFieldHash = typeof(UnityEditor.EditorGUI).GetFieldOrThrow(nameof(s_TextFieldHash));
+      private static readonly FieldInfo s_DelayedTextFieldHash = typeof(UnityEditor.EditorGUI).GetFieldOrThrow(nameof(s_DelayedTextFieldHash));
+      private static readonly StaticAccessor<float> s_indent = typeof(UnityEditor.EditorGUI).CreateStaticPropertyAccessor<float>(nameof(indent));
+      public static readonly Action EndEditingActiveTextField = typeof(UnityEditor.EditorGUI).CreateMethodDelegate<Action>(nameof(EndEditingActiveTextField));
+
+      public static int TextFieldHash => (int)s_TextFieldHash.GetValue(null);
+      public static int DelayedTextFieldHash => (int)s_DelayedTextFieldHash.GetValue(null);
+      internal static float indent => s_indent.GetValue();
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.EditorGUIUtility.cs
+
+namespace Quantum.Editor {
+  using UnityEditor;
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class EditorGUIUtility {
+      private static readonly StaticAccessor<int> s_LastControlID = typeof(UnityEditor.EditorGUIUtility).CreateStaticFieldAccessor<int>(nameof(s_LastControlID));
+
+      private static readonly StaticAccessor<float> _contentWidth = typeof(UnityEditor.EditorGUIUtility).CreateStaticPropertyAccessor<float>(nameof(contextWidth));
+      public static int LastControlID => s_LastControlID.GetValue();
+      public static float contextWidth => _contentWidth.GetValue();
+
+      public delegate UnityEngine.Object GetScriptDelegate(string scriptClass);
+      public delegate Texture2D GetIconForObjectDelegate(UnityEngine.Object obj);
+      public delegate GUIContent TempContentDelegate(string text);
+      public delegate Texture2D GetHelpIconDelegate(MessageType type);
+
+      public static readonly GetScriptDelegate GetScript = typeof(UnityEditor.EditorGUIUtility).CreateMethodDelegate<GetScriptDelegate>(nameof(GetScript));
+      public static readonly GetIconForObjectDelegate GetIconForObject = typeof(UnityEditor.EditorGUIUtility).CreateMethodDelegate<GetIconForObjectDelegate>(nameof(GetIconForObject));
+      public static readonly TempContentDelegate TempContent = typeof(UnityEditor.EditorGUIUtility).CreateMethodDelegate<TempContentDelegate>(nameof(TempContent));
+      public static readonly GetHelpIconDelegate GetHelpIcon = typeof(UnityEditor.EditorGUIUtility).CreateMethodDelegate<GetHelpIconDelegate>(nameof(GetHelpIcon));
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.EditorUtility.cs
+
+namespace Quantum.Editor {
+  using System.Reflection;
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class EditorUtility {
+      public delegate void DisplayCustomMenuDelegate(Rect position, string[] options, int[] selected, UnityEditor.EditorUtility.SelectMenuItemFunction callback, object userData);
+
+      public static DisplayCustomMenuDelegate DisplayCustomMenu = typeof(UnityEditor.EditorUtility).CreateMethodDelegate<DisplayCustomMenuDelegate>(nameof(DisplayCustomMenu), BindingFlags.NonPublic | BindingFlags.Static);
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.Event.cs
+
+namespace Quantum.Editor {
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class Event {
+      static readonly StaticAccessor<UnityEngine.Event> s_CurrentAccessor
+#if UNITY_6000_7_OR_NEWER
+        = typeof(UnityEngine.GUI).Assembly.GetType("UnityEngine.EventIMGUIBindings", true).CreateStaticFieldAccessor<UnityEngine.Event>(nameof(s_Current));
+#else
+        = typeof(UnityEngine.Event).CreateStaticFieldAccessor<UnityEngine.Event>(nameof(s_Current));
+#endif
+      public static UnityEngine.Event s_Current => s_CurrentAccessor.GetValue();
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.GUIClip.cs
+
+namespace Quantum.Editor {
+  using System;
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class GUIClip {
+      public static Type InternalType = typeof(UnityEngine.GUIUtility).Assembly.GetType("UnityEngine.GUIClip", true);
+
+      private static readonly StaticAccessor<Rect> _visibleRect = InternalType.CreateStaticPropertyAccessor<Rect>(nameof(visibleRect));
+      public static Rect visibleRect => _visibleRect.GetValue();
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.HandleUtility.cs
+
+namespace Quantum.Editor {
+  using System;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class HandleUtility {
+      public static readonly Action ApplyWireMaterial = typeof(UnityEditor.HandleUtility).CreateMethodDelegate<Action>(nameof(ApplyWireMaterial));
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.HierarchyIterator.cs
+
+namespace Quantum.Editor {
+  using System.Reflection;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class HierarchyIterator {
+#if UNITY_6000_3_OR_NEWER
+      public delegate void CopySearchFilterFromDelegate(UnityEditor.HierarchyIterator to, UnityEditor.HierarchyIterator from);
+      public static CopySearchFilterFromDelegate CopySearchFilterFrom = typeof(UnityEditor.HierarchyIterator).CreateMethodDelegate<CopySearchFilterFromDelegate>(nameof(CopySearchFilterFrom),
+        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+#else
+      public delegate void CopySearchFilterFromDelegate(UnityEditor.HierarchyProperty to, UnityEditor.HierarchyProperty from);
+      public static CopySearchFilterFromDelegate CopySearchFilterFrom = typeof(UnityEditor.HierarchyProperty).CreateMethodDelegate<CopySearchFilterFromDelegate>(nameof(CopySearchFilterFrom),
+        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+#endif
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.InspectorWindow.cs
+
+namespace Quantum.Editor {
+  using System;
+  using UnityEditor;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public class InspectorWindow {
+      public static readonly Type InternalType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.InspectorWindow", true);
+      public static readonly InstanceAccessor<bool> _isLockedAccessor = InternalType.CreatePropertyAccessor<bool>(nameof(isLocked));
+
+      private readonly EditorWindow _instance;
+
+      public InspectorWindow(EditorWindow instance) {
+        if (instance == null) {
+          throw new ArgumentNullException(nameof(instance));
+        }
+
+        _instance = instance;
+      }
+
+      public bool isLocked {
+        get => _isLockedAccessor.GetValue(_instance);
+        set => _isLockedAccessor.SetValue(_instance, value);
+      }
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.InternalStyles.cs
+
+namespace Quantum.Editor {
+  using System;
+  using UnityEngine;
+
+  partial class UnityInternal {
+    public sealed class InternalStyles {
+      public static InternalStyles Instance = new InternalStyles();
+
+      internal LazyGUIStyle InspectorTitlebar => LazyGUIStyle.Create(_ => GetStyle("IN Title"));
+      internal LazyGUIStyle FoldoutTitlebar => LazyGUIStyle.Create(_ => GetStyle("Titlebar Foldout", "Foldout"));
+      internal LazyGUIStyle BoxWithBorders => LazyGUIStyle.Create(_ => GetStyle("OL Box"));
+      internal LazyGUIStyle HierarchyTreeViewLine => LazyGUIStyle.Create(_ => GetStyle("TV Line"));
+      internal LazyGUIStyle HierarchyTreeViewSceneBackground => LazyGUIStyle.Create(_ => GetStyle("SceneTopBarBg", "ProjectBrowserTopBarBg"));
+      internal LazyGUIStyle OptionsButtonStyle => LazyGUIStyle.Create(_ => GetStyle("PaneOptions"));
+      internal LazyGUIStyle AddComponentButton => LazyGUIStyle.Create(_ => GetStyle("AC Button"));
+      internal LazyGUIStyle AnimationEventTooltip => LazyGUIStyle.Create(_ => GetStyle("AnimationEventTooltip"));
+      internal LazyGUIStyle AnimationEventTooltipArrow => LazyGUIStyle.Create(_ => GetStyle("AnimationEventTooltipArrow"));
+
+      private static GUIStyle GetStyle(params string[] names) {
+        var skin = GUI.skin;
+
+        foreach (var name in names) {
+          var result = skin.FindStyle(name);
+          if (result != null) {
+            return result;
+          }
+        }
+
+        throw new ArgumentOutOfRangeException($"Style not found: {string.Join(", ", names)}", nameof(names));
+      }
+    }
+
+    public static InternalStyles Styles => InternalStyles.Instance;
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.LayerMatrixGUI.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Reflection;
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class LayerMatrixGUI {
+      private const string TypeName =
+#if UNITY_2023_1_OR_NEWER
+        "UnityEditor.LayerCollisionMatrixGUI2D";
+#else
+        "UnityEditor.LayerMatrixGUI";
+#endif
+
+      private static readonly Type InternalType =
+#if UNITY_2023_1_OR_NEWER
+        FindAssembly("UnityEditor.Physics2DModule")?.GetType(TypeName, true);
+#else
+        typeof(UnityEditor.Editor).Assembly.GetType(TypeName, true);
+#endif
+
+      private static readonly Type InternalGetValueFuncType = InternalType?.GetNestedTypeOrThrow(nameof(GetValueFunc), BindingFlags.Public);
+      private static readonly Type InternalSetValueFuncType = InternalType?.GetNestedTypeOrThrow(nameof(SetValueFunc), BindingFlags.Public);
+
+#if UNITY_2023_1_OR_NEWER
+      private static readonly Delegate _Draw = InternalType?.CreateMethodDelegate(nameof(Draw), BindingFlags.Public | BindingFlags.Static,
+        typeof(Action<,,>).MakeGenericType(
+          typeof(GUIContent), InternalGetValueFuncType, InternalSetValueFuncType)
+      );
+#else
+      private delegate void Ref2Action<T1, T2, T3, T4>(T1 t1, ref T2 t2, T3 t3, T4 t4);
+
+      private static readonly Delegate _DoGUI = InternalType?.CreateMethodDelegate("DoGUI", BindingFlags.Public | BindingFlags.Static,
+        typeof(Ref2Action<,,,>).MakeGenericType(
+          typeof(GUIContent), typeof(bool), InternalGetValueFuncType, InternalSetValueFuncType)
+      );
+#endif
+
+      public delegate bool GetValueFunc(int layerA, int layerB);
+      public delegate void SetValueFunc(int layerA, int layerB, bool val);
+
+      public static void Draw(GUIContent label, GetValueFunc getValue, SetValueFunc setValue) {
+        if (InternalType == null) {
+          throw new InvalidOperationException($"{TypeName} not found");
+        }
+
+        var getter = Delegate.CreateDelegate(InternalGetValueFuncType, getValue.Target, getValue.Method);
+        var setter = Delegate.CreateDelegate(InternalSetValueFuncType, setValue.Target, setValue.Method);
+
+#if UNITY_2023_1_OR_NEWER
+        _Draw.DynamicInvoke(label, getter, setter);
+#else
+        bool show = true;
+        var args = new object[] { label, show, getter, setter };
+        _DoGUI.DynamicInvoke(args);
+#endif
+      }
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.ObjectSelector.cs
+
+namespace Quantum.Editor {
+  using System;
+  using UnityEditor;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    public struct ObjectSelector {
+      [UnityEditor.InitializeOnLoad]
+      private static class Statics {
+        public static readonly Type InternalType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.ObjectSelector", true);
+        public static readonly StaticAccessor<bool> _tooltip = InternalType.CreateStaticPropertyAccessor<bool>(nameof(isVisible));
+        public static readonly StaticAccessor<EditorWindow> _get = InternalType.CreateStaticPropertyAccessor<EditorWindow>(nameof(get), InternalType);
+        public static readonly InstanceAccessor<string> _searchFilter = InternalType.CreatePropertyAccessor<string>(nameof(searchFilter));
+      }
+
+      private EditorWindow _instance;
+
+      public static bool isVisible => Statics._tooltip.GetValue();
+
+      public static ObjectSelector get => new() {
+        _instance = Statics._get.GetValue()
+      };
+
+      public string searchFilter {
+        get => Statics._searchFilter.GetValue(_instance);
+        set => Statics._searchFilter.SetValue(_instance, value);
+      }
+
+      private static readonly InstanceAccessor<int> _objectSelectorID = Statics.InternalType.CreateFieldAccessor<int>(nameof(objectSelectorID));
+      public int objectSelectorID => _objectSelectorID.GetValue(_instance);
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.PropertyDrawer.cs
+
+namespace Quantum.Editor {
+  using System.Reflection;
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class PropertyDrawer {
+      private static InstanceAccessor<PropertyAttribute> m_Attribute = typeof(UnityEditor.PropertyDrawer).CreateFieldAccessor<PropertyAttribute>(nameof(m_Attribute));
+      private static InstanceAccessor<FieldInfo> m_FieldInfo = typeof(UnityEditor.PropertyDrawer).CreateFieldAccessor<FieldInfo>(nameof(m_FieldInfo));
+
+      public static void SetAttribute(UnityEditor.PropertyDrawer drawer, PropertyAttribute attribute) {
+        m_Attribute.SetValue(drawer, attribute);
+      }
+
+      public static void SetFieldInfo(UnityEditor.PropertyDrawer drawer, FieldInfo fieldInfo) {
+        m_FieldInfo.SetValue(drawer, fieldInfo);
+      }
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.PropertyHandler.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Collections.Generic;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    public struct PropertyHandler : IEquatable<PropertyHandler> {
+      [UnityEditor.InitializeOnLoad]
+      private static class Statics {
+        public static readonly Type InternalType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.PropertyHandler", true);
+        public static readonly InstanceAccessor<List<UnityEditor.DecoratorDrawer>> m_DecoratorDrawers = InternalType.CreateFieldAccessor<List<UnityEditor.DecoratorDrawer>>(nameof(m_DecoratorDrawers));
+        public static readonly InstanceAccessor<List<UnityEditor.PropertyDrawer>> m_PropertyDrawers = InternalType.CreateFieldAccessor<List<UnityEditor.PropertyDrawer>>(nameof(m_PropertyDrawers));
+      }
+
+
+      public static Type InternalType => Statics.InternalType;
+
+      public object _instance;
+
+      internal static PropertyHandler Wrap(object instance) {
+        return new() {
+          _instance = instance
+        };
+      }
+
+      public static PropertyHandler New() {
+        return Wrap(Activator.CreateInstance(InternalType));
+      }
+
+      public List<UnityEditor.PropertyDrawer> m_PropertyDrawers {
+        get => Statics.m_PropertyDrawers.GetValue(_instance);
+        set => Statics.m_PropertyDrawers.SetValue(_instance, value);
+      }
+
+      public bool Equals(PropertyHandler other) {
+        return _instance == other._instance;
+      }
+
+      public override int GetHashCode() {
+        return _instance?.GetHashCode() ?? 0;
+      }
+
+      public override bool Equals(object obj) {
+        return obj is PropertyHandler h ? Equals(h) : false;
+      }
+
+      public List<UnityEditor.DecoratorDrawer> decoratorDrawers {
+        get => Statics.m_DecoratorDrawers.GetValue(_instance);
+        set => Statics.m_DecoratorDrawers.SetValue(_instance, value);
+      }
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.PropertyHandlerCache.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Collections;
+  using System.Collections.Generic;
+  using System.Reflection;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    public struct PropertyHandlerCache {
+      [UnityEditor.InitializeOnLoad]
+      private static class Statics {
+        public static readonly Type InternalType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.PropertyHandlerCache", true);
+        public static readonly GetPropertyHashDelegate GetPropertyHash = InternalType.CreateMethodDelegate<GetPropertyHashDelegate>(nameof(GetPropertyHash));
+
+        public static readonly GetHandlerDelegate GetHandler = InternalType.CreateMethodDelegate<GetHandlerDelegate>(nameof(GetHandler), BindingFlags.NonPublic | BindingFlags.Instance,
+          MakeFuncType(InternalType, typeof(UnityEditor.SerializedProperty), PropertyHandler.InternalType));
+
+        public static readonly SetHandlerDelegate SetHandler = InternalType.CreateMethodDelegate<SetHandlerDelegate>(nameof(SetHandler), BindingFlags.NonPublic | BindingFlags.Instance,
+          MakeActionType(InternalType, typeof(UnityEditor.SerializedProperty), PropertyHandler.InternalType));
+
+        public static readonly FieldInfo m_PropertyHandlers = InternalType.GetFieldOrThrow(nameof(m_PropertyHandlers));
+      }
+
+      public static Type InternalType => Statics.InternalType;
+
+      public delegate int GetPropertyHashDelegate(UnityEditor.SerializedProperty property);
+
+      public delegate object GetHandlerDelegate(object instance, UnityEditor.SerializedProperty property);
+
+      public delegate void SetHandlerDelegate(object instance, UnityEditor.SerializedProperty property, object handlerInstance);
+
+      public object _instance;
+
+      public PropertyHandler GetHandler(UnityEditor.SerializedProperty property) {
+        return new PropertyHandler {
+          _instance = Statics.GetHandler(_instance, property)
+        };
+      }
+
+      public void SetHandler(UnityEditor.SerializedProperty property, PropertyHandler newHandler) {
+        Statics.SetHandler(_instance, property, newHandler._instance);
+      }
+
+      public IEnumerable<(int, PropertyHandler)> PropertyHandlers {
+        get {
+          var dict = (IDictionary)Statics.m_PropertyHandlers.GetValue(_instance);
+          foreach (DictionaryEntry entry in dict) {
+            yield return ((int)entry.Key, PropertyHandler.Wrap(entry.Value));
+          }
+        }
+      }
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.ScriptAttributeUtility.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Collections.Generic;
+  using System.Reflection;
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class ScriptAttributeUtility {
+
+      public static readonly Type InternalType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.ScriptAttributeUtility", true);
+
+      public delegate FieldInfo GetFieldInfoFromPropertyDelegate(UnityEditor.SerializedProperty property, out Type type);
+      public static readonly GetFieldInfoFromPropertyDelegate GetFieldInfoFromProperty =
+        InternalType.CreateMethodDelegate<GetFieldInfoFromPropertyDelegate>(
+          "GetFieldInfoFromProperty",
+          BindingFlags.Static | BindingFlags.NonPublic);
+
+      public delegate Type GetDrawerTypeForTypeDelegate(Type type, bool isManagedReference);
+      public static readonly GetDrawerTypeForTypeDelegate GetDrawerTypeForType =
+        InternalType.CreateMethodDelegate<GetDrawerTypeForTypeDelegate>(
+          "GetDrawerTypeForType",
+          BindingFlags.Static | BindingFlags.NonPublic,
+          null,
+          DelegateSwizzle<Type, bool>.Make((t, b) => t), // post 2023.3
+          DelegateSwizzle<Type, bool>.Make((t, b) => t, (t, b) => (Type[])null, (t, b) => b) // pre 2023.3.23
+        );
+
+      public delegate Type GetDrawerTypeForPropertyAndTypeDelegate(UnityEditor.SerializedProperty property, Type type);
+      public static readonly GetDrawerTypeForPropertyAndTypeDelegate GetDrawerTypeForPropertyAndType =
+        InternalType.CreateMethodDelegate<GetDrawerTypeForPropertyAndTypeDelegate>(
+          "GetDrawerTypeForPropertyAndType",
+          BindingFlags.Static | BindingFlags.NonPublic);
+
+      private static readonly GetHandlerDelegate _GetHandler = InternalType.CreateMethodDelegate<GetHandlerDelegate>("GetHandler", BindingFlags.NonPublic | BindingFlags.Static,
+        MakeFuncType(typeof(UnityEditor.SerializedProperty), PropertyHandler.InternalType)
+      );
+
+      public delegate List<PropertyAttribute> GetFieldAttributesDelegate(FieldInfo field);
+      public static readonly GetFieldAttributesDelegate GetFieldAttributes = InternalType.CreateMethodDelegate<GetFieldAttributesDelegate>(nameof(GetFieldAttributes));
+
+      private static readonly StaticAccessor<object> _propertyHandlerCache = InternalType.CreateStaticPropertyAccessor(nameof(propertyHandlerCache), PropertyHandlerCache.InternalType);
+
+      private static readonly StaticAccessor<object> s_SharedNullHandler = InternalType.CreateStaticFieldAccessor("s_SharedNullHandler", PropertyHandler.InternalType);
+      private static readonly StaticAccessor<object> s_NextHandler = InternalType.CreateStaticFieldAccessor("s_NextHandler", PropertyHandler.InternalType);
+
+      public static PropertyHandlerCache propertyHandlerCache => new() {
+        _instance = _propertyHandlerCache.GetValue()
+      };
+
+      public static PropertyHandler sharedNullHandler => PropertyHandler.Wrap(s_SharedNullHandler.GetValue());
+      public static PropertyHandler nextHandler => PropertyHandler.Wrap(s_NextHandler.GetValue());
+
+      public static PropertyHandler GetHandler(UnityEditor.SerializedProperty property) {
+        return PropertyHandler.Wrap(_GetHandler(property));
+      }
+
+      private delegate object GetHandlerDelegate(UnityEditor.SerializedProperty property);
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.SerializedProperty.cs
+
+namespace Quantum.Editor {
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class SerializedProperty {
+      //public static readonly InstanceAccessor<int> hashCodeForPropertyPath                  = typeof(UnityEditor.SerializedProperty).CreatePropertyAccessor<int>(nameof(hashCodeForPropertyPath));
+      public static readonly InstanceAccessor<int> hashCodeForPropertyPathWithoutArrayIndex = typeof(UnityEditor.SerializedProperty).CreatePropertyAccessor<int>(nameof(hashCodeForPropertyPathWithoutArrayIndex));
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.SplitterGUILayout.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Reflection;
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    public static class SplitterGUILayout {
+      public static readonly Action EndHorizontalSplit = CreateMethodDelegate<Action>(typeof(UnityEditor.Editor).Assembly,
+        "UnityEditor.SplitterGUILayout", "EndHorizontalSplit", BindingFlags.Public | BindingFlags.Static
+      );
+
+      public static readonly Action EndVerticalSplit = CreateMethodDelegate<Action>(typeof(UnityEditor.Editor).Assembly,
+        "UnityEditor.SplitterGUILayout", "EndVerticalSplit", BindingFlags.Public | BindingFlags.Static
+      );
+
+      public static void BeginHorizontalSplit(SplitterState splitterState, GUIStyle style, params GUILayoutOption[] options) {
+        _beginHorizontalSplit.DynamicInvoke(splitterState.InternalState, style, options);
+      }
+
+      public static void BeginVerticalSplit(SplitterState splitterState, GUIStyle style, params GUILayoutOption[] options) {
+        _beginVerticalSplit.DynamicInvoke(splitterState.InternalState, style, options);
+      }
+
+      private static readonly Delegate _beginHorizontalSplit = CreateMethodDelegate(typeof(UnityEditor.Editor).Assembly,
+        "UnityEditor.SplitterGUILayout", "BeginHorizontalSplit", BindingFlags.Public | BindingFlags.Static,
+        typeof(Action<,,>).MakeGenericType(SplitterState.InternalType, typeof(GUIStyle), typeof(GUILayoutOption[]))
+      );
+
+      private static readonly Delegate _beginVerticalSplit = CreateMethodDelegate(typeof(UnityEditor.Editor).Assembly,
+        "UnityEditor.SplitterGUILayout", "BeginVerticalSplit", BindingFlags.Public | BindingFlags.Static,
+        typeof(Action<,,>).MakeGenericType(SplitterState.InternalType, typeof(GUIStyle), typeof(GUILayoutOption[]))
+      );
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.SplitterState.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Reflection;
+  using UnityEngine;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [UnityEditor.InitializeOnLoad]
+    [Serializable]
+    public class SplitterState : ISerializationCallbackReceiver {
+
+      public static readonly Type InternalType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.SplitterState", true);
+      private static readonly FieldInfo _relativeSizes = InternalType.GetFieldOrThrow("relativeSizes");
+      private static readonly FieldInfo _realSizes = InternalType.GetFieldOrThrow("realSizes");
+      private static readonly FieldInfo _splitSize = InternalType.GetFieldOrThrow("splitSize");
+
+      public string Json = "{}";
+
+      [NonSerialized]
+      public object InternalState = FromRelativeInner(new[] { 1.0f });
+
+      void ISerializationCallbackReceiver.OnAfterDeserialize() {
+        InternalState = JsonUtility.FromJson(Json, InternalType);
+      }
+
+      void ISerializationCallbackReceiver.OnBeforeSerialize() {
+        Json = JsonUtility.ToJson(InternalState);
+      }
+
+      public static SplitterState FromRelative(float[] relativeSizes, int[] minSizes = null, int[] maxSizes = null, int splitSize = 0) {
+        var result = new SplitterState();
+        result.InternalState = FromRelativeInner(relativeSizes, minSizes, maxSizes, splitSize);
+        return result;
+      }
+
+
+      private static object FromRelativeInner(float[] relativeSizes, int[] minSizes = null, int[] maxSizes = null, int splitSize = 0) {
+        return Activator.CreateInstance(InternalType, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.CreateInstance,
+          null,
+          new object[] { relativeSizes, minSizes, maxSizes, splitSize },
+          null, null);
+      }
+
+      public float[] realSizes => ConvertArray((Array)_realSizes.GetValue(InternalState));
+      public float[] relativeSizes => ConvertArray((Array)_relativeSizes.GetValue(InternalState));
+      public float splitSize => Convert.ToSingle(_splitSize.GetValue(InternalState));
+
+      private static float[] ConvertArray(Array value) {
+        float[] result = new float[value.Length];
+        for (int i = 0; i < value.Length; ++i) {
+          result[i] = Convert.ToSingle(value.GetValue(i));
+        }
+        return result;
+      }
+    }
+  }
+}
+
+#endregion
+
+
+#region UnityInternal.UnityType.cs
+
+namespace Quantum.Editor {
+  using System;
+  using System.Reflection;
+  using UnityEditor;
+  using static ReflectionUtils;
+
+  partial class UnityInternal {
+    [InitializeOnLoad]
+    public class UnityType {
+      public static readonly Type InternalType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.UnityType", true);
+
+      static readonly Delegate FindTypeByNameDelegate = InternalType?.CreateMethodDelegate(nameof(FindTypeByName), BindingFlags.Public | BindingFlags.Static,
+        typeof(Func<,>).MakeGenericType(typeof(string), InternalType)
+      );
+
+      static readonly InstanceAccessor<int> PersistentTypeIDAccessor = InternalType.CreatePropertyAccessor<int>(nameof(persistentTypeID));
+
+      readonly object _instance;
+
+      public UnityType(object instance) {
+        _instance = instance ?? throw new ArgumentNullException(nameof(instance));
+      }
+
+      public static UnityType FindTypeByName(string name) {
+        var instance = FindTypeByNameDelegate.DynamicInvoke(name);
+        return instance == null ? null : new UnityType(instance);
+      }
+
+      public int persistentTypeID => PersistentTypeIDAccessor.GetValue(_instance);
+    }
+  }
+}
+
+#endregion
+
+
+
+#endregion
+
+
 #region Assets/Photon/Quantum/Editor/UnityDB/QuantumAssetObjectPostprocessor.cs
 
 namespace Quantum.Editor {
@@ -23372,15 +25739,7 @@ namespace Quantum.Editor {
 
       if (refreshHash) {
         QuantumEditorLog.TraceImport($"AssetObjects needs hash refresh");
-        if (RefreshQuantumUnityDBImmediately) {
-          QuantumUnityDBImporter.RefreshAssetObjectHash();
-          AssetDatabase.Refresh();
-        } else {
-          QuantumEditorUtility.DelayCall(() => {
-            QuantumUnityDBImporter.RefreshAssetObjectHash();
-            AssetDatabase.Refresh();
-          });
-        }
+        QuantumUnityDBImporter.RefreshAssetObjectHash(RefreshQuantumUnityDBImmediately);
       }
       
       // check if the db is invalidated
@@ -23756,7 +26115,7 @@ namespace Quantum.Editor {
         }
 
         // last resort
-        var instance = EditorUtility.InstanceIDToObject(InstanceID);
+        var instance = Object;
         if (instance) {
           return instance.GetType();
         }
@@ -23967,7 +26326,7 @@ namespace Quantum.Editor {
     /// </summary>
     /// <param name="force">Force the reimport.</param>
     public static void RefreshGlobalDB(bool force = false) {
-      QuantumUnityDBImporter.RefreshAssetObjectHash();
+      QuantumUnityDBImporter.RefreshAssetObjectHash(true);
       if (force) {
         var path = GetGlobalDBPath();
         if (!string.IsNullOrEmpty(path)) {
@@ -24047,7 +26406,7 @@ namespace Quantum.Editor {
     /// <summary>
     /// Enumerates <see cref="AssetObject"/> assets with <see cref="AssetLabel"/> label.
     /// </summary>
-    public static AssetDatabaseUtils.AssetEnumerable IterateAssets() => AssetDatabaseUtils.IterateAssets(type: typeof(AssetObject), label: AssetLabel);
+    public static AssetDatabaseEnumerable IterateAssets(string root = null) => AssetDatabaseUtils.IterateAssets(root: root, type: typeof(AssetObject), label: AssetLabel);
     
     /// <summary>
     /// Create a deterministic <see cref="AssetGuid"/> for the given asset, based on its Unity GUID and FileID.
@@ -24350,7 +26709,6 @@ namespace Quantum.Editor {
     }
 
     public static int DeleteMissingNestedScriptableObjects(string path) {
-
       var yamlObjectHeader = new Regex("^--- !u!", RegexOptions.Multiline);
      
       // 114 - class id (see https://docs.unity3d.com/Manual/ClassIDReference.html)
@@ -24362,7 +26720,7 @@ namespace Quantum.Editor {
         if (asset == null)
           continue;
 
-        if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(asset.GetInstanceID(), out var guid, out long fileId)) {
+        if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(asset, out var guid, out long fileId)) {
           validFileIds.Add(fileId);
         }
       }
@@ -24396,7 +26754,7 @@ namespace Quantum.Editor {
 
     [System.Serializable]
     private class AssemblyDefnitionSurrogate {
-      public string[] references = new string[0];
+      public string[] references = System.Array.Empty<string>();
     }
 
     public static string[] GetReferences(this AssemblyDefinitionAsset assemblyDefinition) {
@@ -24582,7 +26940,7 @@ namespace Quantum.Editor {
     public static string GetAssetPathOrThrow(Object obj) {
       var result = AssetDatabase.GetAssetPath(obj);
       if (string.IsNullOrEmpty(result)) {
-        throw new System.ArgumentException($"Asset path not found for ({obj?.name})", nameof(obj));
+        throw new System.ArgumentException($"Asset path not found for ({(obj != null ? obj.name : null)})", nameof(obj));
       }
       return result;
     }
@@ -24598,7 +26956,7 @@ namespace Quantum.Editor {
 
     public static string GetAssetGuidOrThrow(Object obj) {
       if (!AssetDatabase.TryGetGUIDAndLocalFileIdentifier(obj, out var guid, out long _)) {
-        throw new System.ArgumentException($"Guid not found for ({obj?.name})", nameof(obj));
+        throw new System.ArgumentException($"Guid not found for ({(obj != null ? obj.name : null)})", nameof(obj));
       }
       return guid;
     }
@@ -24829,31 +27187,6 @@ namespace Quantum.Editor {
   internal static partial class EnterPlayModeOptionsHandler {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     public static void ResetStatics() {
-      bool enabled = true;
-      IsEnabledUser(ref enabled);
-      if (enabled) {
-        ResetUnityStatics();
-        ResetSimulationStatics();
-      }
-    }
-
-    public static void ResetUnityStatics() {
-      QuantumUnityDB.UnloadGlobal();
-
-      QuantumCallback.Clear();
-      QuantumEvent.Clear();
-
-      QuantumMapLoader.ResetStatics();
-      DebugDraw.Clear();
-
-      QuantumGameGizmos.InvalidateNavMeshGizmos();
-      QuantumGameGizmos.InvalidatePhysicsGizmos();
-
-      QuantumUnityNativeUtility.ResetStatics();
-    }
-
-    public static void ResetSimulationStatics() {
-
       // reset core singletons
       MemoryLayoutVerifier.Platform = null;
       Native.Utils = null;
@@ -24867,8 +27200,6 @@ namespace Quantum.Editor {
 
       Quantum.Allocator.Heap.Reset();
     }
-
-    static partial void IsEnabledUser(ref bool enabled);
 
     [InitializeOnLoadMethod]
     static void InitializeComponentTypeId() {
@@ -24963,10 +27294,15 @@ namespace Quantum.Editor {
   /// This tool can convert Unity colliders to Quantum colliders.
   /// </summary>
   public static class QuantumEditorColliderConverter {
-    private const int MENU_PRIORITY = (int)QuantumEditorMenuPriority.Setup + 25;
+    private const int MENU_PRIORITY = (int)QuantumEditorMenuPriority.Setup + 45;
 
+#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
     private static List<Collider2D> _colliders2D = new List<Collider2D>();
+#endif
+
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
     private static List<Collider> _colliders3D = new List<Collider>();
+#endif
 
     private static List<QuantumStaticEdgeCollider2D> _checkQuantumStaticEdgeCollider2D = new List<QuantumStaticEdgeCollider2D>();
     private static List<QuantumStaticCircleCollider2D> _checkQuantumStaticCircleCollider2D = new List<QuantumStaticCircleCollider2D>();
@@ -25032,6 +27368,7 @@ namespace Quantum.Editor {
     private static int ConvertColliders(GameObject gameObject, bool removeSourceCollider) {
       int convertedColliders = 0;
 
+#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
       _colliders2D.Clear();
       gameObject.GetComponents(_colliders2D);
       foreach (Collider2D collider in _colliders2D) {
@@ -25044,7 +27381,9 @@ namespace Quantum.Editor {
           }
         }
       }
+#endif
 
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       _colliders3D.Clear();
       gameObject.GetComponents(_colliders3D);
       foreach (Collider collider in _colliders3D) {
@@ -25057,14 +27396,15 @@ namespace Quantum.Editor {
           }
         }
       }
+#endif
 
       return convertedColliders;
     }
 
+#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
     private static bool ConvertCollider(GameObject gameObject, Collider2D collider) {
       bool isConverted = false;
 
-#if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
       switch (collider) {
         case EdgeCollider2D edgeCollider: {
             if (HasQuantumStaticEdgeCollider2D(gameObject, edgeCollider) == false) {
@@ -25116,15 +27456,15 @@ namespace Quantum.Editor {
             break;
           }
       }
-#endif
 
       return isConverted;
     }
+#endif
 
+#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
     private static bool ConvertCollider(GameObject gameObject, Collider collider) {
       bool isConverted = false;
 
-#if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
       switch (collider) {
         case SphereCollider sphereCollider: {
             if (HasQuantumStaticSphereCollider3D(gameObject, sphereCollider) == false) {
@@ -25166,10 +27506,10 @@ namespace Quantum.Editor {
             break;
           }
       }
-#endif
 
       return isConverted;
     }
+#endif
 
     private static List<GameObject> GetGameObjectsRecursive() {
       List<GameObject> gameObjects = new List<GameObject>();
@@ -25192,120 +27532,120 @@ namespace Quantum.Editor {
       }
     }
 
-    private static bool HasQuantumStaticEdgeCollider2D(GameObject gameObject, EdgeCollider2D collider) {
 #if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
+    private static bool HasQuantumStaticEdgeCollider2D(GameObject gameObject, EdgeCollider2D collider) {
       _checkQuantumStaticEdgeCollider2D.Clear();
       gameObject.GetComponents(_checkQuantumStaticEdgeCollider2D);
       foreach (QuantumStaticEdgeCollider2D quantumCollider in _checkQuantumStaticEdgeCollider2D) {
         if (ReferenceEquals(quantumCollider.SourceCollider, collider) == true)
           return true;
       }
-#endif
 
       return false;
     }
+#endif
 
-    private static bool HasQuantumStaticCircleCollider2D(GameObject gameObject, CircleCollider2D collider) {
 #if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
+    private static bool HasQuantumStaticCircleCollider2D(GameObject gameObject, CircleCollider2D collider) {
       _checkQuantumStaticCircleCollider2D.Clear();
       gameObject.GetComponents(_checkQuantumStaticCircleCollider2D);
       foreach (QuantumStaticCircleCollider2D quantumCollider in _checkQuantumStaticCircleCollider2D) {
         if (ReferenceEquals(quantumCollider.SourceCollider, collider) == true)
           return true;
       }
-#endif
 
       return false;
     }
+#endif
 
-    private static bool HasQuantumStaticCapsuleCollider2D(GameObject gameObject, CapsuleCollider2D collider) {
 #if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
+    private static bool HasQuantumStaticCapsuleCollider2D(GameObject gameObject, CapsuleCollider2D collider) {
       _checkQuantumStaticCapsuleCollider2D.Clear();
       gameObject.GetComponents(_checkQuantumStaticCapsuleCollider2D);
       foreach (QuantumStaticCapsuleCollider2D quantumCollider in _checkQuantumStaticCapsuleCollider2D) {
         if (ReferenceEquals(quantumCollider.SourceCollider, collider) == true)
           return true;
       }
-#endif
       return false;
     }
+#endif
 
-    private static bool HasQuantumStaticBoxCollider2D(GameObject gameObject, BoxCollider2D collider) {
 #if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
+    private static bool HasQuantumStaticBoxCollider2D(GameObject gameObject, BoxCollider2D collider) {
       _checkQuantumStaticBoxCollider2D.Clear();
       gameObject.GetComponents(_checkQuantumStaticBoxCollider2D);
       foreach (QuantumStaticBoxCollider2D quantumCollider in _checkQuantumStaticBoxCollider2D) {
         if (ReferenceEquals(quantumCollider.SourceCollider, collider) == true)
           return true;
       }
-#endif
       return false;
     }
+#endif
 
-    private static bool HasQuantumStaticPolygonCollider2D(GameObject gameObject, PolygonCollider2D collider) {
 #if QUANTUM_ENABLE_PHYSICS2D && !QUANTUM_DISABLE_PHYSICS2D
+    private static bool HasQuantumStaticPolygonCollider2D(GameObject gameObject, PolygonCollider2D collider) {
       _checkQuantumStaticPolygonCollider2D.Clear();
       gameObject.GetComponents(_checkQuantumStaticPolygonCollider2D);
       foreach (QuantumStaticPolygonCollider2D quantumCollider in _checkQuantumStaticPolygonCollider2D) {
         if (ReferenceEquals(quantumCollider.SourceCollider, collider) == true)
           return true;
       }
-#endif
 
       return false;
     }
+#endif
 
-    private static bool HasQuantumStaticSphereCollider3D(GameObject gameObject, SphereCollider collider) {
 #if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
+    private static bool HasQuantumStaticSphereCollider3D(GameObject gameObject, SphereCollider collider) {
       _checkQuantumStaticSphereCollider3D.Clear();
       gameObject.GetComponents(_checkQuantumStaticSphereCollider3D);
       foreach (QuantumStaticSphereCollider3D quantumCollider in _checkQuantumStaticSphereCollider3D) {
         if (ReferenceEquals(quantumCollider.SourceCollider, collider) == true)
           return true;
       }
-#endif
 
       return false;
     }
+#endif
 
-    private static bool HasQuantumStaticCapsuleCollider3D(GameObject gameObject, CapsuleCollider collider) {
 #if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
+    private static bool HasQuantumStaticCapsuleCollider3D(GameObject gameObject, CapsuleCollider collider) {
       _checkQuantumStaticCapsuleCollider3D.Clear();
       gameObject.GetComponents(_checkQuantumStaticCapsuleCollider3D);
       foreach (QuantumStaticCapsuleCollider3D quantumCollider in _checkQuantumStaticCapsuleCollider3D) {
         if (ReferenceEquals(quantumCollider.SourceCollider, collider) == true)
           return true;
       }
-#endif
       
       return false;
     }
+#endif
 
-    private static bool HasQuantumStaticBoxCollider3D(GameObject gameObject, BoxCollider collider) {
 #if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
+    private static bool HasQuantumStaticBoxCollider3D(GameObject gameObject, BoxCollider collider) {
       _checkQuantumStaticBoxCollider3D.Clear();
       gameObject.GetComponents(_checkQuantumStaticBoxCollider3D);
       foreach (QuantumStaticBoxCollider3D quantumCollider in _checkQuantumStaticBoxCollider3D) {
         if (ReferenceEquals(quantumCollider.SourceCollider, collider) == true)
           return true;
       }
-#endif
       
       return false;
     }
+#endif
 
-    private static bool HasQuantumStaticMeshCollider3D(GameObject gameObject, MeshCollider collider) {
 #if QUANTUM_ENABLE_PHYSICS3D && !QUANTUM_DISABLE_PHYSICS3D
+    private static bool HasQuantumStaticMeshCollider3D(GameObject gameObject, MeshCollider collider) {
       _checkQuantumStaticMeshCollider3D.Clear();
       gameObject.GetComponents(_checkQuantumStaticMeshCollider3D);
       foreach (QuantumStaticMeshCollider3D quantumCollider in _checkQuantumStaticMeshCollider3D) {
         if (ReferenceEquals(quantumCollider.Mesh, collider.sharedMesh) == true)
           return true;
       }
-#endif
 
       return false;
     }
+#endif
   }
 }
 
@@ -25376,7 +27716,11 @@ namespace Quantum.Editor {
 
       Directory.CreateDirectory(directory);
 
-      var filename = game?.Frames?.Verified?.Map?.name ?? "Replay";
+      var map = game?.Frames?.Verified?.Map;
+      var filename = "Replay";
+      if (map != null) { 
+        filename = map.name;
+      }
       filename = $"{filename}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HH'-'mm'-'ss")}";
       var filePath = EditorUtility.SaveFilePanel("Export Replay File", directory, filename, "json");
 
@@ -25416,7 +27760,11 @@ namespace Quantum.Editor {
 
       Directory.CreateDirectory(directory);
 
-      var filename = game?.Frames?.Verified?.Map?.name ?? "Savegame";
+      var filename = "Savegame";
+      var map = game?.Frames?.Verified?.Map;
+      if (map != null) { 
+        filename = map.name;
+      }
       filename = $"{filename}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HH'-'mm'-'ss")}";
       var filePath = EditorUtility.SaveFilePanel("Export Savegame File", directory, filename, "json");
       if (string.IsNullOrEmpty(filePath)) {
@@ -25451,7 +27799,6 @@ namespace Quantum.Editor {
   /// <summary>
   /// This class wraps the PhotonRealtime EnterRoomArgs class to make problematic members (Hashtable, TypedLobby restrictions) and its hierarchy XML serializable.  
   /// </summary>
-  [Serializable]
   public class SerializableEnterRoomArgs : EnterRoomArgs {
     /// <summary>
     /// Is <see langword="true"/> if <see cref="EnterRoomArgs.Lobby"/> is set.

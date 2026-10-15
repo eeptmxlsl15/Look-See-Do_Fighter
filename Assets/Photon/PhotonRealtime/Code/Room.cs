@@ -355,11 +355,11 @@ namespace Photon.Realtime
 
         /// <summary>Internal method to read properties from a PhotonHashtable to individual fields of the room (e.g. isOpen, maxPlayers etc.).</summary>
         /// <param name="propertiesToCache">Set of properties to read and apply to fields.</param>
-        protected internal override void InternalCacheProperties(PhotonHashtable propertiesToCache)
+        protected internal void InternalCacheProperties(PhotonHashtable propertiesToCache)
         {
             int oldMasterId = this.masterClientId;
 
-            base.InternalCacheProperties(propertiesToCache);    // important: updating the properties fields has no way to do callbacks on change
+            this.InternalCachePropertiesRoomInfo(propertiesToCache);    // important: updating the properties fields has no way to do callbacks on change
 
             if (oldMasterId != 0 && this.masterClientId != oldMasterId)
             {
@@ -429,7 +429,7 @@ namespace Photon.Realtime
             if (this.isOffline)
             {
                 // Merge and delete values.
-                this.CustomProperties.Merge(propertiesToSet);
+                this.CustomProperties.MergeValidCustomProperties(propertiesToSet);
                 this.CustomProperties.StripKeysWithNullValues();
 
                 // invoking callbacks
