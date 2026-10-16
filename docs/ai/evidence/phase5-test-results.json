@@ -1,0 +1,543 @@
+{
+  "phase": 5,
+  "date": "2026-10-16",
+  "base_commit": "acfb3f2304c5ef2186cc2d455d913cbdec5e311e",
+  "job_id": "e3830f86012c4ed48787e166d54630de",
+  "status": "succeeded",
+  "started_unix_ms": 1792153591909,
+  "finished_unix_ms": 1792153640921,
+  "result": {
+    "mode": "EditMode",
+    "summary": {
+      "total": 56,
+      "passed": 56,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 31.3472828,
+      "resultState": "Passed"
+    },
+    "results": [
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(0,0)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(0,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0111195,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+        "state": "Passed",
+        "durationSeconds": 0.0000756,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+        "state": "Passed",
+        "durationSeconds": 0.0000308,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+        "state": "Passed",
+        "durationSeconds": 0.0000298,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+        "state": "Passed",
+        "durationSeconds": 0.0000253,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+        "state": "Passed",
+        "durationSeconds": 0.0000368,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "ComboReservationBelongsToEachPlayerValue",
+        "fullName": "LSDFDeterministicContractTests.ComboReservationBelongsToEachPlayerValue",
+        "state": "Passed",
+        "durationSeconds": 0.0005996,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(0,0)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(0,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0005149,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(7,8)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(7,8)",
+        "state": "Passed",
+        "durationSeconds": 0.0000566,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(10,12)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(10,12)",
+        "state": "Passed",
+        "durationSeconds": 0.0000488,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(19,22)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(19,22)",
+        "state": "Passed",
+        "durationSeconds": 0.0000474,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(170,204)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(170,204)",
+        "state": "Passed",
+        "durationSeconds": 0.0000419,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "InvalidIdsFallbackAndPayloadDoesNotAlias",
+        "fullName": "LSDFDeterministicContractTests.InvalidIdsFallbackAndPayloadDoesNotAlias",
+        "state": "Passed",
+        "durationSeconds": 0.0004985,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "MalformedPayloadUsesDefaultLoadout(0)",
+        "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(0)",
+        "state": "Passed",
+        "durationSeconds": 0.0009987,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "MalformedPayloadUsesDefaultLoadout(27)",
+        "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(27)",
+        "state": "Passed",
+        "durationSeconds": 0.0000546,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "MalformedPayloadUsesDefaultLoadout(29)",
+        "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(29)",
+        "state": "Passed",
+        "durationSeconds": 0.0000904,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "NullPayloadAndInvalidSlotsAreSafe",
+        "fullName": "LSDFDeterministicContractTests.NullPayloadAndInvalidSlotsAreSafe",
+        "state": "Passed",
+        "durationSeconds": 0.0001469,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+        "fullName": "LSDFDeterministicContractTests.RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+        "state": "Passed",
+        "durationSeconds": 0.0003218,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+        "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0059019,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+        "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0008712,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+        "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0006801,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+        "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+        "state": "Passed",
+        "durationSeconds": 0.0008201,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+        "fullName": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+        "state": "Passed",
+        "durationSeconds": 42.5131332,
+        "message": null,
+        "stackTrace": null,
+        "output": "커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 1\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 1\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 2\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 1\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 1\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 2\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n무브백 시작\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n원잽 시작 프레임249\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임250\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임258\r\n잽 Execute\r\n잽 히트박스 생성된 프레임258\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임258\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 히트박스 생성된 프레임258\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임258\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임258\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 히트박스 생성된 프레임258\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임258\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임258\r\n예약된 Lp 발동\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임258\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임258\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽잽 시작 프레임266\r\n잽잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽잽 히트박스 생성된 프레임274\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽잽 히트박스 생성된 프레임274\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽잽 히트박스 생성된 프레임274\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽잽 히트박스 생성된 프레임274\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽잽 히트박스 생성된 프레임274\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽잽 히트박스 생성된 프레임274\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽잽 히트박스 생성된 프레임274\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽잽 히트박스 생성된 프레임274\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽잽 히트박스 생성된 프레임274\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽잽 히트박스 생성된 프레임274\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n예약된 Lp 발동\r\n예약된 Lp 발동\r\n예약된 Lp 발동\r\n예약된 Lp 발동\r\n예약된 Lp 발동\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n예약된 Lp 발동\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n예약된 Lp 발동\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n예약된 Lp 발동\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n예약된 Lp 발동\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n잽 Execute\r\n원잽 시작 프레임287\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n잽 Execute\r\n잽 히트박스 생성된 프레임290\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\n원잽 끝 프레임 : 307\r\nsit Execute\r\n앉기 시작\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\n왼어퍼 시작 프레임477\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\n왼어퍼 시작 프레임477\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\n왼어퍼 시작 프레임477\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\n왼어퍼 시작 프레임477\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n왼어퍼 시작 프레임477\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n왼어퍼 시작 프레임477\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임477\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임477\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임488\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임488\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임488\r\n가드 시작 프레임489\r\n잽 Execute\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임489\r\n현재 체력 : 158/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임489\r\n잽 Execute\r\n가드 시작\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n가드 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임488\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임489\r\n현재 체력 : 158/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임489\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임488\r\n가드 시작 프레임489\r\n잽 Execute\r\n잽 Execute\r\n가드 시작\r\n잽 Execute\r\n가드 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임488\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임489\r\n현재 체력 : 158/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임489\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임488\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임489\r\n현재 체력 : 158/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임489\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임488\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임489\r\n현재 체력 : 158/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임489\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임488\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임489\r\n현재 체력 : 158/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임489\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임489\r\n현재 체력 : 158/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임489\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임489\r\n현재 체력 : 158/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임489\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n히트 상태 끝 프레임 : 514\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n히트 상태 끝 프레임 : 514\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n히트 상태 끝 프레임 : 514\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n히트 상태 끝 프레임 : 514\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 509\r\n히트 상태 끝 프레임 : 514\r\n왼어퍼 끝 프레임 : 509\r\n히트 상태 끝 프레임 : 514\r\n왼어퍼 끝 프레임 : 509\r\n히트 상태 끝 프레임 : 514\r\n히트 상태 끝 프레임 : 514\r\n히트 상태 끝 프레임 : 514\r\n히트 상태 끝 프레임 : 514\r\n히트 상태 끝 프레임 : 514\r\n히트 상태 끝 프레임 : 514\r\n히트 상태 끝 프레임 : 514\r\nsit Execute\r\n앉기 시작\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\n잽 Execute\r\n원잽 시작 프레임597\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임609\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임609\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임609\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임609\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n히트 시작 프레임614\r\n현재 체력 : 140/170\r\n잽 Execute\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임609\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n히트 시작 프레임614\r\n현재 체력 : 140/170\r\n잽 Execute\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임609\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n히트 시작 프레임614\r\n현재 체력 : 140/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임609\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n히트 시작 프레임614\r\n현재 체력 : 140/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임609\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n히트 시작 프레임614\r\n현재 체력 : 140/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n히트 시작 프레임614\r\n현재 체력 : 140/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n히트 시작 프레임614\r\n현재 체력 : 140/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n히트 시작 프레임614\r\n현재 체력 : 140/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임613\r\n잽 Execute\r\n히트 시작 프레임614\r\n현재 체력 : 140/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임631\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임632\r\n현재 체력 : 113/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n원잽 끝 프레임 : 652\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n히트 상태 끝 프레임 : 661\r\n여기\r\n여기\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임777\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임789\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임791\r\n잽 Execute\r\n현재 체력 : 99/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n잽 Execute\r\nair 시작 프레임 : 793\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n잽 Execute\r\nair 시작 프레임 : 794\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 804\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 804\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 804\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 804\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 804\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 804\r\n잽 Execute\r\n잽 히트박스 생성된 프레임801\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 804\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 804\r\nair 시작 프레임 : 803\r\nair 시작 프레임 : 804\r\n원잽 끝 프레임 : 832\r\n원잽 끝 프레임 : 832\r\n원잽 끝 프레임 : 832\r\n원잽 끝 프레임 : 832\r\n원잽 끝 프레임 : 832\r\n원잽 끝 프레임 : 832\r\n원잽 끝 프레임 : 832\r\n원잽 끝 프레임 : 832\r\n원잽 끝 프레임 : 832\r\n원잽 끝 프레임 : 832\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 854\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 854\r\n히트 상태 끝 프레임 : 855\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 854\r\n히트 상태 끝 프레임 : 855\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 854\r\n히트 상태 끝 프레임 : 855\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 854\r\n히트 상태 끝 프레임 : 855\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 854\r\n히트 상태 끝 프레임 : 855\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 854\r\n히트 상태 끝 프레임 : 855\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 854\r\n히트 상태 끝 프레임 : 855\r\n히트 상태 끝 프레임 : 855\r\n히트 상태 끝 프레임 : 855\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임957\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임965\r\n잽 Execute\r\n잽 히트박스 생성된 프레임965\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 히트박스 생성된 프레임965\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임965\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 히트박스 생성된 프레임965\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n원잽 시작 프레임969\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임965\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임965\r\n잽 Execute\r\n원잽 시작 프레임969\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임965\r\n잽 Execute\r\n원잽 시작 프레임969\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임965\r\n잽 Execute\r\n원잽 시작 프레임969\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임965\r\n잽 Execute\r\n원잽 시작 프레임969\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임969\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n원잽 시작 프레임969\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임969\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임969\r\n잽 현재 프레임 : 0\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임978\r\n잽 Execute\r\n원잽 시작 프레임970\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임978\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임978\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n예약된 Lp 발동\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 히트박스 생성된 프레임978\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n원잽 시작 프레임973\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임978\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임978\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 중에 Lp 입력 → 연계 예약 완료\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임978\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임978\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임978\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임978\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n히트 시작 프레임979\r\n현재 체력 : 162/170\r\n잽 Execute\r\n잽 히트박스 생성된 프레임979\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임980\r\n현재 체력 : 77/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1007\r\n히트 상태 끝 프레임 : 1007\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1007\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1007\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1007\r\n히트 상태 끝 프레임 : 1002\r\n히트 상태 끝 프레임 : 1007\r\n히트 상태 끝 프레임 : 1007\r\n히트 상태 끝 프레임 : 1007\r\n히트 상태 끝 프레임 : 1007\r\n히트 상태 끝 프레임 : 1007\r\nsit Execute\r\n앉기 시작\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n왼어퍼 시작 프레임1197\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n왼어퍼 시작 프레임1197\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n왼어퍼 시작 프레임1197\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n왼어퍼 시작 프레임1197\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n왼어퍼 시작 프레임1197\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n왼어퍼 시작 프레임1197\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1197\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\n잽 Execute\r\n왼어퍼 시작 프레임1197\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n가드 시작 프레임1209\r\n잽 Execute\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n가드 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n가드 시작 프레임1209\r\n잽 Execute\r\n잽 Execute\r\n가드 시작\r\n잽 Execute\r\n가드 시작\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 히트박스 생성된 프레임1208\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1209\r\n현재 체력 : 65/170\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 시작 프레임1209\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 1229\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 1229\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 1229\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 1229\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 1229\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 1229\r\n히트 상태 끝 프레임 : 1234\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 1229\r\n히트 상태 끝 프레임 : 1234\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 1229\r\n히트 상태 끝 프레임 : 1234\r\n잽 Execute\r\n왼어퍼 끝 프레임 : 1229\r\n히트 상태 끝 프레임 : 1234\r\n왼어퍼 끝 프레임 : 1229\r\n히트 상태 끝 프레임 : 1234\r\n왼어퍼 끝 프레임 : 1229\r\n히트 상태 끝 프레임 : 1234\r\n히트 상태 끝 프레임 : 1234\r\n히트 상태 끝 프레임 : 1234\r\n히트 상태 끝 프레임 : 1234\r\n히트 상태 끝 프레임 : 1234\r\n히트 상태 끝 프레임 : 1234\r\n히트 상태 끝 프레임 : 1234\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임1317\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임1317\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임1317\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임1317\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임1317\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n원잽 시작 프레임1317\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1317\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1317\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nsit Execute\r\n앉기 시작\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1329\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1333\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n히트 시작 프레임1334\r\n현재 체력 : 47/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1351\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1351\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1351\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1351\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1351\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1351\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1351\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n힛 시작\r\n힛 시작\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1351\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n힛 시작\r\n힛 시작\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n힛 시작\r\n힛 시작\r\n이펙트 : 힛 플레이어 시스템\r\n히트 시작 프레임1352\r\n현재 체력 : 20/170\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n힛 시작\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n원잽 끝 프레임 : 1372\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n히트 상태 끝 프레임 : 1381\r\n여기\r\n여기\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1497\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1509\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1509\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1509\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1509\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1509\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\n여기\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1509\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1509\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1509\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n원잽 시작 프레임1509\r\n잽 현재 프레임 : 1\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1511\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n현재 체력 : 6/170\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\n잽 Execute\r\nair 시작 프레임 : 1513\r\n잽 Execute\r\nair 시작 프레임 : 1514\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\nair 시작 프레임 : 1523\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\nair 시작 프레임 : 1523\r\n잽 Execute\r\nisGround 오프 : False\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\nair 시작 프레임 : 1523\r\nair 시작 프레임 : 1524\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\nair 시작 프레임 : 1523\r\nair 시작 프레임 : 1524\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\nair 시작 프레임 : 1523\r\nair 시작 프레임 : 1524\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\nair 시작 프레임 : 1523\r\nair 시작 프레임 : 1524\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\nair 시작 프레임 : 1523\r\nair 시작 프레임 : 1524\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\nair 시작 프레임 : 1523\r\nair 시작 프레임 : 1524\r\n잽 Execute\r\n잽 Execute\r\n잽 히트박스 생성된 프레임1521\r\n이펙트 : 힛 플레이어 시스템\r\n콤보 : 런쳐 힛\r\n콤보 : 뜸\r\n히트 카운트 2 / 데미지 10.5\r\n2P 패배\r\nair 시작 프레임 : 1523\r\nair 시작 프레임 : 1524\r\nair 시작 프레임 : 1524\r\nair 시작 프레임 : 1524\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\n원잽 끝 프레임 : 1552\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n와이제로\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\n와이제로\r\nair 끝 rising 시작 프레임 : 1574\r\n"
+      },
+      {
+        "name": "CounterBypassesComboScalingAndDoesNotTouchOtherPlayers",
+        "fullName": "LSDFPlayerHealthTests.CounterBypassesComboScalingAndDoesNotTouchOtherPlayers",
+        "state": "Passed",
+        "durationSeconds": 0.0067542,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "HitKeepsNegativeHpUntilTheExistingUpdatePoint",
+        "fullName": "LSDFPlayerHealthTests.HitKeepsNegativeHpUntilTheExistingUpdatePoint",
+        "state": "Passed",
+        "durationSeconds": 0.0003458,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(7,0,7)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,0,7)",
+        "state": "Passed",
+        "durationSeconds": 0.0003782,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(7,1,0)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,1,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0001326,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(7,2,5)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,2,5)",
+        "state": "Passed",
+        "durationSeconds": 0.0001162,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(7,3,0)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,3,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0000838,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(7,4,3)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,4,3)",
+        "state": "Passed",
+        "durationSeconds": 0.0000606,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(7,5,2)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,5,2)",
+        "state": "Passed",
+        "durationSeconds": 0.0000581,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(3,5,0)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(3,5,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0000513,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(6,5,1)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(6,5,1)",
+        "state": "Passed",
+        "durationSeconds": 0.0000684,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(12,6,3)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(12,6,3)",
+        "state": "Passed",
+        "durationSeconds": 0.000052,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(15,7,4)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(15,7,4)",
+        "state": "Passed",
+        "durationSeconds": 0.0000496,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(17,2,12)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(17,2,12)",
+        "state": "Passed",
+        "durationSeconds": 0.0000479,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(17,4,8)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(17,4,8)",
+        "state": "Passed",
+        "durationSeconds": 0.0000474,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "NormalDamageKeepsLegacyComboBoundaries(7,-1,0)",
+        "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,-1,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0000472,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RecoveryKeepsClampOrderAndHealingCompletion(-5,False,0,False)",
+        "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(-5,False,0,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0015637,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RecoveryKeepsClampOrderAndHealingCompletion(-5,True,2,True)",
+        "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(-5,True,2,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0001127,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RecoveryKeepsClampOrderAndHealingCompletion(167,True,169,True)",
+        "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(167,True,169,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0000778,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RecoveryKeepsClampOrderAndHealingCompletion(168,True,170,False)",
+        "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(168,True,170,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0001089,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RecoveryKeepsClampOrderAndHealingCompletion(169,True,170,False)",
+        "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(169,True,170,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000706,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RecoveryKeepsClampOrderAndHealingCompletion(170,True,170,False)",
+        "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(170,True,170,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000596,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RecoveryKeepsClampOrderAndHealingCompletion(175,True,170,False)",
+        "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(175,True,170,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000689,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RecoveryKeepsClampOrderAndHealingCompletion(175,False,175,False)",
+        "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(175,False,175,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000944,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+        "fullName": "LSDFSingleHitTests.FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+        "state": "Passed",
+        "durationSeconds": 0.0009049,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedLeftUpperPreservesOriginalDefinition",
+        "fullName": "LSDFSingleHitTests.SerializedLeftUpperPreservesOriginalDefinition",
+        "state": "Passed",
+        "durationSeconds": 0.0030771,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SpawnTickPreservesPhysicsLead(11,False)",
+        "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(11,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0006028,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SpawnTickPreservesPhysicsLead(12,True)",
+        "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(12,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0000814,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SpawnTickPreservesPhysicsLead(13,False)",
+        "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(13,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000505,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RequiredQuantumLookupTablesAreConfigured",
+        "fullName": "LSDFTimedHitTests.RequiredQuantumLookupTablesAreConfigured",
+        "state": "Passed",
+        "durationSeconds": 0.006227,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+        "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+        "state": "Passed",
+        "durationSeconds": 0.0028706,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+        "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+        "state": "Passed",
+        "durationSeconds": 0.0002074,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+        "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0005801,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+        "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0001652,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      }
+    ]
+  },
+  "compilation": {
+    "errors": 0,
+    "warnings": [
+      "MCP-FOR-UNITY: [WebSocket] Unexpected receive error: WebSocket is not initialised"
+    ]
+  },
+  "static_policy": {
+    "scope": "Assets/QuantumUser/Simulation",
+    "files_scanned": 86,
+    "existing_findings": 5,
+    "new_findings": 0
+  },
+  "limitations": [
+    "No induced rollback, actual reconnect, independent build or cross-platform validation was performed.",
+    "This is a behavior-preserving split. Existing hitCount 1/3 damage gaps and delayed HP clamp were retained.",
+    "No QTN, generated serialization, system registration or execution order changes."
+  ]
+}

@@ -46,7 +46,7 @@ namespace Quantum.LSDF
                 Debug.Log("커맨드 : " + LSDF_player->CommandSkillMap[i]);
             }
             //체력 초기화
-            LSDF_player->playerHp = 170;
+            LSDF_player->playerHp = LSDFPlayerHealth.Maximum;
 
             if (firstTime && player == (PlayerRef)0) f.Global->Time = 60;
             

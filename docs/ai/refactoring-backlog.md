@@ -6,6 +6,7 @@
 최신 작업: [1차 오류 수정·2차 단타 이관](refactor-phase2-result.md).
 다음 구현: [3차 잽 계열 이관](refactor-phase3-result.md).
 최신 구현: [4차 나락/Lars 다단히트 이관](refactor-phase4-result.md).
+최신 구현: [5차 PlayerSystem 전투/체력 정책 분리](refactor-phase5-result.md).
 
 이 문서는 **후속 작업 후보**이며 구현 완료 보고서가 아니다. 현재 소스를 다시 확인한 결과와
 [초기 감사](architecture-audit.md)를 바탕으로 작성했다. 온라인 대전에서 desync나 크래시를 재현한 것은 아니다.
