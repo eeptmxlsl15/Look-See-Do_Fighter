@@ -9,9 +9,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
 {
 
-
     public Quantum.LSDF.LSDFSingleHitDefinition Hit = Quantum.LSDF.LSDFSingleHitDefinition.CreateJapJap(); // 실제 발동 프레임보다 1 낮아야 다음 프레임에 히트 박스가 적용 된다 = 이벤트 시작 위치때문에 -1
-
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -49,7 +47,6 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
         if (!f.TryGet<PlayerLink>(entity, out var playerLink)) return;
         var input = f.GetPlayerInput(playerLink.PlayerRef);
 
-
         //방향
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
 
@@ -64,11 +61,9 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
             //    AnimatorComponent.SetTrigger(f, animatorComponent, "Rp");
             //}
         }
-        
 
        if (animationFrame <= 20) // 연계 입력 받을 수 있는 구간
         {
-            
 
             //섬광
             if (input->RightPunch)
@@ -98,7 +93,6 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
             Debug.Log($"잽잽 히트박스 생성된 프레임{f.Number}");
         }
     }
-
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {

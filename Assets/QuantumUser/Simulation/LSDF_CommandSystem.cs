@@ -20,6 +20,7 @@ namespace Quantum.LSDF
             if (!f.Unsafe.TryGetPointer<PlayerLink>(filter.Entity, out var playerLink)) return;
             
             var input = f.GetPlayerInput(playerLink->PlayerRef);
+            if (input == null) return;
 
             var direction = GetDirection(input);
             
@@ -95,8 +96,9 @@ namespace Quantum.LSDF
             
             AnimatorComponent.SetInteger(f, animator, "CommandNum", (int)direction);
 
-            int index = ((int)direction * 4) + (int)button;
+            int index = LSDFLoadout.Slot(direction, button);
 
+            if (index < 0) return;
             int skillId = player->CommandSkillMap[index];
 
 

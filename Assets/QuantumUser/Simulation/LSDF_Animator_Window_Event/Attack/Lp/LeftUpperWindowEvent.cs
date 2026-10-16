@@ -9,10 +9,8 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
 {
 
-
     //Change
     public Quantum.LSDF.LSDFSingleHitDefinition Hit = Quantum.LSDF.LSDFSingleHitDefinition.CreateLeftUpper(); // 실제 발동 프레임보다 1 낮아야 다음 프레임에 히트 박스가 적용 된다 = 이벤트 시작 위치때문에 -1
-
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -28,7 +26,6 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
         //앉은 자세 여부
         player->isSit = false;
 
-
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 
@@ -38,7 +35,7 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
         var entity = animatorComponent->Self;
         if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
-        
+
         //전진성과 방향성
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->FreezeRotation = true;
@@ -69,7 +66,6 @@ public class LeftUpperWindowEvent : AnimatorTimeWindowEventAsset
             Debug.Log($"왼어퍼 히트박스 생성된 프레임{f.Number}");
         }
     }
-
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {

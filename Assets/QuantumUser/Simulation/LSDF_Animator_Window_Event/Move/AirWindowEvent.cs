@@ -48,7 +48,7 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
         
         var entity = animatorComponent->Self;
         if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
-        f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body);
+        if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
 
         int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
 

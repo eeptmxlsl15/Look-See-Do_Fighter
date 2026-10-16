@@ -7,12 +7,12 @@ namespace Quantum.LSDF {
     public const int HealingPerTick = 2;
 
     // Called at the original PlayerSystem update point, before movement/recovery locks.
-    public static void UpdateRecovery(ref LSDF_Player player) {
+    public static void UpdateRecovery(ref LSDF_Player player, int maximum = Maximum, int healing = HealingPerTick) {
       if (player.playerHp < 0) player.playerHp = 0;
       if (!player.isHealing) return;
-      player.playerHp += HealingPerTick;
-      if (player.playerHp >= Maximum) {
-        player.playerHp = Maximum;
+      player.playerHp += healing;
+      if (player.playerHp >= maximum) {
+        player.playerHp = maximum;
         player.isHealing = false;
       }
     }

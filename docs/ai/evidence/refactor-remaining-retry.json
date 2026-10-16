@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-16",
+  "request": "User explicitly authorized one rerun of the two failed tests and a local commit if successful; no push requested in this follow-up.",
+  "baseCommit": "ffcc356698ded5af353a17609aefaf5bb615c1bd",
+  "previousEvidence": "refactor-remaining-validation.json",
+  "jobId": "b5ad49c80a6244fe875da459b08d12f0",
+  "mode": "EditMode",
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 0.3582089,
+    "resultState": "Passed"
+  },
+  "results": [
+    {
+      "name": "LegacyContract_SitPunchEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_SitPunchEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0265455,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "LegacyContract_SuperFlyKickWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_SuperFlyKickWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0079853,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    }
+  ],
+  "reuse": "Previous 104 passing tests, Unity compilation and Quantum lexical check are reused; the complete suite was not rerun.",
+  "publication": "Local commit preparation only. No push or PR."
+}

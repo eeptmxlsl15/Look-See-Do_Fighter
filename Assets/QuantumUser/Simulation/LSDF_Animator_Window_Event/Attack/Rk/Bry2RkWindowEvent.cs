@@ -9,8 +9,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 {
 
-    private int HitFrame = 20; // 아래 관련 기술은 -1프레임ㅇ해줘야한다 애니메이션이 처음부터 재생은 되는데 2번째 프레임부터 OnEnter가 된다
-    //private const int TotalFrameCount = 34;//실제 발동 프레임 + 20
+    public Quantum.LSDF.LSDFSingleHitDefinition Hit = Quantum.LSDF.LSDFRemainingAttackDefaults.Bry2Rk(); // 아래 관련 기술은 -1프레임ㅇ해줘야한다 애니메이션이 처음부터 재생은 되는데 2번째 프레임부터 OnEnter가 된다
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -23,12 +22,11 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
         player->isDashBack = false;
         player->canCounter = true;
 
-        //앉은 자세 여부
         player->isSit = false;
 
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
-        
+
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -36,121 +34,38 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
         if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
-        //Debug.Log($"현재 프레임 {Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time)}");
-        //전진성과 방향성
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->FreezeRotation = true;
 
         if (!f.TryGet<PlayerLink>(entity, out var playerLink)) return;
 
-        //방향
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
 
-        //전진 속도
-        if (animationFrame < HitFrame)
+        if (animationFrame < Hit.StartupFrames)
         {
             body->Velocity.X = flip;
         }
 
         Debug.Log("2rk 공격 중");
-        //히트 박스 생성
-        if (animationFrame == HitFrame-1)
+        if (animationFrame == Hit.StartupFrames-1)
         {
 
             EntityRef hitbox = f.Create();
 
-            //-------------------------------------------상단-----------------------------------------//
-            //FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25 + FP._0_05) * flip, FP._0_25);
+            Quantum.LSDF.LSDFHitboxFactory.ConfigureBody(f, hitbox, entity, flip, Hit);
 
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //위치
-            //    Position = hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-
-            //    IsTrigger = true,
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_20 / 2, (FP._0_10 - FP._0_02) / 2))
-            //});
-
-            ////-------------------------------------------중단-----------------------------------------//
-            //FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, 0);
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //Change
-            //    //위치
-            //    Position = hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-            //    IsTrigger = true,
-            //    //Change
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_33 - FP._0_03) / 2))
-            //});
-
-            //---------------------------------------하단---------------------------------------------//
-            FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, -(FP._0_25 + FP._0_03));
-
-            f.Add(hitbox, new Transform2D
-            {
-                //위치
-                Position = hitboxPosition,
-                Rotation = FP._0
-            });
-
-            f.Add(hitbox, new PhysicsCollider2D
-            {
-                IsTrigger = true,
-                //박스 크기
-                Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_10 - FP._0_02) / 2))
-            });
-            //------------------------------------------------------------------------------------//
-
-            //공격 정보
-            f.Add(hitbox, new LSDF_HitboxInfo
-            {
-                position = hitboxPosition,
-                startFrame = HitFrame,
-                AttackerEntity = entity,
-
-                AttackType = HitboxAttackType.Low,
-                CountType = CountAttackType.Normal,
-                DelayGuardTpye = DelayGuardType.Combo,
-                HomingReturnType = HomingType.Stun,
-
-                jumpAttack = false,
-                dodgeHigh = false,
-
-
-                enemyGuardTime = 0,//후딜이 20이므로 상대 가드 타임이 10 이면 10프레임 여유가 생김
-                enemyHitTime = 11,
-                enemyCountTime = 20,
-                attackDamage = 13,
-            });
-
-            
+            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit);
 
             if (player->canCounter == true)
             {
                 player->canCounter = false;
             }
 
-            f.Add(hitbox, new TickToDestroy
-            {
-                TickToDestroyAt = f.Number + 1
-            });
+            Quantum.LSDF.LSDFHitboxFactory.ScheduleDestroy(f, hitbox);
 
             Debug.Log($"브라2rk 히트박스 생성된 프레임{f.Number}");
         }
     }
-
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {

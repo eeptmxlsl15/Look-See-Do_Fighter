@@ -17,3 +17,30 @@ MonoBehaviour:
     Guid:
       Value: 351907434858096616
   IsMuted: 0
+  Hit:
+    StartupFrames: 13
+    Offset:
+      X:
+        RawValue: 19661
+      Y:
+        RawValue: 16384
+    HalfExtents:
+      X:
+        RawValue: 6553
+      Y:
+        RawValue: 2621
+    AttackType: 0
+    CounterReaction: 2
+    GuardReaction: 0
+    ParryReaction: 0
+    JumpAttack: 0
+    DodgeHigh: 0
+    Launcher: 0
+    WallLauncher: 0
+    NotSitLauncher: 0
+    GuardTicks: 19
+    HitTicks: 22
+    CounterTicks: 28
+    Damage: 17
+    ForceBack:
+      RawValue: 0

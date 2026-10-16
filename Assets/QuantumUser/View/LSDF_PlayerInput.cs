@@ -1,31 +1,26 @@
+using System;
 using Photon.Deterministic;
 using UnityEngine;
-
-namespace Quantum.Asteroids
-{
-    public class LSDF_PlayerInput : MonoBehaviour
-    {
-        private void OnEnable()
-        {
-            QuantumCallback.Subscribe(this, (CallbackPollInput callback) => PollInput(callback));
-        }
-
-        public void PollInput(CallbackPollInput callback)
-        {
-            Quantum.Input i = new Quantum.Input();
-
-            // Note: Use GetKey() instead of GetKeyDown/Up. Quantum calculates up/down internally.
-            i.Left = UnityEngine.Input.GetKey(KeyCode.A) || UnityEngine.Input.GetKey(KeyCode.LeftArrow);
-            i.Right = UnityEngine.Input.GetKey(KeyCode.D) || UnityEngine.Input.GetKey(KeyCode.RightArrow);
-            i.Up = UnityEngine.Input.GetKey(KeyCode.W) || UnityEngine.Input.GetKey(KeyCode.UpArrow);
-            i.Down = UnityEngine.Input.GetKey(KeyCode.S) || UnityEngine.Input.GetKey(KeyCode.UpArrow);
-
-            i.LeftPunch = UnityEngine.Input.GetKey(KeyCode.U);
-            i.RightPunch = UnityEngine.Input.GetKey(KeyCode.I);
-            i.LeftKick = UnityEngine.Input.GetKey(KeyCode.J);
-            i.RightKick = UnityEngine.Input.GetKey(KeyCode.K);
-
-            callback.SetInput(i, DeterministicInputFlags.Repeatable);
-        }
+namespace Quantum.Asteroids {
+  public class LSDF_PlayerInput : MonoBehaviour {
+    public QuantumEntityViewUpdater ViewUpdater;
+    private IDisposable _subscription;
+    private void OnEnable() {
+      _subscription = QuantumCallback.SubscribeManual<CallbackPollInput>(callback => {
+        if (ViewUpdater != null && callback.Game == ViewUpdater.ObservedGame) PollInput(callback);
+      });
     }
+    private void OnDisable() { _subscription?.Dispose(); _subscription = null; }
+    public static Quantum.Input ReadInput(Func<KeyCode, bool> pressed) {
+      return new Quantum.Input {
+        Left = pressed(KeyCode.A) || pressed(KeyCode.LeftArrow),
+        Right = pressed(KeyCode.D) || pressed(KeyCode.RightArrow),
+        Up = pressed(KeyCode.W) || pressed(KeyCode.UpArrow),
+        Down = pressed(KeyCode.S) || pressed(KeyCode.DownArrow),
+        LeftPunch = pressed(KeyCode.U), RightPunch = pressed(KeyCode.I),
+        LeftKick = pressed(KeyCode.J), RightKick = pressed(KeyCode.K)
+      };
+    }
+    public void PollInput(CallbackPollInput callback) { callback.SetInput(ReadInput(UnityEngine.Input.GetKey), DeterministicInputFlags.Repeatable); }
+  }
 }

@@ -51,6 +51,7 @@ public class LSDFOnlineSmokeTests {
       ClientId = id,
       CancellationToken = token,
       StartGameTimeoutInSeconds = 60,
+      RecordingFlags = RecordingFlags.Input | RecordingFlags.Checksums,
     };
   }
 
@@ -256,8 +257,17 @@ public class LSDFOnlineSmokeTests {
           for (int hit = 0; hit < 4; ++hit)
             if (timedHits[client, hit] == 0)
               throw new InvalidOperationException("Timed hit not observed: client=" + client + ", hit=" + hit);
+        stage = "recorded input replay";
+        int replayTarget = 0;
+        foreach (var sample in samples[0])
+          if (samples[1].ContainsKey(sample.Key)) replayTarget = Math.Max(replayTarget, sample.Key);
+        var replayFile = runners[0].Game.GetRecordedReplay(includeChecksums: true, includeDb: false);
+        if (replayFile == null)
+          throw new InvalidOperationException("No recorded replay was produced.");
+        await VerifyReplay(replayFile, samples[0], replayTarget, "A", timeout.Token);
+        await VerifyReplay(replayFile, samples[0], replayTarget, "B", timeout.Token);
         TestContext.Progress.WriteLine("ONLINE PASS: two clients, distinct loadouts, combat damage, repeated AddPlayer, " +
-          comparisons + " matching verified-frame checksums, LeftUpper, jab chains and both hits of Narak/Lars. No view/reconnect/induced rollback assertion.");
+          comparisons + " matching verified-frame checksums, LeftUpper, jab chains and both hits of Narak/Lars, plus two recorded-input replays. No view/reconnect/induced rollback assertion.");
       } catch (Exception e) {
         throw new InvalidOperationException("ONLINE stage=" + stage + "; client states=" +
           clients[0]?.State + "/" + clients[1]?.State, e);
@@ -289,6 +299,80 @@ public class LSDFOnlineSmokeTests {
     for (int i = 0; i < runners.Length; ++i)
       if (runners[i] != null && ReferenceEquals(runners[i].Game, game)) return i;
     return -1;
+  }
+
+  private static async Task VerifyReplay(QuantumReplayFile file, Dictionary<int, ulong> expected,
+      int targetTick, string suffix, CancellationToken token) {
+    var serializer = new QuantumUnityJsonSerializer();
+    QuantumRunner replay = null;
+    var provider = file.CreateInputProvider();
+    if (provider == null) throw new InvalidOperationException("No replay input provider was produced.");
+    IDisposable listener = null;
+    string mismatch = null;
+    int comparisons = 0;
+    byte[] snapshot = null;
+    int snapshotTick = 0;
+    bool restoring = false;
+    try {
+      var started = await SessionRunner.StartAsync(new SessionRunner.Arguments {
+        RunnerFactory = QuantumRunnerUnityFactory.DefaultFactory,
+        GameParameters = QuantumRunnerUnityFactory.CreateGameParameters,
+        RuntimeConfig = serializer.ConfigFromByteArray<RuntimeConfig>(file.RuntimeConfigData.Decode(), compressed: true),
+        SessionConfig = file.DeterministicConfig,
+        ReplayProvider = provider,
+        GameMode = DeterministicGameMode.Replay,
+        InitialTick = file.InitialTick,
+        FrameData = file.InitialFrameData,
+        PlayerCount = file.DeterministicConfig.PlayerCount,
+        RunnerId = "LSDF-input-replay-" + suffix,
+        CancellationToken = token
+      });
+      replay = (QuantumRunner)started;
+      replay.IsSessionUpdateDisabled = true;
+      listener = QuantumCallback.SubscribeManual<CallbackSimulateFinished>(callback => {
+        if (callback.Game != replay.Game || !callback.Frame.IsVerified || callback.Frame.Number > targetTick) return;
+        if (!restoring && snapshot == null && callback.Frame.Number >= targetTick / 2) {
+          snapshot = callback.Frame.Serialize(DeterministicFrameSerializeMode.Blit);
+          snapshotTick = callback.Frame.Number;
+        }
+        if (!expected.TryGetValue(callback.Frame.Number, out var checksum)) return;
+        if (callback.Frame.CalculateChecksum() != checksum) mismatch = "Replay checksum mismatch at tick " + callback.Frame.Number;
+        comparisons++;
+      });
+      // Bound the manual driver; an empty/broken recording cannot pass as a replay.
+      for (int step = 0; step < targetTick + 180; step++) {
+        token.ThrowIfCancellationRequested();
+        replay.Session.Update(1.0f / file.DeterministicConfig.UpdateFPS);
+        if (mismatch != null) throw new InvalidOperationException(mismatch);
+        if (replay.Game.Frames.Verified != null && replay.Game.Frames.Verified.Number >= targetTick) break;
+      }
+      if (replay.Game.Frames.Verified == null || replay.Game.Frames.Verified.Number < targetTick || comparisons < 10)
+        throw new InvalidOperationException("Replay failed to reach common verified ticks: " + comparisons);
+      TestContext.Progress.WriteLine("REPLAY " + suffix + ": " + comparisons + " matching verified checksums through " + targetTick);
+      if (snapshot == null || snapshotTick >= targetTick - 300)
+        throw new InvalidOperationException("No usable intermediate frame snapshot was captured.");
+      // The SDK's instant replay uses ResetReplay for backward seeking. Exercise the same
+      // Frame restoration path, then re-simulate recorded inputs instead of claiming network jitter.
+      restoring = true;
+      comparisons = 0;
+      replay.Session.ResetReplay(snapshot, snapshotTick);
+      if (replay.Game.Frames.Verified == null || replay.Game.Frames.Verified.Number >= targetTick)
+        throw new InvalidOperationException("Snapshot restore did not rewind the verified frame.");
+      for (int step = 0; step < targetTick - snapshotTick + 180; step++) {
+        token.ThrowIfCancellationRequested();
+        replay.Session.Update(1.0 / file.DeterministicConfig.UpdateFPS);
+        if (mismatch != null) throw new InvalidOperationException(mismatch);
+        if (replay.Game.Frames.Verified != null && replay.Game.Frames.Verified.Number >= targetTick) break;
+      }
+      if (replay.Game.Frames.Verified == null || replay.Game.Frames.Verified.Number < targetTick || comparisons < 10)
+        throw new InvalidOperationException("Restored frame resimulation was incomplete: " + comparisons);
+      TestContext.Progress.WriteLine("RESTORE " + suffix + ": rewound to " + snapshotTick + ", " + comparisons +
+        " matching verified checksums through " + targetTick);
+    } finally {
+      listener?.Dispose();
+      if (replay != null) await replay.ShutdownAsync();
+      (provider as IDisposable)?.Dispose();
+    }
   }
 
   private static unsafe int ReadSkill(LSDF_Player player, int slot) {

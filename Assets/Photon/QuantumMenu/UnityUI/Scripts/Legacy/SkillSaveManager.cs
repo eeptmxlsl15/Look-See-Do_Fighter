@@ -1,14 +1,6 @@
-using UnityEngine;
-
-public static class SkillSaveManager
-{
-    public static void SaveSkillSelection(int index, int skillIndex)
-    {
-        PlayerPrefs.SetInt($"SkillMap_{index}", skillIndex);
-    }
-
-    public static int LoadSkillSelection(int index)
-    {
-        return PlayerPrefs.GetInt($"SkillMap_{index}", 0);
-    }
+using Quantum.Menu;
+using Quantum.LSDF;
+public static class SkillSaveManager {
+  public static void SaveSkillSelection(int index, int skillIndex) { LSDFLocalLoadout.TrySet(index, skillIndex); }
+  public static int LoadSkillSelection(int index) { return LSDFLoadout.ReadSkill(LSDFLocalLoadout.Read(), index); }
 }

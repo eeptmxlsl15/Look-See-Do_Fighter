@@ -9,9 +9,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
 {
 
-
-    private const int HitFrame = 15; 
-
+    public Quantum.LSDF.LSDFSingleHitDefinition Hit = Quantum.LSDF.LSDFRemainingAttackDefaults.LawRightUpper();
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -23,9 +21,7 @@ public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
         player->isDashFront = false;
         player->isDashBack = false;
         player->canCounter = true;
-        //앉은 자세 여부
         player->isSit = false;
-
 
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
@@ -38,111 +34,28 @@ public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
 
         int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
 
-        //전진성과 방향성
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->FreezeRotation = true;
 
         if (!f.TryGet<PlayerLink>(entity, out var playerLink)) return;
 
-        //방향
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
 
-        //전진 속도
-        if (animationFrame < HitFrame)
+        if (animationFrame < Hit.StartupFrames)
         {
             body->Velocity.X = flip;
         }
 
-        //Debug.Log("잽 Execute");
-        //히트 박스 생성
-        if (animationFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
+        if (animationFrame == Hit.StartupFrames - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {
 
             EntityRef hitbox = f.Create();
 
-            //-------------------------------------------상단-----------------------------------------//
-            //FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25 + FP._0_05) * flip, FP._0_25);
+            Quantum.LSDF.LSDFHitboxFactory.ConfigureBody(f, hitbox, entity, flip, Hit);
 
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //위치
-            //    Position = hitboxPosition,
-            //    Rotation = FP._0
-            //});
+            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit);
 
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-
-            //    IsTrigger = true,
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_20 / 2, (FP._0_10 - FP._0_02) / 2))
-            //});
-
-            ////-------------------------------------------중단-----------------------------------------//
-            FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, 0);
-            f.Add(hitbox, new Transform2D
-            {
-                //Change
-                //위치
-                Position = hitboxPosition,
-                Rotation = FP._0
-            });
-
-            f.Add(hitbox, new PhysicsCollider2D
-            {
-                IsTrigger = true,
-                //Change
-                //박스 크기
-                Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_33 - FP._0_03) / 2))
-            });
-
-            //---------------------------------------하단---------------------------------------------//
-            //FPVector2 hitboxPosition=f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, -(FP._0_25 + FP._0_03));
-
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //위치
-            //    Position =hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-            //    IsTrigger = true,
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_10 - FP._0_02) / 2))
-            //});
-            //------------------------------------------------------------------------------------//
-
-            //공격 정보
-            f.Add(hitbox, new LSDF_HitboxInfo
-            {
-                position = hitboxPosition,
-                startFrame = HitFrame,
-                AttackerEntity = entity,
-                
-                AttackType = HitboxAttackType.Mid,
-                CountType = CountAttackType.Air,
-                DelayGuardTpye = DelayGuardType.Normal,
-                HomingReturnType = HomingType.Homing,
-
-                launcher = true,
-                notSitLauncher = true,
-                jumpAttack = false,
-                dodgeHigh = false,
-
-                enemyGuardTime = 13,
-                enemyHitTime = 28,
-                enemyCountTime = 28,
-                attackDamage = 12,
-            });
-
-
-
-            f.Add(hitbox, new TickToDestroy
-            {
-                TickToDestroyAt = f.Number + 1
-            });
+            Quantum.LSDF.LSDFHitboxFactory.ScheduleDestroy(f, hitbox);
 
             if (player->canCounter == true)
             {
@@ -151,7 +64,6 @@ public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
             Debug.Log($"어퍼 히트박스 생성된 프레임{f.Number}");
         }
     }
-
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {

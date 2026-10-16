@@ -12,7 +12,7 @@ public class StunWindowEvent : AnimatorTimeWindowEventAsset
     {
         
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         
         //player->isAttack = true;
         //player->isDashFront = false;
@@ -34,7 +34,7 @@ public class StunWindowEvent : AnimatorTimeWindowEventAsset
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 
         //공격 시 전진 상태가 끝나기 전에 판정 나와서 
-        f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body);
+        if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->Velocity.X = 0;
     }
 
@@ -61,7 +61,7 @@ public class StunWindowEvent : AnimatorTimeWindowEventAsset
         //}
         //Debug.Log($"앉기 여부 : {player->isSit}");
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body);
+        if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->Velocity.X = 0;
 
     }
@@ -69,7 +69,7 @@ public class StunWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         AnimatorComponent.SetBoolean(f, animatorComponent, "MoveFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "MoveBack", false);

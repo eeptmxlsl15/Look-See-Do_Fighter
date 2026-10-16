@@ -1,0 +1,682 @@
+{
+  "date": "2026-10-16",
+  "baseCommit": "ffcc356698ded5af353a17609aefaf5bb615c1bd",
+  "unity": "6000.3.26f1",
+  "quantum": "3.0.14.2241",
+  "jobId": "aa91be00a0b94e6c807fabe22e4da38f",
+  "summary": {
+    "total": 106,
+    "passed": 104,
+    "failed": 2,
+    "skipped": 0,
+    "durationSeconds": 36.2556697,
+    "resultState": "Failed(Child)"
+  },
+  "compile": {
+    "status": "PASS",
+    "errors": 0,
+    "warnings": 8
+  },
+  "quantumGuard": {
+    "status": "PASS",
+    "filesScanned": 89,
+    "existingFindings": 0,
+    "newFindings": 0
+  },
+  "results": [
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(0,0)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(0,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0131578
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+      "state": "Passed",
+      "durationSeconds": 0.0000787
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+      "state": "Passed",
+      "durationSeconds": 0.0000409
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+      "state": "Passed",
+      "durationSeconds": 0.0000319
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+      "state": "Passed",
+      "durationSeconds": 0.0000276
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+      "state": "Passed",
+      "durationSeconds": 0.0000376
+    },
+    {
+      "name": "ComboReservationBelongsToEachPlayerValue",
+      "fullName": "LSDFDeterministicContractTests.ComboReservationBelongsToEachPlayerValue",
+      "state": "Passed",
+      "durationSeconds": 0.0006394
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(0,0)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(0,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0004135
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(7,8)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(7,8)",
+      "state": "Passed",
+      "durationSeconds": 0.0000463
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(10,12)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(10,12)",
+      "state": "Passed",
+      "durationSeconds": 0.0000331
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(19,22)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(19,22)",
+      "state": "Passed",
+      "durationSeconds": 0.0000283
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(170,204)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(170,204)",
+      "state": "Passed",
+      "durationSeconds": 0.0000305
+    },
+    {
+      "name": "InvalidIdsFallbackAndPayloadDoesNotAlias",
+      "fullName": "LSDFDeterministicContractTests.InvalidIdsFallbackAndPayloadDoesNotAlias",
+      "state": "Passed",
+      "durationSeconds": 0.000344
+    },
+    {
+      "name": "MalformedPayloadUsesDefaultLoadout(0)",
+      "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0011297
+    },
+    {
+      "name": "MalformedPayloadUsesDefaultLoadout(27)",
+      "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(27)",
+      "state": "Passed",
+      "durationSeconds": 0.0001045
+    },
+    {
+      "name": "MalformedPayloadUsesDefaultLoadout(29)",
+      "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(29)",
+      "state": "Passed",
+      "durationSeconds": 0.0000918
+    },
+    {
+      "name": "NullPayloadAndInvalidSlotsAreSafe",
+      "fullName": "LSDFDeterministicContractTests.NullPayloadAndInvalidSlotsAreSafe",
+      "state": "Passed",
+      "durationSeconds": 0.0002536
+    },
+    {
+      "name": "RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+      "fullName": "LSDFDeterministicContractTests.RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+      "state": "Passed",
+      "durationSeconds": 0.0005844
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0106495
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0007767
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0006071
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+      "state": "Passed",
+      "durationSeconds": 0.0007034
+    },
+    {
+      "name": "TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+      "fullName": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+      "state": "Passed",
+      "durationSeconds": 48.1024854,
+      "outputOmitted": true
+    },
+    {
+      "name": "CounterBypassesComboScalingAndDoesNotTouchOtherPlayers",
+      "fullName": "LSDFPlayerHealthTests.CounterBypassesComboScalingAndDoesNotTouchOtherPlayers",
+      "state": "Passed",
+      "durationSeconds": 0.0077385
+    },
+    {
+      "name": "HitKeepsNegativeHpUntilTheExistingUpdatePoint",
+      "fullName": "LSDFPlayerHealthTests.HitKeepsNegativeHpUntilTheExistingUpdatePoint",
+      "state": "Passed",
+      "durationSeconds": 0.0003506
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(7,0,7)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,0,7)",
+      "state": "Passed",
+      "durationSeconds": 0.0005414
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(7,1,0)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,1,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0000652
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(7,2,5)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,2,5)",
+      "state": "Passed",
+      "durationSeconds": 0.0000838
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(7,3,0)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,3,0)",
+      "state": "Passed",
+      "durationSeconds": 0.000295
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(7,4,3)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,4,3)",
+      "state": "Passed",
+      "durationSeconds": 0.0001215
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(7,5,2)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,5,2)",
+      "state": "Passed",
+      "durationSeconds": 0.000064
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(3,5,0)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(3,5,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0001148
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(6,5,1)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(6,5,1)",
+      "state": "Passed",
+      "durationSeconds": 0.000097
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(12,6,3)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(12,6,3)",
+      "state": "Passed",
+      "durationSeconds": 0.00005
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(15,7,4)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(15,7,4)",
+      "state": "Passed",
+      "durationSeconds": 0.0000338
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(17,2,12)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(17,2,12)",
+      "state": "Passed",
+      "durationSeconds": 0.0000374
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(17,4,8)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(17,4,8)",
+      "state": "Passed",
+      "durationSeconds": 0.0000471
+    },
+    {
+      "name": "NormalDamageKeepsLegacyComboBoundaries(7,-1,0)",
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,-1,0)",
+      "state": "Passed",
+      "durationSeconds": 0.000033
+    },
+    {
+      "name": "RecoveryKeepsClampOrderAndHealingCompletion(-5,False,0,False)",
+      "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(-5,False,0,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0019332
+    },
+    {
+      "name": "RecoveryKeepsClampOrderAndHealingCompletion(-5,True,2,True)",
+      "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(-5,True,2,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000702
+    },
+    {
+      "name": "RecoveryKeepsClampOrderAndHealingCompletion(167,True,169,True)",
+      "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(167,True,169,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000481
+    },
+    {
+      "name": "RecoveryKeepsClampOrderAndHealingCompletion(168,True,170,False)",
+      "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(168,True,170,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000434
+    },
+    {
+      "name": "RecoveryKeepsClampOrderAndHealingCompletion(169,True,170,False)",
+      "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(169,True,170,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000404
+    },
+    {
+      "name": "RecoveryKeepsClampOrderAndHealingCompletion(170,True,170,False)",
+      "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(170,True,170,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000408
+    },
+    {
+      "name": "RecoveryKeepsClampOrderAndHealingCompletion(175,True,170,False)",
+      "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(175,True,170,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000549
+    },
+    {
+      "name": "RecoveryKeepsClampOrderAndHealingCompletion(175,False,175,False)",
+      "fullName": "LSDFPlayerHealthTests.RecoveryKeepsClampOrderAndHealingCompletion(175,False,175,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000438
+    },
+    {
+      "name": "LegacyContract_HatchetWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_HatchetWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0041918
+    },
+    {
+      "name": "LegacyContract_JetVallyWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_JetVallyWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0008487
+    },
+    {
+      "name": "LegacyContract_KazuyaStandLkWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_KazuyaStandLkWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0007936
+    },
+    {
+      "name": "LegacyContract_PlazmaKickWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_PlazmaKickWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0010506
+    },
+    {
+      "name": "LegacyContract_SlideLowKickWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_SlideLowKickWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0008123
+    },
+    {
+      "name": "LegacyContract_SweepKickWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_SweepKickWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0008779
+    },
+    {
+      "name": "LegacyContract_ChoppingWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_ChoppingWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0006805
+    },
+    {
+      "name": "LegacyContract_ClaHomingWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_ClaHomingWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0006446
+    },
+    {
+      "name": "LegacyContract_MachineGunWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_MachineGunWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.000696
+    },
+    {
+      "name": "LegacyContract_NewMahaWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_NewMahaWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0006357
+    },
+    {
+      "name": "LegacyContract_QuickHookWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_QuickHookWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0006935
+    },
+    {
+      "name": "LegacyContract_SitPunchWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_SitPunchWindowEvent",
+      "state": "Failed",
+      "durationSeconds": 0.0063039,
+      "message": "  Expected string length 19 but was 13. Strings differ at index 8.\r\n  Expected: \"SitPunchWindowEvent\"\r\n  But was:  \"SitPunchEvent\"\r\n  -------------------^\r\n",
+      "stackTrace": "at LSDFRemainingAttackTests.SerializedAttackPreservesCapturedCombatContract (LSDFRemainingAttackTests+Contract expected) [0x00012] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFRemainingAttackTests.cs:32\r\n"
+    },
+    {
+      "name": "LegacyContract_SledgeWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_SledgeWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0010092
+    },
+    {
+      "name": "LegacyContract_Bry2RkWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_Bry2RkWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0009353
+    },
+    {
+      "name": "LegacyContract_CounterHighKickWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_CounterHighKickWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0008171
+    },
+    {
+      "name": "LegacyContract_DraOriKickWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_DraOriKickWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0008896
+    },
+    {
+      "name": "LegacyContract_LarsSnakeWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_LarsSnakeWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0009286
+    },
+    {
+      "name": "LegacyContract_RightJongKickWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_RightJongKickWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0009135
+    },
+    {
+      "name": "LegacyContract_ShaheenCutKickWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_ShaheenCutKickWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0008607
+    },
+    {
+      "name": "LegacyContract_SuperFlyingKickWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_SuperFlyingKickWindowEvent",
+      "state": "Failed",
+      "durationSeconds": 0.0010012,
+      "message": "  Expected string length 26 but was 23. Strings differ at index 8.\r\n  Expected: \"SuperFlyingKickWindowEvent\"\r\n  But was:  \"SuperFlyKickWindowEvent\"\r\n  -------------------^\r\n",
+      "stackTrace": "at LSDFRemainingAttackTests.SerializedAttackPreservesCapturedCombatContract (LSDFRemainingAttackTests+Contract expected) [0x00012] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFRemainingAttackTests.cs:32\r\n"
+    },
+    {
+      "name": "LegacyContract_AssultWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_AssultWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0009873
+    },
+    {
+      "name": "LegacyContract_BraHomingWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_BraHomingWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.001081
+    },
+    {
+      "name": "LegacyContract_DeathFistWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_DeathFistWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0009125
+    },
+    {
+      "name": "LegacyContract_DraRightUpperWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_DraRightUpperWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0007558
+    },
+    {
+      "name": "LegacyContract_Gigas1RpWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_Gigas1RpWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0008129
+    },
+    {
+      "name": "LegacyContract_KazumiHomingWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_KazumiHomingWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0007024
+    },
+    {
+      "name": "LegacyContract_LawRightUpperWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_LawRightUpperWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0007878
+    },
+    {
+      "name": "LegacyContract_SharpnerWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_SharpnerWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0009633
+    },
+    {
+      "name": "LegacyContract_SteveJumpUpperWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_SteveJumpUpperWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0007178
+    },
+    {
+      "name": "LegacyContract_WindFistWindowEvent",
+      "fullName": "LSDFRemainingAttackTests.LegacyContract_WindFistWindowEvent",
+      "state": "Passed",
+      "durationSeconds": 0.0006593
+    },
+    {
+      "name": "FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+      "fullName": "LSDFSingleHitTests.FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+      "state": "Passed",
+      "durationSeconds": 0.0006737
+    },
+    {
+      "name": "SerializedLeftUpperPreservesOriginalDefinition",
+      "fullName": "LSDFSingleHitTests.SerializedLeftUpperPreservesOriginalDefinition",
+      "state": "Passed",
+      "durationSeconds": 0.0014705
+    },
+    {
+      "name": "SpawnTickPreservesPhysicsLead(11,False)",
+      "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(11,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0003698
+    },
+    {
+      "name": "SpawnTickPreservesPhysicsLead(12,True)",
+      "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(12,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000435
+    },
+    {
+      "name": "SpawnTickPreservesPhysicsLead(13,False)",
+      "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(13,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000371
+    },
+    {
+      "name": "ArrowInputDoesNotSetTheOppositeDirection(UpArrow,True,False)",
+      "fullName": "LSDFStructuralTests.ArrowInputDoesNotSetTheOppositeDirection(UpArrow,True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0009108
+    },
+    {
+      "name": "ArrowInputDoesNotSetTheOppositeDirection(DownArrow,False,True)",
+      "fullName": "LSDFStructuralTests.ArrowInputDoesNotSetTheOppositeDirection(DownArrow,False,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0001807
+    },
+    {
+      "name": "BudgetValidationIsAtomicAndDetached",
+      "fullName": "LSDFStructuralTests.BudgetValidationIsAtomicAndDetached",
+      "state": "Passed",
+      "durationSeconds": 0.0018217
+    },
+    {
+      "name": "ContactPriorityPreservesDodgeWallCounterAndStun",
+      "fullName": "LSDFStructuralTests.ContactPriorityPreservesDodgeWallCounterAndStun",
+      "state": "Passed",
+      "durationSeconds": 0.0005919
+    },
+    {
+      "name": "ExistingBalanceAssetIsWiredAndKeepsDefaults",
+      "fullName": "LSDFStructuralTests.ExistingBalanceAssetIsWiredAndKeepsDefaults",
+      "state": "Passed",
+      "durationSeconds": 0.0025961
+    },
+    {
+      "name": "GameplaySceneHasExplicitUpdaterBindings",
+      "fullName": "LSDFStructuralTests.GameplaySceneHasExplicitUpdaterBindings",
+      "state": "Passed",
+      "durationSeconds": 0.1633862
+    },
+    {
+      "name": "GuardMatrixKeepsLegacyRules(High,\"Idle\",False,True)",
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(High,\"Idle\",False,True)",
+      "state": "Passed",
+      "durationSeconds": 0.000356
+    },
+    {
+      "name": "GuardMatrixKeepsLegacyRules(Mid,\"Rising\",False,True)",
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(Mid,\"Rising\",False,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0002212
+    },
+    {
+      "name": "GuardMatrixKeepsLegacyRules(Low,\"Idle\",False,False)",
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(Low,\"Idle\",False,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0001885
+    },
+    {
+      "name": "GuardMatrixKeepsLegacyRules(Low,\"Idle\",True,True)",
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(Low,\"Idle\",True,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0001411
+    },
+    {
+      "name": "GuardMatrixKeepsLegacyRules(High,\"Siting\",True,False)",
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(High,\"Siting\",True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0001532
+    },
+    {
+      "name": "KoRecoveryCountsOnceAndHandlesNegativeHp(0)",
+      "fullName": "LSDFStructuralTests.KoRecoveryCountsOnceAndHandlesNegativeHp(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0006939
+    },
+    {
+      "name": "KoRecoveryCountsOnceAndHandlesNegativeHp(-10)",
+      "fullName": "LSDFStructuralTests.KoRecoveryCountsOnceAndHandlesNegativeHp(-10)",
+      "state": "Passed",
+      "durationSeconds": 0.0001282
+    },
+    {
+      "name": "PredictedEffectsConfirmCancelAndReuseIndependently",
+      "fullName": "LSDFStructuralTests.PredictedEffectsConfirmCancelAndReuseIndependently",
+      "state": "Passed",
+      "durationSeconds": 0.0038488
+    },
+    {
+      "name": "SlotMappingHasOneSchema(0,0,0)",
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(0,0,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0003603
+    },
+    {
+      "name": "SlotMappingHasOneSchema(4,3,19)",
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(4,3,19)",
+      "state": "Passed",
+      "durationSeconds": 0.0001173
+    },
+    {
+      "name": "SlotMappingHasOneSchema(6,3,27)",
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(6,3,27)",
+      "state": "Passed",
+      "durationSeconds": 0.0001012
+    },
+    {
+      "name": "SlotMappingHasOneSchema(-1,0,-1)",
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(-1,0,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0001112
+    },
+    {
+      "name": "SlotMappingHasOneSchema(7,0,-1)",
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(7,0,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000868
+    },
+    {
+      "name": "SlotMappingHasOneSchema(0,4,-1)",
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(0,4,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000829
+    },
+    {
+      "name": "RequiredQuantumLookupTablesAreConfigured",
+      "fullName": "LSDFTimedHitTests.RequiredQuantumLookupTablesAreConfigured",
+      "state": "Passed",
+      "durationSeconds": 0.0056606
+    },
+    {
+      "name": "SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+      "state": "Passed",
+      "durationSeconds": 0.0026406
+    },
+    {
+      "name": "SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+      "state": "Passed",
+      "durationSeconds": 0.0001487
+    },
+    {
+      "name": "SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0004781
+    },
+    {
+      "name": "SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0001123
+    }
+  ],
+  "diffCheck": {
+    "findings": 4,
+    "path": "Assets/Scenes/LSDFGameplay.unity",
+    "rule": "trailing whitespace on newly serialized empty YAML fields",
+    "fix": "Removed only the four trailing spaces; not rechecked under the one-pass policy."
+  },
+  "interpretation": {
+    "online": "Passed: actual Photon clients, recorded-input replays and SDK ResetReplay frame restoration/resimulation assertions. This does not assert induced network jitter, actual reconnect, standalone or cross-platform behavior.",
+    "rawOutput": "Verbose per-frame Debug.Log output is omitted; result states, durations, failure messages and stacks come directly from unityMCP get_test_job.",
+    "fix": "Two fixture type strings corrected against original HEAD source declarations; game type names and assertions unchanged.",
+    "afterFix": "NOT RUN; no automatic retry",
+    "publication": "NOT RUN; no staging, commit, push or PR after failed required tests"
+  }
+}

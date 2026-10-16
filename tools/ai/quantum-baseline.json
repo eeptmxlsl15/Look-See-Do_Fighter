@@ -1,12 +1,6 @@
 {
   "schema": 1,
   "scope": "Assets/QuantumUser/Simulation",
-  "note": "2026-10-16 P0 migration: removed 151 retired findings; 5 unrelated legacy findings remain. Not determinism proof.",
-  "entries": {
-    "Q004-unity-behaviour|Assets/QuantumUser/Simulation/LSDF_AnimatorView.cs|bd3dd729ab620004e5b1": 1,
-    "Q004-unity-behaviour|Assets/QuantumUser/Simulation/LSDF_DashSystem.cs|dcae32657a8463cdde46": 1,
-    "Q004-unity-behaviour|Assets/QuantumUser/Simulation/LSDF_GameUI.cs|d76cd08f7a11163ece56": 1,
-    "Q004-unity-behaviour|Assets/QuantumUser/Simulation/LSDF_TimerSystem.cs|375d295e3e2cdfef1a43": 1,
-    "Q006-known-shared-state|Assets/QuantumUser/Simulation/LSDF_IngameSystem.cs|c21960d9f11546eef985": 1
-  }
+  "note": "2026-10-16 remaining refactor: all five retired legacy findings removed; no allowances added.",
+  "entries": {}
 }

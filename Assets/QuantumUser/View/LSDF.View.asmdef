@@ -1,0 +1,6 @@
+{
+  "name": "LSDF.View",
+  "references": ["Quantum.Simulation", "Quantum.Unity", "Unity.TextMeshPro", "UnityEngine.UI"],
+  "allowUnsafeCode": true,
+  "autoReferenced": true
+}

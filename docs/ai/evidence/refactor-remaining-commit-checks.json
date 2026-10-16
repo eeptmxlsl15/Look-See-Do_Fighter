@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-16",
+  "branch": "dev/Prototype",
+  "requestScope": "Rerun exactly two failed tests once; commit locally if passing. No push or PR.",
+  "preflight": {
+    "status": "NO_KNOWN_FINDINGS",
+    "head": "ffcc356698ded5af353a17609aefaf5bb615c1bd",
+    "base": "ffcc356698ded5af353a17609aefaf5bb615c1bd",
+    "commits_inspected": 0,
+    "staged_files": 158,
+    "blobs_inspected": 158,
+    "findings": [],
+    "limitation": "Heuristic candidate scan only; not test success or publication approval."
+  },
+  "testEvidence": "refactor-remaining-retry.json",
+  "previousEvidence": "refactor-remaining-validation.json",
+  "diffReview": {
+    "initialWarnings": 3,
+    "path": "Assets/QuantumUser/View/LSDF.View.asmdef.meta",
+    "cause": "Unity auto-expanded empty importer fields with trailing spaces",
+    "resolution": "Removed only trailing spaces on userData, assetBundleName and assetBundleVariant; reviewed patch preserves GUID/importer/empty values. No repeated diff command or game tests."
+  },
+  "scopeReview": {
+    "sdkCore": false,
+    "generated": false,
+    "qtn": false,
+    "systemOrder": false,
+    "ideFiles": "Excluded and preserved",
+    "movedScripts": "Paired metas preserve existing GUIDs",
+    "secrets": "No known patterns in 158 candidate blobs; heuristic scan is not an absence guarantee."
+  },
+  "evidenceAdditions": "This file and the final documentation/whitespace changes were reviewed separately after the recorded scan; the scan is not claimed to include those later blobs.",
+  "commitMessage": "Finish Quantum fighter refactoring and presentation boundaries"
+}

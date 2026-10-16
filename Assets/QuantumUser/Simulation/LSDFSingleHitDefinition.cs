@@ -20,6 +20,9 @@ namespace Quantum.LSDF {
     public bool JumpAttack;
     public bool DodgeHigh;
     public bool Launcher;
+    public bool WallLauncher;
+    public bool NotSitLauncher;
+    public GuaranteeType GuaranteeReaction;
 
     public static LSDFSingleHitDefinition CreateJap() {
       return CreateHighPunch(10, 7, 21, 28, 28);
@@ -107,8 +110,10 @@ namespace Quantum.LSDF {
         forceBack = ForceBack,
         jumpAttack = JumpAttack,
         dodgeHigh = DodgeHigh,
-        launcher = Launcher
-        // Wall/not-sit flags and GuaranteeType.Normal retain their zero defaults.
+        launcher = Launcher,
+        wallLauncher = WallLauncher,
+        notSitLauncher = NotSitLauncher,
+        GuaranteeAttackType = GuaranteeReaction
       };
     }
   }

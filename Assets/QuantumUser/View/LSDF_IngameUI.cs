@@ -1,184 +1,68 @@
-using Quantum;
 using System.Collections;
-using System.Linq;
+using Quantum;
+using Quantum.LSDF;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class LSDF_IngameUI : QuantumEntityViewComponent
-{
-    private Image LeftHpGage;
-    private Image RightHpGage;
-    public TMP_Text TimerText;
-
-    public EntityRef myPlayerEntity;
-    public EntityRef opponentEntity;
-
-    public Image[] LeftRoundWins = new Image[3];
-    public Image[] RightRoundWins = new Image[3];
-
-    public GameObject RoundMessageRoot;
-    public TMP_Text RoundText;
-    public TMP_Text FightText;
-
-    
-
-    private bool initialized = false;
-    private bool isRoundIntroPlaying = false;
-    private bool hasShownThisRound = false;
-
-
-    public override void OnActivate(Frame frame)
-    {
-        base.OnActivate(frame);
-
-        var myRef = QuantumRunner.Default.Game.GetLocalPlayers().FirstOrDefault();
-        string canvasName = (myRef == (PlayerRef)0) ? "Player1 Canvas" : "Player2 Canvas";
-
-        var canvas = GameObject.Find(canvasName);
-        if (canvas == null)
-        {
-            Debug.LogError($"[{name}] Canvas '{canvasName}'를 찾을 수 없습니다.");
-            return;
-        }
-
-        // 체력 게이지
-        LeftHpGage = canvas.transform.Find("Player1 UI/Left Current Health")?.GetComponent<Image>();
-        RightHpGage = canvas.transform.Find("Player2 UI/Right Current Health")?.GetComponent<Image>();
-
-        // 타이머 텍스트
-        TimerText = canvas.transform.Find("Time")?.GetComponent<TextMeshProUGUI>();
-
-        // 라운드 승 UI 바인딩
-        for (int i = 0; i < 3; i++)
-        {
-            string roundName = $"{i + 1}Round/Win";
-
-            LeftRoundWins[i] = canvas.transform.Find($"Player1 UI/Round/{roundName}")?.GetComponent<Image>();
-            if (LeftRoundWins[i] != null)
-                LeftRoundWins[i].gameObject.SetActive(false);
-
-            RightRoundWins[i] = canvas.transform.Find($"Player2 UI/Round/{roundName}")?.GetComponent<Image>();
-            if (RightRoundWins[i] != null)
-                RightRoundWins[i].gameObject.SetActive(false);
-        }
-
-        // 라운드 텍스트 UI
-        RoundMessageRoot = canvas.transform.Find("Round Text")?.gameObject;
-        RoundText = RoundMessageRoot?.transform.Find("Round")?.GetComponent<TMP_Text>();
-        FightText = RoundMessageRoot?.transform.Find("Fight")?.GetComponent<TMP_Text>();
-        RoundMessageRoot?.SetActive(false);
-
-        // 필수 요소 바인딩 체크
-        if (LeftHpGage == null || RightHpGage == null)
-            Debug.LogError("HP 게이지를 찾을 수 없습니다.");
-        if (TimerText == null)
-            Debug.LogError("TimerText를 찾을 수 없습니다.");
-        if (RoundText == null || FightText == null)
-            Debug.LogError("RoundText 또는 FightText를 찾을 수 없습니다.");
+public class LSDF_IngameUI : QuantumEntityViewComponent {
+  public TMP_Text TimerText;
+  public EntityRef myPlayerEntity, opponentEntity;
+  public Image[] LeftRoundWins = new Image[3], RightRoundWins = new Image[3];
+  public GameObject RoundMessageRoot;
+  public TMP_Text RoundText, FightText;
+  private LSDFSceneBindings _bindings;
+  private LSDFSceneBindings.Hud _hud;
+  private int _lastPresentedRound;
+  private bool _introPlaying;
+  public override void OnActivate(Frame frame) {
+    OnDeactivate();
+    _bindings = LSDFSceneBindings.For(EntityView);
+  }
+  public override void OnUpdateView() {
+    if (_bindings == null || !_bindings.Accept(Game) || !_bindings.ClaimHud(this) || !LSDFSceneBindings.TryLocal(Game, out var local)) return;
+    var frame = PredictedFrame;
+    if (frame == null || !LSDFRoster.TryFind(frame, local, out myPlayerEntity) ||
+        !LSDFRoster.TryFind(frame, local == (PlayerRef)0 ? (PlayerRef)1 : (PlayerRef)0, out opponentEntity)) return;
+    if (!frame.TryGet<LSDF_Player>(myPlayerEntity, out var mine) || !frame.TryGet<LSDF_Player>(opponentEntity, out var other)) return;
+    _hud = _bindings.LocalHud(local);
+    if (_hud == null) return;
+    TimerText = _hud.Timer; RoundMessageRoot = _hud.RoundRoot; RoundText = _hud.Round; FightText = _hud.Fight;
+    LeftRoundWins = _hud.LeftWins; RightRoundWins = _hud.RightWins;
+    int maximum = LSDFBalance.MaximumHealth(frame);
+    if (_hud.LeftHealth != null) _hud.LeftHealth.fillAmount = Mathf.Clamp01((float)mine.playerHp / maximum);
+    if (_hud.RightHealth != null) _hud.RightHealth.fillAmount = Mathf.Clamp01((float)other.playerHp / maximum);
+    var confirmed = VerifiedFrame;
+    if (confirmed == null || !confirmed.TryGet<LSDF_Player>(myPlayerEntity, out mine) || !confirmed.TryGet<LSDF_Player>(opponentEntity, out other)) return;
+    SetWins(LeftRoundWins, other.loseRound); SetWins(RightRoundWins, mine.loseRound);
+    int round = mine.loseRound + other.loseRound + 1;
+    if ((mine.isHealing || other.isHealing) && round != _lastPresentedRound) { _lastPresentedRound = round; ShowRoundIntro(round); }
+  }
+  private static void SetWins(Image[] images, int wins) {
+    if (images == null) return;
+    for (int i = 0; i < images.Length; i++) if (images[i] != null) images[i].gameObject.SetActive(i < wins);
+  }
+  public void ShowRoundIntro(int roundNumber) {
+    if (_introPlaying || RoundMessageRoot == null || RoundText == null || FightText == null) return;
+    StartCoroutine(PlayIntro(roundNumber));
+  }
+  private IEnumerator PlayIntro(int round) {
+    _introPlaying = true; RoundMessageRoot.SetActive(true);
+    RoundText.text = $"Round {round}"; RoundText.gameObject.SetActive(true); FightText.gameObject.SetActive(false);
+    yield return new WaitForSeconds(1.5f);
+    RoundText.gameObject.SetActive(false); FightText.gameObject.SetActive(true);
+    yield return new WaitForSeconds(1);
+    RoundMessageRoot.SetActive(false); _introPlaying = false;
+  }
+  public override void OnDeactivate() {
+    StopAllCoroutines();
+    if (_bindings != null) {
+      if (_bindings.OwnsHud(this) && RoundMessageRoot != null) RoundMessageRoot.SetActive(false);
+      _bindings.Release(this);
     }
-
-    public override void OnUpdateView()
-    {
-        var game = QuantumRunner.Default.Game;
-        var frame = game.Frames?.Predicted;
-        if (frame == null) return;
-
-        PlayerRef myRef = game.GetLocalPlayers().FirstOrDefault();
-
-        //타이머
-        //var roundTime = frame.GetSingleton<LSDF_Timer>();
-        //Debug.Log("타이머 : " + roundTime.currentTime);
-        //TimerText.text = roundTime.currentTime.ToString();
-        
-        if (!initialized)
-        {
-            foreach (var pair in frame.GetComponentIterator<PlayerLink>())
-            {
-                var entity = pair.Entity;
-                var link = frame.Get<PlayerLink>(entity);
-
-                if (link.PlayerRef == myRef)
-                    myPlayerEntity = entity;
-                else
-                    opponentEntity = entity;
-            }
-            initialized = myPlayerEntity.IsValid && opponentEntity.IsValid;
-        }
-
-        if (frame.TryGet<LSDF_Player>(myPlayerEntity, out var myPlayer))
-        {
-            float ratio = myPlayer.playerHp / 170f;
-            LeftHpGage.fillAmount = ratio;
-
-            for (int i = 0; i < 3; i++)
-            {
-                if (i < myPlayer.loseRound)
-                    RightRoundWins[i]?.gameObject.SetActive(true);
-            }
-        }
-
-        if (frame.TryGet<LSDF_Player>(opponentEntity, out var oppPlayer))
-        {
-            float ratio = oppPlayer.playerHp / 170f;
-            RightHpGage.fillAmount = ratio;
-
-            for (int i = 0; i < 3; i++)
-            {
-                if (i < oppPlayer.loseRound)
-                    LeftRoundWins[i]?.gameObject.SetActive(true);
-            }
-        }
-
-        
-
-        
-        
-
-        if ((myPlayer.isHealing ==true || oppPlayer.isHealing == true )&& !hasShownThisRound)
-        {
-            Debug.Log("라운드 0");
-            
-            ShowRoundIntro(myPlayer.loseRound + oppPlayer.loseRound+1);
-            hasShownThisRound = true;
-        }
-
-        if (!myPlayer.isHealing && !oppPlayer.isHealing)
-        {
-            hasShownThisRound = false;
-        }
-
-    }
-
-    
-        
-    
-
-    public void ShowRoundIntro(int roundNumber)
-    {
-        Debug.Log("라운드 1");
-        if (isRoundIntroPlaying) return;
-        Debug.Log("라운드 2");
-
-        StartCoroutine(PlayRoundIntroCoroutine(roundNumber));
-    }
-
-    private IEnumerator PlayRoundIntroCoroutine(int roundNumber)
-    {
-        Debug.Log("라운드 3");
-        isRoundIntroPlaying = true;
-        RoundMessageRoot.SetActive(true);
-
-        RoundText.text = $"Round {roundNumber}";
-        RoundText.gameObject.SetActive(true);
-        FightText.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1.5f);
-
-        RoundText.gameObject.SetActive(false);
-        FightText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(1.0f);
-
-        RoundMessageRoot.SetActive(false);
-        isRoundIntroPlaying = false;
-    }
+    _bindings = null; _hud = null; _lastPresentedRound = 0; _introPlaying = false;
+    myPlayerEntity = default; opponentEntity = default;
+  }
+  public override void OnGameChanged() { OnDeactivate(); if (PredictedFrame != null) OnActivate(PredictedFrame); }
+  private void OnEnable() { if (IsActive && PredictedFrame != null) OnActivate(PredictedFrame); }
+  private void OnDisable() { OnDeactivate(); }
 }

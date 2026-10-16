@@ -5,6 +5,9 @@ namespace Quantum.Menu {
   partial class QuantumMenuConnectionBehaviour {
     // Project-specific seam, called before connecting. No Simulation code reads local storage.
     protected static void PrepareLSDFPlayers(QuantumMenuConnectArgs args) {
+      args.MaxPlayerCount = 2;
+      var rules = args.RuntimeConfig != null && args.RuntimeConfig.GameConfig.Id.IsValid
+        ? QuantumUnityDB.GetGlobalAsset<LSDF_GameConfig>(args.RuntimeConfig.GameConfig) : LSDFLocalLoadout.Rules;
       if (args.RuntimePlayers == null) args.RuntimePlayers = new RuntimePlayer[0];
       var players = new RuntimePlayer[args.RuntimePlayers.Length];
       for (int index = 0; index < players.Length; ++index) {
@@ -12,13 +15,10 @@ namespace Quantum.Menu {
         var copy = original == null ? new RuntimePlayer() :
           JsonUtility.FromJson<RuntimePlayer>(JsonUtility.ToJson(original));
         if (index == 0 && !args.Reconnecting) {
-          var skills = new int[LSDFLoadout.SlotCount];
-          for (int slot = 0; slot < skills.Length; ++slot)
-            skills[slot] = PlayerPrefs.GetInt($"Skill_{slot}", 0);
-          copy.CommandSkills = LSDFLoadout.CopyValidated(skills);
+          copy.CommandSkills = LSDFLocalLoadout.Read(rules);
         } else {
           // Additional local players must supply their own payload; do not copy player zero.
-          copy.CommandSkills = LSDFLoadout.CopyValidated(copy.CommandSkills);
+          copy.CommandSkills = LSDFLoadout.CopyBudgetValidated(copy.CommandSkills, rules);
         }
         players[index] = copy;
       }

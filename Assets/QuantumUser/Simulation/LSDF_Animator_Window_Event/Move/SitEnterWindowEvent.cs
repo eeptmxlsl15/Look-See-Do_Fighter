@@ -10,7 +10,7 @@ public class SitEnterWindowEvent : AnimatorTimeWindowEventAsset
     {
         Debug.Log("¾É±â ½ÃÀÛ");
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         player->isDashFront = false;
         player->isDashBack = false;
 

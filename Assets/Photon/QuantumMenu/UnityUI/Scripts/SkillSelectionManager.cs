@@ -1,153 +1,62 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using Quantum.LSDF;
+using Quantum.Menu;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
-public class SkillSelectionManager : MonoBehaviour
-{
-    public int MaxCost = 140;
-    public Color selectedColor = Color.green;
-    public Color defaultColor = Color.white;
-
-    public TextMeshProUGUI costText;
-
-    private Dictionary<(CommandDirection, CommandButton), List<SkillButton>> buttonMap = new();
-    private Dictionary<(CommandDirection, CommandButton), SkillButton> selectedButtons = new();
-    private int currentCost = 0;
-
-    void Start()
-    {
-        //레지스트리 초기화
-        //ResetRegistry();
-
-        var allSkillButtons = GetComponentsInChildren<SkillButton>(true);
-
-        foreach (var sb in allSkillButtons)
-        {
-            var key = (sb.Direction, sb.ButtonType);
-
-            if (!buttonMap.ContainsKey(key))
-                buttonMap[key] = new List<SkillButton>();
-
-            buttonMap[key].Add(sb);
-            sb.UIButton.onClick.AddListener(() => OnSkillButtonClicked(sb));
-        }
-
-
-        InitializeSkillsIfFirstPlay();
-
-        LoadSelectionsFromPrefs();
-        UpdateCostText();
+public class SkillSelectionManager : MonoBehaviour {
+  public int MaxCost = 140;
+  public Color selectedColor = Color.green;
+  public Color defaultColor = Color.white;
+  public TextMeshProUGUI costText;
+  private LSDFLoadoutSelection _selection;
+  private int _maximum;
+  private readonly Dictionary<SkillButton, UnityAction> _listeners = new Dictionary<SkillButton, UnityAction>();
+  private void OnEnable() {
+    var rules = LSDFLocalLoadout.Rules;
+    _maximum = rules != null && rules.MaximumLoadoutCost >= 0 ? rules.MaximumLoadoutCost : MaxCost;
+    _selection = new LSDFLoadoutSelection(LSDFLocalLoadout.Read(rules), rules, _maximum);
+    foreach (var button in GetComponentsInChildren<SkillButton>(true)) {
+      button.UIButton = button.GetComponent<Button>();
+      if (button.UIButton == null) continue;
+      var captured = button;
+      UnityAction action = () => Select(captured);
+      _listeners.Add(button, action);
+      button.UIButton.onClick.AddListener(action);
     }
-
-    public void ResetRegistry()
-    {
-        PlayerPrefs.DeleteAll(); // 모든 PlayerPrefs 삭제
-        PlayerPrefs.Save();
+    Refresh();
+  }
+  private void OnDisable() {
+    foreach (var pair in _listeners)
+      if (pair.Key != null && pair.Key.UIButton != null) pair.Key.UIButton.onClick.RemoveListener(pair.Value);
+    _listeners.Clear();
+    _selection = null;
+  }
+  private void Select(SkillButton button) {
+    int slot = LSDFLoadout.Slot(button.Direction, button.ButtonType);
+    if (_selection == null || !_selection.TrySelect(slot, button.SkillIndex)) return;
+    LSDFLocalLoadout.Save(_selection.Snapshot());
+    Refresh();
+  }
+  private void Refresh() {
+    if (_selection == null) return;
+    foreach (var pair in _listeners) {
+      var button = pair.Key;
+      var image = button.UIButton.GetComponent<Image>();
+      int slot = LSDFLoadout.Slot(button.Direction, button.ButtonType);
+      if (image != null) image.color = slot >= 0 && _selection.Skill(slot) == button.SkillIndex ? selectedColor : defaultColor;
     }
-
-    void OnSkillButtonClicked(SkillButton clicked)
-    {
-        var key = (clicked.Direction, clicked.ButtonType);
-
-        // 해제: 이미 선택된 버튼이면 해제
-        //if (selectedButtons.TryGetValue(key, out var currentSelected) && currentSelected == clicked)
-        //{
-        //    clicked.UIButton.GetComponent<Image>().color = defaultColor;
-        //    selectedButtons.Remove(key);
-        //    currentCost -= clicked.Cost;
-        //    PlayerPrefs.DeleteKey($"Skill_{GetIndex(key)}");
-        //    UpdateCostText();
-        //    return;
-        //}
-
-        // 새로 선택할 경우: 코스트 체크
-        int tempCost = currentCost;
-
-        // 기존 선택된 것이 있으면 코스트 빼고 교체
-        if (selectedButtons.TryGetValue(key, out var prevButton))
-            tempCost -= prevButton.Cost;
-
-        tempCost += clicked.Cost;
-
-        if (tempCost > MaxCost)
-        {
-            Debug.LogWarning("코스트 초과로 선택 불가!");
-            return;
-        }
-
-        // 기존 선택 해제
-        if (prevButton != null)
-            prevButton.UIButton.GetComponent<Image>().color = defaultColor;
-
-        // 새 선택 적용
-        clicked.UIButton.GetComponent<Image>().color = selectedColor;
-        selectedButtons[key] = clicked;
-        currentCost = tempCost;
-
-        PlayerPrefs.SetInt($"Skill_{GetIndex(key)}", clicked.SkillIndex);
-        PlayerPrefs.Save();
-
-        UpdateCostText();
+    if (costText != null) costText.text = $"Cost : {_selection.Cost}/{_maximum}";
+  }
+  public void ResetRegistry() {
+    LSDFLocalLoadout.Reset();
+    if (isActiveAndEnabled) {
+      var rules = LSDFLocalLoadout.Rules;
+      _maximum = rules != null && rules.MaximumLoadoutCost >= 0 ? rules.MaximumLoadoutCost : MaxCost;
+      _selection = new LSDFLoadoutSelection(LSDFLocalLoadout.Read(rules), rules, _maximum);
+      Refresh();
     }
-
-    void LoadSelectionsFromPrefs()
-    {
-        foreach (var kvp in buttonMap)
-        {
-            var key = kvp.Key;
-            int index = GetIndex(key);
-
-            if (!PlayerPrefs.HasKey($"Skill_{index}"))
-                continue;
-
-            int selectedSkillIndex = PlayerPrefs.GetInt($"Skill_{index}");
-
-            var buttonList = kvp.Value;
-            var match = buttonList.Find(b => b.SkillIndex == selectedSkillIndex);
-
-            if (match != null)
-            {
-                match.UIButton.GetComponent<Image>().color = selectedColor;
-
-                selectedButtons[key] = match;
-
-                
-                currentCost += match.Cost;
-            }
-        }
-
-        
-        UpdateCostText();
-    }
-    void InitializeSkillsIfFirstPlay()
-    {
-        Debug.Log("Initialize 체크: " + PlayerPrefs.HasKey("Initialized"));
-
-        if (!PlayerPrefs.HasKey("Initialized"))
-        {
-            // Skill_0 ~ Skill_27 초기화
-            for (int i = 0; i < 28; i++)
-            {
-                PlayerPrefs.SetInt($"Skill_{i}", 0);
-            }
-
-            // 초기화 플래그 설정
-            PlayerPrefs.SetInt("Initialized", 1);
-            PlayerPrefs.Save();
-
-            Debug.Log("처음 실행 - Skill 모두 0으로 초기화 완료");
-        }
-    }
-    int GetIndex((CommandDirection, CommandButton) key)
-    {
-        return ((int)key.Item1 * 4) + (int)key.Item2;
-    }
-
-    void UpdateCostText()
-    {
-        if (costText != null)
-            costText.text = $"Cost : {currentCost}/{MaxCost}";
-    }
+  }
 }

@@ -15,7 +15,7 @@ public class SecondWallHitWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
 
 
@@ -52,7 +52,7 @@ public class SecondWallHitWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         player->isWallHit = false;
         player->wallCount = 0;  

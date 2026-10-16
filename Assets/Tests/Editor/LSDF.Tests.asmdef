@@ -1,6 +1,6 @@
 {
   "name": "LSDF.Tests",
-  "references": ["Quantum.Simulation", "Quantum.Unity", "Quantum.Menu", "Photon.Realtime"],
+  "references": ["Quantum.Simulation", "Quantum.Unity", "Quantum.Menu", "Photon.Realtime", "LSDF.View", "UnityEngine.UI", "Unity.TextMeshPro"],
   "includePlatforms": ["Editor"],
   "allowUnsafeCode": true,
   "overrideReferences": true,

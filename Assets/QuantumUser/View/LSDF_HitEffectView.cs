@@ -1,125 +1,40 @@
+using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
-using System.Linq;
 using UnityEngine;
-
-namespace Quantum.LSDF
-{
-
-
-    public class LSDF_HitEffectView : QuantumEntityViewComponent
-    {
-        
-
-        
-
-
-    
-        public GameObject HitParticle;
-        public GameObject GuardParticle;
-        public GameObject ParringParticle;
-        public GameObject CounterParticle;
-
-        private void Start()
-        {
-            RegisterCallbacks();
-        }
-        //public override void OnInitialize()
-        //{
-        //    //_particles = GetComponent<ParticleSystem>();
-
-        //    //QuantumEvent.Subscribe<OnPlayerHit>(this, OnDamaged);
-        //    //QuantumEvent.Subscribe(listener: this, handler: (OnPlayerHit e) => Debug.Log($"MyEvent {e}"));
-        //}
-
-
-        private void RegisterCallbacks()
-        {
-            Debug.Log("사운드 : 등록");
-            QuantumEvent.Subscribe<EventOnHitEffect>(this, OnHitEffect);
-            QuantumEvent.Subscribe<EventOnGuardEffect>(this, OnGuardEffect);
-            QuantumEvent.Subscribe<EventOnCounterEffect>(this, OnCounterEffect);
-            QuantumEvent.Subscribe<EventOnParringEffect>(this, OnParringEffect);
-            //QuantumEvent.Subscribe<EventOnAttackEffect>(this, OnAttackSound);
-            //QuantumEvent.Subscribe<EventOnAsteroidDestroyed>(this, OnAsteroidDestroyed);
-            //QuantumEvent.Subscribe<EventOnStartNewLevel>(this, OnStartNewLevel);
-        }
-        void SpawnEffect(GameObject prefab, FPVector2 position, float angleDeg = 0f, Vector3? scale = null)
-        {
-            ////플레이어에 따라 생성되는 이펙트의 z값 바꾸기
-            //var game = QuantumRunner.Default.Game;
-            //var frame = game.Frames?.Predicted;
-
-            //if (!frame.TryGet<PlayerLink>(EntityRef, out var playerLink))
-            //    return;
-            //Debug.Log("이펙트 ");
-            //var localPlayer = QuantumRunner.Default.Game.GetLocalPlayers().FirstOrDefault();
-            //bool isMine = playerLink.PlayerRef == localPlayer;
-
-            //float zPosition = 1f;
-
-            //if (playerLink.PlayerRef == (PlayerRef)0)
-            //    zPosition = 1 * zPosition;
-            //else if (playerLink.PlayerRef == (PlayerRef)1)
-            //    zPosition = -1 * zPosition;
-
-            if (prefab == null) return;
-
-            // FP → Unity Vector 변환
-            var worldPos = new Vector3(position.X.AsFloat, position.Y.AsFloat, 0f);
-
-            // 각도
-            Quaternion rotation = Quaternion.Euler(angleDeg, 0f, 0f);
-
-            // 이펙트 생성
-            var effect = Instantiate(prefab, worldPos, rotation);
-
-            // 스케일 설정
-            if (scale != null)
-            {
-                effect.transform.localScale = scale.Value;
-            }
-
-            // 파티클 재생
-            var particle = effect.GetComponent<ParticleSystem>();
-            if (particle != null)
-                particle.Play();
-
-            // 자동 제거
-            Destroy(effect, 0.1f); // 충분히 길게 설정 권장
-        }
-
-        private void OnHitEffect(EventOnHitEffect OnHitEffect)
-        {
-            Debug.Log("이펙트 : 히트");
-            
-            Debug.Log("이펙트 : 위치 "+ HitParticle.transform.position);
-            SpawnEffect(HitParticle, OnHitEffect.position,90, new Vector3 (0.2f,0.2f,0.2f));
-            //HitParticle.Play();
-        }
-
-        private void OnGuardEffect(EventOnGuardEffect OnGuardEffect)
-        {
-
-            SpawnEffect(GuardParticle, OnGuardEffect.position, 90, new Vector3(0.3f, 0.3f, 0.3f));
-            Debug.Log("이펙트 : 가드");
-            //GuardParticle.Play();
-        }
-
-        private void OnCounterEffect(EventOnCounterEffect OnCounterEffect)
-        {
-            SpawnEffect(CounterParticle, OnCounterEffect.position, 90, new Vector3(0.3f, 0.3f, 0.3f));
-            Debug.Log("이펙트 : 카운터");
-            //CounterParticle.Play();
-        }
-
-
-        private void OnParringEffect(EventOnParringEffect OnParringEffect)
-        {
-            SpawnEffect(ParringParticle, OnParringEffect.position, 90, new Vector3(0.5f, 0.5f, 0.5f));
-            Debug.Log("이펙트 : 패링");
-            //ParringParticle.Play();
-        }
+namespace Quantum.LSDF {
+  public class LSDF_HitEffectView : QuantumEntityViewComponent {
+    public GameObject HitParticle, GuardParticle, ParringParticle, CounterParticle;
+    private readonly List<IDisposable> _subscriptions = new List<IDisposable>();
+    private readonly LSDFPresentationLedger<GameObject> _effects = new LSDFPresentationLedger<GameObject>();
+    private LSDFSceneBindings _bindings;
+    public override void OnActivate(Frame frame) {
+      OnDeactivate(); _bindings = LSDFSceneBindings.For(EntityView);
+      _subscriptions.Add(QuantumEvent.SubscribeManual<EventOnHitEffect>(e => Spawn(e, HitParticle, e.position, .2f)));
+      _subscriptions.Add(QuantumEvent.SubscribeManual<EventOnGuardEffect>(e => Spawn(e, GuardParticle, e.position, .3f)));
+      _subscriptions.Add(QuantumEvent.SubscribeManual<EventOnCounterEffect>(e => Spawn(e, CounterParticle, e.position, .3f)));
+      _subscriptions.Add(QuantumEvent.SubscribeManual<EventOnParringEffect>(e => Spawn(e, ParringParticle, e.position, .5f)));
+      _subscriptions.Add(QuantumCallback.SubscribeManual<CallbackEventCanceled>(e => {
+        if (e.Game == Game && _effects.Cancel(e.EventKey, out var effect) && effect != null) Destroy(effect);
+      }));
+      _subscriptions.Add(QuantumCallback.SubscribeManual<CallbackEventConfirmed>(e => { if (e.Game == Game) _effects.Confirm(e.EventKey); }));
     }
+    private void Spawn(EventBase e, GameObject prefab, FPVector2 position, float scale) {
+      if (e.Game != Game || _bindings == null || !_bindings.Accept(Game) || !_bindings.ClaimEffects(this) || prefab == null) return;
+      var key = LSDFPresentationLedger<GameObject>.Key(e);
+      if (_effects.Contains(key)) return;
+      var effect = Instantiate(prefab, new Vector3(position.X.AsFloat, position.Y.AsFloat, 0), Quaternion.Euler(90, 0, 0));
+      effect.transform.localScale = Vector3.one * scale;
+      if (effect.TryGetComponent<ParticleSystem>(out var particle)) particle.Play();
+      _effects.Track(key, effect); Destroy(effect, .1f);
+    }
+    public override void OnDeactivate() {
+      foreach (var subscription in _subscriptions) subscription.Dispose(); _subscriptions.Clear();
+      _effects.Clear(effect => { if (effect != null) Destroy(effect); });
+      if (_bindings != null) _bindings.Release(this); _bindings = null;
+    }
+    public override void OnGameChanged() { OnDeactivate(); if (PredictedFrame != null) OnActivate(PredictedFrame); }
+    private void OnEnable() { if (IsActive && PredictedFrame != null) OnActivate(PredictedFrame); }
+    private void OnDisable() { OnDeactivate(); }
+  }
 }
-
-

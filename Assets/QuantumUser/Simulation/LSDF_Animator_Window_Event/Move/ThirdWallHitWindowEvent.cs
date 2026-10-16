@@ -15,7 +15,7 @@ public class ThirdWallHitWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
 
 
@@ -42,8 +42,8 @@ public class ThirdWallHitWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
-        f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
+        if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
 
         body->Velocity.Y = -FP._0_50;
 
@@ -53,7 +53,7 @@ public class ThirdWallHitWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         player->isCantMove = false;
     }
 }

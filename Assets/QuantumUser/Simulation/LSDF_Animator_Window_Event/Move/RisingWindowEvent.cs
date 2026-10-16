@@ -16,7 +16,7 @@ public class RisingWindowEvent : AnimatorTimeWindowEventAsset
     {
 
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         player->isAir = false;
         player->hitCount = 0;

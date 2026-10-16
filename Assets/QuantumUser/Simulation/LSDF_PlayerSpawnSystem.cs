@@ -24,7 +24,7 @@ namespace Quantum.LSDF
             f.Add(playerEntity, new PlayerLink { PlayerRef = player });
 
             // 위치 설정 (왼쪽, 오른쪽)
-            FPVector2 spawnPos = player == (PlayerRef)0 ? new FPVector2(-FP._0_50, 0) : new FPVector2(FP._0_50, 0);
+            FPVector2 spawnPos = player == (PlayerRef)0 ? new FPVector2(-LSDFBalance.SpawnOffset(f), 0) : new FPVector2(LSDFBalance.SpawnOffset(f), 0);
 
             
             f.Set(playerEntity, new Transform2D
@@ -33,22 +33,23 @@ namespace Quantum.LSDF
             });
 
             //CommandSkillMap 초기화
-            f.Unsafe.TryGetPointer<LSDF_Player>(playerEntity, out var LSDF_player);
+            if (!f.Unsafe.TryGetPointer<LSDF_Player>(playerEntity, out var LSDF_player)) return;
             //초기화용
             //for (int i = 0; i < LSDFLoadout.SlotCount; i++)
             //{
             //    LSDF_player->CommandSkillMap[i] = 0;
             //}
 
+            var validatedSkills = LSDFLoadout.CopyBudgetValidated(data.CommandSkills, LSDFBalance.Config(f));
             for (int i = 0; i < LSDFLoadout.SlotCount; i++)
             {
-                LSDF_player->CommandSkillMap[i] = LSDFLoadout.ReadSkill(data.CommandSkills, i); // 기본값은 0
+                LSDF_player->CommandSkillMap[i] = validatedSkills[i]; // 기본값은 0
                 Debug.Log("커맨드 : " + LSDF_player->CommandSkillMap[i]);
             }
             //체력 초기화
-            LSDF_player->playerHp = LSDFPlayerHealth.Maximum;
+            LSDF_player->playerHp = LSDFBalance.MaximumHealth(f);
 
-            if (firstTime && player == (PlayerRef)0) f.Global->Time = 60;
+            if (firstTime && player == (PlayerRef)0) f.Global->Time = LSDFBalance.RoundSeconds(f);
             
 
         }

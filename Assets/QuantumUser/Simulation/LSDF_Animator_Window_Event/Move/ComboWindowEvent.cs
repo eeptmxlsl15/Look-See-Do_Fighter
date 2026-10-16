@@ -11,7 +11,7 @@ public class ComboWindowEvent : AnimatorTimeWindowEventAsset
     {
 
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         //player->isAttack = true;
         //player->isDashFront = false;
@@ -62,7 +62,7 @@ public class ComboWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         AnimatorComponent.SetBoolean(f, animatorComponent, "MoveFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "MoveBack", false);

@@ -14,13 +14,9 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
     /// </summary>
     public Quantum.LSDF.LSDFSingleHitDefinition Hit = Quantum.LSDF.LSDFSingleHitDefinition.CreateJap();
 
-
-
-
-
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        #region 필수 요소 
+        #region 필수 요소
         Debug.Log($"원잽 시작 프레임{f.Number}");
 
         var entity = animatorComponent->Self;
@@ -42,14 +38,13 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         #endregion
 
         //만약 처음부터 앉은 자세,점프 판정이라면
-        player->isDodgeHigh = false; 
+        player->isDodgeHigh = false;
         player->isJump = false;
-        
+
         //---연타 기술 ---//
         //버퍼 넥스트 초기화
         player->BufferedNextAttack = false;
         Debug.Log($"잽 현재 프레임 : {Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time)}");
-
 
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
@@ -69,7 +64,6 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         //인풋
         if (!f.TryGet<PlayerLink>(entity, out var playerLink)) return;
         var input = f.GetPlayerInput(playerLink.PlayerRef);
-
 
         //방향
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
@@ -93,7 +87,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             //원투
             if (input->RightPunch && (AnimatorComponent.GetInteger(f,animatorComponent,"FinalNum")==0))
             {
-                
+
                 player->BufferedNextAttack = true;  // 일단 예약만 함
                 Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
             }
@@ -108,14 +102,12 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         }
         else if (animationFrame > 15&& player->BufferedNextAttack)
         {
-            
+
             AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);
            // AnimatorComponent.SetTrigger(f, animatorComponent, "Lp");
 
             Debug.Log("예약된 Lp 발동");
         }
-
-        
 
         //히트 박스 생성
         if (Hit.IsSpawnFrame(animationFrame))//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
@@ -131,7 +123,6 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             Debug.Log($"잽 히트박스 생성된 프레임{f.Number}");
         }
     }
-
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {

@@ -14,12 +14,9 @@ public class LarsCutKickWindowEvent : AnimatorTimeWindowEventAsset
     public Quantum.LSDF.LSDFTimedHitDefinition FirstHit = Quantum.LSDF.LSDFTimedHitDefinition.CreateLarsFirst();
     public Quantum.LSDF.LSDFTimedHitDefinition SecondHit = Quantum.LSDF.LSDFTimedHitDefinition.CreateLarsSecond();
 
-
-
-
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
-        #region 필수 요소 
+        #region 필수 요소
         Debug.Log($"원잽 시작 프레임{f.Number}");
 
         var entity = animatorComponent->Self;
@@ -48,7 +45,6 @@ public class LarsCutKickWindowEvent : AnimatorTimeWindowEventAsset
         //버퍼 넥스트 초기화
         Debug.Log($"잽 현재 프레임 : {Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time)}");
 
-
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -67,7 +63,6 @@ public class LarsCutKickWindowEvent : AnimatorTimeWindowEventAsset
         //인풋
         if (!f.TryGet<PlayerLink>(entity, out var playerLink)) return;
         var input = f.GetPlayerInput(playerLink.PlayerRef);
-
 
         //방향
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
@@ -102,8 +97,7 @@ public class LarsCutKickWindowEvent : AnimatorTimeWindowEventAsset
         //    Debug.Log("예약된 Lp 발동");
         //}
 
-
-        //상단회피, 점프 
+        //상단회피, 점프
         if (1 < animationFrame && animationFrame < FirstHit.Hit.StartupFrames - 1)
         {
             player->isJump = true;
@@ -140,7 +134,6 @@ public class LarsCutKickWindowEvent : AnimatorTimeWindowEventAsset
         }
         #endregion
     }
-
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {

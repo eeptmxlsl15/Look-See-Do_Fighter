@@ -12,7 +12,7 @@ public class MoveFrontWindowEvent : AnimatorTimeWindowEventAsset
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         player->isDashBack = false;
 
         
@@ -22,8 +22,8 @@ public class MoveFrontWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
-        f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
+        if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         if (!f.TryGet<PlayerLink>(entity, out var playerLink)) return;
         //var input = f.GetPlayerInput(playerLink.PlayerRef);
 
@@ -31,7 +31,7 @@ public class MoveFrontWindowEvent : AnimatorTimeWindowEventAsset
         //¹æÇâ
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
 
-        body->Velocity.X = FP._0_50 * flip;
+        body->Velocity.X = Quantum.LSDF.LSDFBalance.WalkSpeed(f) * flip;
 
         player->isDashBack = false;
     }

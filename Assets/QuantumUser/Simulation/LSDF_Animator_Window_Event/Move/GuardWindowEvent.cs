@@ -11,7 +11,7 @@ public class GuardWindowEvent : AnimatorTimeWindowEventAsset
     {
 
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         //player->isAttack = true;
         //player->isDashFront = false;
@@ -37,7 +37,7 @@ public class GuardWindowEvent : AnimatorTimeWindowEventAsset
 
         //플레이어
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         //회전 고정, 바디
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
