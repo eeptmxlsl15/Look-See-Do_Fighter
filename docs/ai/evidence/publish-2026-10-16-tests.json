@@ -1,0 +1,333 @@
+{
+  "purpose": "Pre-push validation; upload stopped after required test failure.",
+  "date": "2026-10-16",
+  "branch": "dev/Prototype",
+  "head": "64a37db6b91224d96e80955062d0ac8b1b811e32",
+  "job_id": "49aa6e4704894ce0a84268758cefe0b1",
+  "status": "failed",
+  "started_unix_ms": 1792151577222,
+  "finished_unix_ms": 1792151617554,
+  "result": {
+    "mode": "EditMode",
+    "summary": {
+      "total": 33,
+      "passed": 32,
+      "failed": 1,
+      "skipped": 0,
+      "durationSeconds": 21.3231987,
+      "resultState": "Failed(Child)"
+    },
+    "results": [
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(0,0)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(0,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0137731,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+        "state": "Passed",
+        "durationSeconds": 0.0001067,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+        "state": "Passed",
+        "durationSeconds": 0.0000756,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+        "state": "Passed",
+        "durationSeconds": 0.0000505,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+        "state": "Passed",
+        "durationSeconds": 0.0000449,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+        "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+        "state": "Passed",
+        "durationSeconds": 0.0000304,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "ComboReservationBelongsToEachPlayerValue",
+        "fullName": "LSDFDeterministicContractTests.ComboReservationBelongsToEachPlayerValue",
+        "state": "Passed",
+        "durationSeconds": 0.00066,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(0,0)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(0,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0004821,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(7,8)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(7,8)",
+        "state": "Passed",
+        "durationSeconds": 0.0000637,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(10,12)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(10,12)",
+        "state": "Passed",
+        "durationSeconds": 0.0000645,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(19,22)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(19,22)",
+        "state": "Passed",
+        "durationSeconds": 0.0000499,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "CounterDamageUsesTruncatedRationalScaling(170,204)",
+        "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(170,204)",
+        "state": "Passed",
+        "durationSeconds": 0.0000557,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "InvalidIdsFallbackAndPayloadDoesNotAlias",
+        "fullName": "LSDFDeterministicContractTests.InvalidIdsFallbackAndPayloadDoesNotAlias",
+        "state": "Passed",
+        "durationSeconds": 0.0005125,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "MalformedPayloadUsesDefaultLoadout(0)",
+        "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(0)",
+        "state": "Passed",
+        "durationSeconds": 0.0012381,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "MalformedPayloadUsesDefaultLoadout(27)",
+        "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(27)",
+        "state": "Passed",
+        "durationSeconds": 0.0000956,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "MalformedPayloadUsesDefaultLoadout(29)",
+        "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(29)",
+        "state": "Passed",
+        "durationSeconds": 0.0000697,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "NullPayloadAndInvalidSlotsAreSafe",
+        "fullName": "LSDFDeterministicContractTests.NullPayloadAndInvalidSlotsAreSafe",
+        "state": "Passed",
+        "durationSeconds": 0.0001806,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+        "fullName": "LSDFDeterministicContractTests.RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+        "state": "Passed",
+        "durationSeconds": 0.0003438,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+        "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0105842,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+        "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0008122,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+        "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0005186,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+        "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+        "state": "Passed",
+        "durationSeconds": 0.0004988,
+        "message": null,
+        "stackTrace": "",
+        "output": ""
+      },
+      {
+        "name": "TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+        "fullName": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+        "state": "Failed",
+        "durationSeconds": 34.4505874,
+        "message": "  System.AggregateException: One or more errors occurred. (Online test cleanup failed (Operation canceled) (Operation canceled)) ---> System.AggregateException: Online test cleanup failed (Operation canceled) (Operation canceled) ---> System.OperationCanceledException: Operation canceled\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00ce0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:277 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00d7c] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:280 \r\n   --- End of inner exception stack trace ---\r\n---> (Inner Exception #0) System.AggregateException: Online test cleanup failed (Operation canceled) (Operation canceled) ---> System.OperationCanceledException: Operation canceled\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00ce0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:277 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00d7c] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:280 \r\n---> (Inner Exception #0) System.OperationCanceledException: Operation canceled\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00ce0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:277 <---\r\n\r\n---> (Inner Exception #1) System.OperationCanceledException: Operation canceled\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00ce0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:277 <---\r\n<---\r\n\r\n  Expected: null\r\n  But was:  \"System.AggregateException: One or more errors occurred. (Online test cleanup failed (Operation canceled) (Operation canceled)) ---> System.AggregateException: Online test cleanup failed (Operation canceled) (Operation canceled) ---> System.OperationCanceledException: Operation canceled\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00ce0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:277 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00d7c] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:280 \r\n   --- End of inner exception stack trace ---\r\n---> (Inner Exception #0) System.AggregateException: Online test cleanup failed (Operation canceled) (Operation canceled) ---> System.OperationCanceledException: Operation canceled\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00ce0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:277 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00d7c] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:280 \r\n---> (Inner Exception #0) System.OperationCanceledException: Operation canceled\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00ce0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:277 <---\r\n\r\n---> (Inner Exception #1) System.OperationCanceledException: Operation canceled\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation) [0x00ce0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:277 <---\r\n<---\r\n\"\r\n",
+        "stackTrace": "at LSDFOnlineSmokeTests+<TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer>d__0.MoveNext () [0x0013f] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:37\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@bd7f943e9647\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 1\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 1\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 2\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n무브백 시작\r\n무브백 시작\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 1\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 1\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 2\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n커맨드 : 0\r\n무브백 시작\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\nQuantum.CollisionInfo2D\r\nisGround 온: True\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n무브백 시작\r\n"
+      },
+      {
+        "name": "FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+        "fullName": "LSDFSingleHitTests.FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+        "state": "Passed",
+        "durationSeconds": 0.0068722,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedLeftUpperPreservesOriginalDefinition",
+        "fullName": "LSDFSingleHitTests.SerializedLeftUpperPreservesOriginalDefinition",
+        "state": "Passed",
+        "durationSeconds": 0.0027299,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SpawnTickPreservesPhysicsLead(11,False)",
+        "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(11,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0007179,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SpawnTickPreservesPhysicsLead(12,True)",
+        "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(12,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0000669,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SpawnTickPreservesPhysicsLead(13,False)",
+        "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(13,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000445,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RequiredQuantumLookupTablesAreConfigured",
+        "fullName": "LSDFTimedHitTests.RequiredQuantumLookupTablesAreConfigured",
+        "state": "Passed",
+        "durationSeconds": 0.0050424,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+        "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+        "state": "Passed",
+        "durationSeconds": 0.0026327,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+        "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+        "state": "Passed",
+        "durationSeconds": 0.0001425,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+        "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0009794,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+        "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0001125,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      }
+    ]
+  },
+  "publication": {
+    "staged": false,
+    "committed": false,
+    "pushed": false,
+    "pr_created": false
+  },
+  "notes": [
+    "Unity compilation completed with no errors or warnings returned by the pre-test console read.",
+    "Quantum lexical guard: 84 files, 5 existing findings, 0 new findings.",
+    "Secret preflight and final candidate tree inspection NOT RUN because publication stopped at the required online test failure.",
+    "Cleanup exception may mask the earlier cause; no root gameplay or networking cause is established by this result.",
+    "No automatic retry or source fix performed."
+  ]
+}

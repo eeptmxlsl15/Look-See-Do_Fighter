@@ -30,7 +30,13 @@ Look-See-Do_Fighter/
 │       ├── lsdf-game-development/SKILL.md
 │       ├── lsdf-quantum-refactor/SKILL.md
 │       ├── lsdf-quantum-verify/SKILL.md
-│       └── lsdf-portfolio-evidence/SKILL.md
+│       ├── lsdf-portfolio-evidence/SKILL.md
+│       └── publish-unity-pr/
+│           ├── SKILL.md              # 기존 GitHub 저장소 게시·승인 절차
+│           ├── references/preflight.md
+│           └── scripts/
+│               ├── preflight.py     # index/커밋 이력의 읽기 전용 검사
+│               └── tests/test_preflight.py
 ├── .codex/
 │   └── hooks.json                    # SessionStart만 등록, Stop 자동 검증 해제
 ├── tools/
@@ -65,6 +71,7 @@ Look-See-Do_Fighter/
 | 자동 검사 실행/활성화 | [Hook.md](Hook.md), [validation.md](docs/ai/validation.md) |
 | 포트폴리오 기록 | [evidence-template.md](docs/ai/evidence-template.md) |
 | 세팅 검증 상태 | [setup-verification.md](docs/ai/setup-verification.md) |
+| GitHub 게시와 승인 | [github-publishing.md](docs/ai/github-publishing.md) |
 
 ## 이번 구성의 핵심
 

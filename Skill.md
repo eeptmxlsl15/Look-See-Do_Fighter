@@ -9,6 +9,7 @@
 | `lsdf-quantum-refactor` | 결정론·시뮬레이션/뷰 경계·공격 데이터 리팩토링 | [.agents/skills/lsdf-quantum-refactor/SKILL.md](.agents/skills/lsdf-quantum-refactor/SKILL.md) |
 | `lsdf-quantum-verify` | 회귀검사, CodeGen/컴파일, 재생·체크섬 검증 계획과 결과 | [.agents/skills/lsdf-quantum-verify/SKILL.md](.agents/skills/lsdf-quantum-verify/SKILL.md) |
 | `lsdf-portfolio-evidence` | 완료한 작업을 취업 포트폴리오용 근거 문서로 작성 | [.agents/skills/lsdf-portfolio-evidence/SKILL.md](.agents/skills/lsdf-portfolio-evidence/SKILL.md) |
+| `publish-unity-pr` | 검증된 변경을 기존 GitHub 저장소에 커밋·Push·Draft PR 게시; 원격 쓰기 전 승인 | [.agents/skills/publish-unity-pr/SKILL.md](.agents/skills/publish-unity-pr/SKILL.md) |
 
 예시: `$lsdf-quantum-refactor P0-1의 PlayerPrefs 의존을 RuntimePlayer 전달로 바꿔 줘. 먼저 현재 연결 경로와 보존할 동작을 확인해.`
 
@@ -22,3 +23,5 @@
 검증 스킬은 최종 검증 한 차례의 실행 기준이며 별도 반복 검사를 뜻하지 않는다.
 여러 스킬을 함께 쓰더라도 한 작업의 검증 횟수는 합쳐서 한 차례다.
 스킬은 작업 절차이며, 요청받은 범위 안에서는 단계별 허가 질문 없이 진행한다.
+GitHub 게시에는 별도 규칙이 있다. `publish-unity-pr`은 로컬 준비 후 Push와 Draft PR 생성에 명시적 승인을 받는다.
+예시: `$publish-unity-pr 현재 변경의 게시 후보를 검증하고, Push와 Draft PR 생성 전에 승인받아 줘.`

@@ -14,8 +14,7 @@ public class DeathFistWindowEvent : AnimatorTimeWindowEventAsset
     private const int HitFrame = 18;
 
 
-    private int currentFrame;
-    bool bufferedNextAttack;
+
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -23,7 +22,7 @@ public class DeathFistWindowEvent : AnimatorTimeWindowEventAsset
         Debug.Log($"원잽 시작 프레임{f.Number}");
 
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         //공격일 때만 초기화
         player->isAttack = true;
@@ -46,8 +45,7 @@ public class DeathFistWindowEvent : AnimatorTimeWindowEventAsset
 
         //---연타 기술 ---//
         //버퍼 넥스트 초기화
-        bufferedNextAttack = false;
-        Debug.Log($"잽 현재 프레임 : {currentFrame}");
+        Debug.Log($"잽 현재 프레임 : {Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time)}");
 
 
     }
@@ -56,10 +54,10 @@ public class DeathFistWindowEvent : AnimatorTimeWindowEventAsset
         #region 수정 X
         //플레이어 정보
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         //현재 프레임
-        currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
+        int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
 
         //회전 고정
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
@@ -75,7 +73,7 @@ public class DeathFistWindowEvent : AnimatorTimeWindowEventAsset
         #endregion
 
         //전진 속도
-        if (currentFrame < HitFrame)
+        if (animationFrame < HitFrame)
         {
             body->Velocity.X = (1+FP._0_50)*flip;
             Debug.Log("잽 Execute");
@@ -87,16 +85,14 @@ public class DeathFistWindowEvent : AnimatorTimeWindowEventAsset
         }
 
         //연타 관련
-        //if (5 <= currentFrame && currentFrame <= 15) // 연계 입력 받을 수 있는 구간
+        //if (5 <= animationFrame && animationFrame <= 15) // 연계 입력 받을 수 있는 구간
         //{
         //    if (input->RightPunch && (AnimatorComponent.GetInteger(f, animatorComponent, "FinalNum") == 0))
         //    {
 
-        //        bufferedNextAttack = true;  // 일단 예약만 함
         //        Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
         //    }
         //}
-        //else if (currentFrame >= 16 && bufferedNextAttack)
         //{
 
         //    AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);
@@ -107,14 +103,14 @@ public class DeathFistWindowEvent : AnimatorTimeWindowEventAsset
 
 
         ////상단회피, 점프 
-        //if(1<currentFrame && currentFrame< HitFrame-1)
+        //if(1<animationFrame && animationFrame< HitFrame-1)
         //{
         //    player->isJump = true;
         //    player->isDodgeHigh = true;
         //}
 
         //히트 박스 생성
-        if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
+        if (animationFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {
 
             EntityRef hitbox = f.Create();
@@ -224,7 +220,7 @@ public class DeathFistWindowEvent : AnimatorTimeWindowEventAsset
         ////연타 공격일 경우
         // AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->Velocity.X = 0;

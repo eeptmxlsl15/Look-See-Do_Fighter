@@ -12,11 +12,11 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
     /// <summary>
     /// 시작 프레임
     /// </summary>
-    private const int HitFrame = 10;
+    public Quantum.LSDF.LSDFSingleHitDefinition Hit = Quantum.LSDF.LSDFSingleHitDefinition.CreateJap();
 
 
-    private int currentFrame;
-    bool bufferedNextAttack;
+
+
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -24,7 +24,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         Debug.Log($"원잽 시작 프레임{f.Number}");
 
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         //공격일 때만 초기화
         player->isAttack = true;
@@ -47,8 +47,8 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         
         //---연타 기술 ---//
         //버퍼 넥스트 초기화
-        bufferedNextAttack = false;
-        Debug.Log($"잽 현재 프레임 : {currentFrame}");
+        player->BufferedNextAttack = false;
+        Debug.Log($"잽 현재 프레임 : {Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time)}");
 
 
     }
@@ -57,10 +57,10 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         #region 수정 X
         //플레이어 정보
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         //현재 프레임
-        currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
+        int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
 
         //회전 고정
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
@@ -76,7 +76,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         #endregion
 
         //전진 속도
-        if (currentFrame < HitFrame)
+        if (animationFrame < Hit.StartupFrames)
         {
             body->Velocity.X = flip;
             Debug.Log("잽 Execute");
@@ -88,13 +88,13 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         }
 
         //연타 관련
-        if (5 <= currentFrame && currentFrame <= 15) // 연계 입력 받을 수 있는 구간
+        if (5 <= animationFrame && animationFrame <= 15) // 연계 입력 받을 수 있는 구간
         {
             //원투
             if (input->RightPunch && (AnimatorComponent.GetInteger(f,animatorComponent,"FinalNum")==0))
             {
                 
-                bufferedNextAttack = true;  // 일단 예약만 함
+                player->BufferedNextAttack = true;  // 일단 예약만 함
                 Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
             }
 
@@ -102,11 +102,11 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
             if (input->LeftPunch && (AnimatorComponent.GetInteger(f, animatorComponent, "FinalNum") == 1))
             {
 
-                bufferedNextAttack = true;  // 일단 예약만 함
+                player->BufferedNextAttack = true;  // 일단 예약만 함
                 Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
             }
         }
-        else if (currentFrame > 15&& bufferedNextAttack)
+        else if (animationFrame > 15&& player->BufferedNextAttack)
         {
             
             AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);
@@ -118,119 +118,12 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         
 
         //히트 박스 생성
-        if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
+        if (Hit.IsSpawnFrame(animationFrame))//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {
 
-            EntityRef hitbox = f.Create();
-            //플레이어 상태 초기화
             player->isJump = false;
             player->isDodgeHigh = false;
-
-            //-------------------------------------------상단-----------------------------------------//
-            FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25 + FP._0_05) * flip, FP._0_25);
-
-            f.Add(hitbox, new Transform2D
-            {
-                //위치
-                Position = hitboxPosition,
-                Rotation = FP._0
-            });
-
-            f.Add(hitbox, new PhysicsCollider2D
-            {
-
-                IsTrigger = true,
-                //박스 크기
-                Shape = Shape2D.CreateBox(new FPVector2(FP._0_20 / 2, (FP._0_10 - FP._0_02) / 2))
-            });
-
-            ////-------------------------------------------중단-----------------------------------------//
-            //FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, 0);
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //Change
-            //    //위치
-            //    Position = hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-            //    IsTrigger = true,
-            //    //Change
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_33 - FP._0_03) / 2))
-            //});
-
-            //---------------------------------------하단---------------------------------------------//
-            //FPVector2 hitboxPosition=f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, -(FP._0_25 + FP._0_03));
-
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //위치
-            //    Position =hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-            //    IsTrigger = true,
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_10 - FP._0_02) / 2))
-            //});
-            //------------------------------------------------------------------------------------//
-
-
-            //공격 정보
-            f.Add(hitbox, new LSDF_HitboxInfo
-            {
-                position = hitboxPosition,
-
-                startFrame = HitFrame,
-                AttackerEntity = entity,
-
-                //상중하단
-                AttackType = HitboxAttackType.High,
-
-                //카운터 시 상대가 어떻게 되는가
-                CountType = CountAttackType.Normal,
-
-                //막혔을때 내가 어떻게 되는가
-                DelayGuardTpye = DelayGuardType.Normal,
-
-                //상대가 패링했을때 내가 어떻게 되는가 아님 호밍기인가
-                HomingReturnType = HomingType.Stun,
-
-                //노멀 히트 시 확정타가 있는가
-                GuaranteeAttackType = GuaranteeType.Normal,
-
-                jumpAttack = false,
-                dodgeHigh = false,
-                launcher = false,
-                wallLauncher = false,
-                notSitLauncher = false,
-
-                enemyGuardTime = 21,
-                enemyHitTime = 28,
-                enemyCountTime = 28,
-                attackDamage = 7,
-                forceBack = 0
-            });
-
-            //-------------------------------------------상단 회피, 점프 판정-----------------------------------------//
-            ////상단회피, 점프 
-            //if(1<currentFrame && currentFrame< HitFrame-1)
-            //{
-            //    player->isJump = true;
-            //    player->isDodgeHigh = true;
-            //}
-            //------------------------------------------------------------------------------------//
-
-            f.Add(hitbox, new TickToDestroy
-            {
-                TickToDestroyAt = f.Number + 1
-            });
-
+            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, Hit);
             if (player->canCounter == true)
             {
                 player->canCounter = false;
@@ -245,7 +138,7 @@ public class JapWindowEvent : AnimatorTimeWindowEventAsset
         ////연타 공격일 경우
         // AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->Velocity.X = 0;
 

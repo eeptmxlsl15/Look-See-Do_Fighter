@@ -8,14 +8,14 @@ using static UnityEngine.EventSystems.EventTrigger;
 [Serializable]
 public class AirWindowEvent : AnimatorTimeWindowEventAsset
 {
-    private int currentFrame;
+
 
 
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         
 
@@ -47,12 +47,12 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
     {
         
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body);
 
-        currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
+        int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
 
-        if(currentFrame <= 10)
+        if(animationFrame <= 10)
         {
             if(player->hitCount>2)
                 body->Velocity.Y = FP._0_50;
@@ -60,7 +60,7 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
                 body->Velocity.Y = 1;
             
         }
-        else if(currentFrame <= 30)
+        else if(animationFrame <= 30)
         {
                 body->Velocity.Y = FP._0_50;
         }

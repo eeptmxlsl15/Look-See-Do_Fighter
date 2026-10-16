@@ -9,7 +9,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
 {
 
-    private int currentFrame;
+
     private const int HitFrame = 15; 
 
 
@@ -17,7 +17,7 @@ public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
     {
         Debug.Log($"어퍼 시작 프레임{f.Number}");
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         player->isAttack = true;
         player->isDashFront = false;
@@ -34,9 +34,9 @@ public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
-        currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
+        int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
 
         //전진성과 방향성
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
@@ -48,14 +48,14 @@ public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
 
         //전진 속도
-        if (currentFrame < HitFrame)
+        if (animationFrame < HitFrame)
         {
             body->Velocity.X = flip;
         }
 
         //Debug.Log("잽 Execute");
         //히트 박스 생성
-        if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
+        if (animationFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {
 
             EntityRef hitbox = f.Create();
@@ -156,7 +156,7 @@ public class LawRightUpperWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->Velocity.X = 0;
         player->isAttack = false;

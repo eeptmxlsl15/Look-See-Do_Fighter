@@ -8,7 +8,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 [Serializable]
 public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 {
-    private int currentFrame;
+
     private int HitFrame = 20; // 아래 관련 기술은 -1프레임ㅇ해줘야한다 애니메이션이 처음부터 재생은 되는데 2번째 프레임부터 OnEnter가 된다
     //private const int TotalFrameCount = 34;//실제 발동 프레임 + 20
 
@@ -16,7 +16,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
     {
         Debug.Log($"브라2rk 시작 프레임{f.Number}");
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         player->isAttack = true;
         player->isDashFront = false;
@@ -33,10 +33,10 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
-        currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
-        //Debug.Log($"현재 프레임 {currentFrame}");
+        int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
+        //Debug.Log($"현재 프레임 {Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time)}");
         //전진성과 방향성
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->FreezeRotation = true;
@@ -47,14 +47,14 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
 
         //전진 속도
-        if (currentFrame < HitFrame)
+        if (animationFrame < HitFrame)
         {
             body->Velocity.X = flip;
         }
 
         Debug.Log("2rk 공격 중");
         //히트 박스 생성
-        if (currentFrame == HitFrame-1)
+        if (animationFrame == HitFrame-1)
         {
 
             EntityRef hitbox = f.Create();
@@ -155,7 +155,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->Velocity.X = 0;
         player->isAttack = false;

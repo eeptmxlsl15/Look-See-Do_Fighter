@@ -27,6 +27,28 @@ Photon Quantum 3 기반 2D 격투게임. 답변·작업 기록은 한국어를 �
 - `Library`, `Temp`, `obj`, `Logs`, `.vs`를 소스 탐색에 포함하지 않는다.
 - 변경 범위는 현재 사용자 요청을 따른다. 조사/문서 요청만으로 게임 로직을 바꾸지 않는다.
 
+## GitHub 작업 규칙
+
+- 기존 저장소 `eeptmxlsl15/Look-See-Do_Fighter`와 `origin`을 사용한다. 새 저장소/fork를 생성하거나 remote·기존 이력을 바꾸지 않는다.
+- 게시 요청은 [publish-unity-pr](.agents/skills/publish-unity-pr/SKILL.md)를 따른다. 시작 시 remote의 fetch/push 대상,
+  브랜치·staged/unstaged/untracked 변경, GitHub CLI 인증과 저장소 권한을 확인한다. 설정 요청만으로 게시하지 않는다.
+- 관련 파일만 명시적으로 staging한다. 사용자 변경을 삭제·자동 stash·reset하거나 `git add -A`로 전부 포함하지 않는다.
+  `.meta`와 생성 코드의 필요한 짝을 보존한다. 이미 추적 중인 IDE 생성 파일도 자동으로 포함하지 않는다.
+- Unity 컴파일·필수 테스트·Quantum 결정론 검토·비밀정보/불필요 파일 검사를 통과한 후보만 작업 브랜치에 커밋한다.
+  FAIL, NOT RUN, 필수 SKIP, 테스트 0개, timeout, 수정 후 미검증이면 자동 커밋·업로드를 중단한다.
+  검증은 기존 한 차례 방침을 유지한다. 테스트한 내용과 커밋 내용이 다르면 성공 근거를 재사용하지 않는다.
+- **Push와 Draft PR 생성 전에 사용자의 명시적 승인을 받는다.** 저장소, head/base, 정확한 커밋과 검증 결과,
+  PR 제목/본문을 먼저 제시한다. 두 동작을 명시한 한 번의 승인으로 둘 다 진행할 수 있다.
+  일반 개발의 무질문 진행 권한, 이 Skill 설치, 네트워크 읽기 권한은 게시 승인이 아니다.
+- `main`, `master`, 원격 기본 브랜치에 직접 Push하지 않는다. 승인된 작업 브랜치에만 명시적 refspec으로 Push한다.
+  force push, 이력 재작성, `--all`/`--mirror`, tag 게시, 자동 merge는 하지 않는다.
+- 기존 PR을 확인해 중복 생성을 피하고 `--repo`, `--base`, `--head`, `--draft`를 명시한다.
+  `gh pr create --dry-run`도 원격 쓰기가 가능하므로 승인 전 실행하지 않는다.
+- 토큰·인증 파일·개인키 원문을 출력하지 않는다. 비밀정보 검사에서는 삭제된 값의 중간 커밋 잔존도 확인한다.
+  제외 에셋 폴더가 게시 후보에 들어오면 내용은 읽지 않고 미검사로 중단한다.
+
+설치 상태와 사용법: [GitHub 게시 워크플로](docs/ai/github-publishing.md).
+
 ## Quantum 3 불변 조건
 
 - 게임 결과를 결정하는 코드: `Assets/QuantumUser/Simulation` 및 `Quantum.Simulation` 어셈블리.

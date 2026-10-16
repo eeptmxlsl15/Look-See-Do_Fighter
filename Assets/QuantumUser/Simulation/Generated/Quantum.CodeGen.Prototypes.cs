@@ -309,6 +309,7 @@ namespace Quantum.Prototypes {
     public FPVector2 effectPosition;
     [ArrayLengthAttribute(28)]
     public Int32[] CommandSkillMap = new Int32[28];
+    public QBoolean BufferedNextAttack;
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_Player result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_Player component = default;
@@ -348,6 +349,7 @@ namespace Quantum.Prototypes {
         for (int i = 0, count = PrototypeValidator.CheckLength(CommandSkillMap, 28, in context); i < count; ++i) {
           result.CommandSkillMap[i] = this.CommandSkillMap[i];
         }
+        result.BufferedNextAttack = this.BufferedNextAttack;
         MaterializeUser(frame, ref result, in context);
     }
   }

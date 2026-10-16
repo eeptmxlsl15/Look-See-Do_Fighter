@@ -1,0 +1,274 @@
+{
+  "project": "Look-See-Do_Fighter",
+  "date": "2026-10-16",
+  "source": "unityMCP",
+  "job_id": "b8a734f4fdf2472694af5673b381379e",
+  "mode": "EditMode",
+  "summary": {
+    "total": 28,
+    "passed": 27,
+    "failed": 1,
+    "skipped": 0,
+    "durationSeconds": 4.8168327,
+    "resultState": "Failed(Child)"
+  },
+  "results": [
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(0,0)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(0,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0136553,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+      "state": "Passed",
+      "durationSeconds": 0.0001086,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+      "state": "Passed",
+      "durationSeconds": 0.0000644,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+      "state": "Passed",
+      "durationSeconds": 0.0000531,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+      "state": "Passed",
+      "durationSeconds": 0.0000504,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+      "state": "Passed",
+      "durationSeconds": 0.0000637,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "ComboReservationBelongsToEachPlayerValue",
+      "fullName": "LSDFDeterministicContractTests.ComboReservationBelongsToEachPlayerValue",
+      "state": "Passed",
+      "durationSeconds": 0.0008283,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(0,0)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(0,0)",
+      "state": "Passed",
+      "durationSeconds": 0.000437,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(7,8)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(7,8)",
+      "state": "Passed",
+      "durationSeconds": 0.0000487,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(10,12)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(10,12)",
+      "state": "Passed",
+      "durationSeconds": 0.0000438,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(19,22)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(19,22)",
+      "state": "Passed",
+      "durationSeconds": 0.0000351,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(170,204)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(170,204)",
+      "state": "Passed",
+      "durationSeconds": 0.0000294,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "InvalidIdsFallbackAndPayloadDoesNotAlias",
+      "fullName": "LSDFDeterministicContractTests.InvalidIdsFallbackAndPayloadDoesNotAlias",
+      "state": "Passed",
+      "durationSeconds": 0.0004616,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "MalformedPayloadUsesDefaultLoadout(0)",
+      "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0014413,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "MalformedPayloadUsesDefaultLoadout(27)",
+      "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(27)",
+      "state": "Passed",
+      "durationSeconds": 0.0000668,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "MalformedPayloadUsesDefaultLoadout(29)",
+      "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(29)",
+      "state": "Passed",
+      "durationSeconds": 0.0000477,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "NullPayloadAndInvalidSlotsAreSafe",
+      "fullName": "LSDFDeterministicContractTests.NullPayloadAndInvalidSlotsAreSafe",
+      "state": "Passed",
+      "durationSeconds": 0.0001962,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+      "fullName": "LSDFDeterministicContractTests.RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+      "state": "Passed",
+      "durationSeconds": 0.0004268,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0063859,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0006865,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0004917,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+      "state": "Passed",
+      "durationSeconds": 0.0005703,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+      "fullName": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+      "state": "Failed",
+      "durationSeconds": 16.4183784,
+      "message": "Unhandled log message: '[Exception] NullReferenceException: Object reference not set to an instance of an object'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "stackTrace": "Photon.Deterministic.FPMath.SqrtRaw (System.Int64 x) (at Quantum/Quantum.Deterministic/Math/FPMath.cs:591)\r\nQuantum.TriangleMesh.Initialize (Photon.Deterministic.FP cellSize, System.Int32 cellsCapacity, System.Int32 trianglesCapacity, System.Int32 staticColliderCapacity) (at Quantum/Quantum.Engine/Physics3D/Physics3D.TriangleMesh.cs:624)\r\nQuantum.TriangleMesh..ctor (Photon.Deterministic.Native+Allocator allocator) (at Quantum/Quantum.Engine/Physics3D/Physics3D.TriangleMesh.cs:616)\r\nQuantum.TriangleMesh..ctor (Quantum.Core.FrameContext context) (at Quantum/Quantum.Engine/Physics3D/Physics3D.TriangleMesh.cs:608)\r\nQuantum.Physics3D.PhysicsEngine3D..ctor (Quantum.Core.FrameContext context) (at Quantum/Quantum.Engine/Physics3D/PhysicsEngine3D.cs:32)\r\nQuantum.Core.FrameContext..ctor (Quantum.Core.FrameContext+Args args) (at Quantum/Quantum.Engine/Core/FrameContext.cs:335)\r\nQuantum.FrameContextUser..ctor (Quantum.Core.FrameContext+Args args) (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:1817)\r\nQuantum.QuantumGame.CreateFrameContext () (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:3520)\r\nPhoton.Deterministic.DeterministicSession.OnProtocolSimulationStart (Photon.Deterministic.Protocol.SimulationStart msg) (at Quantum/Quantum.Deterministic/Simulator/DeterministicSession.Protocol.cs:78)\r\nPhoton.Deterministic.Dispatcher`1+<>c__DisplayClass1_0`1[T,K].<Bind>b__0 (T obj) (at Quantum/Quantum.Deterministic/Utils/Dispatcher.cs:10)\r\nPhoton.Deterministic.Dispatcher`1[T].Dispatch (T obj) (at Quantum/Quantum.Deterministic/Utils/Dispatcher.cs:27)\r\n--- End of stack trace from previous location where exception was thrown ---\r\nQuantum.UnityLogStream+<>c__DisplayClass10_0.<Log>b__0 () (at <f52c8f07248d45a0a250056d1ddc467e>:0)\r\nSystem.Threading.ThreadHelper.ThreadStart_Context (System.Object state) (at <d49d4cb128564ee1b54a84338c98d353>:0)\r\nSystem.Threading.ExecutionContext.RunInternal (System.Threading.ExecutionContext executionContext, System.Threading.ContextCallback callback, System.Object state, System.Boolean preserveSyncCtx) (at <d49d4cb128564ee1b54a84338c98d353>:0)\r\nSystem.Threading.ExecutionContext.Run (System.Threading.ExecutionContext executionContext, System.Threading.ContextCallback callback, System.Object state, System.Boolean preserveSyncCtx) (at <d49d4cb128564ee1b54a84338c98d353>:0)\r\nSystem.Threading.ExecutionContext.Run (System.Threading.ExecutionContext executionContext, System.Threading.ContextCallback callback, System.Object state) (at <d49d4cb128564ee1b54a84338c98d353>:0)\r\nSystem.Threading.ThreadHelper.ThreadStart () (at <d49d4cb128564ee1b54a84338c98d353>:0)\r\nUnityEngine.<>c:<RegisterUECatcher>b__0_0(Object, UnhandledExceptionEventArgs)\r\n\r\n",
+      "output": "<color=#20CB91>[Quantum]</color> System.NullReferenceException <i>See next error log entry for details.</i>\r\nNullReferenceException: Object reference not set to an instance of an object\r\nPhoton.Deterministic.DeterministicSimulator.GetInputFrame (System.Int32 frame) (at Quantum/Quantum.Deterministic/Simulator/DeterministicSimulator.cs:639)\nPhoton.Deterministic.DeterministicSimulator.CheckIsStalling (System.Int32 maxVerifiedTicks) (at Quantum/Quantum.Deterministic/Simulator/DeterministicSimulator.cs:239)\nPhoton.Deterministic.DeterministicSession.UpdateSimulation (System.Nullable`1[T] deltaTime) (at Quantum/Quantum.Deterministic/Simulator/DeterministicSession.cs:1077)\nPhoton.Deterministic.DeterministicSession.Update (System.Nullable`1[T] deltaTime) (at Quantum/Quantum.Deterministic/Simulator/DeterministicSession.cs:848)\nQuantum.SessionRunner.Service (System.Nullable`1[T] deltaTime) (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:8111)\nQuantum.QuantumRunner.Update () (at Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs:22945)\nQuantum.QuantumRunnerBehaviour.Update () (at Assets/Photon/Quantum/Runtime/QuantumRunnerBehaviour.cs:37)\n\r\n"
+    },
+    {
+      "name": "FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+      "fullName": "LSDFSingleHitTests.FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+      "state": "Passed",
+      "durationSeconds": 0.0139479,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SerializedLeftUpperPreservesOriginalDefinition",
+      "fullName": "LSDFSingleHitTests.SerializedLeftUpperPreservesOriginalDefinition",
+      "state": "Passed",
+      "durationSeconds": 0.0042733,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SpawnTickPreservesPhysicsLead(11,False)",
+      "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(11,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0006852,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SpawnTickPreservesPhysicsLead(12,True)",
+      "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(12,True)",
+      "state": "Passed",
+      "durationSeconds": 0.000069,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SpawnTickPreservesPhysicsLead(13,False)",
+      "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(13,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000442,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    }
+  ],
+  "post_run_change": {
+    "description": "Added QuantumLookupTables global asset referencing installed SDK tables; added explicit LUT initialization and precondition in online test.",
+    "retested": false,
+    "status": "modified-not-reverified"
+  }
+}

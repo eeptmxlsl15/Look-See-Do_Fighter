@@ -1,0 +1,9 @@
+{
+  "name": "LSDF.Tests",
+  "references": ["Quantum.Simulation", "Quantum.Unity", "Quantum.Menu", "Photon.Realtime"],
+  "includePlatforms": ["Editor"],
+  "allowUnsafeCode": true,
+  "overrideReferences": true,
+  "precompiledReferences": ["Quantum.Deterministic.dll", "Quantum.Engine.dll", "Quantum.Log.dll", "PhotonClient.dll", "nunit.framework.dll"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

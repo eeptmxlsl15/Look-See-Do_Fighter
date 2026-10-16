@@ -142,6 +142,7 @@ namespace Quantum.Menu {
     /// <inheritdoc/>
     protected override async Task<ConnectResult> ConnectAsyncInternal(QuantumMenuConnectArgs connectArgs) {
       PatchConnectArgs(connectArgs);
+      PrepareLSDFPlayers(connectArgs);
 
       if (string.IsNullOrEmpty(connectArgs.AppSettings.AppIdQuantum)) {
         return ConnectResult.Fail(ConnectFailReason.NoAppId,

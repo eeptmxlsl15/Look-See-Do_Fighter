@@ -573,7 +573,7 @@ namespace Quantum.LSDF
             player->isHit = true;
             player->DelayFrame = f.Number + hitbox->enemyCountTime;
 
-            player->playerHp -= (int)(hitbox->attackDamage * 1.2f);//여기서 데미지 보정
+            player->playerHp -= LSDFCombatMath.CounterDamage(hitbox->attackDamage);//여기서 데미지 보정
 
             Debug.Log($"현재 체력 : {player->playerHp}/170");
             

@@ -1,0 +1,38 @@
+{
+  "project": "Look-See-Do_Fighter",
+  "date": "2026-10-16",
+  "source": "unityMCP run_tests/get_test_job",
+  "job_id": "3e22e049178e46fcb4fffe267408afd5",
+  "mode": "EditMode",
+  "assembly": "LSDF.Tests",
+  "summary": {
+    "total": 24,
+    "passed": 23,
+    "failed": 1,
+    "skipped": 0,
+    "resultState": "Failed(Child)"
+  },
+  "passed_groups": [
+    { "fixture": "LSDFDeterministicContractTests", "count": 18 },
+    { "fixture": "LSDFSingleHitTests", "count": 5 }
+  ],
+  "failure": {
+    "test": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+    "exception": "Quantum.SessionRunnerException: Session start timed out",
+    "stage": "Task.WhenAll(SessionRunner.StartAsync A, SessionRunner.StartAsync B)",
+    "observed_warning": "RealtimeClient.SendOutgoingCommands() was not called for > 5 seconds.",
+    "editor_focused_during_run": false,
+    "run_in_background_during_run": false,
+    "online_combat_assertions_reached": false
+  },
+  "post_run_change": {
+    "scope": "Online test harness only",
+    "description": "Enable Application.runInBackground after EnterPlayMode and restore its previous value in finally.",
+    "retested": false,
+    "status": "modified-not-reverified"
+  },
+  "limits": [
+    "Online startup failure does not establish a gameplay desync.",
+    "No cross-platform, standalone-build, UI, induced rollback, replay or reconnect pass is claimed."
+  ]
+}

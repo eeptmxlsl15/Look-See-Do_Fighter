@@ -1,0 +1,320 @@
+{
+  "project": "Look-See-Do_Fighter",
+  "date": "2026-10-16",
+  "source": "unityMCP",
+  "job_id": "90c79d0e28b240b1a64446990abe217a",
+  "mode": "EditMode",
+  "summary": {
+    "total": 33,
+    "passed": 32,
+    "failed": 1,
+    "skipped": 0,
+    "durationSeconds": 5.737301,
+    "resultState": "Failed(Child)"
+  },
+  "results": [
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(0,0)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(0,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0149209,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+      "state": "Passed",
+      "durationSeconds": 0.0000882,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+      "state": "Passed",
+      "durationSeconds": 0.0000548,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+      "state": "Passed",
+      "durationSeconds": 0.0000458,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+      "state": "Passed",
+      "durationSeconds": 0.0000379,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+      "fullName": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+      "state": "Passed",
+      "durationSeconds": 0.000038,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "ComboReservationBelongsToEachPlayerValue",
+      "fullName": "LSDFDeterministicContractTests.ComboReservationBelongsToEachPlayerValue",
+      "state": "Passed",
+      "durationSeconds": 0.0006004,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(0,0)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(0,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0004359,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(7,8)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(7,8)",
+      "state": "Passed",
+      "durationSeconds": 0.0000635,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(10,12)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(10,12)",
+      "state": "Passed",
+      "durationSeconds": 0.0000436,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(19,22)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(19,22)",
+      "state": "Passed",
+      "durationSeconds": 0.000041,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "CounterDamageUsesTruncatedRationalScaling(170,204)",
+      "fullName": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(170,204)",
+      "state": "Passed",
+      "durationSeconds": 0.0000542,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "InvalidIdsFallbackAndPayloadDoesNotAlias",
+      "fullName": "LSDFDeterministicContractTests.InvalidIdsFallbackAndPayloadDoesNotAlias",
+      "state": "Passed",
+      "durationSeconds": 0.0004634,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "MalformedPayloadUsesDefaultLoadout(0)",
+      "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0011732,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "MalformedPayloadUsesDefaultLoadout(27)",
+      "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(27)",
+      "state": "Passed",
+      "durationSeconds": 0.0000959,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "MalformedPayloadUsesDefaultLoadout(29)",
+      "fullName": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(29)",
+      "state": "Passed",
+      "durationSeconds": 0.0000827,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "NullPayloadAndInvalidSlotsAreSafe",
+      "fullName": "LSDFDeterministicContractTests.NullPayloadAndInvalidSlotsAreSafe",
+      "state": "Passed",
+      "durationSeconds": 0.0002231,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+      "fullName": "LSDFDeterministicContractTests.RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+      "state": "Passed",
+      "durationSeconds": 0.0005252,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0149511,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0077144,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0087853,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+      "fullName": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+      "state": "Passed",
+      "durationSeconds": 0.0070597,
+      "message": null,
+      "stackTrace": "",
+      "output": ""
+    },
+    {
+      "name": "TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+      "fullName": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+      "state": "Failed",
+      "durationSeconds": 16.0718752,
+      "message": "Unhandled log message: '[Exception] ArgumentException: previousSceneName'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "stackTrace": "Quantum.QuantumCallbackHandler_UnityCallbacks+<SwitchScene>d__13.MoveNext () (at Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs:1242)\r\nUnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <4188a0f79dff4b4191dbeaff03bfe462>:0)\r\nUnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)\r\nQuantum.QuantumCallbackHandler_UnityCallbacks:UpdateLoading(QuantumGame) (at Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs:1352)\r\nQuantum.<>c__DisplayClass8_0:<Initialize>b__2(CallbackUpdateView) (at Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs:1174)\r\nQuantum.DispatchableMeta`1:InvokeSingle(Delegate, IDispatchable) (at Quantum/Quantum.Engine/Core/DispatcherBase.cs:651)\r\nQuantum.DispatcherBase:InvokeMeta(Int32, IDispatchable) (at Quantum/Quantum.Engine/Core/DispatcherBase.cs:316)\r\nQuantum.CallbackDispatcher:Publish(CallbackBase) (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:2894)\r\nQuantum.QuantumGame:InvokeOnUpdateView() (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:5464)\r\nQuantum.QuantumGame:OnUpdateDone() (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:3763)\r\nPhoton.Deterministic.DeterministicSession:CallOnUpdateDone() (at Quantum/Quantum.Deterministic/Simulator/DeterministicSession.cs:1205)\r\nPhoton.Deterministic.DeterministicSession:UpdateSimulation(Nullable`1) (at Quantum/Quantum.Deterministic/Simulator/DeterministicSession.cs:1086)\r\nPhoton.Deterministic.DeterministicSession:Update(Nullable`1) (at Quantum/Quantum.Deterministic/Simulator/DeterministicSession.cs:848)\r\nQuantum.SessionRunner:Service(Nullable`1) (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:8105)\r\nQuantum.QuantumRunner:Update() (at Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs:22945)\r\nQuantum.QuantumRunnerBehaviour:Update() (at Assets/Photon/Quantum/Runtime/QuantumRunnerBehaviour.cs:37)\r\n\r\n",
+      "output": "ArgumentException: previousSceneName\r\nQuantum.QuantumCallbackHandler_UnityCallbacks+<SwitchScene>d__13.MoveNext () (at Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs:1242)\nUnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <4188a0f79dff4b4191dbeaff03bfe462>:0)\nUnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)\nQuantum.QuantumCallbackHandler_UnityCallbacks:UpdateLoading(QuantumGame) (at Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs:1352)\nQuantum.<>c__DisplayClass8_0:<Initialize>b__2(CallbackUpdateView) (at Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs:1174)\nQuantum.DispatchableMeta`1:InvokeSingle(Delegate, IDispatchable) (at Quantum/Quantum.Engine/Core/DispatcherBase.cs:651)\nQuantum.DispatcherBase:InvokeMeta(Int32, IDispatchable) (at Quantum/Quantum.Engine/Core/DispatcherBase.cs:316)\nQuantum.CallbackDispatcher:Publish(CallbackBase) (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:2894)\nQuantum.QuantumGame:InvokeOnUpdateView() (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:5464)\nQuantum.QuantumGame:OnUpdateDone() (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:3763)\nPhoton.Deterministic.DeterministicSession:CallOnUpdateDone() (at Quantum/Quantum.Deterministic/Simulator/DeterministicSession.cs:1205)\nPhoton.Deterministic.DeterministicSession:UpdateSimulation(Nullable`1) (at Quantum/Quantum.Deterministic/Simulator/DeterministicSession.cs:1086)\nPhoton.Deterministic.DeterministicSession:Update(Nullable`1) (at Quantum/Quantum.Deterministic/Simulator/DeterministicSession.cs:848)\nQuantum.SessionRunner:Service(Nullable`1) (at Assets/Photon/Quantum/Simulation/QuantumSimulationCore.cs:8105)\nQuantum.QuantumRunner:Update() (at Assets/Photon/Quantum/Runtime/QuantumUnityRuntime.cs:22945)\nQuantum.QuantumRunnerBehaviour:Update() (at Assets/Photon/Quantum/Runtime/QuantumRunnerBehaviour.cs:37)\n\r\n"
+    },
+    {
+      "name": "FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+      "fullName": "LSDFSingleHitTests.FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+      "state": "Passed",
+      "durationSeconds": 0.0153706,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SerializedLeftUpperPreservesOriginalDefinition",
+      "fullName": "LSDFSingleHitTests.SerializedLeftUpperPreservesOriginalDefinition",
+      "state": "Passed",
+      "durationSeconds": 0.0044105,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SpawnTickPreservesPhysicsLead(11,False)",
+      "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(11,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0006237,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SpawnTickPreservesPhysicsLead(12,True)",
+      "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(12,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000942,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SpawnTickPreservesPhysicsLead(13,False)",
+      "fullName": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(13,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000912,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "RequiredQuantumLookupTablesAreConfigured",
+      "fullName": "LSDFTimedHitTests.RequiredQuantumLookupTablesAreConfigured",
+      "state": "Passed",
+      "durationSeconds": 0.0005504,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+      "state": "Passed",
+      "durationSeconds": 0.0033225,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+      "state": "Passed",
+      "durationSeconds": 0.0002426,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0012308,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0001913,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    }
+  ],
+  "post_run_change": {
+    "scope": "Online test harness",
+    "description": "Disable automatic Unity scene loading in memory during test and restore it afterwards; link test-iterator cancellation to async network work.",
+    "retested": false,
+    "status": "modified-not-reverified"
+  }
+}

@@ -50,6 +50,7 @@ component LSDF_Player
 
 	//½ºÅ³ ¸Ê
 	array<int>[28] CommandSkillMap;
+    bool BufferedNextAttack; // Per-fighter rollback-owned combo reservation.
 	
 }	
 

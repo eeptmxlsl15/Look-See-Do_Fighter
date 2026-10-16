@@ -1175,45 +1175,45 @@ namespace Quantum {
   public unsafe partial struct LSDF_Player : Quantum.IComponent {
     public const Int32 SIZE = 248;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(160)]
-    public QBoolean isDashBack;
     [FieldOffset(164)]
-    public QBoolean isDashFront;
-    [FieldOffset(204)]
-    public QBoolean isSit;
-    [FieldOffset(208)]
-    public QBoolean isStandUpGuard;
-    [FieldOffset(148)]
-    public QBoolean isAttack;
-    [FieldOffset(184)]
-    public QBoolean isHit;
-    [FieldOffset(176)]
-    public QBoolean isGuard;
-    [FieldOffset(212)]
-    public QBoolean isStun;
-    [FieldOffset(156)]
-    public QBoolean isCombo;
-    [FieldOffset(196)]
-    public QBoolean isParring;
-    [FieldOffset(136)]
-    public QBoolean canCounter;
-    [FieldOffset(188)]
-    public QBoolean isJump;
+    public QBoolean isDashBack;
     [FieldOffset(168)]
-    public QBoolean isDodgeHigh;
-    [FieldOffset(180)]
-    public QBoolean isHealing;
-    [FieldOffset(144)]
-    public QBoolean isAir;
-    [FieldOffset(172)]
-    public QBoolean isGround;
-    [FieldOffset(192)]
-    public QBoolean isOnWall;
-    [FieldOffset(216)]
-    public QBoolean isWallHit;
-    [FieldOffset(140)]
-    public QBoolean hitWallLauncher;
+    public QBoolean isDashFront;
+    [FieldOffset(208)]
+    public QBoolean isSit;
+    [FieldOffset(212)]
+    public QBoolean isStandUpGuard;
     [FieldOffset(152)]
+    public QBoolean isAttack;
+    [FieldOffset(188)]
+    public QBoolean isHit;
+    [FieldOffset(180)]
+    public QBoolean isGuard;
+    [FieldOffset(216)]
+    public QBoolean isStun;
+    [FieldOffset(160)]
+    public QBoolean isCombo;
+    [FieldOffset(200)]
+    public QBoolean isParring;
+    [FieldOffset(140)]
+    public QBoolean canCounter;
+    [FieldOffset(192)]
+    public QBoolean isJump;
+    [FieldOffset(172)]
+    public QBoolean isDodgeHigh;
+    [FieldOffset(184)]
+    public QBoolean isHealing;
+    [FieldOffset(148)]
+    public QBoolean isAir;
+    [FieldOffset(176)]
+    public QBoolean isGround;
+    [FieldOffset(196)]
+    public QBoolean isOnWall;
+    [FieldOffset(220)]
+    public QBoolean isWallHit;
+    [FieldOffset(144)]
+    public QBoolean hitWallLauncher;
+    [FieldOffset(156)]
     public QBoolean isCantMove;
     [FieldOffset(224)]
     public FP forceBack;
@@ -1225,7 +1225,7 @@ namespace Quantum {
     public Int32 playerHp;
     [FieldOffset(120)]
     public Int32 loseRound;
-    [FieldOffset(200)]
+    [FieldOffset(204)]
     public QBoolean isRoundEnd;
     [FieldOffset(112)]
     public Int32 DelayFrame;
@@ -1235,6 +1235,8 @@ namespace Quantum {
     public FPVector2 effectPosition;
     [FieldOffset(0)]
     public fixed Int32 CommandSkillMap[28];
+    [FieldOffset(136)]
+    public QBoolean BufferedNextAttack;
     public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 9949;
@@ -1268,6 +1270,7 @@ namespace Quantum {
         hash = hash * 31 + tickToEnableMove.GetHashCode();
         hash = hash * 31 + effectPosition.GetHashCode();
         fixed (Int32* p = CommandSkillMap) hash = hash * 31 + HashCodeUtils.GetArrayHashCode(p, 28);
+        hash = hash * 31 + BufferedNextAttack.GetHashCode();
         return hash;
       }
     }
@@ -1280,6 +1283,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->playerHp);
         serializer.Stream.Serialize(&p->tickToEnableMove);
         serializer.Stream.Serialize(&p->wallCount);
+        QBoolean.Serialize(&p->BufferedNextAttack, serializer);
         QBoolean.Serialize(&p->canCounter, serializer);
         QBoolean.Serialize(&p->hitWallLauncher, serializer);
         QBoolean.Serialize(&p->isAir, serializer);

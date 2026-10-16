@@ -9,15 +9,15 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
 {
 
-    private int currentFrame;
-    private const int HitFrame = 10; // 실제 발동 프레임보다 1 낮아야 다음 프레임에 히트 박스가 적용 된다 = 이벤트 시작 위치때문에 -1
-    bool bufferedNextAttack;
+
+    public Quantum.LSDF.LSDFSingleHitDefinition Hit = Quantum.LSDF.LSDFSingleHitDefinition.CreateJapJap(); // 실제 발동 프레임보다 1 낮아야 다음 프레임에 히트 박스가 적용 된다 = 이벤트 시작 위치때문에 -1
+
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         Debug.Log($"잽잽 시작 프레임{f.Number}");
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         player->isAttack = true;
         player->isDashFront = false;
@@ -28,8 +28,8 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
 
         //콤보에 사용 되는 불린
         AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
-        bufferedNextAttack = false;
-        Debug.Log($"잽잽 현재 프레임 : {currentFrame}");
+        player->BufferedNextAttack = false;
+        Debug.Log($"잽잽 현재 프레임 : {Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time)}");
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashFront", false);
         AnimatorComponent.SetBoolean(f, animatorComponent, "DashBack", false);
 
@@ -37,9 +37,9 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
-        currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
+        int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
 
         //전진성과 방향성
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
@@ -54,7 +54,7 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
         int flip = playerLink.PlayerRef == (PlayerRef)0 ? 1 : -1;
 
         //전진 속도
-        if (currentFrame < HitFrame)
+        if (animationFrame < Hit.StartupFrames)
         {
             body->Velocity.X = flip;
             Debug.Log("잽 Execute");
@@ -66,7 +66,7 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
         }
         
 
-       if (currentFrame <= 20) // 연계 입력 받을 수 있는 구간
+       if (animationFrame <= 20) // 연계 입력 받을 수 있는 구간
         {
             
 
@@ -74,11 +74,11 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
             if (input->RightPunch)
             {
 
-                bufferedNextAttack = true;  // 일단 예약만 함
+                player->BufferedNextAttack = true;  // 일단 예약만 함
                 Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
             }
         }
-        if (currentFrame >= 21 && bufferedNextAttack)
+        if (animationFrame >= 21 && player->BufferedNextAttack)
         {
 
             AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);
@@ -87,95 +87,10 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
             Debug.Log("예약된 Lp 발동");
         }
         //히트 박스 생성
-        if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
+        if (Hit.IsSpawnFrame(animationFrame))//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {
 
-            EntityRef hitbox = f.Create();
-
-            //-------------------------------------------상단-----------------------------------------//
-            FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25 + FP._0_05) * flip, FP._0_25);
-
-            f.Add(hitbox, new Transform2D
-            {
-                //위치
-                Position = hitboxPosition,
-                Rotation = FP._0
-            });
-
-            f.Add(hitbox, new PhysicsCollider2D
-            {
-
-                IsTrigger = true,
-                //박스 크기
-                Shape = Shape2D.CreateBox(new FPVector2(FP._0_20 / 2, (FP._0_10 - FP._0_02) / 2))
-            });
-
-            ////-------------------------------------------중단-----------------------------------------//
-            //FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, 0);
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //Change
-            //    //위치
-            //    Position = hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-            //    IsTrigger = true,
-            //    //Change
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_33 - FP._0_03) / 2))
-            //});
-
-            //---------------------------------------하단---------------------------------------------//
-            //FPVector2 hitboxPosition=f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, -(FP._0_25 + FP._0_03));
-
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //위치
-            //    Position =hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-            //    IsTrigger = true,
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_10 - FP._0_02) / 2))
-            //});
-            //------------------------------------------------------------------------------------//
-
-            //공격 정보
-            f.Add(hitbox, new LSDF_HitboxInfo
-            {
-                position = hitboxPosition,
-                startFrame = HitFrame,
-                AttackerEntity = entity,
-
-                AttackType = HitboxAttackType.High,
-                CountType = CountAttackType.Normal,
-                DelayGuardTpye = DelayGuardType.Normal,
-                HomingReturnType = HomingType.Stun,
-
-                jumpAttack = false,
-                dodgeHigh = false,
-
-
-                enemyGuardTime = 21,
-                enemyHitTime = 28,
-                enemyCountTime = 28,
-                attackDamage = 7,
-                
-            });
-
-
-
-            f.Add(hitbox, new TickToDestroy
-            {
-                TickToDestroyAt = f.Number + 1
-            });
-
+            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, Hit);
             if (player->canCounter == true)
             {
                 player->canCounter = false;
@@ -189,7 +104,7 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
     {
         AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->Velocity.X = 0;

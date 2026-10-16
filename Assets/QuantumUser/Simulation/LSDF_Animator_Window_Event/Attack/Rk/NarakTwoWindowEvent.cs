@@ -11,11 +11,11 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
     /// <summary>
     /// 시작 프레임
     /// </summary>
-    private const int HitFrame = 18;
+    public Quantum.LSDF.LSDFTimedHitDefinition FirstHit = Quantum.LSDF.LSDFTimedHitDefinition.CreateNarakFirst();
+    public Quantum.LSDF.LSDFTimedHitDefinition SecondHit = Quantum.LSDF.LSDFTimedHitDefinition.CreateNarakSecond();
 
 
-    private int currentFrame;
-    bool bufferedNextAttack;
+
 
     public override unsafe void OnEnter(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
@@ -23,7 +23,7 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
         Debug.Log($"원잽 시작 프레임{f.Number}");
 
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         //공격일 때만 초기화
         player->isAttack = true;
@@ -46,8 +46,7 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
 
         //---연타 기술 ---//
         //버퍼 넥스트 초기화
-        bufferedNextAttack = false;
-        Debug.Log($"잽 현재 프레임 : {currentFrame}");
+        Debug.Log($"잽 현재 프레임 : {Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time)}");
 
 
     }
@@ -56,10 +55,10 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
         #region 수정 X
         //플레이어 정보
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
         //현재 프레임
-        currentFrame = (int)(layerData->Time.AsFloat * 60.0f);
+        int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
 
         //회전 고정
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
@@ -75,7 +74,7 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
         #endregion
 
         //전진 속도
-        if (currentFrame < 36)
+        if (animationFrame < 36)
         {
             body->Velocity.X = flip;
             Debug.Log("잽 Execute");
@@ -87,16 +86,14 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
         }
 
         //연타 관련
-        //if (5 <= currentFrame && currentFrame <= 15) // 연계 입력 받을 수 있는 구간
+        //if (5 <= animationFrame && animationFrame <= 15) // 연계 입력 받을 수 있는 구간
         //{
         //    if (input->RightPunch && (AnimatorComponent.GetInteger(f, animatorComponent, "FinalNum") == 0))
         //    {
 
-        //        bufferedNextAttack = true;  // 일단 예약만 함
         //        Debug.Log("잽 중에 Lp 입력 → 연계 예약 완료");
         //    }
         //}
-        //else if (currentFrame >= 16 && bufferedNextAttack)
         //{
 
         //    AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", true);
@@ -107,7 +104,7 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
 
 
         //상단회피, 점프 
-        if (1 < currentFrame && currentFrame < HitFrame - 1)
+        if (1 < animationFrame && animationFrame < FirstHit.Hit.StartupFrames - 1)
         {
             
             player->isDodgeHigh = true;
@@ -119,102 +116,12 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
 
         #region 1타
         //히트 박스 생성
-        if (currentFrame == HitFrame - 1)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
+        if (FirstHit.IsSpawnFrame(animationFrame))//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {
 
-            EntityRef hitbox = f.Create();
-
-            //플레이어 상태 초기화
             player->isJump = false;
             player->isDodgeHigh = false;
-
-            //-------------------------------------------상단-----------------------------------------//
-            //FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25 + FP._0_05) * flip, FP._0_25);
-
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //위치
-            //    Position = hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-
-            //    IsTrigger = true,
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_20 / 2, (FP._0_10 - FP._0_02) / 2))
-            //});
-
-            ////-------------------------------------------중단-----------------------------------------//
-            //FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, 0);
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //Change
-            //    //위치
-            //    Position = hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-            //    IsTrigger = true,
-            //    //Change
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_33 - FP._0_03) / 2))
-            //});
-
-            //---------------------------------------하단---------------------------------------------//
-            FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, -(FP._0_25 + FP._0_03));
-
-            f.Add(hitbox, new Transform2D
-            {
-                //위치
-                Position = hitboxPosition,
-                Rotation = FP._0
-            });
-
-            f.Add(hitbox, new PhysicsCollider2D
-            {
-                IsTrigger = true,
-                //박스 크기
-                Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_10 - FP._0_02) / 2))
-            });
-            //------------------------------------------------------------------------------------//
-
-
-            //공격 정보
-            f.Add(hitbox, new LSDF_HitboxInfo
-            {
-                position = hitboxPosition,
-                startFrame = HitFrame,
-                AttackerEntity = entity,
-
-                AttackType = HitboxAttackType.Low,
-                CountType = CountAttackType.Normal,
-                DelayGuardTpye = DelayGuardType.Combo,
-                HomingReturnType = HomingType.Combo,
-
-                jumpAttack = false,
-                dodgeHigh = true,
-                launcher = false,
-                wallLauncher = false,
-                notSitLauncher = false,
-
-                enemyGuardTime = 20,
-                enemyHitTime = 20,
-                enemyCountTime = 20,
-                attackDamage = 15,
-                forceBack = 0
-            });
-
-
-
-            f.Add(hitbox, new TickToDestroy
-            {
-                TickToDestroyAt = f.Number + 1
-            });
-
+            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, FirstHit.Hit);
             if (player->canCounter == true)
             {
                 player->canCounter = false;
@@ -225,102 +132,12 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
 
 
         #region 2타
-        if (currentFrame == 35)//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
+        if (SecondHit.IsSpawnFrame(animationFrame))//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {
 
-            EntityRef hitbox = f.Create();
-
-            //플레이어 상태 초기화
             player->isJump = false;
             player->isDodgeHigh = false;
-
-            //-------------------------------------------상단-----------------------------------------//
-            //FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25 + FP._0_05) * flip, FP._0_25);
-
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //위치
-            //    Position = hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-
-            //    IsTrigger = true,
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_20 / 2, (FP._0_10 - FP._0_02) / 2))
-            //});
-
-            ////-------------------------------------------중단-----------------------------------------//
-            FPVector2 hitboxPosition = f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, 0);
-            f.Add(hitbox, new Transform2D
-            {
-                //Change
-                //위치
-                Position = hitboxPosition,
-                Rotation = FP._0
-            });
-
-            f.Add(hitbox, new PhysicsCollider2D
-            {
-                IsTrigger = true,
-                //Change
-                //박스 크기
-                Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_33 - FP._0_03) / 2))
-            });
-
-            //---------------------------------------하단---------------------------------------------//
-            //FPVector2 hitboxPosition=f.Get<Transform2D>(entity).Position + new FPVector2((FP._0_25) * flip, -(FP._0_25 + FP._0_03));
-
-            //f.Add(hitbox, new Transform2D
-            //{
-            //    //위치
-            //    Position =hitboxPosition,
-            //    Rotation = FP._0
-            //});
-
-            //f.Add(hitbox, new PhysicsCollider2D
-            //{
-            //    IsTrigger = true,
-            //    //박스 크기
-            //    Shape = Shape2D.CreateBox(new FPVector2(FP._0_10 / 2, (FP._0_10 - FP._0_02) / 2))
-            //});
-            //------------------------------------------------------------------------------------//
-
-
-            //공격 정보
-            f.Add(hitbox, new LSDF_HitboxInfo
-            {
-                position = hitboxPosition,
-                startFrame = HitFrame,
-                AttackerEntity = entity,
-
-                AttackType = HitboxAttackType.Mid,
-                CountType = CountAttackType.Normal,
-                DelayGuardTpye = DelayGuardType.Combo,
-                HomingReturnType = HomingType.Combo,
-
-                jumpAttack = false,
-                dodgeHigh = false,
-                launcher = false,
-                wallLauncher = false,
-                notSitLauncher = false,
-
-                enemyGuardTime = 20,
-                enemyHitTime = 29,
-                enemyCountTime = 29,
-                attackDamage = 27,
-                forceBack = 0
-            });
-
-
-
-            f.Add(hitbox, new TickToDestroy
-            {
-                TickToDestroyAt = f.Number + 1
-            });
-
+            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, SecondHit.Hit);
             if (player->canCounter == true)
             {
                 player->canCounter = false;
@@ -336,7 +153,7 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
         ////연타 공격일 경우
         // AnimatorComponent.SetBoolean(f, animatorComponent, "NextAttack", false);
         var entity = animatorComponent->Self;
-        f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player);
+        if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
         body->Velocity.X = 0;
 

@@ -70,7 +70,7 @@ namespace Quantum.LSDF
         }
 
 
-        static public bool isGuard;
+
         public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
         {
 
@@ -157,7 +157,7 @@ namespace Quantum.LSDF
                         return;
                     }
                     //그 외에 움직이는 경우(앉기 , 서기 , 앞, 뒤 )
-                    else if (isGuard = ShouldGuard(hitbox->AttackType, stateName,defender->isSit))
+                    else if (ShouldGuard(hitbox->AttackType, stateName,defender->isSit))
                     {
                         f.Signals.OnTriggerGuard(info, defender, defenderAnimator, hitbox);
 
