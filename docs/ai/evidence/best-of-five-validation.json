@@ -1,0 +1,61 @@
+{
+  "date_korea": "2026-10-17",
+  "base_head": "3f45e7d1dfd79384919d04e8a3ec28df4944eb11",
+  "branch": "dev/Prototype",
+  "feature": "Best of five, first to three; round reset and natural Sit Enter animation",
+  "compile_before_timeout_attribute": {"status": "PASS", "errors": 0, "warnings": 8},
+  "quantum_guard": {"status": "PASS", "files_scanned": 91, "existing_findings": 0, "new_findings": 0},
+  "test_job": "2baa8d255e9540369d62e39dbdaf142c",
+  "summary": {"total": 157, "passed": 156, "failed": 1, "skipped": 0, "duration_seconds_reported": 173.0512094},
+  "passed_groups": {
+    "LSDFDeterministicContractTests": 18,
+    "LSDFInputBufferTests": 31,
+    "LSDFJabDefinitionTests": 4,
+    "LSDFPlayerHealthTests": 24,
+    "LSDFRemainingAttackTests": 30,
+    "LSDFRoundResultTests": 19,
+    "LSDFSingleHitTests": 5,
+    "LSDFStructuralTests": 20,
+    "LSDFTimedHitTests": 5
+  },
+  "failed_test": {
+    "name": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+    "duration_seconds_reported": 182.1567128,
+    "message": "Timeout value of 180000 ms was exceeded. If this is intended, increase the timeout value using a TimeoutAttribute.",
+    "stage": "After live MATCH PASS, during recorded-input replay; no completed REPLAY/RESTORE marker",
+    "fix": "Added NUnit [Timeout(360000)] to the UnityTest; internal 240s cancellation and 180s match-driver bound preserved",
+    "after_fix": "NOT RUN; no automatic compile or test retry"
+  },
+  "live_observations_not_overall_pass": {
+    "mode": "Two actual Photon Multiplayer clients; no rendered Unity views",
+    "rounds_both_clients": [
+      {"round": 1, "tick": 2875, "losses_playerref_0_1": [1, 0]},
+      {"round": 2, "tick": 4495, "losses_playerref_0_1": [1, 1]},
+      {"round": 3, "tick": 6115, "losses_playerref_0_1": [2, 1]},
+      {"round": 4, "tick": 7735, "losses_playerref_0_1": [2, 2]},
+      {"round": 5, "tick": 9355, "losses_playerref_0_1": [3, 2]}
+    ],
+    "asserted_per_client": {"round_ends": 5, "resets_and_intros": 4, "sit_enter_then_siting": 5, "stable_final_result_ticks_minimum": 240},
+    "input_buffer": {"input_tick": 393, "dispatch_tick_both_clients": 401},
+    "marker": "MATCH PASS: tick=9355, losses=3/2; five KO rounds, four resets/intros, five Sit Enter-to-Siting sequences; final result stable for at least 240 verified ticks on both clients.",
+    "limits": "Live match assertions passed, but the containing online test failed. Recorded-input replay/Frame restore did not complete; no overall determinism PASS."
+  },
+  "diff": {"exit_code": 1, "finding": "SDK-generated Quantum.CodeGen.Core.cs:1079 trailing whitespace; unchanged by this work unit", "handling": "Preserved generated code"},
+  "not_run": ["timeout-attribute fix verification", "complete replay and Frame restoration for this version", "rendered UI/manual visual inspection", "standalone build", "real reconnect", "induced network rollback", "cross-platform"],
+  "restored_editor": {"scene": "LSDF_Menu", "isDirty": false, "is_playing": false},
+  "commit": "NOT REQUESTED; not created",
+  "push": "NOT REQUESTED; not attempted",
+  "sha256_tested_gameplay_files": {
+    "Assets/QuantumUser/Simulation/LSDFRoundPolicy.cs": "B7646DF4956DFB08DD97DAFC9E0757B6AB4206C7082F280391AAD2BAB9A7504A",
+    "Assets/QuantumUser/Simulation/LSDF_IngameSystem.cs": "BB5211B59F0F47F1ACA15E0E9ED6E3BCC356517EEC4DC1200E90B9BA0ACD7C4E",
+    "Assets/QuantumUser/View/LSDF_IngameUI.cs": "800F605A8924ADD3167915E0809001811CDDBAB037E3F0E1D3BD7DF73B26A109",
+    "Assets/QuantumUser/Simulation/LSDF_GameConfig.cs": "DA478E6F9B64E0F98B7296D01080EF313A189C634C56F794BDC4C4C4BC54FCD8",
+    "Assets/QuantumUser/Simulation/LSDFBalance.cs": "A6373D456586FCA896886DB7A2371FFF23682CD844F9E7978EAEC084EBEDAB5A",
+    "Assets/QuantumUser/Simulation/LSDFLoadout.cs": "41C2EE6AD47A9CFE37713E1EF9D6C2507B10A0C4C083CB6BA5AFC578D0663566",
+    "Assets/QuantumUser/Resources/LSDF_GameConfig.asset": "79FFA62864BA9A47E89CB9DF9F96A66231F0D96A066AE05871C05C41FB7AF21B",
+    "Assets/Tests/Editor/LSDFRoundResultTests.cs": "89401A6064DF697F52F5632843CED848B4DFA8ECA641917CD7F1D5D1C9AD1FBD"
+  },
+  "sha256_test_source_after_unverified_timeout_fix": {
+    "Assets/Tests/Editor/LSDFOnlineSmokeTests.cs": "E1E206DE97A273EA50FD4676844247C412E0EFEB6CB4CD682B3B01D325D34A67"
+  }
+}

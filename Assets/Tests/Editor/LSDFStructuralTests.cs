@@ -40,13 +40,14 @@ public class LSDFStructuralTests {
     Assert.IsTrue(menu.AvailableScenes[0].RuntimeConfig.GameConfig.Id.IsValid);
   }
   [TestCase(0)] [TestCase(-10)]
-  public void KoRecoveryCountsOnceAndHandlesNegativeHp(int hp) {
+  public void KoCountsOnceAndWaitsForExplicitRoundReset(int hp) {
     var a = new LSDF_Player { playerHp = hp };
     var b = new LSDF_Player { playerHp = 170 };
-    LSDFRoundPolicy.BeginRecovery(ref a, 100, 210); LSDFRoundPolicy.BeginRecovery(ref b, 100, 210);
-    Assert.AreEqual(1, a.loseRound); Assert.AreEqual(1, a.playerHp); Assert.AreEqual(0, b.loseRound);
-    Assert.AreEqual(LSDFRoundPhase.Recovering, LSDFRoundPolicy.Phase(true, a, b, 309));
-    Assert.AreEqual(LSDFRoundPhase.Fighting, LSDFRoundPolicy.Phase(true, a, b, 310));
+    Assert.IsTrue(LSDFRoundPolicy.TryFinish(ref a, ref b));
+    Assert.IsFalse(LSDFRoundPolicy.TryFinish(ref a, ref b));
+    Assert.AreEqual(1, a.loseRound); Assert.AreEqual(0, a.playerHp); Assert.AreEqual(0, b.loseRound);
+    Assert.AreEqual(LSDFRoundPhase.RoundEnd, LSDFRoundPolicy.Phase(true, a, b, 309));
+    Assert.AreEqual(LSDFRoundPhase.RoundEnd, LSDFRoundPolicy.Phase(true, a, b, 31000));
     Assert.AreEqual(LSDFRoundPhase.WaitingForPlayers, LSDFRoundPolicy.Phase(false, a, b, 310));
   }
   [Test]

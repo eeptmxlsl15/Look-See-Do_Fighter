@@ -4,6 +4,7 @@ namespace Quantum.LSDF {
   /// <summary>Legacy collision priority, independent of pointers and presentation.</summary>
   public static class LSDFContactPolicy {
     public static LSDFContactReaction Evaluate(in LSDF_Player defender, in LSDF_HitboxInfo hit, string state) {
+      if (defender.isRoundEnd) return LSDFContactReaction.Ignore;
       if ((defender.isDodgeHigh && hit.AttackType == HitboxAttackType.High) ||
           (defender.isJump && hit.AttackType == HitboxAttackType.Low)) return LSDFContactReaction.Ignore;
       if ((defender.hitWallLauncher || defender.isAir) && defender.isOnWall) return LSDFContactReaction.Normal;

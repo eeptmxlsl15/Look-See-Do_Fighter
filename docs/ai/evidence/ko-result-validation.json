@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-16",
+  "branch": "dev/Prototype",
+  "base_head": "3f45e7d1dfd79384919d04e8a3ec28df4944eb11",
+  "work_unit": "HP zero terminal result; distinct from the blocked input-buffer commit",
+  "compile": {"status": "PASS", "errors": 0, "warnings": 8},
+  "quantum_guard": {"status": "PASS", "files_scanned": 91, "existing_findings": 0, "new_findings": 0},
+  "test_job": "9145a45f93934e47b741693a7c4c21f5",
+  "filter": "^(LSDFPlayerHealthTests|LSDFRoundResultTests|LSDFStructuralTests|LSDFOnlineSmokeTests)\\.",
+  "summary": {"total": 56, "passed": 56, "failed": 0, "skipped": 0, "duration_seconds": 64.7055629},
+  "groups": {"LSDFPlayerHealthTests": 24, "LSDFRoundResultTests": 11, "LSDFStructuralTests": 20, "LSDFOnlineSmokeTests": 1},
+  "online": {
+    "mode": "actual Photon 2-client Multiplayer; in-memory scene autoload disabled and restored; no Unity views",
+    "ko_tick_both_clients": 2885,
+    "final_hp_playerref_0_1": [0, 20],
+    "stable_result_ticks_minimum": 240,
+    "assertions": ["loser Siting", "winner Idle", "Quantum IgnoreTransitions", "no horizontal velocity", "no pending or dispatching commands", "no active fighter hitbox", "no healing or extra loss count", "continued input cannot resume fighting"],
+    "input_probe": {"input_tick": 398, "dispatch_tick_both_clients": 406},
+    "replay": "PASS; two recorded-input replays; pending-buffer Frame snapshot ResetReplay and resimulation; same verified checksums through the terminal result"
+  },
+  "not_run": ["fixed live-asset input-buffer default test", "full regression after HP changes", "rendered UI/manual visual inspection", "standalone build", "real reconnect", "induced network rollback", "cross-platform"],
+  "diff": {"exit_code": 1, "finding": "SDK-generated Quantum.CodeGen.Core.cs:1079 trailing whitespace", "handling": "Preserved generated output; not hand edited; no other tracked diff-check finding"},
+  "commit": "NOT CREATED; earlier input-buffer commit test failure remains fixed but unverified",
+  "push": "NOT REQUESTED; not attempted",
+  "restored_editor": {"scene": "LSDF_Menu", "isDirty": false},
+  "sha256_tested_worktree": {
+    "Assets/QuantumUser/Simulation/LSDFRoundPolicy.cs": "40BD3D203FE90EB188ED24CCE54D486AD288E80DDDECFB0F829D997FF41C4F56",
+    "Assets/QuantumUser/Simulation/LSDF_IngameSystem.cs": "6CA0764D3CD8B96EE4F76CD65325DAF87694EF98C3D8FD35519DC91A88589C92",
+    "Assets/QuantumUser/Simulation/LSDFPlayerHealth.cs": "0B37B4B007875120F0D4C73D5D76C111BC7B7E5584FB0D6D450C9467150ACCC6",
+    "Assets/QuantumUser/Simulation/LSDF_PlayerSystem.cs": "800C68E5A41D6C50EB263654957A873A5F104891805A21C0A359EAD51E3A1FCC",
+    "Assets/QuantumUser/Simulation/LSDF_CollisionSystem.cs": "076C6FC26532F80DA348D13429309072D1AD1D0C7CEF022C1A185B565E31A21F",
+    "Assets/QuantumUser/Simulation/LSDFContactPolicy.cs": "51B9F7340760D87324179C4486972063F452514A00C9BAD365163009B3705D67",
+    "Assets/QuantumUser/Simulation/LSDFInputBuffer.cs": "87EE24CA47433331E591D1D1D46346A4D79F31C96021C775B799A9B5A5D23591",
+    "Assets/QuantumUser/Simulation/LSDFLoadout.cs": "1751E49B8E4F6C7ED387A11487493DB6A664C4598AED57DFC6CD0FE3FC3C9C9A",
+    "Assets/QuantumUser/View/LSDF_IngameUI.cs": "F108CE3FB92E8CF6E1D6EA647141DB5A7A5A2D06F791E52F9137348A94F76DAA",
+    "Assets/Tests/Editor/LSDFOnlineSmokeTests.cs": "81A22FC2EFD20AF253770A1E54D6F9F696F456A8910E6A33A13139A042868BDF",
+    "Assets/Tests/Editor/LSDFRoundResultTests.cs": "C1DC47461E0C7F7A5271437A0D663655F7C4671F7CCB94BA35B77FDC82C88A1A",
+    "Assets/Tests/Editor/LSDFPlayerHealthTests.cs": "AE20E058BE5CB0B48A553EF316E12247D17DBBB7087D44259E170390339EE164",
+    "Assets/Tests/Editor/LSDFStructuralTests.cs": "E5B3FD34B6A4D2C4DE9FDCF2DA19387AB98E7E0DDF300E5D149FDB6D61268862",
+    "Assets/QuantumUser/Resources/LSDF_GameConfig.asset": "3EC4D9C02684990BEF22BCC5C013A54403D40FFAB30DF06D88F2FBA69BD20626"
+  }
+}

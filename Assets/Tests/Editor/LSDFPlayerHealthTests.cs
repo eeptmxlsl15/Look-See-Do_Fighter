@@ -22,14 +22,15 @@ public class LSDFPlayerHealthTests {
   }
 
   [TestCase(-5, false, 0, false)]
-  [TestCase(-5, true, 2, true)]
+  [TestCase(-5, true, 0, false)]
+  [TestCase(0, true, 0, false)]
   [TestCase(167, true, 169, true)]
   [TestCase(168, true, 170, false)]
   [TestCase(169, true, 170, false)]
   [TestCase(170, true, 170, false)]
   [TestCase(175, true, 170, false)]
   [TestCase(175, false, 175, false)]
-  public void RecoveryKeepsClampOrderAndHealingCompletion(int before, bool healing, int after, bool remainsHealing) {
+  public void RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(int before, bool healing, int after, bool remainsHealing) {
     var player = new LSDF_Player { playerHp = before, isHealing = healing, hitCount = 4, DelayFrame = 123 };
     LSDFPlayerHealth.UpdateRecovery(ref player);
     Assert.AreEqual(after, player.playerHp);
@@ -39,14 +40,16 @@ public class LSDFPlayerHealthTests {
   }
 
   [Test]
-  public void HitKeepsNegativeHpUntilTheExistingUpdatePoint() {
+  public void LethalHitClampsHpImmediatelyAndCannotBeHealedBack() {
     var player = new LSDF_Player { playerHp = 4, hitCount = 0, isHit = true, DelayFrame = 125 };
     LSDFPlayerHealth.ApplyNormalHit(ref player, 7);
-    Assert.AreEqual(-3, player.playerHp);
+    Assert.AreEqual(0, player.playerHp);
     Assert.IsTrue(player.isHit);
     Assert.AreEqual(125, player.DelayFrame);
+    player.isHealing = true;
     LSDFPlayerHealth.UpdateRecovery(ref player);
     Assert.AreEqual(0, player.playerHp);
+    Assert.IsFalse(player.isHealing);
   }
 
   [Test]

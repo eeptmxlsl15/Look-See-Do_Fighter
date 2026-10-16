@@ -1,0 +1,14 @@
+// Per-fighter input history and in-flight Animator routing. All values are rollback-owned.
+component LSDF_CommandBuffer {
+  bool HasPending;
+  int InputTick;
+  int PendingDirection;
+  int PendingButton;
+  int PreviousAttackButtons;
+
+  bool Dispatching;
+  int DispatchTick;
+  int ActiveInputTick;
+  int ActiveDirection;
+  int ActiveButton;
+}

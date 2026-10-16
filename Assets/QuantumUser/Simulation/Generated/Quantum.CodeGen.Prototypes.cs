@@ -199,6 +199,39 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_CommandBuffer))]
+  public unsafe partial class LSDF_CommandBufferPrototype : ComponentPrototype<Quantum.LSDF_CommandBuffer> {
+    public QBoolean HasPending;
+    public Int32 InputTick;
+    public Int32 PendingDirection;
+    public Int32 PendingButton;
+    public Int32 PreviousAttackButtons;
+    public QBoolean Dispatching;
+    public Int32 DispatchTick;
+    public Int32 ActiveInputTick;
+    public Int32 ActiveDirection;
+    public Int32 ActiveButton;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_CommandBuffer result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_CommandBuffer component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_CommandBuffer result, in PrototypeMaterializationContext context = default) {
+        result.HasPending = this.HasPending;
+        result.InputTick = this.InputTick;
+        result.PendingDirection = this.PendingDirection;
+        result.PendingButton = this.PendingButton;
+        result.PreviousAttackButtons = this.PreviousAttackButtons;
+        result.Dispatching = this.Dispatching;
+        result.DispatchTick = this.DispatchTick;
+        result.ActiveInputTick = this.ActiveInputTick;
+        result.ActiveDirection = this.ActiveDirection;
+        result.ActiveButton = this.ActiveButton;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_Global))]
   public unsafe partial class LSDF_GlobalPrototype : ComponentPrototype<Quantum.LSDF_Global> {
     public Int32 Timer;

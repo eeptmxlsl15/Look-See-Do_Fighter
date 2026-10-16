@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-16",
+  "branch": "dev/Prototype",
+  "base_head": "3f45e7d1dfd79384919d04e8a3ec28df4944eb11",
+  "compile": "PASS; no compiler errors; one MCP WebSocket warning",
+  "quantum_guard": {"status": "PASS", "files_scanned": 91, "new_findings": 0},
+  "test_job": "6cb31c82d87f4de39669b048288d4524",
+  "summary": {"total": 137, "passed": 136, "failed": 1, "skipped": 0},
+  "failure": {
+    "test": "LSDFInputBufferTests.DefaultWindowIsEditableAndWiredToTheExistingAsset",
+    "message": "Expected: 10; But was: 20",
+    "location": "Assets/Tests/Editor/LSDFInputBufferTests.cs:16",
+    "fix": "Preserve the editable asset value 20; verify new config defaults separately from the live asset.",
+    "after_fix": "NOT RUN; no automatic retry"
+  },
+  "online": {
+    "status": "PASS",
+    "test": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+    "input_tick": 2052,
+    "dispatch_tick_both_clients": 2060,
+    "includes": ["real Photon clients", "recorded input replay", "pending-buffer Frame restoration"]
+  },
+  "commit": "BLOCKED by failed validation; not created",
+  "push": "NOT REQUESTED; not attempted"
+}

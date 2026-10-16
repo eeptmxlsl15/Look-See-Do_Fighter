@@ -1,0 +1,119 @@
+{
+  "date_korea": "2026-10-17",
+  "purpose": "Validation evidence collected before the user-authorized commit/Push",
+  "repository": "https://github.com/eeptmxlsl15/Look-See-Do_Fighter",
+  "remote": "origin",
+  "branch": "dev/Prototype",
+  "push_base": "origin/dev/Prototype",
+  "remote_base_sha": "ffcc356698ded5af353a17609aefaf5bb615c1bd",
+  "existing_unpushed_commit": "3f45e7d1dfd79384919d04e8a3ec28df4944eb11",
+  "user_authorization": "Current explicit request to push all work so far; no PR creation requested",
+  "compile": {
+    "status": "PASS",
+    "errors": 0,
+    "existing_obsolete_warnings": 2
+  },
+  "quantum_guard": {
+    "status": "PASS",
+    "files_scanned": 91,
+    "existing_findings": 0,
+    "new_findings": 0,
+    "limitation": "Lexical ratchet, not proof of all deterministic behavior"
+  },
+  "tests": {
+    "job_id": "43a31becf2a1483c8def35772cc9be78",
+    "mode": "EditMode; includes EnterPlayMode and actual Photon Multiplayer",
+    "summary": {
+      "total": 157,
+      "passed": 157,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 182.0867539,
+      "resultState": "Passed"
+    },
+    "groups": {
+      "LSDFDeterministicContractTests": 18,
+      "LSDFInputBufferTests": 31,
+      "LSDFJabDefinitionTests": 4,
+      "LSDFOnlineSmokeTests": 1,
+      "LSDFPlayerHealthTests": 24,
+      "LSDFRemainingAttackTests": 30,
+      "LSDFRoundResultTests": 19,
+      "LSDFSingleHitTests": 5,
+      "LSDFStructuralTests": 20,
+      "LSDFTimedHitTests": 5
+    },
+    "online": {
+      "status": "Passed",
+      "observations": [
+        "INPUT BUFFER PASS: press=384, dispatch=392; both clients captured the locked input and produced LeftUpper after key release.",
+        "ROUND 1: tick=2871, losses=1/0",
+        "ROUND 1: tick=2871, losses=1/0",
+        "ROUND 2: tick=4491, losses=1/1",
+        "ROUND 2: tick=4491, losses=1/1",
+        "ROUND 3: tick=6111, losses=2/1",
+        "ROUND 3: tick=6111, losses=2/1",
+        "ROUND 4: tick=7731, losses=2/2",
+        "ROUND 4: tick=7731, losses=2/2",
+        "ROUND 5: tick=9351, losses=3/2",
+        "ROUND 5: tick=9351, losses=3/2",
+        "MATCH PASS: tick=9351, losses=3/2; five KO rounds, four resets/intros, five Sit Enter-to-Siting sequences; final result stable for at least 240 verified ticks on both clients."
+      ],
+      "replay": "Containing test completed both recorded-input replays and pending-buffer Frame ResetReplay/resimulation assertions. Progress-writer messages are not in NUnit output."
+    }
+  },
+  "test_time_limits": {
+    "outer_timeout_ms": 360000,
+    "internal_cancellation_seconds": 300,
+    "match_driver_deadline_seconds": 180,
+    "note": "Only test time budget changed; no gameplay/HP/damage assertions weakened"
+  },
+  "source_review": {
+    "runtime_state": "Frame-owned player and command-buffer components and Animator LayerData",
+    "math": "FP and integer ticks",
+    "assets": "Immutable config; InputBufferFrames 20 preserved; new-config default 10",
+    "system_order": "Unchanged",
+    "codegen": "Existing installed SDK-generated command-buffer outputs retained; no QTN edits since successful generation",
+    "serialized_costs": "84 original/current cost entries compared; identical values",
+    "sdk": "Not modified"
+  },
+  "tested_candidate_tree_before_publication_docs": "b3d9b9b51edeb8e79e2cf18f56d6bd0f0c82fb3f",
+  "tested_game_subtrees": {
+    "Assets/QuantumUser": "78a4d7d3307139fbf63398a0db712c90300c09e6",
+    "Assets/Tests": "cf163f4de0cbf1e22ac491418ec2466124a21ae7"
+  },
+  "style_review": {
+    "status": "SDK_GENERATOR_FORMAT_WARNINGS_ONLY",
+    "cached_diff_findings": [
+      "Simulation/Generated/Quantum.CodeGen.Core.cs:1079 trailing whitespace",
+      "View/Generated/QPrototypeLSDF_CommandBuffer.cs:15 trailing whitespace"
+    ],
+    "handling": "Manually reviewed as generated formatting, no runtime/serialization effect; preserved SDK output, not hand edited"
+  },
+  "preflight": {
+    "status": "NO_KNOWN_FINDINGS",
+    "base": "origin/dev/Prototype",
+    "scope": "Explicit staged paths and every outgoing base..HEAD commit/blob/message",
+    "exit_code": 0,
+    "commits_inspected": 1,
+    "staged_files": 39,
+    "blobs_inspected": 198,
+    "findings": [],
+    "supplemental_review": "Only this non-executable evidence status/count update was added after the scan; separately reviewed. No tested source/asset/config changed."
+  },
+  "manual_publication_review": "Explicit source, config, SDK-generated outputs, tests, metadata and evidence only; no credentials/caches/build artifacts or excluded asset directories in candidate. IDE .csproj/.sln changes remain local. New evidence is non-secret execution metadata.",
+  "previous_failures": "Original input-default, compile and best-of-five timeout evidence preserved; not overwritten with PASS",
+  "not_run": [
+    "Rendered UI/manual visual inspection",
+    "Standalone build",
+    "Actual reconnect",
+    "Induced network rollback/jitter",
+    "Cross-platform determinism"
+  ],
+  "editor_after_tests": {
+    "scene": "LSDF_Menu",
+    "isDirty": false,
+    "is_playing": false
+  },
+  "pr": "NOT REQUESTED; not created"
+}

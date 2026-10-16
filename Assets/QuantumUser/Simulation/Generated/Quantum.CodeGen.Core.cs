@@ -1052,6 +1052,60 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct LSDF_CommandBuffer : Quantum.IComponent {
+    public const Int32 SIZE = 40;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(36)]
+    public QBoolean HasPending;
+    [FieldOffset(16)]
+    public Int32 InputTick;
+    [FieldOffset(24)]
+    public Int32 PendingDirection;
+    [FieldOffset(20)]
+    public Int32 PendingButton;
+    [FieldOffset(28)]
+    public Int32 PreviousAttackButtons;
+    [FieldOffset(32)]
+    public QBoolean Dispatching;
+    [FieldOffset(12)]
+    public Int32 DispatchTick;
+    [FieldOffset(8)]
+    public Int32 ActiveInputTick;
+    [FieldOffset(4)]
+    public Int32 ActiveDirection;
+    [FieldOffset(0)]
+    public Int32 ActiveButton;
+    public override readonly Int32 GetHashCode() {
+      unchecked { 
+        var hash = 17519;
+        hash = hash * 31 + HasPending.GetHashCode();
+        hash = hash * 31 + InputTick.GetHashCode();
+        hash = hash * 31 + PendingDirection.GetHashCode();
+        hash = hash * 31 + PendingButton.GetHashCode();
+        hash = hash * 31 + PreviousAttackButtons.GetHashCode();
+        hash = hash * 31 + Dispatching.GetHashCode();
+        hash = hash * 31 + DispatchTick.GetHashCode();
+        hash = hash * 31 + ActiveInputTick.GetHashCode();
+        hash = hash * 31 + ActiveDirection.GetHashCode();
+        hash = hash * 31 + ActiveButton.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (LSDF_CommandBuffer*)ptr;
+        serializer.Stream.Serialize(&p->ActiveButton);
+        serializer.Stream.Serialize(&p->ActiveDirection);
+        serializer.Stream.Serialize(&p->ActiveInputTick);
+        serializer.Stream.Serialize(&p->DispatchTick);
+        serializer.Stream.Serialize(&p->InputTick);
+        serializer.Stream.Serialize(&p->PendingButton);
+        serializer.Stream.Serialize(&p->PendingDirection);
+        serializer.Stream.Serialize(&p->PreviousAttackButtons);
+        QBoolean.Serialize(&p->Dispatching, serializer);
+        QBoolean.Serialize(&p->HasPending, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_Global : Quantum.IComponent {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
@@ -1510,6 +1564,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.DashInputBuffer>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_CameraInfo>();
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_CameraInfo>();
+      BuildSignalsArrayOnComponentAdded<Quantum.LSDF_CommandBuffer>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_CommandBuffer>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_Global>();
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_Global>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_Ground>();
@@ -1798,6 +1854,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Joint), Joint.SIZE);
       typeRegistry.Register(typeof(Joint3D), Joint3D.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_CameraInfo), Quantum.LSDF_CameraInfo.SIZE);
+      typeRegistry.Register(typeof(Quantum.LSDF_CommandBuffer), Quantum.LSDF_CommandBuffer.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_Global), Quantum.LSDF_Global.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_Ground), Quantum.LSDF_Ground.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_HitboxInfo), Quantum.LSDF_HitboxInfo.SIZE);
@@ -1850,11 +1907,12 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 13)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 14)
         .AddBuiltInComponents()
         .Add<Quantum.AnimatorComponent>(Quantum.AnimatorComponent.Serialize, null, Quantum.AnimatorComponent.OnRemoved, ComponentFlags.None)
         .Add<Quantum.DashInputBuffer>(Quantum.DashInputBuffer.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_CameraInfo>(Quantum.LSDF_CameraInfo.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.LSDF_CommandBuffer>(Quantum.LSDF_CommandBuffer.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_Global>(Quantum.LSDF_Global.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_Ground>(Quantum.LSDF_Ground.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_HitboxInfo>(Quantum.LSDF_HitboxInfo.Serialize, null, null, ComponentFlags.None)

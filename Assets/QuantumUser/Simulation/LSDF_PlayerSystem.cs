@@ -31,6 +31,14 @@ namespace Quantum.LSDF
 
             filter.Transform->Rotation = FP._0;
 
+            if (player->isRoundEnd || player->playerHp <= 0)
+            {
+                if (player->isRoundEnd) LSDFRoundPolicy.FinishPose(ref *player);
+                filter.Body->Velocity.X = 0;
+                if (filter.Body->Velocity.Y > 0) filter.Body->Velocity.Y = 0;
+                return;
+            }
+
             if(filter.Body->Velocity.Y==0 && player->isAir == true)
             {
                 AnimatorComponent.SetBoolean(f, filter.Animator, "YZero",true);
@@ -45,11 +53,6 @@ namespace Quantum.LSDF
             LSDFPlayerHealth.UpdateRecovery(ref *player, LSDFBalance.MaximumHealth(f), LSDFBalance.Healing(f));
             if (f.Number < filter.LSDF_Player->tickToEnableMove)
             {
-                if(filter.LSDF_Player->tickToEnableMove-f.Number == LSDFBalance.HealingLead(f))
-                {
-                    player->isHealing = true;
-                }
-
                 return;
             }
             if (player->isAttack == true || player->isStun == true || player->isCombo == true || player->isAir || player->isWallHit || player->isCantMove)

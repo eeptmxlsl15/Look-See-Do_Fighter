@@ -9,6 +9,7 @@ namespace Quantum.LSDF {
     // Called at the original PlayerSystem update point, before movement/recovery locks.
     public static void UpdateRecovery(ref LSDF_Player player, int maximum = Maximum, int healing = HealingPerTick) {
       if (player.playerHp < 0) player.playerHp = 0;
+      if (player.playerHp == 0 || player.isRoundEnd) { player.isHealing = false; return; }
       if (!player.isHealing) return;
       player.playerHp += healing;
       if (player.playerHp >= maximum) {
@@ -27,13 +28,14 @@ namespace Quantum.LSDF {
     }
 
     public static void ApplyNormalHit(ref LSDF_Player player, int baseDamage) {
-      // Deliberately no immediate HP clamp: the existing update/round order observes this value.
-      player.playerHp -= NormalHitDamage(baseDamage, player.hitCount);
+      if (player.playerHp <= 0 || player.isRoundEnd) return;
+      player.playerHp = System.Math.Max(0, player.playerHp - NormalHitDamage(baseDamage, player.hitCount));
     }
 
     public static void ApplyCounterHit(ref LSDF_Player player, int baseDamage) {
       // Counter damage has never used combo scaling.
-      player.playerHp -= LSDFCombatMath.CounterDamage(baseDamage);
+      if (player.playerHp <= 0 || player.isRoundEnd) return;
+      player.playerHp = System.Math.Max(0, player.playerHp - LSDFCombatMath.CounterDamage(baseDamage));
     }
   }
 }

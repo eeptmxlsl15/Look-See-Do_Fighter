@@ -1,4 +1,3 @@
-using System.Collections;
 using Quantum;
 using Quantum.LSDF;
 using TMPro;
@@ -12,8 +11,6 @@ public class LSDF_IngameUI : QuantumEntityViewComponent {
   public TMP_Text RoundText, FightText;
   private LSDFSceneBindings _bindings;
   private LSDFSceneBindings.Hud _hud;
-  private int _lastPresentedRound;
-  private bool _introPlaying;
   public override void OnActivate(Frame frame) {
     OnDeactivate();
     _bindings = LSDFSceneBindings.For(EntityView);
@@ -34,32 +31,47 @@ public class LSDF_IngameUI : QuantumEntityViewComponent {
     var confirmed = VerifiedFrame;
     if (confirmed == null || !confirmed.TryGet<LSDF_Player>(myPlayerEntity, out mine) || !confirmed.TryGet<LSDF_Player>(opponentEntity, out other)) return;
     SetWins(LeftRoundWins, other.loseRound); SetWins(RightRoundWins, mine.loseRound);
-    int round = mine.loseRound + other.loseRound + 1;
-    if ((mine.isHealing || other.isHealing) && round != _lastPresentedRound) { _lastPresentedRound = round; ShowRoundIntro(round); }
+    var phase = LSDFRoundPolicy.Phase(true, mine, other, confirmed.Number);
+    if (phase == LSDFRoundPhase.RoundEnd || phase == LSDFRoundPhase.MatchEnd) {
+      ShowResult(LSDFRoundPolicy.Outcome(mine, other), phase == LSDFRoundPhase.MatchEnd);
+    } else if (phase == LSDFRoundPhase.Intro) {
+      int remaining = Mathf.Max(mine.tickToEnableMove, other.tickToEnableMove) - confirmed.Number;
+      ShowRoundIntro(LSDFRoundPolicy.RoundNumber(mine, other));
+      if (remaining <= 60 && RoundMessageRoot != null && FightText != null) {
+        if (RoundText != null) RoundText.gameObject.SetActive(false);
+        FightText.text = "FIGHT"; FightText.gameObject.SetActive(true);
+      }
+    } else if (RoundMessageRoot != null) {
+      RoundMessageRoot.SetActive(false);
+    }
   }
   private static void SetWins(Image[] images, int wins) {
     if (images == null) return;
     for (int i = 0; i < images.Length; i++) if (images[i] != null) images[i].gameObject.SetActive(i < wins);
   }
-  public void ShowRoundIntro(int roundNumber) {
-    if (_introPlaying || RoundMessageRoot == null || RoundText == null || FightText == null) return;
-    StartCoroutine(PlayIntro(roundNumber));
+  public static string ResultMessage(LSDFRoundOutcome outcome, bool matchOver) {
+    if (outcome == LSDFRoundOutcome.Draw) return "DRAW";
+    if (outcome == LSDFRoundOutcome.None) return string.Empty;
+    return outcome == LSDFRoundOutcome.FirstWins ? (matchOver ? "YOU WIN" : "ROUND WIN") :
+      (matchOver ? "YOU LOSE" : "ROUND LOSE");
   }
-  private IEnumerator PlayIntro(int round) {
-    _introPlaying = true; RoundMessageRoot.SetActive(true);
-    RoundText.text = $"Round {round}"; RoundText.gameObject.SetActive(true); FightText.gameObject.SetActive(false);
-    yield return new WaitForSeconds(1.5f);
-    RoundText.gameObject.SetActive(false); FightText.gameObject.SetActive(true);
-    yield return new WaitForSeconds(1);
-    RoundMessageRoot.SetActive(false); _introPlaying = false;
+  private void ShowResult(LSDFRoundOutcome outcome, bool matchOver) {
+    if (RoundMessageRoot == null || FightText == null) return;
+    if (RoundText != null) RoundText.gameObject.SetActive(false);
+    FightText.text = ResultMessage(outcome, matchOver);
+    FightText.gameObject.SetActive(true); RoundMessageRoot.SetActive(true);
+  }
+  public void ShowRoundIntro(int roundNumber) {
+    if (RoundMessageRoot == null || RoundText == null || FightText == null) return;
+    RoundMessageRoot.SetActive(true);
+    RoundText.text = $"Round {roundNumber}"; RoundText.gameObject.SetActive(true); FightText.gameObject.SetActive(false);
   }
   public override void OnDeactivate() {
-    StopAllCoroutines();
     if (_bindings != null) {
       if (_bindings.OwnsHud(this) && RoundMessageRoot != null) RoundMessageRoot.SetActive(false);
       _bindings.Release(this);
     }
-    _bindings = null; _hud = null; _lastPresentedRound = 0; _introPlaying = false;
+    _bindings = null; _hud = null;
     myPlayerEntity = default; opponentEntity = default;
   }
   public override void OnGameChanged() { OnDeactivate(); if (PredictedFrame != null) OnActivate(PredictedFrame); }

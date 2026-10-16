@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-16",
+  "baseCommit": "3f45e7d1dfd79384919d04e8a3ec28df4944eb11",
+  "feature": "Frame-owned attack input buffer with editable InputBufferFrames=10",
+  "codegen": {
+    "initialGeneration": {
+      "success": false,
+      "message": "Runtime error: One or more errors occurred. (One or more errors occurred. (Unexpected Token: Button\nOn line 6, column 7 in Assets/QuantumUser/Simulation/LSDF_CommandBuffer.qtn\n5:   int Direction;\n6:   int Button;\n---------^\n)) (Unexpected Token: Button\nOn line 6, column 7 in Assets/QuantumUser/Simulation/LSDF_CommandBuffer.qtn\n5:   int Direction;\n6:   int Button;\n---------^\n)",
+      "data": {
+        "exceptionType": "AggregateException",
+        "stackTrace": "  at Quantum.Editor.QuantumCodeGenQtn.Run (System.String[] qtnFiles, System.Boolean verbose, Quantum.CodeGen.GeneratorOptions options) [0x000e4] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Editor\\CodeGen\\QuantumCodeGenQtn.cs:92 \r\n  at Quantum.Editor.QuantumCodeGenQtn.Run (System.String[] qtnFiles, System.Boolean verbose) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Editor\\CodeGen\\QuantumCodeGenQtn.cs:41 \r\n  at MCPDynamicCode.Execute () [0x000d1] in <a3209a365a1b467ebf2cdc51a4dfd93c>:0 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <d49d4cb128564ee1b54a84338c98d353>:0 ",
+        "compiler": "codedom"
+      }
+    },
+    "completedGeneration": {
+      "success": true,
+      "message": "Code executed successfully.",
+      "data": {
+        "result": {
+          "generated": true,
+          "qtnCount": 17,
+          "addedSchema": "Assets/QuantumUser/Simulation/LSDF_CommandBuffer.qtn"
+        },
+        "compiler": "codedom"
+      }
+    },
+    "note": "Generation is the SDK production step. Generated files were not hand-edited."
+  },
+  "quantumGuard": {
+    "status": "pass",
+    "scope": "Assets/QuantumUser/Simulation",
+    "files_scanned": 91,
+    "existing_findings": 0,
+    "new_findings": [],
+    "resolved_baseline_occurrences": 0,
+    "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+  },
+  "finalCompilation": {
+    "status": "FAIL",
+    "console": {
+      "success": true,
+      "message": "Retrieved 1 log entries.",
+      "data": [
+        {
+          "type": "Error",
+          "message": "Assets\\QuantumUser\\Simulation\\LSDFCommandProcessor.cs(45,45): error CS0246: The type or namespace name 'AnimatorState' could not be found (are you missing a using directive or an assembly reference?)\n",
+          "file": "Assets\\QuantumUser\\Simulation\\LSDFCommandProcessor.cs",
+          "line": 45,
+          "stackTrace": null
+        }
+      ]
+    },
+    "fix": "Added using Quantum.Addons.Animator for the installed SDK's AnimatorState type.",
+    "afterFix": "NOT RUN; no automatic compile/test retry under the single-validation policy."
+  },
+  "tests": {
+    "status": "NOT RUN",
+    "scope": "New input-buffer unit cases and full LSDF.Tests including Photon 2-client buffering and pending-frame replay restoration",
+    "reason": "Final compilation failed before test execution."
+  },
+  "diff": {
+    "exitCode": 1,
+    "output": "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Core.cs:1079: trailing whitespace.\n+      unchecked { \n",
+    "note": "One SDK-generated trailing space; Generated remains untouched."
+  },
+  "publication": "No staging, commit, push or PR in this feature request."
+}
