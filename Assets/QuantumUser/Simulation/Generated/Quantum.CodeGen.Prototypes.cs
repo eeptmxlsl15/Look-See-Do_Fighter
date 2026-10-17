@@ -198,6 +198,9 @@ namespace Quantum.Prototypes {
     public FP HorizontalVelocity;
     public Int32 PushUntilTick;
     public Int32 RecoveryUntilTick;
+    public FP ComboY;
+    public FP SlowFallSpeed;
+    public Int32 ReturnTicks;
     partial void MaterializeUser(Frame frame, ref Quantum.LSDF_AirCombo result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.LSDF_AirCombo component = default;
@@ -217,6 +220,9 @@ namespace Quantum.Prototypes {
         result.HorizontalVelocity = this.HorizontalVelocity;
         result.PushUntilTick = this.PushUntilTick;
         result.RecoveryUntilTick = this.RecoveryUntilTick;
+        result.ComboY = this.ComboY;
+        result.SlowFallSpeed = this.SlowFallSpeed;
+        result.ReturnTicks = this.ReturnTicks;
         MaterializeUser(frame, ref result, in context);
     }
   }

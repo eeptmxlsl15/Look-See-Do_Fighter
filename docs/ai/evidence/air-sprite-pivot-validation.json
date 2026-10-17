@@ -1,0 +1,75 @@
+{
+  "task": "air-sprite-pivot",
+  "date": "2026-10-18",
+  "status": "PASS",
+  "validation_policy": "One final bundle; no reruns.",
+  "test_job": "90524c44eb814dc48339ff54b2fb1640",
+  "change": "60 Air/Air_Enemy sprite metadata pivots fixed to (0.5, 0.6); pixel data, animation timing/events, gameplay and config preserved.",
+  "checks": [
+    {
+      "name": "quantum_guard",
+      "status": "PASS",
+      "files_scanned": 93,
+      "new_findings": 0,
+      "command": "python tools/ai/quantum_guard.py check"
+    },
+    {
+      "name": "diff_whitespace",
+      "status": "PASS",
+      "command": "git -c safe.directory=C:/Users/Admin/Look-See-Do_Fighter diff --check",
+      "exit_code": 0
+    },
+    {
+      "name": "gameplay_source_preservation",
+      "status": "PASS",
+      "note": "All 11 previous recorded source/config/generated hashes equal natural-rehit-fall-sources.json."
+    },
+    {
+      "name": "unity_reimport_and_compile",
+      "status": "PASS",
+      "unity": "6000.3.26f1",
+      "errors": 0,
+      "warnings": 9,
+      "note": "Existing menu/test/vendor and MCP warnings; excluded source folders not read."
+    },
+    {
+      "name": "targeted_editmode_tests",
+      "status": "PASS",
+      "summary": {
+        "total": 66,
+        "passed": 66,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 0.1340134,
+        "resultState": "Passed"
+      },
+      "groups": {
+        "LSDFAirSpritePivotTests": 10,
+        "LSDFComboEnderTests": 20,
+        "LSDFJuggleTests": 36
+      }
+    },
+    {
+      "name": "pivot_regression",
+      "status": "PASS",
+      "imported_perspectives": 2,
+      "stopped_combo_cases": 8,
+      "note": "Actual clip Sprite objects combined with existing FP air motion. Every 1-4-followup case crosses sprite 60 -> 1 before landing without upward canvas-anchor motion."
+    }
+  ],
+  "not_run": [
+    {
+      "name": "manual_rendered_gameplay",
+      "reason": "No screen recording/play evaluation performed; tests cover imported sprite canvas anchor plus FP trajectory."
+    },
+    {
+      "name": "online_checksum_replay",
+      "reason": "This task changes presentation import settings only; deterministic gameplay sources/config unchanged."
+    }
+  ],
+  "existing_changes": "Prior air combo/schema/config and IDE files preserved. No commit or push.",
+  "evidence_files": [
+    "air-sprite-pivot-sources.json",
+    "air-sprite-pivot-tests.json"
+  ]
+}

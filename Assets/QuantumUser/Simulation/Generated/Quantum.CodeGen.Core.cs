@@ -94,6 +94,9 @@ namespace Quantum {
     Falling,
     BlownAway,
     Recovering,
+    RehitRising,
+    Returning,
+    SlowFalling,
   }
   public enum PlayerMoveState : byte {
     Idle,
@@ -1043,32 +1046,38 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_AirCombo : Quantum.IComponent {
-    public const Int32 SIZE = 64;
+    public const Int32 SIZE = 88;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(20)]
+    [FieldOffset(24)]
     public LSDFAirComboPhase Phase;
-    [FieldOffset(16)]
+    [FieldOffset(20)]
     public Int32 RiseUntilTick;
     [FieldOffset(4)]
     public Int32 HoldUntilTick;
-    [FieldOffset(32)]
+    [FieldOffset(40)]
     public FP BaseY;
-    [FieldOffset(56)]
+    [FieldOffset(80)]
     public FP TargetY;
-    [FieldOffset(48)]
+    [FieldOffset(64)]
     public FP SavedGravityScale;
-    [FieldOffset(24)]
+    [FieldOffset(28)]
     public QBoolean ComboActive;
     [FieldOffset(0)]
     public Int32 HitCount;
-    [FieldOffset(28)]
+    [FieldOffset(32)]
     public QBoolean ControlsHorizontal;
-    [FieldOffset(40)]
+    [FieldOffset(56)]
     public FP HorizontalVelocity;
     [FieldOffset(8)]
     public Int32 PushUntilTick;
     [FieldOffset(12)]
     public Int32 RecoveryUntilTick;
+    [FieldOffset(48)]
+    public FP ComboY;
+    [FieldOffset(72)]
+    public FP SlowFallSpeed;
+    [FieldOffset(16)]
+    public Int32 ReturnTicks;
     public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 3041;
@@ -1084,6 +1093,9 @@ namespace Quantum {
         hash = hash * 31 + HorizontalVelocity.GetHashCode();
         hash = hash * 31 + PushUntilTick.GetHashCode();
         hash = hash * 31 + RecoveryUntilTick.GetHashCode();
+        hash = hash * 31 + ComboY.GetHashCode();
+        hash = hash * 31 + SlowFallSpeed.GetHashCode();
+        hash = hash * 31 + ReturnTicks.GetHashCode();
         return hash;
       }
     }
@@ -1093,13 +1105,16 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->HoldUntilTick);
         serializer.Stream.Serialize(&p->PushUntilTick);
         serializer.Stream.Serialize(&p->RecoveryUntilTick);
+        serializer.Stream.Serialize(&p->ReturnTicks);
         serializer.Stream.Serialize(&p->RiseUntilTick);
         serializer.Stream.Serialize((Int32*)&p->Phase);
         QBoolean.Serialize(&p->ComboActive, serializer);
         QBoolean.Serialize(&p->ControlsHorizontal, serializer);
         FP.Serialize(&p->BaseY, serializer);
+        FP.Serialize(&p->ComboY, serializer);
         FP.Serialize(&p->HorizontalVelocity, serializer);
         FP.Serialize(&p->SavedGravityScale, serializer);
+        FP.Serialize(&p->SlowFallSpeed, serializer);
         FP.Serialize(&p->TargetY, serializer);
     }
   }

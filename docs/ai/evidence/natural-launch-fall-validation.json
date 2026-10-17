@@ -1,0 +1,101 @@
+{
+  "task": "시동타 이후 추가타 없이 떨어질 때 원래 중력의 자연 낙하 적용",
+  "status": "UNIT_PASS_NATURAL_FALL_PROBE_FIX_UNVERIFIED",
+  "job_id": "c02314c85e624bde900462a532a362b7",
+  "summary": {
+    "total": 95,
+    "passed": 94,
+    "failed": 1,
+    "skipped": 0,
+    "durationSeconds": 39.0928836,
+    "resultState": "Failed(Child)"
+  },
+  "passed_by_fixture": {
+    "LSDFComboEnderTests": 20,
+    "LSDFJuggleTests": 25,
+    "LSDFOnlineSmokeTests": 1,
+    "LSDFPlayerHealthTests": 24,
+    "LSDFRoundResultTests": 19,
+    "LSDFTimedHitTests": 5
+  },
+  "online": [
+    {
+      "name": "LSDFOnlineSmokeTests.AirComboClientsAgreeOnHoverRehitsLandingAndFrameRestore",
+      "state": "Failed",
+      "markers": []
+    },
+    {
+      "name": "LSDFOnlineSmokeTests.ClientsAgreeOnFifthHitFinisherAndTerminalFrameRestore",
+      "state": "Passed",
+      "markers": [
+        "COMBO ENDER observer=0, episode=0, count=5, endTick=1011, recovery=24.",
+        "COMBO ENDER observer=0, episode=1, count=1, endTick=1374, recovery=24.",
+        "COMBO ENDER observer=1, episode=0, count=5, endTick=1011, recovery=24.",
+        "COMBO ENDER observer=1, episode=1, count=1, endTick=1374, recovery=24.",
+        "COMBO ENDER PASS: 104 common verified checksums, starter excluded + five followups, first-followup finisher, two replays and terminal Frame restore."
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "Quantum lexical guard",
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 93,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    },
+    {
+      "name": "Changed diff whitespace",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "Unity compile",
+      "status": "PASS",
+      "console_errors": 0,
+      "console_warnings": 0
+    },
+    {
+      "name": "Unit/combat regression",
+      "status": "PASS",
+      "passed": 93
+    },
+    {
+      "name": "Photon terminal rules and two recorded replays / Frame restore",
+      "status": "PASS",
+      "matching_verified_checksum_samples": 104
+    },
+    {
+      "name": "Photon untouched-launcher natural fall and subsequent rehit",
+      "status": "FAIL_THEN_PROBE_FIX_UNVERIFIED",
+      "reason": "Natural fall did not accelerate downwards: asserted a strict speed increase on every Falling callback."
+    },
+    {
+      "name": "Natural fall scenario checksum / two replays / Frame restore",
+      "status": "NOT RUN",
+      "reason": "Scenario acceptance failed first."
+    }
+  ],
+  "source_snapshot": "natural-launch-fall-sources.json",
+  "protocol": "lsdf-loadout-v9-natural-launch-fall",
+  "post_validation_changes": [
+    {
+      "file": "Assets/Tests/Editor/LSDFOnlineAirComboTests.cs",
+      "change": "Require observed acceleration between distinct consecutive ticks instead of strict speed increase on every callback; retain original gravity, phase, no-rehit and landing assertions.",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "post_validation_gameplay_changes": [],
+  "limits": [
+    "No rerun after probe fix",
+    "No natural-fall scenario online replay/restore result",
+    "No manual view/feel assessment",
+    "No independent build/cross-platform/induced network delay rollback"
+  ],
+  "qtn_codegen": "Unchanged by this request; previous arc schema/generated files preserved.",
+  "user_settings": "GameConfig and 2P test input unchanged in this request.",
+  "git_actions": "No staging, commit or push."
+}

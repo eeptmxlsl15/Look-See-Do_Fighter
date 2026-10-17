@@ -1,0 +1,490 @@
+{
+  "task": "air-sprite-pivot",
+  "date": "2026-10-18",
+  "sources": [
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_01.png.meta",
+      "sha256": "49804bacf3f59a8509a26acd64b794db047cfb3bf3e1457322fc329ee3fe1b04"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_02.png.meta",
+      "sha256": "6a9fc381d7d7e79216f5e3bff1ae3d5f3b0bf539716a42cf54a8023f79896863"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_03.png.meta",
+      "sha256": "c1b3bbfa6276f433bfd63918140c89fa18670b005850d6d1ae267ba22c4bcbe7"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_04.png.meta",
+      "sha256": "77bb04a55cdf9d279fba8ce9e6194197bac53139bc001c08a707ffcab00e4cbb"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_05.png.meta",
+      "sha256": "004f75c831d95d1d7fa207098a41170dee9e25d9d96ab41f2ca83074105581be"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_06.png.meta",
+      "sha256": "ef840f7ac436bf4ed69197824c62fbe10c073ffe145fde38074f301365ee5700"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_07.png.meta",
+      "sha256": "5103fb09b5c109bf1c8610ef52234da39e18b16422f255f72944c30f715a4c51"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_08.png.meta",
+      "sha256": "7055ac86679a8a6c4b9266846bbedcbf2acecc47c343f82b2bf969728d8952cc"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_09.png.meta",
+      "sha256": "0029cf5c451988bc4b93a56dc2131f2be359b224772aeb6158deef2175da8c2e"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_10.png.meta",
+      "sha256": "d677105fa0aa6a61c741299e1004bf3e5c2ecb6bd98bc1eda48a1328f686dadc"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_11.png.meta",
+      "sha256": "fab0e931bd9740a98544fb26dcef7910cf807b30437aa63c594c45c6c1dac6f2"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_12.png.meta",
+      "sha256": "4707a422ae675d2f0f2be52a77191ca5cb0a6b9a5460565ed7c9cd49a2020e7b"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_13.png.meta",
+      "sha256": "87ce9d0a837bfbb48d5971a149ba2a4ea85e64d669dd1245db5f0b1421cd747a"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_14.png.meta",
+      "sha256": "65856fe5f13be9b771d63da022dcbef2bc817971577db21faecb1b056e75a327"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_15.png.meta",
+      "sha256": "816ac22121b90ad3d96cf75bd53dc4f74014427b79e6b39bc432d593872755d3"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_16.png.meta",
+      "sha256": "bb6e0a756bab18c325e72dfcad8231201e86c070642ebcd00da21d9df5989ac7"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_17.png.meta",
+      "sha256": "51e34a4f520ad0ff7a8b2386f4b0e278bac44934bacf5e9a9df3b44581b4e82f"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_18.png.meta",
+      "sha256": "a3f024b67b5da4a9e5179856e85ebe2c225d6d3222cac7aba9a9602cd5efbd43"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_19.png.meta",
+      "sha256": "f6febef22bcd2097176630273df5b02e487bd59acdc570009c1d1e896d5896fe"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_20.png.meta",
+      "sha256": "d2118041c3f558382c5e2c1d8cc4972c06bf00fd71d46b6680a4112bc9909322"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_21.png.meta",
+      "sha256": "5247605db8d195302d2fd1891b70107eced1bc1482c2d8846e771e2e99734241"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_22.png.meta",
+      "sha256": "99ac980f627715ec46918c3e6312ca7ee49ac8bfef94798855b914c569fa1359"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_23.png.meta",
+      "sha256": "0457366f55b8ec45642ecd4bc4bf2a9eeda8d0074a11bfe52b34b2c2444b833e"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_24.png.meta",
+      "sha256": "ec9d0f71c801c824fa02f42c630a4896f8bf3324f2cc15d0e4d9880e660936cc"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_25.png.meta",
+      "sha256": "aaa6707f298422937726af9bf5f3456b170a26546a93ca7fd0e3fa5a6b33b126"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_26.png.meta",
+      "sha256": "05c30959eb308e7846e4baaa9f388c3b7ed0cd57eeb3ae4104e173d1ba1fd7c4"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_27.png.meta",
+      "sha256": "44f0d99939f09b4b5677c11ed8ab67f058a0f3466162ceee541e2bafdad20d48"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_28.png.meta",
+      "sha256": "db47ef35d642faad6846737ce2c7f95bc315745ce0f348ee93fe7345212b0828"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_29.png.meta",
+      "sha256": "2700ec62c859c8ee393acfaec62b3e19bf180c59e94cc74ba68822c1970cde4a"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_30.png.meta",
+      "sha256": "58a0abe2804675d147131ac6e4424d1c99756895833334007243cfb094c34f1f"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_31.png.meta",
+      "sha256": "900d009f8b3c2c739183c9caf84ecb7570d103ce78c11e0f3e1abe43632a453e"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_32.png.meta",
+      "sha256": "67f723a56e229f2e93e5a873bf93ad378c9357d24688aa3b3b3705690efc0b78"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_33.png.meta",
+      "sha256": "af3ba713c12a314e6e9033a39683fadbe97bc9dc17fc8c328c08805d8a33a13b"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_34.png.meta",
+      "sha256": "18de39bc7418d06f469a57ede76b9b74487023fe14f32db79658c673fa058f63"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_35.png.meta",
+      "sha256": "a6fbf798cb886cbb907210864204cd4785040d62341d2be79561145c4da65381"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_36.png.meta",
+      "sha256": "aee383af4bd42a4625dececc84e2818f7102cf58952dd6e15246b235eadad538"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_37.png.meta",
+      "sha256": "4cb6d0104591901707a2f64f2a1fce22534fac14c734565dad58f05a1772b9cc"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_38.png.meta",
+      "sha256": "b25267ba53c09843672e081bf08392a76ae95aee0d838c4fb080e1646f570f67"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_39.png.meta",
+      "sha256": "bcafa6143486e31e0f7751dfb90527900b639cb56585926dc2cc050bf683aeff"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_40.png.meta",
+      "sha256": "9ac0e32c65500afd60275cffdf10b8bdcd7ceb7113f77a558d911a2314aa762a"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_41.png.meta",
+      "sha256": "5ddfaee6b17142a83348415b21d85fbd50aeca15eaf5e00bce93aac0bc9bbbe6"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_42.png.meta",
+      "sha256": "376c684fec9acd6a5b6c87175c9f489f97f675db2d0ec19eff3c5fc59b1efff3"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_43.png.meta",
+      "sha256": "cc0b6417f5fb3820a714f6dc8ada9b26fedbb5b7fe94eab4cb3671e9e02f787b"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_44.png.meta",
+      "sha256": "24b09292c548613677fb153e3eb8b8f54d00403902d408d4057704de0641c72f"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_45.png.meta",
+      "sha256": "b7c635ae35d68b118da0a446235e5a627f919e2022cd90f22d16d3800cd316d3"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_46.png.meta",
+      "sha256": "ba5ee9d30e703ce79e07a7656bd2dd2bb35b0738ed816f1aebe5b37aaa86b500"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_47.png.meta",
+      "sha256": "1ffb6c47f3104be753821897ac335dddca4d5b18e73d53afdb0de132e3e468a4"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_48.png.meta",
+      "sha256": "043e9b6e76e203d109e95586d19ddec43d09574d11b9712fae85f5c265458bdb"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_49.png.meta",
+      "sha256": "0ae5379d609eed20a5b6bb8d5347ab69da0bb5d28962e0ee83672fad281ab403"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_50.png.meta",
+      "sha256": "f134f9c1232b6c4b8727f8ecd4a2708a9dc6cc1a72ded5370a3f517f8ce3fa05"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_51.png.meta",
+      "sha256": "75a2bcfe806339f6744325124899c4a51ed1522d48b93fef698fb77929b3d118"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_52.png.meta",
+      "sha256": "3330af02090949ce5e317e0930f301b746933930822057df38948b81d6f1b67f"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_53.png.meta",
+      "sha256": "4d017cdf8ecedcefbe1565f468e8979f0b4af5e5cf826801bbc950425d538b3b"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_54.png.meta",
+      "sha256": "9ae7cca8aa02858156e88bd65a48b13388b7bd46b1c108de9091890dfd672707"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_55.png.meta",
+      "sha256": "052fd24a62cdd6db32a8e49398f95930d708f7cc072a324153de2447fb91a41e"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_56.png.meta",
+      "sha256": "1260e1c60b53a2a277e3a0aac9f840dabaccbf6f7d0c49e03610955e160218e7"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_57.png.meta",
+      "sha256": "bff0464c85983ddf16eafd7e61003b3ff7972fbf4ed4d4d519063a6952f2eccd"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_58.png.meta",
+      "sha256": "6d75ec0c6d7a0e3090ffe21b96c84e0cdd1a3d73d37653493c2c9947161c460a"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_59.png.meta",
+      "sha256": "22e838c5f537ea5debe932c46c3fe0a2aa551a3c1855e1a2149ed0fbbeab18e7"
+    },
+    {
+      "path": "Assets/Sprites/Character/Player/Move/Air/Look-See-Do_Bot_export_Air_60.png.meta",
+      "sha256": "7c550e29e62f897d284ccbb650a668c1d6bdb20c2266db7b175e87e7c12f0913"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_01.png.meta",
+      "sha256": "f745f98c2d34cc720aed84df9fa513aff681f7f37dbf96d2b10edf74d3b257ad"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_02.png.meta",
+      "sha256": "464716aba58ef8fe9b97efd343fbec4070901e317182839697b1053570a4448e"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_03.png.meta",
+      "sha256": "3b608b77f7eaf6d54fa8c48fd2bd4e61ecfcf0965d93a82af01adbe039469872"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_04.png.meta",
+      "sha256": "77413bb812cff1e04c81209a4ad20d377401b92bc0083f1c918222e1f3468c91"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_05.png.meta",
+      "sha256": "edf2a4c15e61260a72717f3ed955f984483a5b08fba4695f41edef093a3fedac"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_06.png.meta",
+      "sha256": "c718f2f22e82ed8681f21713cb90694156d716c1aebd72558fee9fa9def3963e"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_07.png.meta",
+      "sha256": "d360da80bbdae9249349b0c8f5de0f076fe5c33c9d969913640e1b2be1bfb156"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_08.png.meta",
+      "sha256": "ba673908b885bd23689b5a54dfb8c585a8e8e69915971b65c81daeae603c395d"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_09.png.meta",
+      "sha256": "a42ca31320d96dc33e14232312b41a9a24cd857ca06bf027587460b1264f5cb1"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_10.png.meta",
+      "sha256": "77d2567de451e8b76533881c5743713097c0c8be8c9d6754e6590ecefaaefa76"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_11.png.meta",
+      "sha256": "0552ab9256edeb71355ae4cde111b69a1592161046bf5eec80b7ae206ed5bfdc"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_12.png.meta",
+      "sha256": "e71501063da26c1de9e8d12bd4459fbd91936d30ed66f5aa40339c266ac9189b"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_13.png.meta",
+      "sha256": "a0eb61668f21d48b5931b8d675b59695c11d953fe68a37063be303527858ee98"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_14.png.meta",
+      "sha256": "5be308d9b668a09e3f0a115f05b81b7f7206bb4223eaa77100b23e57817a4f7e"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_15.png.meta",
+      "sha256": "dea7ff0e0bf9576839d5ff8b1201ca7e8ff7689c8eb1e38448b75d22a37c04e7"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_16.png.meta",
+      "sha256": "108bfe00b221c6622b594b25c5700752ea5af50534fe9aa89d78de5d41a2d379"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_17.png.meta",
+      "sha256": "69b4780b310a0d34e0307822c06c60baf104536268ce86e43f92e9f713f77f34"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_18.png.meta",
+      "sha256": "1499c0249dd2745e4e79f1f2f9c89af1286b65bba897653702ab5ebb8f870527"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_19.png.meta",
+      "sha256": "e512d59e90ee2953aec488b2053b16d4912f466cb882f3d13f84b59b6ba6f4ac"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_20.png.meta",
+      "sha256": "f9eb96081c9e98b1c5509049b45442c18c6ad98b92154eca373aa1627f069b46"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_21.png.meta",
+      "sha256": "46dd7607010585e05b0e070634c41e59d06271ad8610fdccda8a9059fdaeb5f0"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_22.png.meta",
+      "sha256": "b8b6cca902f4f05ac48fd280aa2e20c186a5b75c5006da8156d2fafa8bab7cba"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_23.png.meta",
+      "sha256": "1f70c7de6d76b84319000f71bb9e0ddeedc25e2b42d69826b2c88a71814cb8c8"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_24.png.meta",
+      "sha256": "77fff24c3cc99cdfcaf8ba791a9b7c6ee5bbafc95840d2cb14bf952be84e27de"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_25.png.meta",
+      "sha256": "da3b2917f33edcc45562cd23210386e782c7bace2ab659629f4c3896671a0d01"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_26.png.meta",
+      "sha256": "ab07193f1cad36a755aba8d97a2937cb771d69aae577573b1eb8c85a1f09b782"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_27.png.meta",
+      "sha256": "a25fe655bd60dab7a19a96fbf0ea93ad3e1c7de1f2d8b6399f4cb28740abc826"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_28.png.meta",
+      "sha256": "60b3bfb7567eb3c3905b8c869d631ba99d76830833d46ebc6c8468f2fa0c0545"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_29.png.meta",
+      "sha256": "6911eb1aecdc5d85423e5ce4043ac69f7890492f4e7aa910e8cfe867eee126f3"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_30.png.meta",
+      "sha256": "c9ce13731ae32bec256c994e14ab4c4eeca61145c0b50ed2c2017d5f9fcb72e1"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_31.png.meta",
+      "sha256": "1be1ba70a0e9d1bf14a822f8df7a5c5b6e1a5d947341126e017e8baefec21c32"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_32.png.meta",
+      "sha256": "b71c771b7598da67ae8249b0c2f90c54ecc84e74296ad774d560686eee48a284"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_33.png.meta",
+      "sha256": "5eeaaae65d2c67bfece52e6cb71d3b431a36227729eada78d00bed10e8149805"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_34.png.meta",
+      "sha256": "9aebc4ae69ba171605fce17d733aac7d8f8fd5cca90ca699944d616ae28ffa9e"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_35.png.meta",
+      "sha256": "638d1a1d206510de0f5441a7ede56a56aae80d887301ee8b5a2673af537255dc"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_36.png.meta",
+      "sha256": "27dfe7ad14eca865854023fad1c6a13d093ef6ff64678fbfab4fafe1bbe13f06"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_37.png.meta",
+      "sha256": "e5e80307a9d0971229fb9ab6528022df340732efd9a73140300d0dee563343a1"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_38.png.meta",
+      "sha256": "735b26cadae79a072e99c609d0b0d171f7d54baf3e0f099a5e72dce7e5952b27"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_39.png.meta",
+      "sha256": "035fc112323518941e9d2fa13a4fcba7275d745cce42b5f4446c615d75d11a5d"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_40.png.meta",
+      "sha256": "f7d88d6e694154d63bdeb0f38093ea9b38a4543512ad7edde031e50fca2dd0b7"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_41.png.meta",
+      "sha256": "d77301be9399fc0fdcafcf321bab8857148ab6b296bc4b80752da40f4e60b39f"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_42.png.meta",
+      "sha256": "d56cbe572b6dfa1ca12e82860abbc8e0f0e8764c7015a3a0f80ed66dbea1486b"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_43.png.meta",
+      "sha256": "f0ec82311bc53b3e99823e99e45f2d0149656115f91279920a06fbaa188c97ea"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_44.png.meta",
+      "sha256": "f463ab98068777177ccf977b6eef9f162b9cbdc936907a19f8b2f3b9ced18bb4"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_45.png.meta",
+      "sha256": "e0c96ab6983c77c28917d6f84676d3e674ddefaccc9570441d2779db759124b8"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_46.png.meta",
+      "sha256": "309860d88ad0e57a1d161e58a6d0236b74537a8a49e90bfd7662130f69f732d6"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_47.png.meta",
+      "sha256": "c70ea08f3a68b048216185ffe5f0fff61fcd670bc63793ff25afa30eb6c4bcd9"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_48.png.meta",
+      "sha256": "0c1d44f9ad5138ef67c94037dbac3e11fb69549d747b8f998f8c1e8244ae4864"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_49.png.meta",
+      "sha256": "6152443df40767f5a3624a026ab8368fbba9b907ec81e68f750d44d296ec2d39"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_50.png.meta",
+      "sha256": "b11df0517fe564c4a842b0cc939b53be1210e3cdf8d6edfef15c1dd80a89ce63"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_51.png.meta",
+      "sha256": "349670acffc66ec72a62a8eb1691c946a7773fb7d4a95c6c5d5d1d7cbdf265e5"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_52.png.meta",
+      "sha256": "88b3a3a47e87fb87be4ed2f0930a86f54585e18fb9526f8f1ccdd4425fe93d84"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_53.png.meta",
+      "sha256": "e4d8330bd91d0362b8a5d6677c9f11302ae4044905a7b4e06d3b957f95a4e684"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_54.png.meta",
+      "sha256": "6a541b81d8f49a141458f4aa2f06fa3d1171bd90882dd90f57243e9c3783ce42"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_55.png.meta",
+      "sha256": "dfcc66fa84665502ef943ad2e2e3f2d04ad7972c1f9f7a827b9f556e0c0bdbf5"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_56.png.meta",
+      "sha256": "88367c86a269889268310d0fa47ebb85c4ab421383e20b7b187d394af2a509dd"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_57.png.meta",
+      "sha256": "35359281da473d68a2fad0c2f355a5702831cff759ca40ab0e106ee0cb42ae93"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_58.png.meta",
+      "sha256": "99592b86678ebfe1d6112a05296643fda8f046046d8554db10f1d66d4aa6dbdf"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_59.png.meta",
+      "sha256": "69e88b27aa951431716a9742c247a5f4bdab3bfefa5892244937aa275adf51c8"
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Move_Enemy/Air_Enemy/Look-See-Do_Bot_export_Air_Enemy_60.png.meta",
+      "sha256": "239a1d0cd89cf0471359bf63ecee8cada32250c5e7ef1e3c898dcc2f33ee8bcf"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFAirSpritePivotTests.cs",
+      "sha256": "e23a1ea288840e61160571ff8aa33f9f0382b80c4ba358138feb697844effaa0"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "task": "natural-rehit-fall",
+  "date": "2026-10-17",
+  "validation_policy": "One final validation bundle; no reruns.",
+  "status": "PASS",
+  "test_job": "0d39ff47dbdc444d970e853f374ba71b",
+  "checks": [
+    {
+      "name": "quantum_guard",
+      "status": "PASS",
+      "command": "python tools/ai/quantum_guard.py check",
+      "files_scanned": 93,
+      "new_findings": 0
+    },
+    {
+      "name": "diff_whitespace",
+      "status": "PASS",
+      "command": "git -c safe.directory=C:/Users/Admin/Look-See-Do_Fighter -c core.whitespace=blank-at-eol diff --check",
+      "exit_code": 0
+    },
+    {
+      "name": "unity_compilation",
+      "status": "PASS",
+      "unity": "6000.3.26f1",
+      "errors": 0,
+      "warnings": 9,
+      "note": "Warnings in existing menu/tests/vendor code and MCP WebSocket transport. Excluded asset source folders were not read."
+    },
+    {
+      "name": "targeted_tests",
+      "status": "PASS",
+      "summary": {
+        "total": 106,
+        "passed": 106,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 38.6985444,
+        "resultState": "Passed"
+      },
+      "groups": {
+        "LSDFComboEnderTests": 20,
+        "LSDFJuggleTests": 36,
+        "LSDFOnlineSmokeTests": 2,
+        "LSDFPlayerHealthTests": 24,
+        "LSDFRoundResultTests": 19,
+        "LSDFTimedHitTests": 5
+      }
+    },
+    {
+      "name": "photon_air_fall",
+      "status": "PASS",
+      "verified_checksum_comparisons": 136,
+      "replay_runs": 2,
+      "frame_restore": [
+        "natural launcher fall",
+        "accelerating rehit fall"
+      ],
+      "notes": "Both observers/defenders; two no-followup and two rehit episodes, fixture initial hold 120 ticks."
+    },
+    {
+      "name": "photon_combo_enders",
+      "status": "PASS",
+      "verified_checksum_comparisons": 104,
+      "replay_runs": 2,
+      "frame_restore": [
+        "terminal flight"
+      ],
+      "notes": "Five airborne followups excluding starter; first-followup finisher; 24-tick recovery. Isolated ender fixture uses zero fall acceleration."
+    },
+    {
+      "name": "qtn_codegen",
+      "status": "NOT REQUIRED",
+      "note": "No QTN change in this task. Previously generated arc schema preserved and compiled in this bundle."
+    }
+  ],
+  "limitations": [
+    "Visual naturalness requires user play evaluation.",
+    "No cross-platform test, standalone build or induced network-delay rollback.",
+    "Frame restore uses SDK ResetReplay and recorded-input resimulation."
+  ],
+  "ownership": "Existing user config tuning, prior uncommitted arc/schema changes and IDE files preserved. No commit or push.",
+  "evidence_files": [
+    "natural-rehit-fall-sources.json",
+    "natural-rehit-fall-tests.json"
+  ]
+}

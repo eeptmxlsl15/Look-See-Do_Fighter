@@ -28,7 +28,9 @@ public partial class LSDFOnlineSmokeTests {
       if (config == null || upper == null || fist == null) throw new InvalidOperationException("Missing combo-ender fixture assets.");
       savedAir = config.AirCombo; savedUpper = upper.Hit.ComboFinisher; savedFist = fist.Hit.ComboFinisher;
       // Keep the target reachable through normal attack recovery; isolate the count/ender contract.
-      config.AirCombo = new LSDFJuggleSettings { LaunchHoldTicks = 90, RehitHoldTicks = 90,
+      config.AirCombo = new LSDFJuggleSettings { LaunchHoldTicks = enableFinisher ? 90 : 120,
+        SlowFallSpeed = enableFinisher ? FP._0_02 : FP._0_20,
+        SlowFallAcceleration = enableFinisher ? FP._0 : FP._0_10,
         HitPushSpeed = FP._0, HitPushTicks = 0 };
       upper.Hit.ComboFinisher = false; fist.Hit.ComboFinisher = enableFinisher;
     }
@@ -57,14 +59,15 @@ public partial class LSDFOnlineSmokeTests {
       if (elapsed >= 0 && elapsed < 1440) {
         int episode = elapsed / 720, phase = elapsed % 720;
         bool attacking = local == (PlayerRef)episode;
-        if (phase < 90) value.Right = true;
+        // Closing again after an ender needs more travel than the initial spawn gap.
+        if (phase < 120) value.Right = true;
         else if (!attacking) value.Up = true;
         // Down-forward RP (Law skill 1) + five followups; then launcher -> forward RP finisher.
-        if (attacking && phase >= 120 && phase < (episode == 0 ? 573 : 303)) {
-          value.RightPunch = (phase - 120) % 90 < 3;
+        if (attacking && phase >= 150 && phase < (episode == 0 ? 603 : 333)) {
+          value.RightPunch = (phase - 150) % 90 < 3;
           if (value.RightPunch) {
             value.Right = true;
-            value.Down = episode == 0 || phase < 210 || phase >= 300;
+            value.Down = episode == 0 || phase < 240 || phase >= 330;
           }
         }
       }

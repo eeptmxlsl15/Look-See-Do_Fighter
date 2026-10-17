@@ -1,0 +1,109 @@
+{
+  "task": "공중 재타격: 기준 높이 위로 작은 상승, 기준 높이 복귀, 그 아래 느린 낙하",
+  "status": "ARC_PASS_ENDER_FIXTURE_FIX_UNVERIFIED",
+  "user_scope": "Local implementation and one final validation bundle. No commit/push.",
+  "unity": "6000.3.26f1",
+  "quantum": "3.0.14",
+  "defaults": {
+    "ComboHeightRaw": 16384,
+    "RehitLiftRaw": 3277,
+    "RehitRiseTicks": 6,
+    "RehitReturnTicks": 6,
+    "SlowFallSpeedRaw": 13107,
+    "MaximumHeightRaw": 22938
+  },
+  "preserved_settings": {
+    "LaunchHoldTicks": 30,
+    "LegacyRehitHoldTicks": 30,
+    "HitPushSpeedRaw": 6554,
+    "HitPushTicks": 6,
+    "Player2TestInput": "Unmodified"
+  },
+  "protocol": "lsdf-loadout-v8-juggle-arc",
+  "checks": [
+    {
+      "name": "Installed CodeGen / fields / meta",
+      "status": "PASS",
+      "menu": "Tools/Quantum/CodeGen/Run Qtn CodeGen",
+      "fields": [
+        "ComboY",
+        "SlowFallSpeed",
+        "ReturnTicks"
+      ],
+      "phases": [
+        "RehitRising",
+        "Returning",
+        "SlowFalling"
+      ]
+    },
+    {
+      "name": "Quantum lexical guard",
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 93,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    },
+    {
+      "name": "Changed diff whitespace",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "Unity compile",
+      "status": "PASS",
+      "console_errors": 0,
+      "console_warnings": 0
+    },
+    {
+      "name": "Unit/combat regression",
+      "status": "PASS",
+      "passed": 92,
+      "groups": {
+        "LSDFComboEnderTests": 20,
+        "LSDFJuggleTests": 24,
+        "LSDFPlayerHealthTests": 24,
+        "LSDFRoundResultTests": 19,
+        "LSDFTimedHitTests": 5
+      }
+    },
+    {
+      "name": "Two actual Photon clients / both defenders rehit arc and landing",
+      "status": "PASS",
+      "common_verified_checksum_samples": 73
+    },
+    {
+      "name": "Two recorded input replays / active rehit-rise Frame restore and resimulation",
+      "status": "PASS",
+      "source_fixture": "LSDFOnlineSmokeTests.AirComboClientsAgreeOnHoverRehitsLandingAndFrameRestore"
+    },
+    {
+      "name": "Separate five-followup/explicit-finisher online fixture",
+      "status": "FAIL_THEN_FIXTURE_FIX_UNVERIFIED",
+      "observation": "observer 0 episode 0 hit-count 5, terminal tick 988, recovery 24; episode 1 no terminal observed.",
+      "inference": "Insufficient approach after knockaway caused the next launcher to miss; followup finisher was parried.",
+      "fix": "Only fixture approach 90->120 ticks and attack start 120->150 ticks; hypothesis not confirmed by rerun."
+    }
+  ],
+  "job_id": "f94127efb350472d8a556dc53a0c3965",
+  "total_tests": 94,
+  "passed": 93,
+  "failed": 1,
+  "skipped": 0,
+  "results": "air-combo-arc-tests.json",
+  "source_snapshot": "air-combo-arc-sources.json",
+  "post_validation_gameplay_changes": [],
+  "post_validation_test_changes": [
+    "Assets/Tests/Editor/LSDFOnlineComboEnderTests.cs"
+  ],
+  "limits": [
+    "Post-fix ender fixture compilation/execution not repeated",
+    "No independent build/cross-platform validation",
+    "Frame restore is not induced network-delay rollback",
+    "No manual view/feel validation"
+  ],
+  "existing_user_changes": "IDE project/solution files preserved",
+  "final_validation_attempts": 1
+}

@@ -34,6 +34,11 @@ MonoBehaviour:
     RehitLift:
       RawValue: 3277
     RehitRiseTicks: 6
+    RehitReturnTicks: 6
+    SlowFallSpeed:
+      RawValue: 19661
+    SlowFallAcceleration:
+      RawValue: 32768
     RehitHoldTicks: 30
     MaximumHeight:
       RawValue: 22938

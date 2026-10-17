@@ -450,7 +450,8 @@ public partial class LSDFOnlineSmokeTests {
 
   private static async Task VerifyReplay(QuantumReplayFile file, Dictionary<int, ulong> expected,
       int targetTick, int restoreSnapshotTick, string suffix, CancellationToken token, bool requirePendingBuffer = true,
-      bool requireAirHover = false, bool requireAirEnder = false) {
+      bool requireAirHover = false, bool requireAirEnder = false, bool requireAirArc = false,
+      bool requireAirNaturalFall = false) {
     var serializer = new QuantumUnityJsonSerializer();
     QuantumRunner replay = null;
     var provider = file.CreateInputProvider();
@@ -491,6 +492,24 @@ public partial class LSDFOnlineSmokeTests {
             foreach (var air in callback.Frame.GetComponentIterator<LSDF_AirCombo>())
               if (LSDFJuggle.BlocksHit(callback.Frame.Get<LSDF_AirCombo>(air.Entity))) terminal = true;
             if (!terminal) mismatch = "Replay snapshot did not contain the active combo finisher.";
+          }
+          if (requireAirArc) {
+            bool arc = false;
+            foreach (var pair in callback.Frame.GetComponentIterator<LSDF_AirCombo>()) {
+              var phase = callback.Frame.Get<LSDF_AirCombo>(pair.Entity).Phase;
+              if (phase == LSDFAirComboPhase.RehitRising || phase == LSDFAirComboPhase.Returning ||
+                  phase == LSDFAirComboPhase.SlowFalling) arc = true;
+            }
+            if (!arc) mismatch = "Replay snapshot did not contain the active rehit arc.";
+          }
+          if (requireAirNaturalFall) {
+            bool falling = false;
+            foreach (var pair in callback.Frame.GetComponentIterator<LSDF_AirCombo>()) {
+              var air = callback.Frame.Get<LSDF_AirCombo>(pair.Entity);
+              if (air.Phase == LSDFAirComboPhase.Falling && air.HitCount == 0 &&
+                  callback.Frame.Get<PhysicsBody2D>(pair.Entity).GravityScale == air.SavedGravityScale) falling = true;
+            }
+            if (!falling) mismatch = "Replay snapshot did not contain a natural launcher fall with original gravity.";
           }
           bool pendingFound = false;
           foreach (var pair in callback.Frame.GetComponentIterator<LSDF_CommandBuffer>()) {

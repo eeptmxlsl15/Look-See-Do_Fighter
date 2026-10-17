@@ -8,14 +8,20 @@ namespace Quantum.LSDF {
     [InspectorName("처음 뜨는 높이"), Tooltip("첫 피격 위치에서 올라가는 월드 높이입니다.")]
     public FP LaunchHeight = FP._0_25 + FP._0_05;
     [InspectorName("처음 상승 시간 (틱)"), Min(1)] public int LaunchRiseTicks = 12;
-    [InspectorName("처음 머무는 시간 (틱)"), Min(0)] public int LaunchHoldTicks = 24;
-    [InspectorName("재타격 고정 높이"), Tooltip("시동기가 맞은 위치 기준입니다. 공중 후속타마다 이 높이로 즉시 되돌리고 세로 속도를 0으로 초기화합니다.")]
+    [InspectorName("처음 머무는 시간 (틱)"), Tooltip("시동기 후 추가타가 없으면 이 시간이 끝난 뒤 원래 중력으로 자연 낙하합니다."), Min(0)]
+    public int LaunchHoldTicks = 24;
+    [InspectorName("콤보 기준 높이 (Combo Height)"), Tooltip("시동기 피격 위치 기준입니다. 재타격 시 이 높이보다 조금 높게 올랐다가 복귀한 뒤 천천히 내려갑니다.")]
     public FP ComboHeight = FP._0_25;
-    // Preserve serialized values for compatibility; fixed-height rehits no longer add lift or rise gradually.
-    [HideInInspector] public FP RehitLift = FP._0_05;
-    [HideInInspector] public int RehitRiseTicks = 6;
-    [InspectorName("재타격 머무는 시간 (틱)"), Min(0)] public int RehitHoldTicks = 12;
-    [InspectorName("최대 공중 높이"), Tooltip("첫 상승 및 재타격 고정 높이의 상한입니다. 시동기가 맞은 위치 기준입니다.")]
+    [InspectorName("재타격 추가 상승 높이")] public FP RehitLift = FP._0_05;
+    [InspectorName("재타격 상승 시간 (틱)"), Min(1)] public int RehitRiseTicks = 6;
+    [InspectorName("기준 높이 복귀 시간 (틱)"), Min(1)] public int RehitReturnTicks = 6;
+    [InspectorName("기준 높이 아래 낙하 시작 속도"), Tooltip("기준 높이에 도착할 때의 하강 속도입니다. 이후 낙하 가속도가 더해집니다. 월드 단위/초이며 최소 0.01로 보정합니다.")]
+    public FP SlowFallSpeed = FP._0_20;
+    [InspectorName("기준 높이 아래 낙하 가속도"), Tooltip("기준 높이 아래에서 서서히 빨라지는 정도입니다. 낮출수록 더 오래 떠 있습니다. 월드 단위/초²이며 0이면 일정 속도로 내려갑니다.")]
+    public FP SlowFallAcceleration = FP._0_10;
+    // Preserve old serialized hold tuning. Rehits now move continuously through the return and slow fall.
+    [HideInInspector] public int RehitHoldTicks = 12;
+    [InspectorName("최대 공중 높이"), Tooltip("첫 상승과 기준 높이 + 추가 상승 높이의 상한입니다. 시동기 피격 위치 기준입니다.")]
     public FP MaximumHeight = FP._0_33 + FP._0_02;
     [InspectorName("공중 피격 밀림 속도"), Tooltip("낮출수록 공중 피격 때 덜 밀립니다. 마무리 날리기에는 적용하지 않습니다.")]
     public FP HitPushSpeed = FP._0_20;

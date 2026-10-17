@@ -4,7 +4,10 @@ enum LSDFAirComboPhase {
   Hovering,
   Falling,
   BlownAway,
-  Recovering
+  Recovering,
+  RehitRising,
+  Returning,
+  SlowFalling
 }
 
 // Per-flight state. Physics gravity is restored on landing, walls, KO and round reset.
@@ -21,4 +24,7 @@ component LSDF_AirCombo {
   FP HorizontalVelocity;
   int PushUntilTick;
   int RecoveryUntilTick;
+  FP ComboY;
+  FP SlowFallSpeed;
+  int ReturnTicks;
 }

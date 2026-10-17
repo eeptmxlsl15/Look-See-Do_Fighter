@@ -1,0 +1,51 @@
+{
+  "task": "natural-rehit-fall",
+  "test_job": "0d39ff47dbdc444d970e853f374ba71b",
+  "scope_note": "Includes existing uncommitted arc/schema changes preserved from prior tasks. This task does not alter QTN or generated code.",
+  "sources": [
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFJuggle.cs",
+      "sha256": "2a0fde42ba7db1b27423df0fac2b66f57954fceaa6c1ab01eabc1ab4c09d02db"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFJuggleSettings.cs",
+      "sha256": "dd56d4bc0a7c82ac938c3699ad8afc964be312e55404b1a88f7537529e02b0da"
+    },
+    {
+      "path": "Assets/QuantumUser/Resources/LSDF_GameConfig.asset",
+      "sha256": "beed88c1d168f50cb2a7029a165205d93d48793834989542c4a464fb8c912bdd"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFLoadout.cs",
+      "sha256": "b7f7c2a5e8f6f5ddd3b3829bc2adac00fefbc9175d57da60bad73df6dc7506e0"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDF_AirCombo.qtn",
+      "sha256": "52e130fc54f1dcb1eaa54089e59ea0d907773fa732f27687fef5e1bdb5a38e5f"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Core.cs",
+      "sha256": "208494adcee042936745e38ba52869be0005aed7ebf5343b3a65242d75066cc2"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Prototypes.cs",
+      "sha256": "4b8e8b51b7780a28c3e160ee2ce28e0fe01c8e81d127de503d207d2e59c8ec81"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFJuggleTests.cs",
+      "sha256": "ab78be85a95022b3288b210efa3db58d237e3a373795c3b64d0151bd5687e136"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFOnlineAirComboTests.cs",
+      "sha256": "ab0ea2b1822f50d8a2a611d37cc8a2299a6894671ca19456d8194df9dc124df8"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFOnlineComboEnderTests.cs",
+      "sha256": "c876becff45bb52ea6d8f88177353b9def2f5836bcb225e88f534f34f9313021"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFOnlineSmokeTests.cs",
+      "sha256": "ec948539f7d1368b032771ee1a47a70b7eced44a4b477b560e0bfb152c0d7328"
+    }
+  ]
+}
