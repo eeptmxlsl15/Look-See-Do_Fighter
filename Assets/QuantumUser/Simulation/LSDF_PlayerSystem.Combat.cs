@@ -156,6 +156,9 @@ namespace Quantum.LSDF
 
         public void OnTriggerCounterHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
+            // Capture the physical hitbox center, including legacy VFX position overrides.
+            if (hitbox->SourceAttack.Id.IsValid && f.TryGet<Transform2D>(info.Other, out var contactTransform))
+                f.Events.OnCounterHitZoom(hitbox->SourceAttack, contactTransform.Position);
             f.Events.OnCounterEffect(hitbox->position);
 
             f.Events.OnCounterSound();

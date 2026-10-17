@@ -73,6 +73,7 @@ namespace Quantum.Prototypes.Unity {
   }
   [System.SerializableAttribute()]
   public unsafe partial class LSDF_HitboxInfoPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.LSDF_HitboxInfoPrototype> {
+    public AssetRef SourceAttack;
     public FPVector2 position;
     public Quantum.QuantumEntityPrototype AttackerEntity;
     public Quantum.QEnum32<HitboxAttackType> AttackType;
@@ -94,6 +95,7 @@ namespace Quantum.Prototypes.Unity {
     partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.LSDF_HitboxInfoPrototype prototype);
     public override Quantum.Prototypes.LSDF_HitboxInfoPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.LSDF_HitboxInfoPrototype();
+      converter.Convert(this.SourceAttack, out result.SourceAttack);
       converter.Convert(this.position, out result.position);
       converter.Convert(this.AttackerEntity, out result.AttackerEntity);
       converter.Convert(this.AttackType, out result.AttackType);

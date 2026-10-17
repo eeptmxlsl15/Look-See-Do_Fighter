@@ -77,7 +77,7 @@ public class MachineGunWindowEvent : AnimatorTimeWindowEventAsset
 
             f.Add(hitbox, new PhysicsCollider2D { IsTrigger = true, Shape = Shape2D.CreateBox(Hit.HalfExtents) });
 
-            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit);
+            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit, sourceAttack: Guid);
 
             Quantum.LSDF.LSDFHitboxFactory.ScheduleDestroy(f, hitbox);
 

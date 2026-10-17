@@ -1,0 +1,312 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7dc6bd94c34fb78bd46fc1b50fa2d6, type: 3}
+  m_Name: LSDF_CounterHitZoom
+  m_EditorClassIdentifier: LSDF.View::LSDFCounterHitZoomSettings
+  Enabled: 1
+  Attacks:
+  - Attack: {fileID: 11400000, guid: 9423453dee5a64f40a4da29554617898, type: 2}
+    Enabled: 1
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 10bb52754037eae4fbc965b71b0a0c1e, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 3e48be3ef6a36fd49b830aeb1eb63598, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 3ef4c2529d89fbd418b64d03fbdaf7b5, type: 2}
+    Enabled: 1
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 9df2a265ac06a4442948f343d5dde9fb, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 638d1ce12b8b064418152c5b11d483cd, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 96156b4361a9ca246bdde594ea02900c, type: 2}
+    Enabled: 1
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 1c403f7c35de17a4e96552cc3ae0954f, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: eabf58ce603292c4b94923aaa2ae3e57, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: da1364129ed203044ba1656aba9ef6f9, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 163b276366c8d80499be70f53a9b6f4a, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: c4c651c03c20d4048be08b9258193776, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 1ae5c1fe0661208418fc49f4a8e5ed0f, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: fdde803e5912e584eae87f9a0f78b378, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: f2a0884f30e4aa94d9240fa68851056d, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: dacfe07b5c065604bb2eaec92867abb0, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 10f357a11ab47754f81e225b69ea1b00, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 5d03b76ab3723b748a2750ad5efae807, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 67b81007f01edcc42b41dbde60d75e8a, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 6dcf709a14bbfca4b9a80c830f34802c, type: 2}
+    Enabled: 1
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 61183aaad085abc4bb03b41b3cb1d746, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 488c2f8cae137f049bfd64e85129a65f, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 6815a6d3aaec3c54eb87a891b2e63a55, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 94fbf4cd035e2864ab34d616f640d5f4, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 59d781d5e77d78544b4662e0214fa9c3, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 1e6e3d8b065362a4b9c6f24d64be660f, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: f327cc2489f8d4547977aca20fe7c146, type: 2}
+    Enabled: 1
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 3f222553d07c77f4fab80744c35b9c1d, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: a229663c097b77e41bb7cd9d24b3fe42, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 42319197c77ffff409901e385798c28a, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: eaa08ca18ff42b44a8271aeb4a06c3e4, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 606702529f5f2d24cbb78a8328e84472, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 7cff35e5049a9654888b165a78addf2a, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 2dd4ff593e5761f48bdba1f24c9111a1, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: bcd69e6f2612a6c49a4dc4b913ae8c5a, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: 489b87b7da0bd2a49bc6c3fbd6a1c89a, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}
+  - Attack: {fileID: 11400000, guid: b075323e820c16b40a03deb29ce59697, type: 2}
+    Enabled: 0
+    Magnification: 1.7
+    ZoomInSeconds: 0.035
+    HoldSeconds: 0.08
+    ReturnSeconds: 0.18
+    FocusStrength: 1
+    FocusOffset: {x: 0, y: 0}

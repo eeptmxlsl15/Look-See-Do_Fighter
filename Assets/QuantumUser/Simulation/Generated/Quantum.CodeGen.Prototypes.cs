@@ -264,6 +264,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_HitboxInfo))]
   public unsafe class LSDF_HitboxInfoPrototype : ComponentPrototype<Quantum.LSDF_HitboxInfo> {
+    public AssetRef SourceAttack;
     public FPVector2 position;
     public MapEntityId AttackerEntity;
     public Quantum.QEnum32<HitboxAttackType> AttackType;
@@ -288,6 +289,7 @@ namespace Quantum.Prototypes {
         return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Quantum.LSDF_HitboxInfo result, in PrototypeMaterializationContext context = default) {
+        result.SourceAttack = this.SourceAttack;
         result.position = this.position;
         PrototypeValidator.FindMapEntity(this.AttackerEntity, in context, out result.AttackerEntity);
         result.AttackType = this.AttackType;

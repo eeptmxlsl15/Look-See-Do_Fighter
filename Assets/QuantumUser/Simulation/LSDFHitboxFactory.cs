@@ -4,10 +4,10 @@ namespace Quantum.LSDF {
   /// <summary>Stateless single-hit materialization. Multi-hit scheduling is intentionally separate.</summary>
   public static class LSDFHitboxFactory {
     public static EntityRef Spawn(Frame frame, EntityRef attacker, int facing, LSDFSingleHitDefinition hit,
-        FPVector2? effectPositionOverride = null) {
+        FPVector2? effectPositionOverride = null, AssetGuid sourceAttack = default) {
       EntityRef entity = frame.Create();
       ConfigureBody(frame, entity, attacker, facing, hit);
-      AddPayload(frame, entity, attacker, hit, effectPositionOverride);
+      AddPayload(frame, entity, attacker, hit, effectPositionOverride, sourceAttack);
       ScheduleDestroy(frame, entity);
       return entity;
     }
@@ -22,8 +22,10 @@ namespace Quantum.LSDF {
     }
 
     public static void AddPayload(Frame frame, EntityRef entity, EntityRef attacker, LSDFSingleHitDefinition hit,
-        FPVector2? effectPositionOverride = null) {
-      frame.Add(entity, hit.CreateInfo(attacker, effectPositionOverride ?? frame.Get<Transform2D>(entity).Position));
+        FPVector2? effectPositionOverride = null, AssetGuid sourceAttack = default) {
+      var payload = hit.CreateInfo(attacker, effectPositionOverride ?? frame.Get<Transform2D>(entity).Position);
+      payload.SourceAttack = new AssetRef { Id = sourceAttack };
+      frame.Add(entity, payload);
     }
 
     public static void ScheduleDestroy(Frame frame, EntityRef entity) {

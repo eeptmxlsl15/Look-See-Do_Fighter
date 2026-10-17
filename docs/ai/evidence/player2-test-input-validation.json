@@ -1,0 +1,92 @@
+{
+  "task": "2P ??? ??? ??",
+  "date": "2026-10-17",
+  "validation_passes": 1,
+  "static_checks": {
+    "status": "PASS",
+    "source_hashes": {
+      "Assets/QuantumUser/View/LSDF_PlayerInput.cs": "b94364708703c3b1226462c979a4254cea8b728fecf4b571ccfa82ca1a9732e6",
+      "Assets/QuantumUser/View/LSDFPlayer2TestInputSettings.cs": "3c3bf17c9750887d3c7a6c32b7d0192b6324acb3dc9bafce5d04ce3c216cf73d",
+      "Assets/QuantumUser/View/LSDFPlayer2TestInputPlayback.cs": "2fcfadf4ddff525ab22373e02852187e4e012b615314244d0e663df0329c8a4d",
+      "Assets/QuantumUser/View/Editor/LSDFPlayer2TestInputSettingsEditor.cs": "85552d498440cffb225f77ec6f3e91fcea952f6e8e2beb00527a783da100a739",
+      "Assets/QuantumUser/Resources/LSDF_Player2TestInput.asset": "1cbf512e0329b38b4cb05167f97fe7a6417b40b5216a0106f4252cfd59d8f7af",
+      "Assets/Tests/Editor/LSDFPlayer2TestInputTests.cs": "837afabcfedea326e79792105511b99bed9227a6bc264b81223c38319406a3d3",
+      "Assets/Scenes/LSDFGameplay.unity": "e9a4b66c780708e8d96b1d1e9fa68c6c5d0b84d9ec7d24255903888f9fbb1c14"
+    },
+    "meta_pairs": 7,
+    "new_file_whitespace": "PASS"
+  },
+  "tests": {
+    "status": "FAIL_THEN_TEST_FIX_NOT_REVERIFIED",
+    "job_id": "68f8c2db05bf4edd99fbefef9ef8867f",
+    "summary": {
+      "total": 89,
+      "passed": 88,
+      "failed": 1,
+      "skipped": 0,
+      "durationSeconds": 1.5293829,
+      "resultState": "Failed(Child)"
+    },
+    "groups": {
+      "LSDFPlayer2TestInputTests": {
+        "passed": 34,
+        "failed": 1
+      },
+      "LSDFInputBufferTests": {
+        "passed": 31,
+        "failed": 0
+      },
+      "LSDFStructuralTests": {
+        "passed": 23,
+        "failed": 0
+      }
+    },
+    "details": "player2-test-input-tests.json",
+    "post_check_fix": {
+      "file": "Assets/Tests/Editor/LSDFPlayer2TestInputTests.cs",
+      "test_before": "InputComponentDisableAndReenableStartsAFreshSchedule",
+      "test_after": "InputComponentLifecycleCallbacksStartAFreshSchedule",
+      "description": "EditMode does not automatically execute this MonoBehaviour's activation callbacks. Invoke OnEnable/OnDisable explicitly and dispose subscriptions in finally.",
+      "status": "MODIFIED_NOT_REVERIFIED"
+    }
+  },
+  "overall": "MODIFIED_AFTER_FAILED_VALIDATION_NOT_REVERIFIED",
+  "unity_compile": {
+    "status": "PASS_BEFORE_TEST_FIX",
+    "errors": 0,
+    "warnings": 6,
+    "warnings_summary": {
+      "existing_AvailableScenes_obsolete": 3,
+      "excluded_vendor_warnings_no_source_inspected": 2,
+      "Unity_MCP_websocket_warning": 1
+    },
+    "console_reads": 1
+  },
+  "quantum_guard": {
+    "status": "PASS",
+    "files_scanned": 91,
+    "existing_findings": 0,
+    "new_findings": 0,
+    "limit": "Lexical only; not determinism proof."
+  },
+  "diff_check": {
+    "status": "PASS",
+    "scope": [
+      "Assets/QuantumUser/View/LSDF_PlayerInput.cs",
+      "Assets/Scenes/LSDFGameplay.unity"
+    ],
+    "unrelated_existing_changes": "Not modified or included in this task scope."
+  },
+  "source_hash_limit": "Captured before final checks. Only the failed lifecycle test fixture was changed after the run; the stored pre-check test-file hash is not the final fixture hash.",
+  "simulation_changes": false,
+  "qtn_codegen": "NOT REQUIRED: no QTN or RuntimePlayer changes in this task.",
+  "not_run": [
+    "Actual two-client gameplay with this input provider",
+    "In-game manual counter-zoom tuning",
+    "Standalone Development Build and release build",
+    "Actual reconnect",
+    "Network-induced rollback"
+  ],
+  "published": false,
+  "ownership": "Existing counter zoom and IDE changes preserved; no staging, commit or push."
+}

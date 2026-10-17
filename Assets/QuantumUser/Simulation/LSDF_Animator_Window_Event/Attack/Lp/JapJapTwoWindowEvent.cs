@@ -117,7 +117,7 @@ public class JapJapTwoWindowEvent : AnimatorTimeWindowEventAsset
 
             player->isJump = false;
             player->isDodgeHigh = false;
-            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, Hit);
+            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, Hit, sourceAttack: Guid);
             if (player->canCounter == true)
             {
                 player->canCounter = false;

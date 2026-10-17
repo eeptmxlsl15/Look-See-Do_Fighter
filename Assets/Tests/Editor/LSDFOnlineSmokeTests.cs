@@ -108,10 +108,13 @@ public partial class LSDFOnlineSmokeTests {
     var bufferDispatchTicks = new int[2];
     var bufferUpperSeen = new bool[2];
     int finishAttackTick = int.MaxValue;
+    int counterProbeTick = int.MaxValue;
+    var counterZoomEvents = new[] { new List<string>(), new List<string>() };
     var match = new[] { new MatchObservation(), new MatchObservation() };
     IDisposable inputListener = null;
     IDisposable frameListener = null;
     IDisposable checksumListener = null;
+    IDisposable counterZoomListener = null;
     string stage = "prepare";
     using (var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellation)) {
       timeout.CancelAfter(TimeSpan.FromSeconds(300)); // Leave replay/restore time within the 360s outer test limit.
@@ -155,6 +158,14 @@ public partial class LSDFOnlineSmokeTests {
           var input = new Quantum.Input();
           int relativeTick = c.Frame - combatStartTick;
           if (relativeTick < 0) {
+            c.SetInput(input, DeterministicInputFlags.Repeatable);
+            return;
+          }
+          if (counterProbeTick != int.MaxValue && c.Frame < finishAttackTick) {
+            int phase = (c.Frame - counterProbeTick) % 240;
+            input.Right = phase >= 0 && (phase < 110 || owner == 1 && phase >= 150 && phase < 153);
+            input.LeftPunch = owner == 0 && phase >= 150 && phase < 153;
+            input.RightPunch = owner == 1 && phase >= 150 && phase < 153;
             c.SetInput(input, DeterministicInputFlags.Repeatable);
             return;
           }
@@ -219,6 +230,8 @@ public partial class LSDFOnlineSmokeTests {
             ObserveBufferProbe(c.Frame, owner, bufferProbeTick + 28, bufferPendingSeen, bufferDispatchTicks, ref observedError);
           foreach (var pair in c.Frame.GetComponentIterator<LSDF_HitboxInfo>()) {
             var hit = c.Frame.Get<LSDF_HitboxInfo>(pair.Entity);
+            if (!hit.SourceAttack.Id.IsValid || c.Frame.FindAsset<Quantum.Addons.Animator.AnimatorTimeWindowEventAsset>(hit.SourceAttack.Id) == null)
+              observedError = "The hitbox lost its source attack asset.";
             int timedIndex = hit.startFrame == 18 ? (hit.attackDamage == 15 ? 0 : hit.attackDamage == 27 ? 1 : -1) :
               hit.startFrame == 16 ? (hit.attackDamage == 12 ? 2 : hit.attackDamage == 14 ? 3 : -1) : -1;
             if (timedIndex >= 0) {
@@ -276,6 +289,13 @@ public partial class LSDFOnlineSmokeTests {
         checksumListener = QuantumCallback.SubscribeManual<CallbackChecksumError>(c => {
           if (IndexOf(runners, c.Game) >= 0) observedError = "Quantum checksum error callback";
         });
+        counterZoomListener = QuantumEvent.SubscribeManual<EventOnCounterHitZoom>(hit => {
+          int owner = IndexOf(runners, hit.Game);
+          if (owner < 0 || hit.Tick < counterProbeTick) return;
+          if (hit.Game.Frames.Verified.Number < hit.Tick || !hit.Attack.Id.IsValid)
+            observedError = "Counter zoom was delivered before confirmation or without its source move.";
+          counterZoomEvents[owner].Add(hit.Tick + ":" + hit.Attack.Id + ":" + hit.Position.X.RawValue + ":" + hit.Position.Y.RawValue);
+        });
         stage = "session start handshake";
         await Task.WhenAll(starts);
         runners[0] = (QuantumRunner)starts[0].Result;
@@ -330,6 +350,18 @@ public partial class LSDFOnlineSmokeTests {
           throw new InvalidOperationException("Input buffer dispatched on different verified ticks.");
         TestContext.Out.WriteLine("INPUT BUFFER PASS: press=" + (bufferProbeTick + 28) + ", dispatch=" +
           bufferDispatchTicks[0] + "; both clients captured the locked input and produced LeftUpper after key release.");
+        stage = "confirmed counter-hit presentation payload";
+        counterProbeTick = Math.Max(runners[0].Game.Frames.Verified.Number, runners[1].Game.Frames.Verified.Number) + 30;
+        var counterDeadline = DateTime.UtcNow.AddSeconds(15);
+        while (Math.Min(runners[0].Game.Frames.Verified.Number, runners[1].Game.Frames.Verified.Number) < counterProbeTick + 480) {
+          if (observedError != null) throw new InvalidOperationException(observedError);
+          if (DateTime.UtcNow >= counterDeadline) throw new InvalidOperationException("Counter-hit probe timed out.");
+          await Task.Delay(100, timeout.Token);
+        }
+        if (counterZoomEvents[0].Count == 0 || counterZoomEvents[1].Count == 0)
+          throw new InvalidOperationException("The counter-hit exchange did not emit a confirmed zoom event on both clients.");
+        CollectionAssert.AreEqual(counterZoomEvents[0], counterZoomEvents[1]);
+        TestContext.Out.WriteLine("COUNTER ZOOM PASS: " + counterZoomEvents[0].Count + " matching confirmed source/tick/position payloads on both clients.");
         stage = "five decisive rounds, natural crouch, and persistent match end";
         finishAttackTick = Math.Max(runners[0].Game.Frames.Verified.Number, runners[1].Game.Frames.Verified.Number) + 30;
         var finishDeadline = DateTime.UtcNow.AddSeconds(180);
@@ -373,6 +405,7 @@ public partial class LSDFOnlineSmokeTests {
           inputListener?.Dispose();
           frameListener?.Dispose();
           checksumListener?.Dispose();
+          counterZoomListener?.Dispose();
           // A start may have created a runner before the awaited pair failed.
           var cleanupErrors = new List<Exception>();
           for (int i = 0; i < runners.Length; ++i) {

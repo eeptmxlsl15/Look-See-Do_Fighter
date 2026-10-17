@@ -115,7 +115,7 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
 
             player->isJump = false;
             player->isDodgeHigh = false;
-            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, FirstHit.Hit);
+            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, FirstHit.Hit, sourceAttack: Guid);
             if (player->canCounter == true)
             {
                 player->canCounter = false;
@@ -130,7 +130,7 @@ public class NarakTwoWindowEvent : AnimatorTimeWindowEventAsset
 
             player->isJump = false;
             player->isDodgeHigh = false;
-            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, SecondHit.Hit);
+            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, SecondHit.Hit, sourceAttack: Guid);
             if (player->canCounter == true)
             {
                 player->canCounter = false;

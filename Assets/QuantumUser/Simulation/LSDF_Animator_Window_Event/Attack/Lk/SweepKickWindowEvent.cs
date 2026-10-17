@@ -70,7 +70,7 @@ public class SweepKickWindowEvent : AnimatorTimeWindowEventAsset
 
             Quantum.LSDF.LSDFHitboxFactory.ConfigureBody(f, hitbox, entity, flip, Hit);
 
-            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit);
+            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit, sourceAttack: Guid);
 
             if (9 < animationFrame && animationFrame < 29)
             {

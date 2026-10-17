@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>Explicit scene references and presentation ownership for exactly one EntityViewUpdater.</summary>
-public class LSDFSceneBindings : MonoBehaviour {
+public partial class LSDFSceneBindings : MonoBehaviour {
   [Serializable] public class Hud {
     public Image LeftHealth, RightHealth;
     public RectTransform LeftHealthShakeRoot, RightHealthShakeRoot;
@@ -27,6 +27,7 @@ public class LSDFSceneBindings : MonoBehaviour {
   public bool Accept(QuantumGame game) {
     if (game == null || game != Game) return false;
     if (_game != game) {
+      ResetCounterHitZoom();
       _fighters.Clear(); _hudOwner = null; _effectOwner = null; _audioOwner = null; _game = game;
     }
     return true;
@@ -58,20 +59,21 @@ public class LSDFSceneBindings : MonoBehaviour {
   }
   public Hud LocalHud(PlayerRef player) => player == (PlayerRef)0 ? Player1Hud : Player2Hud;
   private void LateUpdate() {
-    if (!Accept(Game) || !TryLocal(Game, out var local)) return;
+    if (!Accept(Game) || !TryLocal(Game, out var local)) { ResetCounterHitZoom(); return; }
     bool first = local == (PlayerRef)0;
     if (Player1Camera != null) Player1Camera.SetActive(first);
     if (Player2Camera != null) Player2Camera.SetActive(!first);
-    if (!_fighters.TryGetValue((PlayerRef)0, out var a) || a == null || !_fighters.TryGetValue((PlayerRef)1, out var b) || b == null) return;
+    if (!_fighters.TryGetValue((PlayerRef)0, out var a) || a == null || !_fighters.TryGetValue((PlayerRef)1, out var b) || b == null) { ResetCounterHitZoom(); return; }
     var cameraObject = first ? Player1Camera : Player2Camera;
-    if (cameraObject == null) return;
+    if (cameraObject == null) { ResetCounterHitZoom(); return; }
     int flip = first ? 1 : -1;
     var center = (a.transform.position + b.transform.position) * .5f;
     float distance = Vector3.Distance(a.transform.position, b.transform.position);
     float z = -.8f * flip - Mathf.Max(0, distance - 1) * flip;
-    cameraObject.transform.position = Vector3.Lerp(cameraObject.transform.position, new Vector3(center.x, 0, z), Time.deltaTime * 5);
+    UpdateCameraFollow(cameraObject, new Vector3(center.x, 0, z), a.EntityRef, b.EntityRef);
   }
   private void OnDisable() {
+    StopCounterHitZoom();
     _fighters.Clear(); _hudOwner = null; _effectOwner = null; _audioOwner = null; _game = null;
   }
 }

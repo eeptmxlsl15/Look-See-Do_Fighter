@@ -1,0 +1,5 @@
+// A verified presentation event; camera settings never enter simulation state.
+synced event OnCounterHitZoom {
+  asset_ref Attack;
+  FPVector2 Position;
+}

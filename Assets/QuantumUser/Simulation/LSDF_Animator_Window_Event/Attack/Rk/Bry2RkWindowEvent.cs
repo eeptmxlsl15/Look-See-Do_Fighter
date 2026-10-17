@@ -54,7 +54,7 @@ public class Bry2RkWindowEvent : AnimatorTimeWindowEventAsset
 
             Quantum.LSDF.LSDFHitboxFactory.ConfigureBody(f, hitbox, entity, flip, Hit);
 
-            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit);
+            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit, sourceAttack: Guid);
 
             if (player->canCounter == true)
             {

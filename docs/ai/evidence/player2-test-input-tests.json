@@ -1,0 +1,478 @@
+{
+  "job_id": "68f8c2db05bf4edd99fbefef9ef8867f",
+  "mode": "EditMode",
+  "filter": {
+    "assembly_names": [
+      "LSDF.Tests"
+    ],
+    "group_names": [
+      "^LSDFPlayer2TestInputTests\\.",
+      "^LSDFInputBufferTests\\.",
+      "^LSDFStructuralTests\\."
+    ]
+  },
+  "summary": {
+    "total": 89,
+    "passed": 88,
+    "failed": 1,
+    "skipped": 0,
+    "durationSeconds": 1.5293829,
+    "resultState": "Failed(Child)"
+  },
+  "results": [
+    {
+      "fullName": "LSDFInputBufferTests.ANewPendingCommandCannotOverwriteTheInFlightRoute",
+      "state": "Passed",
+      "durationSeconds": 0.0178516
+    },
+    {
+      "fullName": "LSDFInputBufferTests.AOneTickPressRemainsLatchedOnlyThroughAnimatorRouting",
+      "state": "Passed",
+      "durationSeconds": 0.000869
+    },
+    {
+      "fullName": "LSDFInputBufferTests.CommandsWaitForARealAnimatorInputTransition",
+      "state": "Passed",
+      "durationSeconds": 0.087607
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(3,3,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0013843
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(3,4,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000696
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(0,0,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000554
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(0,1,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000472
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(-1,1,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000424
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(20,15,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000404
+    },
+    {
+      "fullName": "LSDFInputBufferTests.DefaultWindowIsEditableAndWiredToTheExistingAsset",
+      "state": "Passed",
+      "durationSeconds": 0.0080186
+    },
+    {
+      "fullName": "LSDFInputBufferTests.FighterBuffersAndValueSnapshotsAreIndependent",
+      "state": "Passed",
+      "durationSeconds": 0.0003045
+    },
+    {
+      "fullName": "LSDFInputBufferTests.HoldingDoesNotRenewExpiredInputOrRepeatAnAttack",
+      "state": "Passed",
+      "durationSeconds": 0.0003778
+    },
+    {
+      "fullName": "LSDFInputBufferTests.KoAndRoundRecoveryDiscardCommandsInsteadOfLeakingToTheNextRound(0,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0006763
+    },
+    {
+      "fullName": "LSDFInputBufferTests.KoAndRoundRecoveryDiscardCommandsInsteadOfLeakingToTheNextRound(-1,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000618
+    },
+    {
+      "fullName": "LSDFInputBufferTests.KoAndRoundRecoveryDiscardCommandsInsteadOfLeakingToTheNextRound(170,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000451
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LatestNewPressWinsAndSnapshotsDirectionInsteadOfReadingItAtRelease",
+      "state": "Passed",
+      "durationSeconds": 0.0003852
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"attack\")",
+      "state": "Passed",
+      "durationSeconds": 0.0010384
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"hit\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000607
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"guard\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000416
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"stun\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000394
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"combo\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000348
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"air\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000347
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"wall\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000345
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"cantMove\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000353
+    },
+    {
+      "fullName": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"tickLock\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000335
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ReleasedCommandExecutesOnFirstUnlockedTickWithinTheInclusiveWindow(0,True)",
+      "state": "Passed",
+      "durationSeconds": 0.000592
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ReleasedCommandExecutesOnFirstUnlockedTickWithinTheInclusiveWindow(9,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000729
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ReleasedCommandExecutesOnFirstUnlockedTickWithinTheInclusiveWindow(10,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000514
+    },
+    {
+      "fullName": "LSDFInputBufferTests.ReleasedCommandExecutesOnFirstUnlockedTickWithinTheInclusiveWindow(11,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000405
+    },
+    {
+      "fullName": "LSDFInputBufferTests.RoutingTimeoutAndInvalidCommandsDoNotLeaveStaleTriggers",
+      "state": "Passed",
+      "durationSeconds": 0.0002444
+    },
+    {
+      "fullName": "LSDFInputBufferTests.SimultaneousNewButtonsKeepLegacyPriority",
+      "state": "Passed",
+      "durationSeconds": 0.00023
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Neutral,LeftPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0009853
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Neutral,RightPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0001658
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Neutral,LeftKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000605
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Neutral,RightKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000745
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Left,LeftPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000738
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Left,RightPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000632
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Left,LeftKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000519
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Left,RightKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000476
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(DownLeft,LeftPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000523
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(DownLeft,RightPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000474
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(DownLeft,LeftKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0002389
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(DownLeft,RightKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0001211
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Down,LeftPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0001148
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Down,RightPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0001567
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Down,LeftKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000792
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Down,RightKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000834
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(DownRight,LeftPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000896
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(DownRight,RightPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000766
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(DownRight,LeftKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000817
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(DownRight,RightKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000718
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Right,LeftPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000976
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Right,RightPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000817
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Right,LeftKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000801
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Right,RightKick)",
+      "state": "Passed",
+      "durationSeconds": 0.00008
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Up,LeftPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000517
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Up,RightPunch)",
+      "state": "Passed",
+      "durationSeconds": 0.0000506
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Up,LeftKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000584
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.All28CommandsReachTheExistingDirectionAndPressEdgeBuffer(Up,RightKick)",
+      "state": "Passed",
+      "durationSeconds": 0.0000556
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.DelayBeginsAfterRoundUnlockAndStartsAgainForTheNextRound",
+      "state": "Passed",
+      "durationSeconds": 0.0008718
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.GameplayInputUsesTheDisabledSettingsAssetAndTheSameUpdaterAsTheCamera",
+      "state": "Passed",
+      "durationSeconds": 0.1048559
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.InputComponentDisableAndReenableStartsAFreshSchedule",
+      "state": "Failed",
+      "durationSeconds": 0.0049108,
+      "message": "  Expected: True\r\n  But was:  False\r\n",
+      "stackTrace": "at LSDFPlayer2TestInputTests.InputComponentDisableAndReenableStartsAFreshSchedule () [0x000d8] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFPlayer2TestInputTests.cs:143\r\n"
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.OnceModeFinishesAndChangingSettingsGameOrActivationRestartsIt",
+      "state": "Passed",
+      "durationSeconds": 0.0006038
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.OnlyGlobal2PIsOverriddenAndOtherLocalPlayersDoNotRestartItsClock",
+      "state": "Passed",
+      "durationSeconds": 0.0003736
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.RepeatedCommandsReleaseButtonsAndDoNotMoveBetweenAttacks",
+      "state": "Passed",
+      "durationSeconds": 0.0005896
+    },
+    {
+      "fullName": "LSDFPlayer2TestInputTests.TickSamplingIsStableAndInvalidDurationsStillLeaveAReleaseTick",
+      "state": "Passed",
+      "durationSeconds": 0.0004497
+    },
+    {
+      "fullName": "LSDFStructuralTests.ArrowInputDoesNotSetTheOppositeDirection(UpArrow,True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0011143
+    },
+    {
+      "fullName": "LSDFStructuralTests.ArrowInputDoesNotSetTheOppositeDirection(DownArrow,False,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000913
+    },
+    {
+      "fullName": "LSDFStructuralTests.BudgetValidationIsAtomicAndDetached",
+      "state": "Passed",
+      "durationSeconds": 0.0015963
+    },
+    {
+      "fullName": "LSDFStructuralTests.ContactPriorityPreservesDodgeWallCounterAndStun",
+      "state": "Passed",
+      "durationSeconds": 0.0005928
+    },
+    {
+      "fullName": "LSDFStructuralTests.ExistingBalanceAssetIsWiredAndKeepsDefaults",
+      "state": "Passed",
+      "durationSeconds": 0.003095
+    },
+    {
+      "fullName": "LSDFStructuralTests.GameplaySceneHasExplicitUpdaterBindings",
+      "state": "Passed",
+      "durationSeconds": 0.0168965
+    },
+    {
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(High,\"Idle\",False,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0005352
+    },
+    {
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(Mid,\"Rising\",False,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000966
+    },
+    {
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(Low,\"Idle\",False,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000953
+    },
+    {
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(Low,\"Idle\",True,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0001007
+    },
+    {
+      "fullName": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(High,\"Siting\",True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000843
+    },
+    {
+      "fullName": "LSDFStructuralTests.HealthShakeHandlesZeroDamageHitsGuardRecoveryAndHudRebinding",
+      "state": "Passed",
+      "durationSeconds": 0.0024523
+    },
+    {
+      "fullName": "LSDFStructuralTests.KoCountsOnceAndWaitsForExplicitRoundReset(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0013376
+    },
+    {
+      "fullName": "LSDFStructuralTests.KoCountsOnceAndWaitsForExplicitRoundReset(-10)",
+      "state": "Passed",
+      "durationSeconds": 0.0001006
+    },
+    {
+      "fullName": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(False)",
+      "state": "Passed",
+      "durationSeconds": 0.0017865
+    },
+    {
+      "fullName": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)",
+      "state": "Passed",
+      "durationSeconds": 0.0002519
+    },
+    {
+      "fullName": "LSDFStructuralTests.PredictedEffectsConfirmCancelAndReuseIndependently",
+      "state": "Passed",
+      "durationSeconds": 0.0044338
+    },
+    {
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(0,0,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0005456
+    },
+    {
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(4,3,19)",
+      "state": "Passed",
+      "durationSeconds": 0.0000733
+    },
+    {
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(6,3,27)",
+      "state": "Passed",
+      "durationSeconds": 0.0000553
+    },
+    {
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(-1,0,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000492
+    },
+    {
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(7,0,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000455
+    },
+    {
+      "fullName": "LSDFStructuralTests.SlotMappingHasOneSchema(0,4,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.00005
+    }
+  ],
+  "post_check_fix": {
+    "file": "Assets/Tests/Editor/LSDFPlayer2TestInputTests.cs",
+    "test_before": "InputComponentDisableAndReenableStartsAFreshSchedule",
+    "test_after": "InputComponentLifecycleCallbacksStartAFreshSchedule",
+    "description": "EditMode does not automatically execute this MonoBehaviour's activation callbacks. Invoke OnEnable/OnDisable explicitly and dispose subscriptions in finally.",
+    "status": "MODIFIED_NOT_REVERIFIED"
+  }
+}

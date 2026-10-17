@@ -1,0 +1,6 @@
+{
+  "name": "LSDF.View.Editor",
+  "references": ["LSDF.View", "Quantum.Simulation", "Quantum.Unity"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}

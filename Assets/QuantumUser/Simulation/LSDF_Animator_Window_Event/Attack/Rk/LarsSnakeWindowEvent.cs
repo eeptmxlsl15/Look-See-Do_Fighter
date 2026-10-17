@@ -76,7 +76,7 @@ public class LarsSnakeWindowEvent : AnimatorTimeWindowEventAsset
 
             Quantum.LSDF.LSDFHitboxFactory.ConfigureBody(f, hitbox, entity, flip, Hit);
 
-            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit, FPVector2.Zero);
+            Quantum.LSDF.LSDFHitboxFactory.AddPayload(f, hitbox, entity, Hit, FPVector2.Zero, sourceAttack: Guid);
 
             Quantum.LSDF.LSDFHitboxFactory.ScheduleDestroy(f, hitbox);
 

@@ -1141,11 +1141,13 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_HitboxInfo : Quantum.IComponent {
-    public const Int32 SIZE = 96;
+    public const Int32 SIZE = 104;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(80)]
-    public FPVector2 position;
     [FieldOffset(64)]
+    public AssetRef SourceAttack;
+    [FieldOffset(88)]
+    public FPVector2 position;
+    [FieldOffset(72)]
     public EntityRef AttackerEntity;
     [FieldOffset(12)]
     public HitboxAttackType AttackType;
@@ -1167,7 +1169,7 @@ namespace Quantum {
     public Int32 enemyHitTime;
     [FieldOffset(24)]
     public Int32 enemyCountTime;
-    [FieldOffset(72)]
+    [FieldOffset(80)]
     public FP forceBack;
     [FieldOffset(48)]
     public QBoolean launcher;
@@ -1182,6 +1184,7 @@ namespace Quantum {
     public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
+        hash = hash * 31 + SourceAttack.GetHashCode();
         hash = hash * 31 + position.GetHashCode();
         hash = hash * 31 + AttackerEntity.GetHashCode();
         hash = hash * 31 + (Int32)AttackType;
@@ -1220,6 +1223,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->launcher, serializer);
         QBoolean.Serialize(&p->notSitLauncher, serializer);
         QBoolean.Serialize(&p->wallLauncher, serializer);
+        AssetRef.Serialize(&p->SourceAttack, serializer);
         EntityRef.Serialize(&p->AttackerEntity, serializer);
         FP.Serialize(&p->forceBack, serializer);
         FPVector2.Serialize(&p->position, serializer);

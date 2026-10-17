@@ -85,7 +85,7 @@ public class JapJapWindowEvent : AnimatorTimeWindowEventAsset
         if (Hit.IsSpawnFrame(animationFrame))//히트 박스 적용 때문에 한 프레임 전에 생성되어야함
         {
 
-            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, Hit);
+            Quantum.LSDF.LSDFHitboxFactory.Spawn(f, entity, flip, Hit, sourceAttack: Guid);
             if (player->canCounter == true)
             {
                 player->canCounter = false;

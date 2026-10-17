@@ -1,0 +1,88 @@
+{
+  "task": "기술별 카운터 히트 줌 설정과 카메라 연출",
+  "date": "2026-10-17",
+  "overall": "MODIFIED_AFTER_FAILED_VALIDATION_NOT_REVERIFIED",
+  "validation_passes": 1,
+  "project": "C:/Users/Admin/Look-See-Do_Fighter",
+  "unity_version": "6000.3.26f1",
+  "active_scene_at_start": "Assets/Photon/QuantumMenu/LSDF_Menu.unity",
+  "active_scene_dirty_at_start": false,
+  "implementation": {
+    "move_profiles": 37,
+    "enabled_by_default": 0,
+    "source_guid_materialization_calls": 39,
+    "event": "OnCounterHitZoom",
+    "delivery": "synced",
+    "focus": "physical hitbox Transform2D center",
+    "settings_asset": "Assets/QuantumUser/Resources/LSDF_CounterHitZoom.asset",
+    "scene_binding": "Assets/Scenes/LSDFGameplay.unity:LSDFSceneBindings.CounterHitZoom",
+    "simulation_change": "Frame-owned source asset reference in hitbox payload; verified presentation event on counter reaction only",
+    "unchanged_contracts": ["damage", "stun", "hitbox startup and lifetime", "system registration/order", "RuntimePlayer loadout schema", "existing Unity and Quantum asset GUIDs"]
+  },
+  "checks": [
+    {
+      "name": "Installed Qtn CodeGen",
+      "status": "PASS",
+      "command": "Tools/Quantum/CodeGen/Run Qtn CodeGen",
+      "evidence": "Generated SourceAttack asset reference and EventOnCounterHitZoom with EventFlags.Synced; Core/Events/Prototypes/UnityPrototypeAdapters updated by generator."
+    },
+    {
+      "name": "Quantum source policy",
+      "status": "PASS",
+      "command": "python tools/ai/quantum_guard.py check",
+      "files_scanned": 91,
+      "existing_findings": 0,
+      "new_findings": [],
+      "limit": "Lexical ratchet only; not compilation, gameplay, rollback or checksum proof."
+    },
+    {
+      "name": "Source GUID propagation and meta pairs",
+      "status": "PASS",
+      "materialization_calls": 39,
+      "source_scene_settings_files": 159,
+      "hashes": "counter-hit-zoom-source-hashes.json"
+    },
+    {
+      "name": "Whitespace diff check",
+      "status": "FAIL",
+      "command": "git -c safe.directory=C:/Users/Admin/Look-See-Do_Fighter diff --check",
+      "findings": [
+        "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Events.cs:159 trailing whitespace in generated constructor",
+        "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Events.cs:162 trailing whitespace in generated constructor"
+      ],
+      "resolution": "Generated files were not edited manually; no rerun."
+    },
+    {
+      "name": "Unity compilation",
+      "status": "FAIL_THEN_MODIFIED_NOT_REVERIFIED",
+      "console_reads": 1,
+      "errors": [
+        {
+          "file": "Assets/Tests/Editor/LSDFOnlineSmokeTests.cs",
+          "line": 233,
+          "code": "CS0411",
+          "message": "FindAsset<T>(AssetGuid) type arguments could not be inferred."
+        }
+      ],
+      "existing_warnings": [
+        "LSDFMenuLoadoutTests.cs:110 CS0618 QuantumMenuConfig.AvailableScenes",
+        "LSDFStructuralTests.cs:40 CS0618 QuantumMenuConfig.AvailableScenes",
+        "LSDFOnlineSmokeTests.cs:81 CS0618 QuantumMenuConfig.AvailableScenes"
+      ],
+      "post_check_fix": "Explicit FindAsset<Quantum.Addons.Animator.AnimatorTimeWindowEventAsset>(hit.SourceAttack.Id).",
+      "rerun": false
+    },
+    {
+      "name": "Unity automated scenarios",
+      "status": "NOT RUN",
+      "job_id": null,
+      "new_camera_tests_authored": 9,
+      "planned": ["both camera perspectives and both projections", "moving follow camera restoration", "consecutive hits without magnification drift", "camera switching and disabled/zero-duration profiles", "scene disable and reenable", "37-move checklist and per-move selection", "scene settings wiring", "existing gameplay/menu regressions", "two Photon clients matching confirmed counter source/tick/position", "recorded-input replay and Frame restore/resimulation"],
+      "reason": "Compilation failed. After the local fix, validation was not repeated under the one-pass user policy."
+    }
+  ],
+  "not_run": ["standalone builds", "cross-platform determinism", "real reconnect", "induced network rollback", "manual in-game visual tuning"],
+  "source_hash_limit": "Hashes were captured before validation. The online-test FindAsset call changed after compile failure; the original hashes are not final-source pass evidence.",
+  "published": false,
+  "existing_ide_changes": "Preserved; no staging, commit or push in this task."
+}
