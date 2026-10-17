@@ -1,0 +1,71 @@
+{
+  "errors": [
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 40,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(40,45): error CS1503: Argument 1: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 40,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(40,48): error CS1503: Argument 2: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 52,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(52,27): error CS1503: Argument 1: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 52,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(52,42): error CS1503: Argument 2: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 54,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(54,63): error CS1503: Argument 1: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 54,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(54,80): error CS1503: Argument 2: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 67,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(67,24): error CS1503: Argument 1: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 67,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(67,35): error CS1503: Argument 2: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 101,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(101,27): error CS1503: Argument 1: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs",
+      "line": 101,
+      "message": "Assets\\Tests\\Editor\\LSDFJuggleTests.cs(101,40): error CS1503: Argument 2: cannot convert from 'Photon.Deterministic.FP' to 'int'\n"
+    }
+  ],
+  "warnings": [
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs",
+      "line": 40,
+      "message": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs(40,19): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs",
+      "line": 110,
+      "message": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs(110,68): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs",
+      "line": 81,
+      "message": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs(81,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n"
+    }
+  ]
+}

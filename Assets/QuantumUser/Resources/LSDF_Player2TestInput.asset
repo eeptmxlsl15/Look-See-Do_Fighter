@@ -16,6 +16,6 @@ MonoBehaviour:
   Direction: 0
   Button: 1
   Repeat: 1
-  InitialDelayTicks: 30
-  IntervalTicks: 120
+  InitialDelayTicks: 0
+  IntervalTicks: 1
   PressTicks: 1

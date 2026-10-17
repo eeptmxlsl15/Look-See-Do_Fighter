@@ -39,6 +39,7 @@ namespace Quantum.LSDF {
     }
 
     private static void BeginPose(Frame f, EntityRef entity, string state, bool ignoreTransitions) {
+      LSDFJuggle.Cancel(f, entity);
       if (!TryAnimator(f, entity, out var animator, out var graph)) return;
       ClearVariables(f, animator, graph);
       graph.FadeTo(f, animator, state, ignoreTransitions, f.DeltaTime);

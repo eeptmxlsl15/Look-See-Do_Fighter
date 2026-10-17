@@ -87,6 +87,14 @@ namespace Quantum {
     Combo,
     Homing,
   }
+  public enum LSDFAirComboPhase : int {
+    Inactive,
+    Rising,
+    Hovering,
+    Falling,
+    BlownAway,
+    Recovering,
+  }
   public enum PlayerMoveState : byte {
     Idle,
     WalkForward,
@@ -1034,6 +1042,68 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct LSDF_AirCombo : Quantum.IComponent {
+    public const Int32 SIZE = 64;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(20)]
+    public LSDFAirComboPhase Phase;
+    [FieldOffset(16)]
+    public Int32 RiseUntilTick;
+    [FieldOffset(4)]
+    public Int32 HoldUntilTick;
+    [FieldOffset(32)]
+    public FP BaseY;
+    [FieldOffset(56)]
+    public FP TargetY;
+    [FieldOffset(48)]
+    public FP SavedGravityScale;
+    [FieldOffset(24)]
+    public QBoolean ComboActive;
+    [FieldOffset(0)]
+    public Int32 HitCount;
+    [FieldOffset(28)]
+    public QBoolean ControlsHorizontal;
+    [FieldOffset(40)]
+    public FP HorizontalVelocity;
+    [FieldOffset(8)]
+    public Int32 PushUntilTick;
+    [FieldOffset(12)]
+    public Int32 RecoveryUntilTick;
+    public override readonly Int32 GetHashCode() {
+      unchecked { 
+        var hash = 3041;
+        hash = hash * 31 + (Int32)Phase;
+        hash = hash * 31 + RiseUntilTick.GetHashCode();
+        hash = hash * 31 + HoldUntilTick.GetHashCode();
+        hash = hash * 31 + BaseY.GetHashCode();
+        hash = hash * 31 + TargetY.GetHashCode();
+        hash = hash * 31 + SavedGravityScale.GetHashCode();
+        hash = hash * 31 + ComboActive.GetHashCode();
+        hash = hash * 31 + HitCount.GetHashCode();
+        hash = hash * 31 + ControlsHorizontal.GetHashCode();
+        hash = hash * 31 + HorizontalVelocity.GetHashCode();
+        hash = hash * 31 + PushUntilTick.GetHashCode();
+        hash = hash * 31 + RecoveryUntilTick.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (LSDF_AirCombo*)ptr;
+        serializer.Stream.Serialize(&p->HitCount);
+        serializer.Stream.Serialize(&p->HoldUntilTick);
+        serializer.Stream.Serialize(&p->PushUntilTick);
+        serializer.Stream.Serialize(&p->RecoveryUntilTick);
+        serializer.Stream.Serialize(&p->RiseUntilTick);
+        serializer.Stream.Serialize((Int32*)&p->Phase);
+        QBoolean.Serialize(&p->ComboActive, serializer);
+        QBoolean.Serialize(&p->ControlsHorizontal, serializer);
+        FP.Serialize(&p->BaseY, serializer);
+        FP.Serialize(&p->HorizontalVelocity, serializer);
+        FP.Serialize(&p->SavedGravityScale, serializer);
+        FP.Serialize(&p->TargetY, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct LSDF_CameraInfo : Quantum.IComponent {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
@@ -1145,6 +1215,8 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(64)]
     public AssetRef SourceAttack;
+    [FieldOffset(40)]
+    public QBoolean ComboFinisher;
     [FieldOffset(88)]
     public FPVector2 position;
     [FieldOffset(72)]
@@ -1171,20 +1243,21 @@ namespace Quantum {
     public Int32 enemyCountTime;
     [FieldOffset(80)]
     public FP forceBack;
-    [FieldOffset(48)]
-    public QBoolean launcher;
-    [FieldOffset(40)]
-    public QBoolean dodgeHigh;
-    [FieldOffset(44)]
-    public QBoolean jumpAttack;
     [FieldOffset(52)]
-    public QBoolean notSitLauncher;
+    public QBoolean launcher;
+    [FieldOffset(44)]
+    public QBoolean dodgeHigh;
+    [FieldOffset(48)]
+    public QBoolean jumpAttack;
     [FieldOffset(56)]
+    public QBoolean notSitLauncher;
+    [FieldOffset(60)]
     public QBoolean wallLauncher;
     public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 3677;
         hash = hash * 31 + SourceAttack.GetHashCode();
+        hash = hash * 31 + ComboFinisher.GetHashCode();
         hash = hash * 31 + position.GetHashCode();
         hash = hash * 31 + AttackerEntity.GetHashCode();
         hash = hash * 31 + (Int32)AttackType;
@@ -1218,6 +1291,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->enemyGuardTime);
         serializer.Stream.Serialize(&p->enemyHitTime);
         serializer.Stream.Serialize(&p->startFrame);
+        QBoolean.Serialize(&p->ComboFinisher, serializer);
         QBoolean.Serialize(&p->dodgeHigh, serializer);
         QBoolean.Serialize(&p->jumpAttack, serializer);
         QBoolean.Serialize(&p->launcher, serializer);
@@ -1566,6 +1640,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<CharacterController3D>();
       BuildSignalsArrayOnComponentAdded<Quantum.DashInputBuffer>();
       BuildSignalsArrayOnComponentRemoved<Quantum.DashInputBuffer>();
+      BuildSignalsArrayOnComponentAdded<Quantum.LSDF_AirCombo>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_AirCombo>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_CameraInfo>();
       BuildSignalsArrayOnComponentRemoved<Quantum.LSDF_CameraInfo>();
       BuildSignalsArrayOnComponentAdded<Quantum.LSDF_CommandBuffer>();
@@ -1857,6 +1933,8 @@ namespace Quantum {
       typeRegistry.Register(typeof(IntVector3), IntVector3.SIZE);
       typeRegistry.Register(typeof(Joint), Joint.SIZE);
       typeRegistry.Register(typeof(Joint3D), Joint3D.SIZE);
+      typeRegistry.Register(typeof(Quantum.LSDFAirComboPhase), 4);
+      typeRegistry.Register(typeof(Quantum.LSDF_AirCombo), Quantum.LSDF_AirCombo.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_CameraInfo), Quantum.LSDF_CameraInfo.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_CommandBuffer), Quantum.LSDF_CommandBuffer.SIZE);
       typeRegistry.Register(typeof(Quantum.LSDF_Global), Quantum.LSDF_Global.SIZE);
@@ -1911,10 +1989,11 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 14)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 15)
         .AddBuiltInComponents()
         .Add<Quantum.AnimatorComponent>(Quantum.AnimatorComponent.Serialize, null, Quantum.AnimatorComponent.OnRemoved, ComponentFlags.None)
         .Add<Quantum.DashInputBuffer>(Quantum.DashInputBuffer.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.LSDF_AirCombo>(Quantum.LSDF_AirCombo.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_CameraInfo>(Quantum.LSDF_CameraInfo.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_CommandBuffer>(Quantum.LSDF_CommandBuffer.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.LSDF_Global>(Quantum.LSDF_Global.Serialize, null, null, ComponentFlags.None)
@@ -1941,6 +2020,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.HitboxAttackType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.HomingType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.LSDFAirComboPhase>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.PlayerMoveState>();
       FramePrinter.EnsurePrimitiveNotStripped<QueryOptions>();
     }

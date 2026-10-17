@@ -30,6 +30,7 @@ namespace Quantum.LSDF
             var player = filter.LSDF_Player;
 
             filter.Transform->Rotation = FP._0;
+            LSDFJuggle.Update(f, filter.Entity, player, filter.Body, filter.Transform);
 
             if (player->isRoundEnd || player->playerHp <= 0)
             {
@@ -39,7 +40,7 @@ namespace Quantum.LSDF
                 return;
             }
 
-            if(filter.Body->Velocity.Y==0 && player->isAir == true)
+            if (LSDFJuggle.ShouldLand(f, filter.Entity, *player, *filter.Body))
             {
                 AnimatorComponent.SetBoolean(f, filter.Animator, "YZero",true);
                 Debug.Log("와이제로");

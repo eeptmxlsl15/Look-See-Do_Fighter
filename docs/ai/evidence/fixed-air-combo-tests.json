@@ -1,0 +1,462 @@
+{
+  "job_id": "62cf4bef3bdb46b5b6c37abdb2329927",
+  "status": "failed",
+  "summary": {
+    "total": 86,
+    "passed": 84,
+    "failed": 2,
+    "skipped": 0,
+    "durationSeconds": 36.0918434,
+    "resultState": "Failed(Child)"
+  },
+  "passed_by_fixture": {
+    "LSDFComboEnderTests": 20,
+    "LSDFJuggleTests": 16,
+    "LSDFPlayerHealthTests": 24,
+    "LSDFRoundResultTests": 19,
+    "LSDFTimedHitTests": 5
+  },
+  "results": [
+    {
+      "fullName": "LSDFComboEnderTests.AnotherLauncherDuringActiveComboCountsAsFollowupAndEnderKeepsContactHeight",
+      "state": "Passed",
+      "durationSeconds": 0.0143117
+    },
+    {
+      "fullName": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(1)",
+      "state": "Passed",
+      "durationSeconds": 0.0006418
+    },
+    {
+      "fullName": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(2)",
+      "state": "Passed",
+      "durationSeconds": 0.0000913
+    },
+    {
+      "fullName": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(3)",
+      "state": "Passed",
+      "durationSeconds": 0.000078
+    },
+    {
+      "fullName": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(4)",
+      "state": "Passed",
+      "durationSeconds": 0.0000752
+    },
+    {
+      "fullName": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(5)",
+      "state": "Passed",
+      "durationSeconds": 0.0000689
+    },
+    {
+      "fullName": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(6)",
+      "state": "Passed",
+      "durationSeconds": 0.0000749
+    },
+    {
+      "fullName": "LSDFComboEnderTests.FinisherIsCopiedToPayloadAndDefaultsToOff",
+      "state": "Passed",
+      "durationSeconds": 0.0006768
+    },
+    {
+      "fullName": "LSDFComboEnderTests.FlightAndGroundRecoveryBlockHitsUntilFullRecoveryThenResetNextCombo",
+      "state": "Passed",
+      "durationSeconds": 0.001109
+    },
+    {
+      "fullName": "LSDFComboEnderTests.FurtherContactsCannotChangeCountDirectionOrTerminalTimers",
+      "state": "Passed",
+      "durationSeconds": 0.0004454
+    },
+    {
+      "fullName": "LSDFComboEnderTests.KnockawayPointsAwayFromActualAttacker(-2,0,1,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0005431
+    },
+    {
+      "fullName": "LSDFComboEnderTests.KnockawayPointsAwayFromActualAttacker(2,0,-1,1)",
+      "state": "Passed",
+      "durationSeconds": 0.0001026
+    },
+    {
+      "fullName": "LSDFComboEnderTests.KnockawayPointsAwayFromActualAttacker(0,0,-1,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000665
+    },
+    {
+      "fullName": "LSDFComboEnderTests.KnockawayPointsAwayFromActualAttacker(0,0,1,1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000581
+    },
+    {
+      "fullName": "LSDFComboEnderTests.LauncherThenFiveFollowupsEndsComboAndRestoresGravity(-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0009929
+    },
+    {
+      "fullName": "LSDFComboEnderTests.LauncherThenFiveFollowupsEndsComboAndRestoresGravity(1)",
+      "state": "Passed",
+      "durationSeconds": 0.0002296
+    },
+    {
+      "fullName": "LSDFComboEnderTests.OrdinaryAirPushUsesItsOwnSpeedAndStopsAfterConfiguredTicks",
+      "state": "Passed",
+      "durationSeconds": 0.0005002
+    },
+    {
+      "fullName": "LSDFComboEnderTests.WallMotionReleaseKeepsCountAndFifthWallContactStillEndsCombo",
+      "state": "Passed",
+      "durationSeconds": 0.0004921
+    },
+    {
+      "fullName": "LSDFComboEnderTests.ZeroOrNegativePushTimeDisablesOrdinaryPush(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0004265
+    },
+    {
+      "fullName": "LSDFComboEnderTests.ZeroOrNegativePushTimeDisablesOrdinaryPush(-5)",
+      "state": "Passed",
+      "durationSeconds": 0.0001132
+    },
+    {
+      "fullName": "LSDFJuggleTests.CancelRestoresGravityOnceAndDropsAllPerFlightState(Rising)",
+      "state": "Passed",
+      "durationSeconds": 0.0007626
+    },
+    {
+      "fullName": "LSDFJuggleTests.CancelRestoresGravityOnceAndDropsAllPerFlightState(Hovering)",
+      "state": "Passed",
+      "durationSeconds": 0.000127
+    },
+    {
+      "fullName": "LSDFJuggleTests.CancelRestoresGravityOnceAndDropsAllPerFlightState(Falling)",
+      "state": "Passed",
+      "durationSeconds": 0.0001445
+    },
+    {
+      "fullName": "LSDFJuggleTests.DifferentIncomingHeightsAndVelocitiesProduceIdenticalRehitFallTrajectories",
+      "state": "Passed",
+      "durationSeconds": 0.0014599
+    },
+    {
+      "fullName": "LSDFJuggleTests.FlightRisesHoldsAtReachableHeightThenFallsWithOriginalGravity",
+      "state": "Passed",
+      "durationSeconds": 0.0030169
+    },
+    {
+      "fullName": "LSDFJuggleTests.GameConfigContainsEditableAirComboValuesWithoutChangingTheOldBalance",
+      "state": "Passed",
+      "durationSeconds": 0.0053354
+    },
+    {
+      "fullName": "LSDFJuggleTests.OnlyGroundContactAfterTheHoldCanTriggerRising(Rising,True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0006983
+    },
+    {
+      "fullName": "LSDFJuggleTests.OnlyGroundContactAfterTheHoldCanTriggerRising(Hovering,True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0001235
+    },
+    {
+      "fullName": "LSDFJuggleTests.OnlyGroundContactAfterTheHoldCanTriggerRising(Falling,False,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000711
+    },
+    {
+      "fullName": "LSDFJuggleTests.OnlyGroundContactAfterTheHoldCanTriggerRising(Falling,True,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000612
+    },
+    {
+      "fullName": "LSDFJuggleTests.OnlyGroundContactAfterTheHoldCanTriggerRising(Inactive,True,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000873
+    },
+    {
+      "fullName": "LSDFJuggleTests.RehitSnapsToFixedHeightAndClearsVelocityWithoutReplacingSavedGravity(Rising)",
+      "state": "Passed",
+      "durationSeconds": 0.0008259
+    },
+    {
+      "fullName": "LSDFJuggleTests.RehitSnapsToFixedHeightAndClearsVelocityWithoutReplacingSavedGravity(Hovering)",
+      "state": "Passed",
+      "durationSeconds": 0.0001484
+    },
+    {
+      "fullName": "LSDFJuggleTests.RehitSnapsToFixedHeightAndClearsVelocityWithoutReplacingSavedGravity(Falling)",
+      "state": "Passed",
+      "durationSeconds": 0.0001031
+    },
+    {
+      "fullName": "LSDFJuggleTests.RepeatedHitsCapHeightAndSharedSettingsDoNotLeakBetweenFighters",
+      "state": "Passed",
+      "durationSeconds": 0.0004801
+    },
+    {
+      "fullName": "LSDFJuggleTests.ZeroHoldStillFallsAndInvalidSettingsCannotDivideByZero",
+      "state": "Passed",
+      "durationSeconds": 0.0003044
+    },
+    {
+      "fullName": "LSDFOnlineSmokeTests.AirComboClientsAgreeOnHoverRehitsLandingAndFrameRestore",
+      "state": "Failed",
+      "durationSeconds": 38.999973,
+      "message": "  System.AggregateException: One or more errors occurred. (ONLINE stage=air-combo rise, hover, re-hit and landing; client states=Joined/Joined) ---> System.InvalidOperationException: ONLINE stage=air-combo rise, hover, re-hit and landing; client states=Joined/Joined ---> System.InvalidOperationException: Incomplete air combo: observer=0, defender=1, rise=False, hover=False/0, rehit=False, fall=False, land=False.\r\n  at LSDFOnlineSmokeTests.VerifyAirCombo (Quantum.QuantumRunner[] runners, Quantum.RuntimePlayer[] players, System.Threading.CancellationToken token) [0x00366] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineAirComboTests.cs:118 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x008f9] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:313 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x018b0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:414 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x01b70] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:435 \r\n   --- End of inner exception stack trace ---\r\n---> (Inner Exception #0) System.InvalidOperationException: ONLINE stage=air-combo rise, hover, re-hit and landing; client states=Joined/Joined ---> System.InvalidOperationException: Incomplete air combo: observer=0, defender=1, rise=False, hover=False/0, rehit=False, fall=False, land=False.\r\n  at LSDFOnlineSmokeTests.VerifyAirCombo (Quantum.QuantumRunner[] runners, Quantum.RuntimePlayer[] players, System.Threading.CancellationToken token) [0x00366] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineAirComboTests.cs:118 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x008f9] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:313 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x018b0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:414 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x01b70] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:435 <---\r\n\r\n  Expected: null\r\n  But was:  \"System.AggregateException: One or more errors occurred. (ONLINE stage=air-combo rise, hover, re-hit and landing; client states=Joined/Joined) ---> System.InvalidOperationException: ONLINE stage=air-combo rise, hover, re-hit and landing; client states=Joined/Joined ---> System.InvalidOperationException: Incomplete air combo: observer=0, defender=1, rise=False, hover=False/0, rehit=False, fall=False, land=False.\r\n  at LSDFOnlineSmokeTests.VerifyAirCombo (Quantum.QuantumRunner[] runners, Quantum.RuntimePlayer[] players, System.Threading.CancellationToken token) [0x00366] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineAirComboTests.cs:118 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x008f9] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:313 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x018b0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:414 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x01b70] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:435 \r\n   --- End of inner exception stack trace ---\r\n---> (Inner Exception #0) System.InvalidOperationException: ONLINE stage=air-combo rise, hover, re-hit and landing; client states=Joined/Joined ---> System.InvalidOperationException: Incomplete air combo: observer=0, defender=1, rise=False, hover=False/0, rehit=False, fall=False, land=False.\r\n  at LSDFOnlineSmokeTests.VerifyAirCombo (Quantum.QuantumRunner[] runners, Quantum.RuntimePlayer[] players, System.Threading.CancellationToken token) [0x00366] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineAirComboTests.cs:118 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x008f9] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:313 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x018b0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:414 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x01b70] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:435 <---\r\n\"\r\n",
+      "stackTrace": "at LSDFOnlineSmokeTests+<RunScenario>d__10.MoveNext () [0x00151] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:42\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@bd7f943e9647\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+    },
+    {
+      "fullName": "LSDFOnlineSmokeTests.ClientsAgreeOnFifthHitFinisherAndTerminalFrameRestore",
+      "state": "Failed",
+      "durationSeconds": 45.8459376,
+      "message": "  System.AggregateException: One or more errors occurred. (ONLINE stage=air-combo five-hit limit and explicit finisher; client states=Joined/Joined) ---> System.InvalidOperationException: ONLINE stage=air-combo five-hit limit and explicit finisher; client states=Joined/Joined ---> System.InvalidOperationException: Incomplete ender: observer=0, episode=0, count=0/0, endTick=0, recovery=0, recovered=False.\r\n  at LSDFOnlineSmokeTests.VerifyComboEnders (Quantum.QuantumRunner[] runners, Quantum.RuntimePlayer[] players, System.Threading.CancellationToken token) [0x00372] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineComboEnderTests.cs:117 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x0087e] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:312 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x018b0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:414 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x01b70] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:435 \r\n   --- End of inner exception stack trace ---\r\n---> (Inner Exception #0) System.InvalidOperationException: ONLINE stage=air-combo five-hit limit and explicit finisher; client states=Joined/Joined ---> System.InvalidOperationException: Incomplete ender: observer=0, episode=0, count=0/0, endTick=0, recovery=0, recovered=False.\r\n  at LSDFOnlineSmokeTests.VerifyComboEnders (Quantum.QuantumRunner[] runners, Quantum.RuntimePlayer[] players, System.Threading.CancellationToken token) [0x00372] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineComboEnderTests.cs:117 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x0087e] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:312 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x018b0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:414 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x01b70] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:435 <---\r\n\r\n  Expected: null\r\n  But was:  \"System.AggregateException: One or more errors occurred. (ONLINE stage=air-combo five-hit limit and explicit finisher; client states=Joined/Joined) ---> System.InvalidOperationException: ONLINE stage=air-combo five-hit limit and explicit finisher; client states=Joined/Joined ---> System.InvalidOperationException: Incomplete ender: observer=0, episode=0, count=0/0, endTick=0, recovery=0, recovered=False.\r\n  at LSDFOnlineSmokeTests.VerifyComboEnders (Quantum.QuantumRunner[] runners, Quantum.RuntimePlayer[] players, System.Threading.CancellationToken token) [0x00372] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineComboEnderTests.cs:117 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x0087e] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:312 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x018b0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:414 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x01b70] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:435 \r\n   --- End of inner exception stack trace ---\r\n---> (Inner Exception #0) System.InvalidOperationException: ONLINE stage=air-combo five-hit limit and explicit finisher; client states=Joined/Joined ---> System.InvalidOperationException: Incomplete ender: observer=0, episode=0, count=0/0, endTick=0, recovery=0, recovered=False.\r\n  at LSDFOnlineSmokeTests.VerifyComboEnders (Quantum.QuantumRunner[] runners, Quantum.RuntimePlayer[] players, System.Threading.CancellationToken token) [0x00372] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineComboEnderTests.cs:117 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x0087e] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:312 \r\n   --- End of inner exception stack trace ---\r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x018b0] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:414 \r\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x01b70] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:435 <---\r\n\"\r\n",
+      "stackTrace": "at LSDFOnlineSmokeTests+<RunScenario>d__10.MoveNext () [0x00151] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:42\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@bd7f943e9647\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.CounterBypassesComboScalingAndDoesNotTouchOtherPlayers",
+      "state": "Passed",
+      "durationSeconds": 0.0055547
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.LethalHitClampsHpImmediatelyAndCannotBeHealedBack",
+      "state": "Passed",
+      "durationSeconds": 0.0002396
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,0,7)",
+      "state": "Passed",
+      "durationSeconds": 0.0003132
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,1,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0000432
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,2,5)",
+      "state": "Passed",
+      "durationSeconds": 0.0000583
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,3,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0000412
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,4,3)",
+      "state": "Passed",
+      "durationSeconds": 0.0000373
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,5,2)",
+      "state": "Passed",
+      "durationSeconds": 0.0000361
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(3,5,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0000383
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(6,5,1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000374
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(12,6,3)",
+      "state": "Passed",
+      "durationSeconds": 0.000033
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(15,7,4)",
+      "state": "Passed",
+      "durationSeconds": 0.0000321
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(17,2,12)",
+      "state": "Passed",
+      "durationSeconds": 0.0000282
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(17,4,8)",
+      "state": "Passed",
+      "durationSeconds": 0.0000295
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,-1,0)",
+      "state": "Passed",
+      "durationSeconds": 0.0000292
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(-5,False,0,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0026417
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(-5,True,0,False)",
+      "state": "Passed",
+      "durationSeconds": 0.000067
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(0,True,0,False)",
+      "state": "Passed",
+      "durationSeconds": 0.000044
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(167,True,169,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000409
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(168,True,170,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000409
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(169,True,170,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000663
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(170,True,170,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000519
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(175,True,170,False)",
+      "state": "Passed",
+      "durationSeconds": 0.000047
+    },
+    {
+      "fullName": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(175,False,175,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000417
+    },
+    {
+      "fullName": "LSDFRoundResultTests.DrawReplaysTheSameRoundWithoutAddingEitherScore",
+      "state": "Passed",
+      "durationSeconds": 0.0009997
+    },
+    {
+      "fullName": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0007216
+    },
+    {
+      "fullName": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(170)",
+      "state": "Passed",
+      "durationSeconds": 0.0000468
+    },
+    {
+      "fullName": "LSDFRoundResultTests.EveryWinSequenceEndsAtThreeWinsWithinFiveDecisiveRounds",
+      "state": "Passed",
+      "durationSeconds": 0.0026218
+    },
+    {
+      "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,False,\"ROUND WIN\")",
+      "state": "Passed",
+      "durationSeconds": 0.0006074
+    },
+    {
+      "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,False,\"ROUND LOSE\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000608
+    },
+    {
+      "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,True,\"YOU WIN\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000478
+    },
+    {
+      "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,True,\"YOU LOSE\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000894
+    },
+    {
+      "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(Draw,False,\"DRAW\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000569
+    },
+    {
+      "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,170,SecondWins)",
+      "state": "Passed",
+      "durationSeconds": 0.0008223
+    },
+    {
+      "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-12,1,SecondWins)",
+      "state": "Passed",
+      "durationSeconds": 0.000271
+    },
+    {
+      "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(170,0,FirstWins)",
+      "state": "Passed",
+      "durationSeconds": 0.0003073
+    },
+    {
+      "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(1,-12,FirstWins)",
+      "state": "Passed",
+      "durationSeconds": 0.0002876
+    },
+    {
+      "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,0,Draw)",
+      "state": "Passed",
+      "durationSeconds": 0.0002924
+    },
+    {
+      "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-1,-12,Draw)",
+      "state": "Passed",
+      "durationSeconds": 0.000243
+    },
+    {
+      "fullName": "LSDFRoundResultTests.LivingFightersDoNotFinishAndNoWinnerExistsBeforeFinalization",
+      "state": "Passed",
+      "durationSeconds": 0.0002138
+    },
+    {
+      "fullName": "LSDFRoundResultTests.NextRoundResetsHealthAndCombatStateButKeepsScoreAndLoadouts",
+      "state": "Passed",
+      "durationSeconds": 0.0003867
+    },
+    {
+      "fullName": "LSDFRoundResultTests.ResultPosesUseTheExistingQuantumGraphAndFadingIsEnabled",
+      "state": "Passed",
+      "durationSeconds": 0.0435952
+    },
+    {
+      "fullName": "LSDFRoundResultTests.TerminalPoseCancelsComboDashAndCounterWindowsWithoutChangingLoadout",
+      "state": "Passed",
+      "durationSeconds": 0.0004889
+    },
+    {
+      "fullName": "LSDFTimedHitTests.RequiredQuantumLookupTablesAreConfigured",
+      "state": "Passed",
+      "durationSeconds": 0.0036568
+    },
+    {
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+      "state": "Passed",
+      "durationSeconds": 0.0025744
+    },
+    {
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+      "state": "Passed",
+      "durationSeconds": 0.0001144
+    },
+    {
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0008061
+    },
+    {
+      "fullName": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+      "state": "Passed",
+      "durationSeconds": 0.0001019
+    }
+  ],
+  "failed_log_observation": "Both joined clients ran ordinary punch attacks; no air combo was observed. Graph shows Law is down-forward RP, skill 1, slot 17. Fixture sent neutral RP.",
+  "post_run_fixture_fix": [
+    "LSDFOnlineSmokeTests: select command slot 17 skill 1 for air probes",
+    "LSDFOnlineAirComboTests: down-forward RP instead of neutral RP",
+    "LSDFOnlineComboEnderTests: down-forward RP launcher/followups, forward RP finisher"
+  ],
+  "rerun": false
+}

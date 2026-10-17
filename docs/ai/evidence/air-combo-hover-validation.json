@@ -1,0 +1,101 @@
+{
+  "task": "?? ?? ??? ???",
+  "date": "2026-10-17",
+  "validation_passes": 1,
+  "static_meta_codegen": {
+    "status": "PASS",
+    "source_files": 17
+  },
+  "source_sha256": {
+    "Assets/QuantumUser/Resources/LSDF_GameConfig.asset": "f588059dca3244fbac27d9db83cd4f3bc49942bdbe721fc2fadafba01fc1cec3",
+    "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Core.cs": "52cdf563985d315f3c2150fc5c6ad1ee56c206d8c164e5be612b3f7d9a8e4067",
+    "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Prototypes.cs": "86ff4d57c3ffa1ffd426a83e565668e04fa53c563fd8832e6ab27e1aaaf30f35",
+    "Assets/QuantumUser/Simulation/LSDFJuggle.cs": "c6303a4783ba16ee7a7a7264af96629008649065219d6d1b6c47d1f18036968f",
+    "Assets/QuantumUser/Simulation/LSDFJuggleSettings.cs": "b8498c087331eecc5d1fed7d625942de7675321eddfa37af8f86fc94e1e18576",
+    "Assets/QuantumUser/Simulation/LSDF_AirCombo.qtn": "cddbeef677a0bc6ff040bdc3b37ac92af7ecf4fbf44970e2da9c3cd1b4602aa9",
+    "Assets/QuantumUser/Simulation/LSDF_Animator_Window_Event/Move/AirWindowEvent.cs": "3ab0d1a31c051ff9de1abc30485fe800c2bf2287fde5cddeab43af142b1383c2",
+    "Assets/QuantumUser/Simulation/LSDF_Animator_Window_Event/Move/RisingWindowEvent.cs": "b8036a2fb4d22d6c69749a269c60e7e1d86527d79b7e0005b738ad08bff335bd",
+    "Assets/QuantumUser/Simulation/LSDF_GameConfig.cs": "5f4681b390665f3c5e55e5a29a37e40d6143aaa22ba00dc73b422728193a43a3",
+    "Assets/QuantumUser/Simulation/LSDF_IngameSystem.cs": "a55efc0a89046b5de87eabc6e5886ff95ea976a79441c4bac12760b7bcea492a",
+    "Assets/QuantumUser/Simulation/LSDF_PlayerSystem.Combat.cs": "c6738cc7833ce653e12b6e93197a643c90adb664bfd3a9a8e28ebdd4b66ddcde",
+    "Assets/QuantumUser/Simulation/LSDF_PlayerSystem.Contacts.cs": "d12cd6baa78177d03b93b2212f2e76bd12ba2cf133062f0903368a1ce2b439d8",
+    "Assets/QuantumUser/Simulation/LSDF_PlayerSystem.cs": "42a9e82239141737cd2d7cb340e22c065d972d2ad59a18fae99430a2d556dc5b",
+    "Assets/QuantumUser/View/Generated/QPrototypeLSDF_AirCombo.cs": "56e488d454c7b757518800a8b5bb5ef3b5d0514138aea34e6da29070caa67466",
+    "Assets/Tests/Editor/LSDFJuggleTests.cs": "ebbaf83474dbcbad4be8fe6b8ec4f5e1728d57cc7b25d868d98cae19b1219778",
+    "Assets/Tests/Editor/LSDFOnlineAirComboTests.cs": "407f1057c9ce2ac32e77eb242c9b25d8bb9f2c31d6d0e2617c1da3ef9f0e6746",
+    "Assets/Tests/Editor/LSDFOnlineSmokeTests.cs": "a3293598a6cac40fadd490e3719538f67b2341fd6b718372b347583da9145472",
+    "Assets/Resources/LSDF_SystemConfig.asset": "3ed2d7125100787b16bdd5d9075e94e98fc59726da2e5182c472e413815a1b30",
+    "Assets/QuantumUser/Resources/LSDF_Player2TestInput.asset": "1c80ed0cfa9c250325d35cf77e105d52c95267eeed2e79ae17efd02dea51b0bf"
+  },
+  "tests": {
+    "status": "NOT RUN",
+    "job_id": null,
+    "reason": "Compilation failed; user one-pass policy forbids automatic rerun after local correction.",
+    "authored_unit_cases": 15,
+    "authored_online_scenario": "LSDFOnlineSmokeTests.AirComboClientsAgreeOnHoverRehitsLandingAndFrameRestore",
+    "planned_existing_groups": [
+      "LSDFPlayerHealthTests",
+      "LSDFTimedHitTests",
+      "LSDFRoundResultTests"
+    ]
+  },
+  "overall": "TEST_FIX_AFTER_FAILED_VALIDATION_NOT_REVERIFIED",
+  "quantum_guard": {
+    "status": "PASS",
+    "files_scanned": 93,
+    "existing_findings": 0,
+    "new_findings": 0,
+    "limit": "Lexical ratchet only; not compilation or determinism proof."
+  },
+  "diff_check": {
+    "status": "FAIL",
+    "file": "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Core.cs",
+    "line": 1059,
+    "issue": "Trailing whitespace emitted by installed CodeGen in unchecked block. Generated code not edited manually."
+  },
+  "unity_compile": {
+    "status": "FAIL_THEN_TEST_FIX_NOT_REVERIFIED",
+    "errors": 10,
+    "source_expressions": 5,
+    "warnings": 3,
+    "details": "air-combo-hover-compile.json",
+    "fix": "Use boolean FP comparison results in NUnit Assert.IsTrue instead of numeric Less/Greater overloads.",
+    "changed_after_failure": [
+      "Assets/Tests/Editor/LSDFJuggleTests.cs"
+    ],
+    "runtime_code_changed_after_failure": false,
+    "rerun": false
+  },
+  "manual_architecture_review": {
+    "state": "LSDF_AirCombo Frame component; no per-player system or shared event-asset mutation",
+    "numbers": "FP and simulation ticks",
+    "system_order": "Unchanged LSDF_SystemConfig; PlayerSystem still after Physics2D and before Animator",
+    "timing_change": "AirWindowEvent no longer overwrites Y velocity; configured rise/hover/fall and ground-contact-only Rising transition intentionally change flight and landing timing",
+    "preserved": "Hitbox startup/lifetime/order, damage and hitCount policy, horizontal velocity and original body gravity"
+  },
+  "not_run": [
+    "Actual 1P/2P airborne combos",
+    "Online verified checksum comparison",
+    "Recorded input replay twice",
+    "Frame restore/resimulation while hovering",
+    "Wall/KO/round reset in an actual session",
+    "Standalone/cross-platform build",
+    "Induced network rollback",
+    "Manual in-game feel tuning"
+  ],
+  "configuration": {
+    "asset": "Assets/QuantumUser/Resources/LSDF_GameConfig.asset",
+    "field": "AirCombo",
+    "launch_height_raw": 19661,
+    "launch_rise_ticks": 12,
+    "launch_hold_ticks": 24,
+    "combo_height_raw": 16384,
+    "rehit_lift_raw": 3277,
+    "rehit_rise_ticks": 6,
+    "rehit_hold_ticks": 12,
+    "maximum_height_raw": 22938
+  },
+  "source_hash_limit": "Captured at start of final validation. The five FP assertions in the new test changed after failure; snapshot is not final-source pass evidence.",
+  "user_changes": "Existing LSDF_Player2TestInput.asset and IDE files preserved.",
+  "published": false
+}

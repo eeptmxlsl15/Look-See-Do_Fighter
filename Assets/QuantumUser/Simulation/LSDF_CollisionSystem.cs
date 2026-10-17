@@ -22,6 +22,7 @@ namespace Quantum.LSDF {
     public void OnTriggerEnter2D(Frame f, TriggerInfo2D info) {
       if (!TryFighter(f, info.Entity, out var defender, out var animator)) return;
       if (defender->isRoundEnd || defender->playerHp <= 0) return;
+      if (LSDFJuggle.BlocksHit(f, info.Entity)) return;
       if (!f.Unsafe.TryGetPointer<LSDF_HitboxInfo>(info.Other, out var hit)) return;
       if (f.Unsafe.TryGetPointer<LSDF_Player>(hit->AttackerEntity, out var attacker) && attacker->isRoundEnd) return;
       if (hit->AttackerEntity == info.Entity || !animator->AnimatorGraph.Id.IsValid) return;

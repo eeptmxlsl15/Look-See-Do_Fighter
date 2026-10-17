@@ -17,6 +17,8 @@ namespace Quantum.LSDF {
     public int HitTicks;
     public int CounterTicks;
     public FP ForceBack;
+    [UnityEngine.InspectorName("콤보 마무리"), UnityEngine.Tooltip("적중 시 타수와 관계없이 멀리 날리고 추가타를 차단합니다. 가드·회피에는 적용하지 않습니다.")]
+    public bool ComboFinisher;
     public bool JumpAttack;
     public bool DodgeHigh;
     public bool Launcher;
@@ -108,6 +110,7 @@ namespace Quantum.LSDF {
         enemyCountTime = CounterTicks,
         attackDamage = Damage,
         forceBack = ForceBack,
+        ComboFinisher = ComboFinisher,
         jumpAttack = JumpAttack,
         dodgeHigh = DodgeHigh,
         launcher = Launcher,

@@ -13,6 +13,8 @@ namespace Quantum.LSDF {
     public int RoundIntroTicks = 150;
     [Min(0), Tooltip("Lifetime of a newly pressed attack command in simulation ticks; 0 disables pre-input.")]
     public int InputBufferFrames = LSDFInputBuffer.DefaultWindowFrames;
+    [Header("공중 콤보")]
+    public LSDFJuggleSettings AirCombo = new LSDFJuggleSettings();
     public FP WalkSpeed = FP._0_50;
     public FP DashSpeed = 2;
     public FP SpawnOffset = FP._0_50;

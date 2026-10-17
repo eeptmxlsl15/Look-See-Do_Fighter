@@ -21,7 +21,7 @@ public partial class LSDFOnlineSmokeTests {
     return RunScenario(false);
   }
 
-  private static IEnumerator RunScenario(bool loadoutProbe) {
+  private static IEnumerator RunScenario(bool loadoutProbe, bool airComboProbe = false, bool comboEnderProbe = false) {
     yield return new EnterPlayMode();
     bool previousBackground = UnityEngine.Application.runInBackground;
     string error = null;
@@ -29,7 +29,7 @@ public partial class LSDFOnlineSmokeTests {
     UnityEngine.Application.runInBackground = true;
     using var runCancellation = new CancellationTokenSource();
     try {
-      var task = RunOnline(runCancellation.Token, loadoutProbe);
+      var task = RunOnline(runCancellation.Token, loadoutProbe, airComboProbe, comboEnderProbe);
       while (!task.IsCompleted) yield return null;
       error = task.IsFaulted ? task.Exception.ToString() : null;
       canceled = task.IsCanceled;
@@ -60,7 +60,7 @@ public partial class LSDFOnlineSmokeTests {
     };
   }
 
-  private static async Task RunOnline(CancellationToken cancellation, bool loadoutProbe) {
+  private static async Task RunOnline(CancellationToken cancellation, bool loadoutProbe, bool airComboProbe, bool comboEnderProbe) {
     // Validate Quantum bootstrap before opening connections. The SDK expects a global LUT asset.
     QuantumRunnerUnityFactory.Init();
     if (!FPLut.IsLoaded)
@@ -82,12 +82,19 @@ public partial class LSDFOnlineSmokeTests {
     var simulation = QuantumUnityDB.GetGlobalAsset<SimulationConfig>(config.SimulationConfig);
     if (simulation == null) throw new InvalidOperationException("SimulationConfig is not available for the online test.");
     var previousSceneMode = simulation.AutoLoadSceneFromMap;
+    // Fixture values are installed before either session starts and restored after shutdown.
+    // No live simulation writes assets or saves these test values to disk.
+    using var comboFixture = airComboProbe || comboEnderProbe ? new ComboEnderFixture(config, comboEnderProbe) : null;
     config.Seed = 12345;
     players[0].PlayerAvatar.Id = new AssetGuid(1502267863199495006L);
     players[1].PlayerAvatar = players[0].PlayerAvatar;
     players[0].CommandSkills[4] = 2;
     players[1].CommandSkills[4] = 1;
     players[0].CommandSkills[0] = 1; // A: flash chain; B: jab-to-two chain.
+    if (airComboProbe || comboEnderProbe) {
+      // Actual graph contract: Law launcher = down-forward RP, skill 1 (slot 17).
+      players[0].CommandSkills[17] = players[1].CommandSkills[17] = 1;
+    }
     if (loadoutProbe) {
       players[0] = LSDFMenuLoadoutFixture.Prepare(LSDFMenuLoadoutFixture.Template("LSDF-test-A"),
         LSDFMenuLoadoutFixture.Selected(1, 2, 2, 1, 1)).RuntimePlayers[0];
@@ -300,6 +307,16 @@ public partial class LSDFOnlineSmokeTests {
         await Task.WhenAll(starts);
         runners[0] = (QuantumRunner)starts[0].Result;
         runners[1] = (QuantumRunner)starts[1].Result;
+        if (airComboProbe || comboEnderProbe) {
+          inputListener.Dispose(); inputListener = null;
+          frameListener.Dispose(); frameListener = null;
+          checksumListener.Dispose(); checksumListener = null;
+          counterZoomListener.Dispose(); counterZoomListener = null;
+          stage = comboEnderProbe ? "air-combo five-hit limit and explicit finisher" : "air-combo rise, hover, re-hit and landing";
+          if (comboEnderProbe) await VerifyComboEnders(runners, players, timeout.Token);
+          else await VerifyAirCombo(runners, players, timeout.Token);
+          return;
+        }
         if (loadoutProbe) {
           inputListener.Dispose(); inputListener = null;
           frameListener.Dispose(); frameListener = null;
@@ -432,7 +449,8 @@ public partial class LSDFOnlineSmokeTests {
   }
 
   private static async Task VerifyReplay(QuantumReplayFile file, Dictionary<int, ulong> expected,
-      int targetTick, int restoreSnapshotTick, string suffix, CancellationToken token, bool requirePendingBuffer = true) {
+      int targetTick, int restoreSnapshotTick, string suffix, CancellationToken token, bool requirePendingBuffer = true,
+      bool requireAirHover = false, bool requireAirEnder = false) {
     var serializer = new QuantumUnityJsonSerializer();
     QuantumRunner replay = null;
     var provider = file.CreateInputProvider();
@@ -462,6 +480,18 @@ public partial class LSDFOnlineSmokeTests {
       listener = QuantumCallback.SubscribeManual<CallbackSimulateFinished>(callback => {
         if (callback.Game != replay.Game || !callback.Frame.IsVerified || callback.Frame.Number > targetTick) return;
         if (!restoring && snapshot == null && callback.Frame.Number == restoreSnapshotTick) {
+          if (requireAirHover) {
+            bool hovering = false;
+            foreach (var air in callback.Frame.GetComponentIterator<LSDF_AirCombo>())
+              if (callback.Frame.Get<LSDF_AirCombo>(air.Entity).Phase == LSDFAirComboPhase.Hovering) hovering = true;
+            if (!hovering) mismatch = "Replay snapshot did not contain the active air-combo hover.";
+          }
+          if (requireAirEnder) {
+            bool terminal = false;
+            foreach (var air in callback.Frame.GetComponentIterator<LSDF_AirCombo>())
+              if (LSDFJuggle.BlocksHit(callback.Frame.Get<LSDF_AirCombo>(air.Entity))) terminal = true;
+            if (!terminal) mismatch = "Replay snapshot did not contain the active combo finisher.";
+          }
           bool pendingFound = false;
           foreach (var pair in callback.Frame.GetComponentIterator<LSDF_CommandBuffer>()) {
             if (callback.Frame.TryGet<PlayerLink>(pair.Entity, out var link) &&

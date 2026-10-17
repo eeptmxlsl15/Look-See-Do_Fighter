@@ -7,6 +7,7 @@ namespace Quantum.LSDF
     {
         public void OnTriggerNormalHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
+            if (LSDFJuggle.BlocksHit(f, info.Entity)) return;
             f.Events.OnHitEffect(hitbox->position);
             Debug.Log("이펙트 : 힛 플레이어 시스템");
             f.Events.OnHitSound();
@@ -20,7 +21,12 @@ namespace Quantum.LSDF
             //상단에 히트할 경유
 
             //벽에서 벽꽝기 맞았을 때
-            if (player->isWallHit == true)
+            bool airHit = LSDFJuggle.OnHit(f, info.Entity, player, animator, hitbox, counter: false);
+            if (airHit)
+            {
+                AnimatorComponent.SetTrigger(f, animator, "Air");
+            }
+            else if (player->isWallHit == true)
             {
                 if (player->wallCount < 2 && hitbox->wallLauncher == false)
                 {
@@ -156,6 +162,7 @@ namespace Quantum.LSDF
 
         public void OnTriggerCounterHit(Frame f, TriggerInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_HitboxInfo* hitbox)
         {
+            if (LSDFJuggle.BlocksHit(f, info.Entity)) return;
             // Capture the physical hitbox center, including legacy VFX position overrides.
             if (hitbox->SourceAttack.Id.IsValid && f.TryGet<Transform2D>(info.Other, out var contactTransform))
                 f.Events.OnCounterHitZoom(hitbox->SourceAttack, contactTransform.Position);
@@ -168,7 +175,12 @@ namespace Quantum.LSDF
             player->canCounter = false;
             player->isAttack = false;
 
-            if (hitbox->CountType == CountAttackType.Normal)
+            bool airHit = LSDFJuggle.OnHit(f, info.Entity, player, animator, hitbox, counter: true);
+            if (airHit)
+            {
+                AnimatorComponent.SetTrigger(f, animator, "Air");
+            }
+            else if (hitbox->CountType == CountAttackType.Normal)
             {
                 if (hitbox->AttackType == HitboxAttackType.High)
                 {

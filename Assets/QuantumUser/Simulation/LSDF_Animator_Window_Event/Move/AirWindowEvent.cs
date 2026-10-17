@@ -35,6 +35,7 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
         Debug.Log($"air 시작 프레임 : {f.Number}");
         player->hitCount++;
         player->isAir = true;
+        Quantum.LSDF.LSDFJuggle.Begin(f, entity);
 
         //상하단 회피 판정 초기화
         player->isDodgeHigh = false;
@@ -50,21 +51,7 @@ public class AirWindowEvent : AnimatorTimeWindowEventAsset
         if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
         if (!f.Unsafe.TryGetPointer<PhysicsBody2D>(entity, out var body)) return;
 
-        int animationFrame = Quantum.LSDF.LSDFCombatMath.AnimationFrame(layerData->Time);
-
-        if(animationFrame <= 10)
-        {
-            if(player->hitCount>2)
-                body->Velocity.Y = FP._0_50;
-            else if(player->hitCount<=2)
-                body->Velocity.Y = 1;
-            
-        }
-        else if(animationFrame <= 30)
-        {
-                body->Velocity.Y = FP._0_50;
-        }
-        
+        // Vertical motion is owned by the rollback-aware PlayerSystem controller.
     }
 
 

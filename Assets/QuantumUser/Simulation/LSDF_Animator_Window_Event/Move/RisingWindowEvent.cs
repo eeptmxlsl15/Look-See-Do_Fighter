@@ -18,6 +18,8 @@ public class RisingWindowEvent : AnimatorTimeWindowEventAsset
         var entity = animatorComponent->Self;
         if (!f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
 
+        if (Quantum.LSDF.LSDFJuggle.BlocksHit(f, entity)) return;
+        Quantum.LSDF.LSDFJuggle.Cancel(f, entity);
         player->isAir = false;
         player->hitCount = 0;
         Debug.Log($"air 끝 rising 시작 프레임 : {f.Number}");

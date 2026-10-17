@@ -1,0 +1,216 @@
+{
+  "status": "FAIL_THEN_TEST_FIX_UNVERIFIED",
+  "errors": [
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 15,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(15,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 16,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(16,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 16,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(16,41): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 18,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(18,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 19,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(19,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 20,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(20,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 20,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(20,60): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 28,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(28,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 28,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(28,45): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 29,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(29,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 39,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(39,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 39,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(39,35): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 47,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(47,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 48,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(48,56): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 49,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(49,56): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 50,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(50,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 58,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(58,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 66,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(66,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 69,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(69,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 69,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(69,63): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 70,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(70,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 71,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(71,67): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 73,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(73,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 73,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(73,51): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 75,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(75,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 75,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(75,39): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 84,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(84,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 84,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(84,45): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 86,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(86,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 87,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(87,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 88,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(88,43): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 94,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(94,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 100,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(100,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 100,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(100,40): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs",
+      "line": 102,
+      "message": "Assets\\Tests\\Editor\\LSDFComboEnderTests.cs(102,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n"
+    }
+  ],
+  "warnings": [
+    {
+      "file": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenu.Common.cs",
+      "line": 591
+    },
+    {
+      "file": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenuConnectionBehaviourSDK.cs",
+      "line": 79
+    },
+    {
+      "file": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenuConnectionBehaviourSDK.cs",
+      "line": 80
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs",
+      "line": 110
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs",
+      "line": 40
+    },
+    {
+      "file": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs",
+      "line": 81
+    },
+    {
+      "file": "Assets\\Matthew Guz\\Hits Effects FREE\\Scene Demo\\Script\\RotationEffect.cs",
+      "line": 9
+    },
+    {
+      "file": "Assets\\GabrielAguiarProductions\\Scripts\\FPSShooterTut.cs",
+      "line": 30
+    }
+  ],
+  "fix": "Added NUnit.Framework.Assert alias in LSDFComboEnderTests.cs; no recompile, console recheck or tests rerun.",
+  "limits": "Warnings from excluded vendor folders were returned by Unity console; their source files were not opened."
+}

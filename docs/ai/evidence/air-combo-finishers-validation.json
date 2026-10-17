@@ -1,0 +1,89 @@
+{
+  "task": "공중 밀림 조절, 5타 제한, 기술별 마무리",
+  "status": "TEST_FIX_UNVERIFIED",
+  "validation_policy": "One final bundle. No rerun after failure.",
+  "unity": "6000.3.26f1",
+  "quantum": "3.0.14",
+  "changed_behavior": {
+    "maximum_hits_including_launcher": 5,
+    "normal_push_speed_raw": 13107,
+    "normal_push_ticks": 6,
+    "ender_speed_raw": 262144,
+    "ender_up_speed_raw": 98304,
+    "ground_recovery_ticks": 24,
+    "finisher_default": false,
+    "protocol": "lsdf-loadout-v6-air-combo"
+  },
+  "checks": [
+    {
+      "name": "Installed Qtn CodeGen",
+      "status": "PASS",
+      "menu": "Tools/Quantum/CodeGen/Run Qtn CodeGen"
+    },
+    {
+      "name": "Generated schema and meta pairs",
+      "status": "PASS",
+      "meta_pairs": 8,
+      "missing": [],
+      "fields": [
+        "ComboFinisher",
+        "HitCount",
+        "HorizontalVelocity",
+        "PushUntilTick",
+        "RecoveryUntilTick",
+        "ComboActive"
+      ]
+    },
+    {
+      "name": "quantum_guard",
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 93,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    },
+    {
+      "name": "git diff --check",
+      "status": "FAIL",
+      "file": "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Core.cs",
+      "line": 1073,
+      "reason": "SDK-generated trailing whitespace in unchecked {; generated code not manually edited."
+    },
+    {
+      "name": "Unity compile",
+      "status": "FAIL_THEN_TEST_FIX_UNVERIFIED",
+      "code": "CS0104",
+      "file": "Assets/Tests/Editor/LSDFComboEnderTests.cs",
+      "fix": "NUnit Assert alias",
+      "log": "air-combo-finishers-compile.json"
+    },
+    {
+      "name": "Juggle / ComboEnder / PlayerHealth / TimedHit / RoundResult targeted tests",
+      "status": "NOT RUN",
+      "reason": "Compile failure. No test job started."
+    },
+    {
+      "name": "Two real Photon clients / verified checksum comparison / two recorded replays / active hover and ender Frame restore",
+      "status": "NOT RUN",
+      "reason": "Compile failure. Fixtures written only."
+    }
+  ],
+  "source_snapshot": "air-combo-finishers-sources.json",
+  "after_validation_source_changes": [
+    "Assets/Tests/Editor/LSDFComboEnderTests.cs: NUnit Assert alias only"
+  ],
+  "unverified": [
+    "Final source compilation after test alias fix",
+    "Gameplay, online sessions and recorded replay",
+    "Manual presentation and feel",
+    "Cross-platform or independent build",
+    "Induced network delay/rollback"
+  ],
+  "ownership_preserved": [
+    "Assets/QuantumUser/Resources/LSDF_Player2TestInput.asset",
+    "Existing IDE project and solution files"
+  ],
+  "git_actions": "No staging, commit or push."
+}

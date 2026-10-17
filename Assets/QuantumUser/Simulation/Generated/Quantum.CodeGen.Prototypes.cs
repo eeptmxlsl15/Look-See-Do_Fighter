@@ -184,6 +184,43 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_AirCombo))]
+  public unsafe partial class LSDF_AirComboPrototype : ComponentPrototype<Quantum.LSDF_AirCombo> {
+    public Quantum.QEnum32<LSDFAirComboPhase> Phase;
+    public Int32 RiseUntilTick;
+    public Int32 HoldUntilTick;
+    public FP BaseY;
+    public FP TargetY;
+    public FP SavedGravityScale;
+    public QBoolean ComboActive;
+    public Int32 HitCount;
+    public QBoolean ControlsHorizontal;
+    public FP HorizontalVelocity;
+    public Int32 PushUntilTick;
+    public Int32 RecoveryUntilTick;
+    partial void MaterializeUser(Frame frame, ref Quantum.LSDF_AirCombo result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.LSDF_AirCombo component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.LSDF_AirCombo result, in PrototypeMaterializationContext context = default) {
+        result.Phase = this.Phase;
+        result.RiseUntilTick = this.RiseUntilTick;
+        result.HoldUntilTick = this.HoldUntilTick;
+        result.BaseY = this.BaseY;
+        result.TargetY = this.TargetY;
+        result.SavedGravityScale = this.SavedGravityScale;
+        result.ComboActive = this.ComboActive;
+        result.HitCount = this.HitCount;
+        result.ControlsHorizontal = this.ControlsHorizontal;
+        result.HorizontalVelocity = this.HorizontalVelocity;
+        result.PushUntilTick = this.PushUntilTick;
+        result.RecoveryUntilTick = this.RecoveryUntilTick;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_CameraInfo))]
   public unsafe partial class LSDF_CameraInfoPrototype : ComponentPrototype<Quantum.LSDF_CameraInfo> {
     public Int32 cameraNum;
@@ -265,6 +302,7 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.LSDF_HitboxInfo))]
   public unsafe class LSDF_HitboxInfoPrototype : ComponentPrototype<Quantum.LSDF_HitboxInfo> {
     public AssetRef SourceAttack;
+    public QBoolean ComboFinisher;
     public FPVector2 position;
     public MapEntityId AttackerEntity;
     public Quantum.QEnum32<HitboxAttackType> AttackType;
@@ -290,6 +328,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Quantum.LSDF_HitboxInfo result, in PrototypeMaterializationContext context = default) {
         result.SourceAttack = this.SourceAttack;
+        result.ComboFinisher = this.ComboFinisher;
         result.position = this.position;
         PrototypeValidator.FindMapEntity(this.AttackerEntity, in context, out result.AttackerEntity);
         result.AttackType = this.AttackType;

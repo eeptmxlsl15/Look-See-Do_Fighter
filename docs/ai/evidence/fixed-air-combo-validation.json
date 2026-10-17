@@ -1,0 +1,117 @@
+{
+  "status": "UNIT_PASS_ONLINE_FIXTURE_FIX_UNVERIFIED",
+  "task": "공중 피격마다 고정 높이/세로 속도 초기화, 시동타 제외 후속타 5회",
+  "validation_policy": "One final bundle; no rerun after failure.",
+  "checks": [
+    {
+      "name": "quantum_guard",
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 93,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    },
+    {
+      "name": "Unity compile",
+      "status": "PASS",
+      "errors": 0,
+      "warnings": [
+        {
+          "file": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenu.Common.cs",
+          "line": 591
+        },
+        {
+          "file": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenuConnectionBehaviourSDK.cs",
+          "line": 79
+        },
+        {
+          "file": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenuConnectionBehaviourSDK.cs",
+          "line": 80
+        },
+        {
+          "file": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs",
+          "line": 110
+        },
+        {
+          "file": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs",
+          "line": 40
+        },
+        {
+          "file": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs",
+          "line": 81
+        },
+        {
+          "file": "Assets\\Matthew Guz\\Hits Effects FREE\\Scene Demo\\Script\\RotationEffect.cs",
+          "line": 9
+        },
+        {
+          "file": "Assets\\GabrielAguiarProductions\\Scripts\\FPSShooterTut.cs",
+          "line": 30
+        },
+        {
+          "file": "./Library/PackageCache/com.coplaydev.unity-mcp@458db7488df9/Editor/Helpers/McpLog.cs",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "name": "Unit/combat regression",
+      "status": "PASS",
+      "passed": 84,
+      "groups": {
+        "LSDFComboEnderTests": 20,
+        "LSDFJuggleTests": 16,
+        "LSDFPlayerHealthTests": 24,
+        "LSDFRoundResultTests": 19,
+        "LSDFTimedHitTests": 5
+      }
+    },
+    {
+      "name": "Two actual Photon air-combo scenarios",
+      "status": "FAIL_THEN_FIXTURE_FIX_UNVERIFIED",
+      "failed": 2,
+      "reason": "Both joined clients ran ordinary punch attacks; no air combo was observed. Graph shows Law is down-forward RP, skill 1, slot 17. Fixture sent neutral RP."
+    },
+    {
+      "name": "Online checksums, two input replays and active Frame restore",
+      "status": "NOT RUN",
+      "reason": "Scenario acceptance failed before those stages."
+    },
+    {
+      "name": "git diff --check",
+      "status": "FAIL",
+      "file": "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Core.cs",
+      "line": 1073,
+      "reason": "Pre-existing generated trailing whitespace; generated code not manually edited."
+    }
+  ],
+  "job_id": "62cf4bef3bdb46b5b6c37abdb2329927",
+  "source_snapshot": "fixed-air-combo-sources.json",
+  "results": "fixed-air-combo-tests.json",
+  "post_validation_changes": [
+    "LSDFOnlineSmokeTests: select command slot 17 skill 1 for air probes",
+    "LSDFOnlineAirComboTests: down-forward RP instead of neutral RP",
+    "LSDFOnlineComboEnderTests: down-forward RP launcher/followups, forward RP finisher"
+  ],
+  "after_validation_gameplay_changes": [],
+  "qtn_layout": "Unchanged during this request; existing Frame fields reused.",
+  "assumptions": [
+    "Same position means same Y relative to initial launcher contact. Horizontal movement uses existing push settings.",
+    "Ground launcher excluded; each airborne hit including another launcher counts as followup.",
+    "Finishers bypass ordinary height reset and fly from actual contact point."
+  ],
+  "preserved_user_settings": {
+    "HitPushSpeedRaw": 6554,
+    "HitPushTicks": 6,
+    "Player2TestInput": "Unmodified"
+  },
+  "limits": [
+    "No post-fixture-fix compilation/tests",
+    "No online trajectory/replay proof",
+    "No manual view/feel validation",
+    "No independent build/cross-platform or induced network-delay rollback"
+  ],
+  "git_actions": "No staging, commit or push"
+}

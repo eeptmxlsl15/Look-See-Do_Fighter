@@ -1,0 +1,14 @@
+{
+  "Assets/QuantumUser/Simulation/LSDFJuggle.cs": "88afaec14159c9faea9f89f2774be7a83cd25bf4b634033241c19c7f9b1aa97e",
+  "Assets/QuantumUser/Simulation/LSDFJuggleSettings.cs": "1aeb7f7fd8bb4e18da826bfefb54fcd6e1c0f27b3d12e5e19d6086248bd04fc9",
+  "Assets/QuantumUser/Simulation/LSDFLoadout.cs": "1eb1fdd14efa264a82903f6272b937d9a71e9a0a9e3d3698439cf543c4609c6d",
+  "Assets/Tests/Editor/LSDFJuggleTests.cs": "8ed8bb404cb90cc9efe91dc5c893157434c359744029707c7851d0db27b59e22",
+  "Assets/Tests/Editor/LSDFComboEnderTests.cs": "98e88032350bbe9e0176493d6b303ae144f49c6d0c126e01d9c4368cec77cc4c",
+  "Assets/Tests/Editor/LSDFOnlineAirComboTests.cs": "2df6709220f5b368f692d54581a6a8f5715f02fbaf6c6ca2a8537fa54eda05f9",
+  "Assets/Tests/Editor/LSDFOnlineComboEnderTests.cs": "1328e61570974d86a4ff2df78c47f63cb7f9b866cf2301c49c2c6c1c21f359af",
+  "Assets/Tests/Editor/LSDFOnlineSmokeTests.cs": "db03a8b10625ae0b8db4adcc4a519dfba677b2b9cc90ce694ecc568dd9852dca",
+  "Assets/QuantumUser/Resources/LSDF_GameConfig.asset": "8dcc92612a317099dda6e0ab6e964998c937bd904184b16bdfcc18f97a43cc3b",
+  "Assets/QuantumUser/Simulation/LSDF_AirCombo.qtn": "c3eacb6a815300b673abe393b629e6a94fcf7aeca9ab5bcf5152c32164742a8b",
+  "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Core.cs": "989ac240d199021811a9ccc94af3edb992fa63d1b9397ee50dd09795e595513e",
+  "Assets/QuantumUser/Simulation/Generated/Quantum.CodeGen.Prototypes.cs": "ece9a6c588e7baa70c1a1159c21f90113679699c0c6744437ac7ab85634211d8"
+}

@@ -42,6 +42,8 @@ namespace Quantum.LSDF {
         }
         public void OnCollisionWallHitEnter(Frame f, CollisionInfo2D info, LSDF_Player* player, AnimatorComponent* animator, LSDF_Wall* wall)
         {
+            if (LSDFJuggle.BlocksHit(f, info.Other)) return;
+            LSDFJuggle.Cancel(f, info.Other, preserveCombo: true);
             if (player->isAir)
             {
                 AnimatorComponent.SetTrigger(f, animator, "FirstWallHit");

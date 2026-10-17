@@ -24,6 +24,27 @@ MonoBehaviour:
   RoundResultTicks: 120
   RoundIntroTicks: 150
   InputBufferFrames: 20
+  AirCombo:
+    LaunchHeight:
+      RawValue: 19661
+    LaunchRiseTicks: 12
+    LaunchHoldTicks: 30
+    ComboHeight:
+      RawValue: 16384
+    RehitLift:
+      RawValue: 3277
+    RehitRiseTicks: 6
+    RehitHoldTicks: 30
+    MaximumHeight:
+      RawValue: 22938
+    HitPushSpeed:
+      RawValue: 6554
+    HitPushTicks: 6
+    EnderSpeed:
+      RawValue: 262144
+    EnderUpSpeed:
+      RawValue: 98304
+    EnderRecoveryTicks: 24
   WalkSpeed:
     RawValue: 32768
   DashSpeed:

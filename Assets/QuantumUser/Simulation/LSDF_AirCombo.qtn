@@ -1,0 +1,24 @@
+enum LSDFAirComboPhase {
+  Inactive,
+  Rising,
+  Hovering,
+  Falling,
+  BlownAway,
+  Recovering
+}
+
+// Per-flight state. Physics gravity is restored on landing, walls, KO and round reset.
+component LSDF_AirCombo {
+  LSDFAirComboPhase Phase;
+  int RiseUntilTick;
+  int HoldUntilTick;
+  FP BaseY;
+  FP TargetY;
+  FP SavedGravityScale;
+  bool ComboActive;
+  int HitCount;
+  bool ControlsHorizontal;
+  FP HorizontalVelocity;
+  int PushUntilTick;
+  int RecoveryUntilTick;
+}
