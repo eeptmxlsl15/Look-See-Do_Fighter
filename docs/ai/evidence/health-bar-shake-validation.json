@@ -1,0 +1,27 @@
+{
+  "date_korea": "2026-10-17",
+  "scope": "Hit health bar shake presentation; previous loadout/network investigation is excluded",
+  "unity": "6000.3.26f1",
+  "compile": { "status": "PASS", "errors": 0, "warnings": 5 },
+  "quantum_guard": { "status": "PASS", "files_scanned": 91, "existing_findings": 0, "new_findings": 0, "limitation": "Lexical policy only; no simulation changes" },
+  "diff_check": "PASS",
+  "tests": {
+    "job_id": "8ab22a0a9ee44326931de89fda5bd112",
+    "mode": "EditMode",
+    "summary": { "total": 4, "passed": 3, "failed": 1, "skipped": 0, "durationSeconds": 0.5991871 },
+    "results": [
+      { "name": "GameplaySceneHasExplicitUpdaterBindings", "status": "FAIL", "source": "Assets/Tests/Editor/LSDFStructuralTests.cs:171", "cause": "AreNotEqual compares RectTransform child enumerations rather than object identity" },
+      { "name": "HealthShakeHandlesZeroDamageHitsGuardRecoveryAndHudRebinding", "status": "PASS" },
+      { "name": "OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(False)", "status": "PASS" },
+      { "name": "OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)", "status": "PASS" }
+    ]
+  },
+  "after_failure": {
+    "change": "Changed the six new RectTransform equality assertions to AreSame/AreNotSame identity assertions",
+    "status": "FIXED_NOT_REVALIDATED",
+    "runtime_or_scene_changed_after_tests": false,
+    "test_rerun": false
+  },
+  "not_run": ["Rendered gameplay visual inspection", "Actual Photon gameplay", "Previous loadout network regression"],
+  "publication": "No commit, push or PR requested"
+}

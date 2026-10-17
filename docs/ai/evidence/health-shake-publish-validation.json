@@ -1,0 +1,1334 @@
+{
+  "date_korea": "2026-10-17",
+  "purpose": "One final verification for the new publish request; historical failed runs remain separately recorded.",
+  "repository": "https://github.com/eeptmxlsl15/Look-See-Do_Fighter",
+  "remote": "origin",
+  "branch": "dev/Prototype",
+  "base_commit": "a959b5bdf5057e2e02c4370f9a69294e8bd1ecd5",
+  "compile": {
+    "status": "PASS",
+    "errors": 0,
+    "warnings_observed": 0
+  },
+  "quantum_guard": {
+    "status": "PASS",
+    "files_scanned": 91,
+    "existing_findings": 0,
+    "new_findings": 0,
+    "limitation": "Lexical scan; not a determinism proof"
+  },
+  "tests": {
+    "job_id": "537a3260b7b340fb82c01bab7c1e94e7",
+    "mode": "EditMode",
+    "summary": {
+      "total": 235,
+      "passed": 235,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 188.0325537,
+      "resultState": "Passed"
+    },
+    "groups": {
+      "LSDFDeterministicContractTests": 18,
+      "LSDFInputBufferTests": 31,
+      "LSDFJabDefinitionTests": 4,
+      "LSDFMenuLoadoutTests": 74,
+      "LSDFOnlineSmokeTests": 2,
+      "LSDFPlayerHealthTests": 24,
+      "LSDFRemainingAttackTests": 30,
+      "LSDFRoundResultTests": 19,
+      "LSDFSingleHitTests": 5,
+      "LSDFStructuralTests": 23,
+      "LSDFTimedHitTests": 5
+    },
+    "online": [
+      {
+        "name": "LSDFOnlineSmokeTests.DifferentMenuBuildsExecuteTheirOwnSkillsAndReplayWithoutDisconnecting",
+        "state": "Passed",
+        "durationSeconds": 54.8103413,
+        "observations": [
+          "BUILD observer=1, fighter=1, attack=0_Jap, tick=199",
+          "BUILD observer=1, fighter=0, attack=1_Jap, tick=199",
+          "BUILD observer=0, fighter=1, attack=0_Jap, tick=199",
+          "BUILD observer=0, fighter=0, attack=1_Jap, tick=199",
+          "BUILD observer=0, fighter=1, attack=1_Chopping, tick=559",
+          "BUILD observer=0, fighter=0, attack=2_ClaHoming, tick=559",
+          "BUILD observer=1, fighter=1, attack=1_Chopping, tick=559",
+          "BUILD observer=1, fighter=0, attack=2_ClaHoming, tick=559",
+          "BUILD observer=0, fighter=1, attack=1_LawRightUpper, tick=919",
+          "BUILD observer=0, fighter=0, attack=2_DraRightUpper, tick=919",
+          "BUILD observer=1, fighter=1, attack=1_LawRightUpper, tick=919",
+          "BUILD observer=1, fighter=0, attack=2_DraRightUpper, tick=919",
+          "BUILD observer=0, fighter=1, attack=0_DeathFist, tick=1279",
+          "BUILD observer=0, fighter=0, attack=1_Assult, tick=1279",
+          "BUILD observer=1, fighter=1, attack=0_DeathFist, tick=1279",
+          "BUILD observer=1, fighter=0, attack=1_Assult, tick=1279",
+          "BUILD observer=0, fighter=1, attack=0_NarakTwo, tick=1639",
+          "BUILD observer=0, fighter=0, attack=1_LarsSnake, tick=1639",
+          "BUILD observer=1, fighter=1, attack=0_NarakTwo, tick=1639",
+          "BUILD observer=1, fighter=0, attack=1_LarsSnake, tick=1639",
+          "DIFFERENT BUILDS PASS: 28 slots per fighter, 10 selected attack routes on both clients, 67 matching checksums, two replays and Frame restore/resimulation; no plugin disconnect."
+        ],
+        "replay": "Containing test completed recorded-input replay and Frame restore/resimulation assertions."
+      },
+      {
+        "name": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+        "state": "Passed",
+        "durationSeconds": 198.4443714,
+        "observations": [
+          "INPUT BUFFER PASS: press=402, dispatch=410; both clients captured the locked input and produced LeftUpper after key release.",
+          "ROUND 1: tick=2887, losses=1/0",
+          "ROUND 1: tick=2887, losses=1/0",
+          "ROUND 2: tick=4507, losses=1/1",
+          "ROUND 2: tick=4507, losses=1/1",
+          "ROUND 3: tick=6127, losses=2/1",
+          "ROUND 3: tick=6127, losses=2/1",
+          "ROUND 4: tick=7747, losses=2/2",
+          "ROUND 4: tick=7747, losses=2/2",
+          "ROUND 5: tick=9367, losses=3/2",
+          "ROUND 5: tick=9367, losses=3/2",
+          "MATCH PASS: tick=9367, losses=3/2; five KO rounds, four resets/intros, five Sit Enter-to-Siting sequences; final result stable for at least 240 verified ticks on both clients."
+        ],
+        "replay": "Containing test completed recorded-input replay and Frame restore/resimulation assertions."
+      }
+    ],
+    "results": [
+      {
+        "name": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(0,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0135456
+      },
+      {
+        "name": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65535,59)",
+        "state": "Passed",
+        "durationSeconds": 0.0001553
+      },
+      {
+        "name": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65536,60)",
+        "state": "Passed",
+        "durationSeconds": 0.0000463
+      },
+      {
+        "name": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(65537,60)",
+        "state": "Passed",
+        "durationSeconds": 0.0000392
+      },
+      {
+        "name": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10922,9)",
+        "state": "Passed",
+        "durationSeconds": 0.0000401
+      },
+      {
+        "name": "LSDFDeterministicContractTests.AnimationFrameUsesExactFixedPointBoundary(10923,10)",
+        "state": "Passed",
+        "durationSeconds": 0.0000392
+      },
+      {
+        "name": "LSDFDeterministicContractTests.ComboReservationBelongsToEachPlayerValue",
+        "state": "Passed",
+        "durationSeconds": 0.0008938
+      },
+      {
+        "name": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(0,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0004514
+      },
+      {
+        "name": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(7,8)",
+        "state": "Passed",
+        "durationSeconds": 0.000069
+      },
+      {
+        "name": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(10,12)",
+        "state": "Passed",
+        "durationSeconds": 0.0000445
+      },
+      {
+        "name": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(19,22)",
+        "state": "Passed",
+        "durationSeconds": 0.0000436
+      },
+      {
+        "name": "LSDFDeterministicContractTests.CounterDamageUsesTruncatedRationalScaling(170,204)",
+        "state": "Passed",
+        "durationSeconds": 0.0000446
+      },
+      {
+        "name": "LSDFDeterministicContractTests.InvalidIdsFallbackAndPayloadDoesNotAlias",
+        "state": "Passed",
+        "durationSeconds": 0.0005975
+      },
+      {
+        "name": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(0)",
+        "state": "Passed",
+        "durationSeconds": 0.0012432
+      },
+      {
+        "name": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(27)",
+        "state": "Passed",
+        "durationSeconds": 0.0001275
+      },
+      {
+        "name": "LSDFDeterministicContractTests.MalformedPayloadUsesDefaultLoadout(29)",
+        "state": "Passed",
+        "durationSeconds": 0.0000586
+      },
+      {
+        "name": "LSDFDeterministicContractTests.NullPayloadAndInvalidSlotsAreSafe",
+        "state": "Passed",
+        "durationSeconds": 0.0001938
+      },
+      {
+        "name": "LSDFDeterministicContractTests.RuntimePlayerJsonRoundtripKeepsIndependentLoadouts",
+        "state": "Passed",
+        "durationSeconds": 0.0004103
+      },
+      {
+        "name": "LSDFInputBufferTests.ANewPendingCommandCannotOverwriteTheInFlightRoute",
+        "state": "Passed",
+        "durationSeconds": 0.0023004
+      },
+      {
+        "name": "LSDFInputBufferTests.AOneTickPressRemainsLatchedOnlyThroughAnimatorRouting",
+        "state": "Passed",
+        "durationSeconds": 0.0003138
+      },
+      {
+        "name": "LSDFInputBufferTests.CommandsWaitForARealAnimatorInputTransition",
+        "state": "Passed",
+        "durationSeconds": 0.0262694
+      },
+      {
+        "name": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(3,3,True)",
+        "state": "Passed",
+        "durationSeconds": 0.001295
+      },
+      {
+        "name": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(3,4,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0001149
+      },
+      {
+        "name": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(0,0,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0000781
+      },
+      {
+        "name": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(0,1,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000754
+      },
+      {
+        "name": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(-1,1,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000717
+      },
+      {
+        "name": "LSDFInputBufferTests.ConfiguredWindowChangesTheActualExpiry(20,15,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0000709
+      },
+      {
+        "name": "LSDFInputBufferTests.DefaultWindowIsEditableAndWiredToTheExistingAsset",
+        "state": "Passed",
+        "durationSeconds": 0.0066174
+      },
+      {
+        "name": "LSDFInputBufferTests.FighterBuffersAndValueSnapshotsAreIndependent",
+        "state": "Passed",
+        "durationSeconds": 0.0003228
+      },
+      {
+        "name": "LSDFInputBufferTests.HoldingDoesNotRenewExpiredInputOrRepeatAnAttack",
+        "state": "Passed",
+        "durationSeconds": 0.0002725
+      },
+      {
+        "name": "LSDFInputBufferTests.KoAndRoundRecoveryDiscardCommandsInsteadOfLeakingToTheNextRound(0,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0007764
+      },
+      {
+        "name": "LSDFInputBufferTests.KoAndRoundRecoveryDiscardCommandsInsteadOfLeakingToTheNextRound(-1,False)",
+        "state": "Passed",
+        "durationSeconds": 0.000123
+      },
+      {
+        "name": "LSDFInputBufferTests.KoAndRoundRecoveryDiscardCommandsInsteadOfLeakingToTheNextRound(170,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0001083
+      },
+      {
+        "name": "LSDFInputBufferTests.LatestNewPressWinsAndSnapshotsDirectionInsteadOfReadingItAtRelease",
+        "state": "Passed",
+        "durationSeconds": 0.0003813
+      },
+      {
+        "name": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"attack\")",
+        "state": "Passed",
+        "durationSeconds": 0.0008883
+      },
+      {
+        "name": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"hit\")",
+        "state": "Passed",
+        "durationSeconds": 0.0001491
+      },
+      {
+        "name": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"guard\")",
+        "state": "Passed",
+        "durationSeconds": 0.0000998
+      },
+      {
+        "name": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"stun\")",
+        "state": "Passed",
+        "durationSeconds": 0.0000817
+      },
+      {
+        "name": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"combo\")",
+        "state": "Passed",
+        "durationSeconds": 0.0000757
+      },
+      {
+        "name": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"air\")",
+        "state": "Passed",
+        "durationSeconds": 0.0000747
+      },
+      {
+        "name": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"wall\")",
+        "state": "Passed",
+        "durationSeconds": 0.0000632
+      },
+      {
+        "name": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"cantMove\")",
+        "state": "Passed",
+        "durationSeconds": 0.0000543
+      },
+      {
+        "name": "LSDFInputBufferTests.LockedActionsCaptureButDoNotExecute(\"tickLock\")",
+        "state": "Passed",
+        "durationSeconds": 0.0000476
+      },
+      {
+        "name": "LSDFInputBufferTests.ReleasedCommandExecutesOnFirstUnlockedTickWithinTheInclusiveWindow(0,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0006921
+      },
+      {
+        "name": "LSDFInputBufferTests.ReleasedCommandExecutesOnFirstUnlockedTickWithinTheInclusiveWindow(9,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0001226
+      },
+      {
+        "name": "LSDFInputBufferTests.ReleasedCommandExecutesOnFirstUnlockedTickWithinTheInclusiveWindow(10,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0000985
+      },
+      {
+        "name": "LSDFInputBufferTests.ReleasedCommandExecutesOnFirstUnlockedTickWithinTheInclusiveWindow(11,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000564
+      },
+      {
+        "name": "LSDFInputBufferTests.RoutingTimeoutAndInvalidCommandsDoNotLeaveStaleTriggers",
+        "state": "Passed",
+        "durationSeconds": 0.0002449
+      },
+      {
+        "name": "LSDFInputBufferTests.SimultaneousNewButtonsKeepLegacyPriority",
+        "state": "Passed",
+        "durationSeconds": 0.0001891
+      },
+      {
+        "name": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap\",10,7,21,28,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0033281
+      },
+      {
+        "name": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap\",10,7,21,28,28)",
+        "state": "Passed",
+        "durationSeconds": 0.00032450000000000003
+      },
+      {
+        "name": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Two\",8,12,19,22,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0001861
+      },
+      {
+        "name": "LSDFJabDefinitionTests.SerializedJabVariantKeepsCombatContract(\"Jap Jap Two\",5,7,21,29,29)",
+        "state": "Passed",
+        "durationSeconds": 0.0001681
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(0)",
+        "state": "Passed",
+        "durationSeconds": 0.0184089
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(1)",
+        "state": "Passed",
+        "durationSeconds": 0.0047631
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(2)",
+        "state": "Passed",
+        "durationSeconds": 0.0055972
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(3)",
+        "state": "Passed",
+        "durationSeconds": 0.004692
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(4)",
+        "state": "Passed",
+        "durationSeconds": 0.004875
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(5)",
+        "state": "Passed",
+        "durationSeconds": 0.0055995
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(6)",
+        "state": "Passed",
+        "durationSeconds": 0.0057549
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(7)",
+        "state": "Passed",
+        "durationSeconds": 0.0052851
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(8)",
+        "state": "Passed",
+        "durationSeconds": 0.0038165
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(9)",
+        "state": "Passed",
+        "durationSeconds": 0.0051317
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(10)",
+        "state": "Passed",
+        "durationSeconds": 0.0046123
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(11)",
+        "state": "Passed",
+        "durationSeconds": 0.0048175
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(12)",
+        "state": "Passed",
+        "durationSeconds": 0.0053622
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(13)",
+        "state": "Passed",
+        "durationSeconds": 0.0049963
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(14)",
+        "state": "Passed",
+        "durationSeconds": 0.0039146
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(15)",
+        "state": "Passed",
+        "durationSeconds": 0.0048458
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(16)",
+        "state": "Passed",
+        "durationSeconds": 0.0052974
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(17)",
+        "state": "Passed",
+        "durationSeconds": 0.0039051
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(18)",
+        "state": "Passed",
+        "durationSeconds": 0.0042985
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(19)",
+        "state": "Passed",
+        "durationSeconds": 0.0057467
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(20)",
+        "state": "Passed",
+        "durationSeconds": 0.0051231
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(21)",
+        "state": "Passed",
+        "durationSeconds": 0.0043589
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(22)",
+        "state": "Passed",
+        "durationSeconds": 0.0068029
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(23)",
+        "state": "Passed",
+        "durationSeconds": 0.0056042
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(24)",
+        "state": "Passed",
+        "durationSeconds": 0.0062084
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(25)",
+        "state": "Passed",
+        "durationSeconds": 0.0059802
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(26)",
+        "state": "Passed",
+        "durationSeconds": 0.0057621
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(27)",
+        "state": "Passed",
+        "durationSeconds": 0.0041332
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(28)",
+        "state": "Passed",
+        "durationSeconds": 0.0043465
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(29)",
+        "state": "Passed",
+        "durationSeconds": 0.0057766
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(30)",
+        "state": "Passed",
+        "durationSeconds": 0.00466
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(31)",
+        "state": "Passed",
+        "durationSeconds": 0.0044232
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(32)",
+        "state": "Passed",
+        "durationSeconds": 0.0052843
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(33)",
+        "state": "Passed",
+        "durationSeconds": 0.0056726
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(34)",
+        "state": "Passed",
+        "durationSeconds": 0.0038185
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(35)",
+        "state": "Passed",
+        "durationSeconds": 0.0052782
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(36)",
+        "state": "Passed",
+        "durationSeconds": 0.0055752
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(37)",
+        "state": "Passed",
+        "durationSeconds": 0.0049117
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(38)",
+        "state": "Passed",
+        "durationSeconds": 0.0054328
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(39)",
+        "state": "Passed",
+        "durationSeconds": 0.005177
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(40)",
+        "state": "Passed",
+        "durationSeconds": 0.0049304
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(41)",
+        "state": "Passed",
+        "durationSeconds": 0.0053338
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(42)",
+        "state": "Passed",
+        "durationSeconds": 0.0055023
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(43)",
+        "state": "Passed",
+        "durationSeconds": 0.0038107
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(44)",
+        "state": "Passed",
+        "durationSeconds": 0.004814
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(45)",
+        "state": "Passed",
+        "durationSeconds": 0.0054002
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(46)",
+        "state": "Passed",
+        "durationSeconds": 0.004051
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(47)",
+        "state": "Passed",
+        "durationSeconds": 0.0050837
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(48)",
+        "state": "Passed",
+        "durationSeconds": 0.00488
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(49)",
+        "state": "Passed",
+        "durationSeconds": 0.0035203
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(50)",
+        "state": "Passed",
+        "durationSeconds": 0.0048726
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(51)",
+        "state": "Passed",
+        "durationSeconds": 0.0051378
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(52)",
+        "state": "Passed",
+        "durationSeconds": 0.0048653
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(53)",
+        "state": "Passed",
+        "durationSeconds": 0.0049373
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(54)",
+        "state": "Passed",
+        "durationSeconds": 0.0048686
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(55)",
+        "state": "Passed",
+        "durationSeconds": 0.005392
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(56)",
+        "state": "Passed",
+        "durationSeconds": 0.0046051
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(57)",
+        "state": "Passed",
+        "durationSeconds": 0.0056205
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(58)",
+        "state": "Passed",
+        "durationSeconds": 0.0045678
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(59)",
+        "state": "Passed",
+        "durationSeconds": 0.0040623
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(60)",
+        "state": "Passed",
+        "durationSeconds": 0.0054395
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(61)",
+        "state": "Passed",
+        "durationSeconds": 0.0051509
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(62)",
+        "state": "Passed",
+        "durationSeconds": 0.0055292
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(63)",
+        "state": "Passed",
+        "durationSeconds": 0.0045541
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(64)",
+        "state": "Passed",
+        "durationSeconds": 0.0048036
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(65)",
+        "state": "Passed",
+        "durationSeconds": 0.0054474
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(66)",
+        "state": "Passed",
+        "durationSeconds": 0.0055753
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(67)",
+        "state": "Passed",
+        "durationSeconds": 0.0042166
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(68)",
+        "state": "Passed",
+        "durationSeconds": 0.0046751
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(69)",
+        "state": "Passed",
+        "durationSeconds": 0.0050481
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(70)",
+        "state": "Passed",
+        "durationSeconds": 0.0047465
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.EverySelectableCombinationSurvivesTheRealMenuAndSdkSerializer(71)",
+        "state": "Passed",
+        "durationSeconds": 0.0045841
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.ReconnectPreservesTheSubmittedBuildInsteadOfReadingNewLocalPreferences",
+        "state": "Passed",
+        "durationSeconds": 0.0068308
+      },
+      {
+        "name": "LSDFMenuLoadoutTests.TwoClientsKeepDifferentSnapshotsAndShareTheSameMatchmakingVersion",
+        "state": "Passed",
+        "durationSeconds": 0.0094842
+      },
+      {
+        "name": "LSDFOnlineSmokeTests.DifferentMenuBuildsExecuteTheirOwnSkillsAndReplayWithoutDisconnecting",
+        "state": "Passed",
+        "durationSeconds": 54.8103413
+      },
+      {
+        "name": "LSDFOnlineSmokeTests.TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer",
+        "state": "Passed",
+        "durationSeconds": 198.4443714
+      },
+      {
+        "name": "LSDFPlayerHealthTests.CounterBypassesComboScalingAndDoesNotTouchOtherPlayers",
+        "state": "Passed",
+        "durationSeconds": 0.0061754
+      },
+      {
+        "name": "LSDFPlayerHealthTests.LethalHitClampsHpImmediatelyAndCannotBeHealedBack",
+        "state": "Passed",
+        "durationSeconds": 0.0004179
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,0,7)",
+        "state": "Passed",
+        "durationSeconds": 0.0003827
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,1,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0001092
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,2,5)",
+        "state": "Passed",
+        "durationSeconds": 0.0000904
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,3,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0000875
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,4,3)",
+        "state": "Passed",
+        "durationSeconds": 0.0000669
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,5,2)",
+        "state": "Passed",
+        "durationSeconds": 0.0000621
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(3,5,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0000554
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(6,5,1)",
+        "state": "Passed",
+        "durationSeconds": 0.0000546
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(12,6,3)",
+        "state": "Passed",
+        "durationSeconds": 0.0000584
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(15,7,4)",
+        "state": "Passed",
+        "durationSeconds": 0.0000484
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(17,2,12)",
+        "state": "Passed",
+        "durationSeconds": 0.0000578
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(17,4,8)",
+        "state": "Passed",
+        "durationSeconds": 0.0000645
+      },
+      {
+        "name": "LSDFPlayerHealthTests.NormalDamageKeepsLegacyComboBoundaries(7,-1,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0000522
+      },
+      {
+        "name": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(-5,False,0,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0019786
+      },
+      {
+        "name": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(-5,True,0,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0001514
+      },
+      {
+        "name": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(0,True,0,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000705
+      },
+      {
+        "name": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(167,True,169,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0000655
+      },
+      {
+        "name": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(168,True,170,False)",
+        "state": "Passed",
+        "durationSeconds": 0.000063
+      },
+      {
+        "name": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(169,True,170,False)",
+        "state": "Passed",
+        "durationSeconds": 0.00006
+      },
+      {
+        "name": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(170,True,170,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000615
+      },
+      {
+        "name": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(175,True,170,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000646
+      },
+      {
+        "name": "LSDFPlayerHealthTests.RecoveryNeverRevivesKoAndKeepsLivingHealingCompletion(175,False,175,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000527
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_HatchetWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0040507
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_JetVallyWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.000827
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_KazuyaStandLkWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0008093
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_PlazmaKickWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0008904
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_SlideLowKickWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0010101
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_SweepKickWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0008779
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_ChoppingWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0007724
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_ClaHomingWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0007295
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_MachineGunWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0007878
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_NewMahaWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0007877
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_QuickHookWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0008825
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_SitPunchEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0007264
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_SledgeWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0008023
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_Bry2RkWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0006331
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_CounterHighKickWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.000628
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_DraOriKickWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0006006
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_LarsSnakeWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0006166
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_RightJongKickWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0006326
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_ShaheenCutKickWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0007434
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_SuperFlyKickWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0007302
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_AssultWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0008062
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_BraHomingWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0004778
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_DeathFistWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0006269
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_DraRightUpperWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0006354
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_Gigas1RpWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0007587
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_KazumiHomingWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0006142
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_LawRightUpperWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0006706
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_SharpnerWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.000676
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_SteveJumpUpperWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.000844
+      },
+      {
+        "name": "LSDFRemainingAttackTests.LegacyContract_WindFistWindowEvent",
+        "state": "Passed",
+        "durationSeconds": 0.0012841
+      },
+      {
+        "name": "LSDFRoundResultTests.DrawReplaysTheSameRoundWithoutAddingEitherScore",
+        "state": "Passed",
+        "durationSeconds": 0.000532
+      },
+      {
+        "name": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(0)",
+        "state": "Passed",
+        "durationSeconds": 0.0006986
+      },
+      {
+        "name": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(170)",
+        "state": "Passed",
+        "durationSeconds": 0.0001015
+      },
+      {
+        "name": "LSDFRoundResultTests.EveryWinSequenceEndsAtThreeWinsWithinFiveDecisiveRounds",
+        "state": "Passed",
+        "durationSeconds": 0.003319
+      },
+      {
+        "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,False,\"ROUND WIN\")",
+        "state": "Passed",
+        "durationSeconds": 0.0004898
+      },
+      {
+        "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,False,\"ROUND LOSE\")",
+        "state": "Passed",
+        "durationSeconds": 0.0001437
+      },
+      {
+        "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,True,\"YOU WIN\")",
+        "state": "Passed",
+        "durationSeconds": 0.0001316
+      },
+      {
+        "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,True,\"YOU LOSE\")",
+        "state": "Passed",
+        "durationSeconds": 0.0001402
+      },
+      {
+        "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(Draw,False,\"DRAW\")",
+        "state": "Passed",
+        "durationSeconds": 0.0001197
+      },
+      {
+        "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,170,SecondWins)",
+        "state": "Passed",
+        "durationSeconds": 0.0009365
+      },
+      {
+        "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-12,1,SecondWins)",
+        "state": "Passed",
+        "durationSeconds": 0.0004587
+      },
+      {
+        "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(170,0,FirstWins)",
+        "state": "Passed",
+        "durationSeconds": 0.0006845
+      },
+      {
+        "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(1,-12,FirstWins)",
+        "state": "Passed",
+        "durationSeconds": 0.00036
+      },
+      {
+        "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,0,Draw)",
+        "state": "Passed",
+        "durationSeconds": 0.0002797
+      },
+      {
+        "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-1,-12,Draw)",
+        "state": "Passed",
+        "durationSeconds": 0.000268
+      },
+      {
+        "name": "LSDFRoundResultTests.LivingFightersDoNotFinishAndNoWinnerExistsBeforeFinalization",
+        "state": "Passed",
+        "durationSeconds": 0.0002736
+      },
+      {
+        "name": "LSDFRoundResultTests.NextRoundResetsHealthAndCombatStateButKeepsScoreAndLoadouts",
+        "state": "Passed",
+        "durationSeconds": 0.0005022
+      },
+      {
+        "name": "LSDFRoundResultTests.ResultPosesUseTheExistingQuantumGraphAndFadingIsEnabled",
+        "state": "Passed",
+        "durationSeconds": 0.0470558
+      },
+      {
+        "name": "LSDFRoundResultTests.TerminalPoseCancelsComboDashAndCounterWindowsWithoutChangingLoadout",
+        "state": "Passed",
+        "durationSeconds": 0.0004681
+      },
+      {
+        "name": "LSDFSingleHitTests.FacingOnlyMirrorsHorizontalOffsetWithoutMutatingDefinition",
+        "state": "Passed",
+        "durationSeconds": 0.0008812
+      },
+      {
+        "name": "LSDFSingleHitTests.SerializedLeftUpperPreservesOriginalDefinition",
+        "state": "Passed",
+        "durationSeconds": 0.0017014
+      },
+      {
+        "name": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(11,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0005033
+      },
+      {
+        "name": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(12,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0001134
+      },
+      {
+        "name": "LSDFSingleHitTests.SpawnTickPreservesPhysicsLead(13,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0001062
+      },
+      {
+        "name": "LSDFStructuralTests.ArrowInputDoesNotSetTheOppositeDirection(UpArrow,True,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0008678
+      },
+      {
+        "name": "LSDFStructuralTests.ArrowInputDoesNotSetTheOppositeDirection(DownArrow,False,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0000996
+      },
+      {
+        "name": "LSDFStructuralTests.BudgetValidationIsAtomicAndDetached",
+        "state": "Passed",
+        "durationSeconds": 0.0014816
+      },
+      {
+        "name": "LSDFStructuralTests.ContactPriorityPreservesDodgeWallCounterAndStun",
+        "state": "Passed",
+        "durationSeconds": 0.0003756
+      },
+      {
+        "name": "LSDFStructuralTests.ExistingBalanceAssetIsWiredAndKeepsDefaults",
+        "state": "Passed",
+        "durationSeconds": 0.0015863
+      },
+      {
+        "name": "LSDFStructuralTests.GameplaySceneHasExplicitUpdaterBindings",
+        "state": "Passed",
+        "durationSeconds": 0.1275795
+      },
+      {
+        "name": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(High,\"Idle\",False,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0003134
+      },
+      {
+        "name": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(Mid,\"Rising\",False,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0001201
+      },
+      {
+        "name": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(Low,\"Idle\",False,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000955
+      },
+      {
+        "name": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(Low,\"Idle\",True,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0000886
+      },
+      {
+        "name": "LSDFStructuralTests.GuardMatrixKeepsLegacyRules(High,\"Siting\",True,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0000771
+      },
+      {
+        "name": "LSDFStructuralTests.HealthShakeHandlesZeroDamageHitsGuardRecoveryAndHudRebinding",
+        "state": "Passed",
+        "durationSeconds": 0.0018293
+      },
+      {
+        "name": "LSDFStructuralTests.KoCountsOnceAndWaitsForExplicitRoundReset(0)",
+        "state": "Passed",
+        "durationSeconds": 0.0004313
+      },
+      {
+        "name": "LSDFStructuralTests.KoCountsOnceAndWaitsForExplicitRoundReset(-10)",
+        "state": "Passed",
+        "durationSeconds": 0.0000622
+      },
+      {
+        "name": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(False)",
+        "state": "Passed",
+        "durationSeconds": 0.0013804
+      },
+      {
+        "name": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)",
+        "state": "Passed",
+        "durationSeconds": 0.0001542
+      },
+      {
+        "name": "LSDFStructuralTests.PredictedEffectsConfirmCancelAndReuseIndependently",
+        "state": "Passed",
+        "durationSeconds": 0.0031459
+      },
+      {
+        "name": "LSDFStructuralTests.SlotMappingHasOneSchema(0,0,0)",
+        "state": "Passed",
+        "durationSeconds": 0.0003918
+      },
+      {
+        "name": "LSDFStructuralTests.SlotMappingHasOneSchema(4,3,19)",
+        "state": "Passed",
+        "durationSeconds": 0.0001124
+      },
+      {
+        "name": "LSDFStructuralTests.SlotMappingHasOneSchema(6,3,27)",
+        "state": "Passed",
+        "durationSeconds": 0.0000745
+      },
+      {
+        "name": "LSDFStructuralTests.SlotMappingHasOneSchema(-1,0,-1)",
+        "state": "Passed",
+        "durationSeconds": 0.0000619
+      },
+      {
+        "name": "LSDFStructuralTests.SlotMappingHasOneSchema(7,0,-1)",
+        "state": "Passed",
+        "durationSeconds": 0.0000529
+      },
+      {
+        "name": "LSDFStructuralTests.SlotMappingHasOneSchema(0,4,-1)",
+        "state": "Passed",
+        "durationSeconds": 0.0000479
+      },
+      {
+        "name": "LSDFTimedHitTests.RequiredQuantumLookupTablesAreConfigured",
+        "state": "Passed",
+        "durationSeconds": 0.0038153
+      },
+      {
+        "name": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,False,17,18,15,20,20)",
+        "state": "Passed",
+        "durationSeconds": 0.002114
+      },
+      {
+        "name": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(False,True,35,18,27,20,29)",
+        "state": "Passed",
+        "durationSeconds": 0.0002412
+      },
+      {
+        "name": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,False,15,16,12,21,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0006102
+      },
+      {
+        "name": "LSDFTimedHitTests.SerializedTimedHitPreservesScheduleAndPayload(True,True,25,16,14,21,28)",
+        "state": "Passed",
+        "durationSeconds": 0.0002229
+      }
+    ],
+    "output_policy": "Kept test identities, states, timing and selected scenario observation lines. Repetitive gameplay Debug.Log output is not copied.",
+    "timing_note": "Unity Test Runner values across EnterPlayMode/ExitPlayMode are retained as reported; total and individual durations are not summed or used as performance metrics."
+  },
+  "user_prefab_settings": {
+    "HealthShakeStrength": 20,
+    "HealthShakeDuration": 0.22
+  },
+  "tested_sha256": {
+    "Assets/Photon/QuantumMenu/Runtime/QuantumMenuConnectionBehaviour.LSDF.cs": "7f6d3d4b0fcac197f79375f3f58a8ce2048b066f9ca341a7cc4f2cfe8dcac04b",
+    "Assets/Photon/QuantumMenu/Runtime/QuantumMenuConnectionBehaviourSDK.cs": "e2b41a98a621bdff6fcead2cb9265c96d0d72a12a7c10258df922563bf4bfa0e",
+    "Assets/Photon/QuantumMenu/Runtime/LSDFConnectionDiagnostics.cs": "cacd5b684035c84691f5810b1ed67f9bb86921c76aff97be9e2d5f1064e283b4",
+    "Assets/QuantumUser/Resources/LSDF_Player.prefab": "3136a164d987642d8a815de0a76fd820d3c80c24e5e39c8849c64d620ff6e606",
+    "Assets/QuantumUser/View/LSDFSceneBindings.cs": "d3d7cb0c1d9d49d88628cf032b49c2102a1afc4fd1ac7f10faf930b7e47b19c7",
+    "Assets/QuantumUser/View/LSDF_IngameUI.cs": "e1a32be735cc1638ba0c0657fae22011ae798ff73ee650c53165614ede9ec0e8",
+    "Assets/Scenes/LSDFGameplay.unity": "cd9bd602ebc1941a4d91a3ce28cff511b0a892755b1fa7e0538873f8fe2055d4",
+    "Assets/Tests/Editor/LSDFOnlineSmokeTests.cs": "3f3a9d81d05b904d3b1dbe5693526ae9ba0e196a3fbe6ae938996d2258ae5d7c",
+    "Assets/Tests/Editor/LSDFStructuralTests.cs": "a22b71920ca2d970b60a8f439e05090826c13735e62350b1513a2983c4ff3e85",
+    "Assets/Tests/Editor/LSDFMenuLoadoutTests.cs": "47257f5b440d9b99e3a389f58a8b56a01b40e8c1ed5b27e8fcf017821f8cc04c",
+    "Assets/Tests/Editor/LSDFOnlineLoadoutTests.cs": "3195e5aecffddf17a64a41d849f5bb62e3ee2cb0c0fc2493143b30e2e7f1b688"
+  },
+  "review": {
+    "simulation": "Unchanged; FP/Frame/immutable asset boundaries maintained",
+    "qtn_codegen_system_order": "Unchanged",
+    "sdk_core_and_animator_addon": "Unchanged; project-specific QuantumMenu extension only",
+    "new_meta": "Three new script GUIDs checked as 32 hexadecimal digits",
+    "prefab": "User strength retained; Unity default serialization fields reviewed without changing GUID, avatar, graph or collision shape values",
+    "ide_files": "Excluded and preserved"
+  },
+  "not_run": [
+    "Rendered gameplay visual inspection",
+    "Standalone build",
+    "Actual network reconnect",
+    "Induced network jitter/rollback",
+    "Cross-platform determinism"
+  ],
+  "reported_disconnect": "Not reproduced in the different-build scenario; original user-environment cause is not established.",
+  "editor_after_tests": {
+    "scene": "LSDF_Menu",
+    "isDirty": false,
+    "is_playing": false
+  },
+  "candidate_review": {
+    "status": "PASS",
+    "tested_source_files_unchanged": 11,
+    "local_document_links_resolved": 49,
+    "diff_check": "PASS",
+    "scanned_tree_before_final_status_record": "844046b73ac8b519c9a8d12d85770285e203323a"
+  },
+  "preflight": {
+    "status": "NO_KNOWN_FINDINGS",
+    "base": "origin/dev/Prototype",
+    "commits_inspected": 0,
+    "staged_files": 20,
+    "blobs_inspected": 20,
+    "findings": [],
+    "supplemental_review": "Only this non-executable result/status update and the publication note were changed after the scan; separately reviewed. No tested source, asset, config or test changed."
+  },
+  "publication": {
+    "requested": "Push current results; no PR requested",
+    "status": "All required candidate checks passed; preparing the local commit. Push awaits approval of the exact commit.",
+    "push_requires_final_approval": true
+  }
+}

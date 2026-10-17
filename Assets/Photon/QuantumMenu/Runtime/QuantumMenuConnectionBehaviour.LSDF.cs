@@ -3,6 +3,18 @@ namespace Quantum.Menu {
   using UnityEngine;
 
   partial class QuantumMenuConnectionBehaviour {
+    private LSDFConnectionDiagnostics _lsdfDiagnostics;
+
+    protected void MonitorLSDFConnection(QuantumGame game, Photon.Realtime.RealtimeClient client) {
+      StopLSDFConnectionMonitoring();
+      _lsdfDiagnostics = new LSDFConnectionDiagnostics(game, client);
+    }
+
+    protected void StopLSDFConnectionMonitoring() {
+      _lsdfDiagnostics?.Dispose();
+      _lsdfDiagnostics = null;
+    }
+
     // Project-specific seam, called before connecting. No Simulation code reads local storage.
     protected static void PrepareLSDFPlayers(QuantumMenuConnectArgs args) {
       args.MaxPlayerCount = 2;

@@ -91,6 +91,66 @@ public class LSDFStructuralTests {
     first.Track(key, "confirmed"); first.Confirm(key); Assert.IsFalse(first.Cancel(key, out _));
     first.Track(key, "source"); first.Forget("source"); Assert.AreEqual(0, first.Count);
   }
+  [TestCase(false)] [TestCase(true)]
+  public void OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(bool damageRight) {
+    var left = new GameObject("left-health", typeof(RectTransform)).GetComponent<RectTransform>();
+    var right = new GameObject("right-health", typeof(RectTransform)).GetComponent<RectTransform>();
+    var leftShake = new LSDFHealthBarShake(); var rightShake = new LSDFHealthBarShake();
+    var leftOrigin = new Vector2(-100, 20); var rightOrigin = new Vector2(100, 20);
+    left.anchoredPosition = leftOrigin; right.anchoredPosition = rightOrigin;
+    try {
+      var healthy = new LSDF_Player { playerHp = 170 };
+      var hit = new LSDF_Player { playerHp = 158, isHit = true, DelayFrame = 35 };
+      leftShake.Observe(left, default, healthy, 10); rightShake.Observe(right, default, healthy, 10);
+      leftShake.Observe(left, default, damageRight ? healthy : hit, 11);
+      rightShake.Observe(right, default, damageRight ? hit : healthy, 11);
+      leftShake.Advance(.03f, .22f, 6); rightShake.Advance(.03f, .22f, 6);
+      Assert.AreEqual(!damageRight, leftShake.IsShaking); Assert.AreEqual(damageRight, rightShake.IsShaking);
+      Assert.AreEqual(damageRight, left.anchoredPosition == leftOrigin);
+      Assert.AreEqual(!damageRight, right.anchoredPosition == rightOrigin);
+      leftShake.Advance(1, .22f, 6); rightShake.Advance(1, .22f, 6);
+      Assert.AreEqual(leftOrigin, left.anchoredPosition); Assert.AreEqual(rightOrigin, right.anchoredPosition);
+      leftShake.Observe(left, default, damageRight ? healthy : hit, 11);
+      rightShake.Observe(right, default, damageRight ? hit : healthy, 11);
+      Assert.IsFalse(leftShake.IsShaking || rightShake.IsShaking);
+    } finally {
+      leftShake.Reset(); rightShake.Reset(); Object.DestroyImmediate(left.gameObject); Object.DestroyImmediate(right.gameObject);
+    }
+  }
+  [Test]
+  public void HealthShakeHandlesZeroDamageHitsGuardRecoveryAndHudRebinding() {
+    var first = new GameObject("first-hud", typeof(RectTransform)).GetComponent<RectTransform>();
+    var second = new GameObject("second-hud", typeof(RectTransform)).GetComponent<RectTransform>();
+    var shake = new LSDFHealthBarShake(); var origin = new Vector2(40, 12);
+    first.anchoredPosition = origin;
+    try {
+      var player = new LSDF_Player { playerHp = 170 };
+      shake.Observe(first, default, player, 10);
+      player.isGuard = true; player.DelayFrame = 30;
+      shake.Observe(first, default, player, 11); Assert.IsFalse(shake.IsShaking);
+      player.isGuard = false; player.isHit = true; player.DelayFrame = 40;
+      shake.Observe(first, default, player, 12); Assert.IsTrue(shake.IsShaking, "A zero-damage confirmed hit still has impact.");
+      shake.Advance(.03f, .22f, 6);
+      Assert.AreNotEqual(origin, first.anchoredPosition);
+      player.playerHp = 160; player.DelayFrame = 45;
+      shake.Observe(first, default, player, 13); shake.Advance(.03f, .22f, 6);
+      shake.Reset(); Assert.AreEqual(origin, first.anchoredPosition);
+      shake.Observe(first, default, player, 13);
+      player.playerHp = 150; shake.Observe(first, default, player, 14); shake.Advance(.03f, .22f, 6);
+      player.playerHp = 170; player.isHit = false;
+      shake.Observe(first, default, player, 15);
+      Assert.IsFalse(shake.IsShaking); Assert.AreEqual(origin, first.anchoredPosition);
+      player.playerHp = 160; shake.Observe(first, default, player, 16); shake.Advance(.03f, .22f, 6);
+      shake.Observe(second, default, player, 16);
+      Assert.IsFalse(shake.IsShaking); Assert.AreEqual(origin, first.anchoredPosition);
+      Assert.AreEqual(Vector2.zero, second.anchoredPosition);
+      player.playerHp = 150; shake.Observe(second, default, player, 17); shake.Advance(.03f, .22f, 6);
+      shake.Observe(second, default, player, 9);
+      Assert.IsFalse(shake.IsShaking); Assert.AreEqual(Vector2.zero, second.anchoredPosition);
+    } finally {
+      shake.Reset(); Object.DestroyImmediate(first.gameObject); Object.DestroyImmediate(second.gameObject);
+    }
+  }
   [Test]
   public void GameplaySceneHasExplicitUpdaterBindings() {
     var scene = EditorSceneManager.OpenPreviewScene("Assets/Scenes/LSDFGameplay.unity");
@@ -104,6 +164,12 @@ public class LSDFStructuralTests {
       Assert.IsNotNull(binding.Player1Camera); Assert.IsNotNull(binding.Player2Camera);
       Assert.IsNotNull(binding.Player1Hud.LeftHealth); Assert.IsNotNull(binding.Player1Hud.RightHealth);
       Assert.IsNotNull(binding.Player2Hud.LeftHealth); Assert.IsNotNull(binding.Player2Hud.RightHealth);
+      Assert.AreSame(binding.Player1Hud.LeftHealth.rectTransform.parent, binding.Player1Hud.LeftHealthShakeRoot);
+      Assert.AreSame(binding.Player1Hud.RightHealth.rectTransform.parent, binding.Player1Hud.RightHealthShakeRoot);
+      Assert.AreSame(binding.Player2Hud.LeftHealth.rectTransform.parent, binding.Player2Hud.LeftHealthShakeRoot);
+      Assert.AreSame(binding.Player2Hud.RightHealth.rectTransform.parent, binding.Player2Hud.RightHealthShakeRoot);
+      Assert.AreNotSame(binding.Player1Hud.LeftHealthShakeRoot, binding.Player1Hud.RightHealthShakeRoot);
+      Assert.AreNotSame(binding.Player2Hud.LeftHealthShakeRoot, binding.Player2Hud.RightHealthShakeRoot);
       Assert.IsNotNull(binding.Player1Hud.Round); Assert.IsNotNull(binding.Player2Hud.Fight);
     } finally { EditorSceneManager.ClosePreviewScene(scene); }
   }

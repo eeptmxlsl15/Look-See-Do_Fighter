@@ -338,6 +338,8 @@ namespace Quantum.Menu {
       _disconnectSubscription.Dispose();
       _disconnectSubscription = null;
 
+      MonitorLSDFConnection(Runner.Game, Client);
+
       for (int i = 0; i < connectArgs.RuntimePlayers.Length; i++) { 
         Runner.Game.AddPlayer(i, connectArgs.RuntimePlayers[i]);
       }
@@ -445,6 +447,7 @@ namespace Quantum.Menu {
     }
     
     private async Task CleanupAsync() {
+      StopLSDFConnectionMonitoring();
       try {
         OnCleanup();
       } catch (Exception e) {

@@ -7537,6 +7537,8 @@ MonoBehaviour:
   Player1Hud:
     LeftHealth: {fileID: 354113924}
     RightHealth: {fileID: 69612071}
+    LeftHealthShakeRoot: {fileID: 2016841737}
+    RightHealthShakeRoot: {fileID: 880743687}
     Timer: {fileID: 1445734316}
     Round: {fileID: 470583023}
     Fight: {fileID: 622582915}
@@ -7552,6 +7554,8 @@ MonoBehaviour:
   Player2Hud:
     LeftHealth: {fileID: 1213412948}
     RightHealth: {fileID: 1944516709}
+    LeftHealthShakeRoot: {fileID: 1556675292}
+    RightHealthShakeRoot: {fileID: 411896970}
     Timer: {fileID: 1503525431}
     Round: {fileID: 1228330306}
     Fight: {fileID: 1173325870}

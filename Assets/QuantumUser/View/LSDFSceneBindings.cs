@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class LSDFSceneBindings : MonoBehaviour {
   [Serializable] public class Hud {
     public Image LeftHealth, RightHealth;
+    public RectTransform LeftHealthShakeRoot, RightHealthShakeRoot;
     public TMP_Text Timer, Round, Fight;
     public GameObject RoundRoot;
     public Image[] LeftWins = new Image[3];

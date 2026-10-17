@@ -13,11 +13,15 @@ using UnityEditor;
 using UnityEngine.TestTools;
 
 /// <summary>Two actual Photon clients, no Unity views. Not a cross-platform or UI test.</summary>
-public class LSDFOnlineSmokeTests {
+public partial class LSDFOnlineSmokeTests {
   [UnityTest]
   [Timeout(360000)] // Five real rounds plus replay/restore exceed Unity's default 180s.
   [Category("LSDFOnline")]
   public IEnumerator TwoClientsAgreeOnLoadoutCombatAndRepeatedAddPlayer() {
+    return RunScenario(false);
+  }
+
+  private static IEnumerator RunScenario(bool loadoutProbe) {
     yield return new EnterPlayMode();
     bool previousBackground = UnityEngine.Application.runInBackground;
     string error = null;
@@ -25,7 +29,7 @@ public class LSDFOnlineSmokeTests {
     UnityEngine.Application.runInBackground = true;
     using var runCancellation = new CancellationTokenSource();
     try {
-      var task = RunOnline(runCancellation.Token);
+      var task = RunOnline(runCancellation.Token, loadoutProbe);
       while (!task.IsCompleted) yield return null;
       error = task.IsFaulted ? task.Exception.ToString() : null;
       canceled = task.IsCanceled;
@@ -56,7 +60,7 @@ public class LSDFOnlineSmokeTests {
     };
   }
 
-  private static async Task RunOnline(CancellationToken cancellation) {
+  private static async Task RunOnline(CancellationToken cancellation, bool loadoutProbe) {
     // Validate Quantum bootstrap before opening connections. The SDK expects a global LUT asset.
     QuantumRunnerUnityFactory.Init();
     if (!FPLut.IsLoaded)
@@ -84,6 +88,12 @@ public class LSDFOnlineSmokeTests {
     players[0].CommandSkills[4] = 2;
     players[1].CommandSkills[4] = 1;
     players[0].CommandSkills[0] = 1; // A: flash chain; B: jab-to-two chain.
+    if (loadoutProbe) {
+      players[0] = LSDFMenuLoadoutFixture.Prepare(LSDFMenuLoadoutFixture.Template("LSDF-test-A"),
+        LSDFMenuLoadoutFixture.Selected(1, 2, 2, 1, 1)).RuntimePlayers[0];
+      players[1] = LSDFMenuLoadoutFixture.Prepare(LSDFMenuLoadoutFixture.Template("LSDF-test-B"),
+        LSDFMenuLoadoutFixture.Selected(0, 1, 1, 0, 0)).RuntimePlayers[0];
+    }
     string observedError = null;
     bool damageObserved = false;
     int rosterSamples = 0;
@@ -270,6 +280,14 @@ public class LSDFOnlineSmokeTests {
         await Task.WhenAll(starts);
         runners[0] = (QuantumRunner)starts[0].Result;
         runners[1] = (QuantumRunner)starts[1].Result;
+        if (loadoutProbe) {
+          inputListener.Dispose(); inputListener = null;
+          frameListener.Dispose(); frameListener = null;
+          checksumListener.Dispose(); checksumListener = null;
+          stage = "different menu loadouts and all five customizable commands";
+          await VerifyDifferentLoadouts(runners, players, timeout.Token);
+          return;
+        }
         combatStartTick = Math.Max(runners[0].Game.Frames.Verified.Number, runners[1].Game.Frames.Verified.Number) + 30;
         // Probe before lethal combat: a terminal KO deliberately never heals for a later probe.
         bufferQuietTick = combatStartTick + 120;
@@ -381,7 +399,7 @@ public class LSDFOnlineSmokeTests {
   }
 
   private static async Task VerifyReplay(QuantumReplayFile file, Dictionary<int, ulong> expected,
-      int targetTick, int restoreSnapshotTick, string suffix, CancellationToken token) {
+      int targetTick, int restoreSnapshotTick, string suffix, CancellationToken token, bool requirePendingBuffer = true) {
     var serializer = new QuantumUnityJsonSerializer();
     QuantumRunner replay = null;
     var provider = file.CreateInputProvider();
@@ -417,7 +435,7 @@ public class LSDFOnlineSmokeTests {
                 callback.Frame.GetPlayerData(link.PlayerRef).PlayerNickname == "LSDF-test-A" &&
                 callback.Frame.Get<LSDF_CommandBuffer>(pair.Entity).HasPending) pendingFound = true;
           }
-          if (!pendingFound) mismatch = "The replay snapshot did not contain the pending input buffer.";
+          if (requirePendingBuffer && !pendingFound) mismatch = "The replay snapshot did not contain the pending input buffer.";
           snapshot = callback.Frame.Serialize(DeterministicFrameSerializeMode.Blit);
           snapshotTick = callback.Frame.Number;
         }
