@@ -1,0 +1,150 @@
+{
+  "task": "camera-hit-shake",
+  "date": "2026-10-19",
+  "recorded_at": "2026-10-19T02:26:33+09:00",
+  "status": "IMPLEMENTED; 20/23 TESTS PASSED; TEST FIXES AFTER VALIDATION NOT REVALIDATED",
+  "production_modified_after_validation": false,
+  "checks": {
+    "unity_compile": {
+      "status": "PASS before test-only corrections",
+      "errors": 0,
+      "warnings": 5,
+      "note": "Three existing obsolete menu API warnings and two vendor diagnostics. Excluded asset source folders were not opened."
+    },
+    "quantum_guard": {
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 93,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    },
+    "diff_meta_and_document_links": {
+      "status": "PASS before test-only corrections",
+      "note": "Tracked camera/scene diff, new source/meta pairs and whitespace, current-state/task links. No repeat after test corrections."
+    }
+  },
+  "test_job": {
+    "job_id": "ddc78202468841868ec0dbf3bfeacfa8",
+    "mode": "EditMode",
+    "summary": {
+      "total": 23,
+      "passed": 20,
+      "failed": 3,
+      "skipped": 0,
+      "durationSeconds": 0.9794681,
+      "resultState": "Failed(Child)"
+    },
+    "failed_tests": [
+      {
+        "name": "CameraSwitchAndSceneDisableRemoveOffsetsWithoutKeepingOldHits",
+        "fullName": "LSDFCameraHitShakeTests.CameraSwitchAndSceneDisableRemoveOffsetsWithoutKeepingOldHits",
+        "state": "Failed",
+        "durationSeconds": 0.0175803,
+        "message": "  Expected: False\r\n  But was:  True\r\n",
+        "stackTrace": "at LSDFCameraHitShakeTests.CameraSwitchAndSceneDisableRemoveOffsetsWithoutKeepingOldHits () [0x00121] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFCameraHitShakeTests.cs:128\r\n",
+        "output": ""
+      },
+      {
+        "name": "MoveChecklistHasAll37AssetsAndOnlySelectedMovesPlay",
+        "fullName": "LSDFCounterHitZoomTests.MoveChecklistHasAll37AssetsAndOnlySelectedMovesPlay",
+        "state": "Failed",
+        "durationSeconds": 0.0042479,
+        "message": "  Expected: True\r\n  But was:  False\r\n",
+        "stackTrace": "at LSDFCounterHitZoomTests.MoveChecklistHasAll37AssetsAndOnlySelectedMovesPlay () [0x0006f] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFCounterHitZoomTests.cs:100\r\n",
+        "output": ""
+      },
+      {
+        "name": "SceneDisableAndReenableRestoresTheLensWithoutKeepingAnOldImpulse",
+        "fullName": "LSDFCounterHitZoomTests.SceneDisableAndReenableRestoresTheLensWithoutKeepingAnOldImpulse",
+        "state": "Failed",
+        "durationSeconds": 0.0009423,
+        "message": "  Expected: False\r\n  But was:  True\r\n",
+        "stackTrace": "at LSDFCounterHitZoomTests.SceneDisableAndReenableRestoresTheLensWithoutKeepingAnOldImpulse () [0x000be] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFCounterHitZoomTests.cs:86\r\n",
+        "output": ""
+      }
+    ],
+    "passed_tests": [
+      "LSDFCameraHitShakeTests.EitherFighterShakesTheWholeCameraInScreenAxesAndRestoresItsPosition(False,1)",
+      "LSDFCameraHitShakeTests.EitherFighterShakesTheWholeCameraInScreenAxesAndRestoresItsPosition(False,-1)",
+      "LSDFCameraHitShakeTests.EitherFighterShakesTheWholeCameraInScreenAxesAndRestoresItsPosition(True,1)",
+      "LSDFCameraHitShakeTests.EitherFighterShakesTheWholeCameraInScreenAxesAndRestoresItsPosition(True,-1)",
+      "LSDFCameraHitShakeTests.GameplaySceneEnablesHitShakeAlongsideTheExistingZoomProfileAndHudRoots",
+      "LSDFCameraHitShakeTests.HitShakeComposesWithMovingCounterZoomAndIndependentHealthBarShake",
+      "LSDFCameraHitShakeTests.ZeroDamageHitsRetriggerWithoutDriftAndGuardRecoveryOrRewindDoNotShake",
+      "LSDFCameraHitShakeTests.ZeroSettingsStopTheShakeAndRestoreTheCamera(0,0.015f)",
+      "LSDFCameraHitShakeTests.ZeroSettingsStopTheShakeAndRestoreTheCamera(0.18f,0)",
+      "LSDFCounterHitZoomTests.BothPerspectivesCenterTheHitAndRestoreTheMovingFollowCamera(False,1)",
+      "LSDFCounterHitZoomTests.BothPerspectivesCenterTheHitAndRestoreTheMovingFollowCamera(False,-1)",
+      "LSDFCounterHitZoomTests.BothPerspectivesCenterTheHitAndRestoreTheMovingFollowCamera(True,1)",
+      "LSDFCounterHitZoomTests.BothPerspectivesCenterTheHitAndRestoreTheMovingFollowCamera(True,-1)",
+      "LSDFCounterHitZoomTests.GameplaySceneWiresTheSingleSettingsAssetAndCameraChildrenStayUntouched",
+      "LSDFCounterHitZoomTests.RepeatedHitsDoNotStackZoomAndResetRestoresOriginalLens",
+      "LSDFCounterHitZoomTests.SwitchingCamerasAndDisablingTheEffectRestoresBothLenses",
+      "LSDFStructuralTests.GameplaySceneHasExplicitUpdaterBindings",
+      "LSDFStructuralTests.HealthShakeHandlesZeroDamageHitsGuardRecoveryAndHudRebinding",
+      "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(False)",
+      "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)"
+    ]
+  },
+  "corrections_after_validation": [
+    "New camera lifetime test and existing counter zoom lifetime test explicitly invoke OnDisable/OnEnable for EditMode fixtures; runtime code unchanged.",
+    "Existing zoom checklist test accepts the user's selected moves, sets up its own detached clone selection, and verifies the original selection remains unchanged."
+  ],
+  "sources_before_validation": [
+    {
+      "path": "Assets/QuantumUser/View/LSDFSceneBindings.CounterHitZoom.cs",
+      "sha256": "8c316ed9cc0868b6b6663b0eddd70f59d4f3e06771e8d2cd87d7c50272ac108f"
+    },
+    {
+      "path": "Assets/QuantumUser/View/LSDFSceneBindings.HitShake.cs",
+      "sha256": "b03ec73bf1adfbe43ddb0fa164433e4b938180a68a8bd024db5e6d8b217c0831"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFCameraHitShakeTests.cs",
+      "sha256": "44a0d742b3771c673aa9e3a9cc0bd371e269b9ec7e82dfb02a070f6335cf5b30"
+    },
+    {
+      "path": "Assets/Scenes/LSDFGameplay.unity",
+      "sha256": "4a0a8c475453d2676f68732739e4c4f8f2c30ae317bb495e937b6a85434ddd26"
+    }
+  ],
+  "final_sources": [
+    {
+      "path": "Assets/QuantumUser/View/LSDFSceneBindings.CounterHitZoom.cs",
+      "sha256": "8c316ed9cc0868b6b6663b0eddd70f59d4f3e06771e8d2cd87d7c50272ac108f"
+    },
+    {
+      "path": "Assets/QuantumUser/View/LSDFSceneBindings.HitShake.cs",
+      "sha256": "b03ec73bf1adfbe43ddb0fa164433e4b938180a68a8bd024db5e6d8b217c0831"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFCameraHitShakeTests.cs",
+      "sha256": "93e30d524aec175ddd5fabe55e959786140fd11af19f935dc4b997b5661529c6"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFCounterHitZoomTests.cs",
+      "sha256": "3499778a84b96ed53b826717457259cf33ae7e97ee90ac653356985b42195530"
+    },
+    {
+      "path": "Assets/Scenes/LSDFGameplay.unity",
+      "sha256": "4a0a8c475453d2676f68732739e4c4f8f2c30ae317bb495e937b6a85434ddd26"
+    }
+  ],
+  "settings": {
+    "duration_seconds": 0.18,
+    "strength_world_units": 0.015,
+    "scope": "LSDFGameplay LSDFSceneBindings",
+    "existing_zoom_profile_and_health_bar_settings": "preserved"
+  },
+  "unverified": [
+    "Corrected test code compilation/execution",
+    "Actual gameplay visual feel",
+    "Actual Photon online match",
+    "Independent build or cross-platform execution",
+    "Forced network latency rollback and replay"
+  ],
+  "prior_game_issue": "Landing/get-up collider online scenario remains unresolved; this View work does not resolve its historical failure.",
+  "publication": "No staging, commit, push or PR."
+}

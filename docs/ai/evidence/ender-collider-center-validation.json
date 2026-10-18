@@ -1,0 +1,60 @@
+{
+  "task": "ender-collider-center",
+  "date": "2026-10-18",
+  "status": "IMPLEMENTED; MODIFIED AFTER VALIDATION; NOT REVALIDATED",
+  "test_job": "841079eb952e43b3a6e1a14d237d5e79",
+  "checks": [
+    {
+      "name": "quantum_guard",
+      "status": "PASS before final correction",
+      "files_scanned": 93,
+      "new_findings": 0
+    },
+    {
+      "name": "diff_whitespace",
+      "status": "PASS before final correction",
+      "exit_code": 0
+    },
+    {
+      "name": "unity_compile",
+      "status": "PASS before final correction",
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "unit_regressions",
+      "status": "PASS before final correction",
+      "passed": 93,
+      "groups": {
+        "LSDFComboEnderTests": 21,
+        "LSDFJuggleTests": 36,
+        "LSDFPlayerColliderTests": 17,
+        "LSDFRoundResultTests": 19
+      }
+    },
+    {
+      "name": "actual_photon_ender_scenario",
+      "status": "FAIL",
+      "reason": "observer=0, episode=0, hit count=5/5, endTick=1011, recovery ticks=0, recovered=False."
+    },
+    {
+      "name": "verified_checksum_comparison_replay_restore",
+      "status": "NOT RUN",
+      "reason": "Scenario failed before comparison and replay stage."
+    },
+    {
+      "name": "final_correction_validation",
+      "status": "NOT RUN",
+      "reason": "One-pass user policy; no rerun/recompile requested."
+    }
+  ],
+  "correction": "Move collider update after juggle state transition and remove independent ground gating on center selection. Fix addresses a suspected center/contact transition cycle; resolution not confirmed.",
+  "preserved": "Config default center X=0/Y=0.01; prior speed0.3/acceleration0.5, schema/generated/system registration, asset identities and IDE user changes preserved.",
+  "timing": "Registered physics/Player/Animator order unchanged. Internal PlayerSystem order changed after failing test from Collider->Juggle to Juggle->Collider; not runtime-validated.",
+  "evidence_files": [
+    "ender-collider-center-sources.json",
+    "ender-collider-center-tests.json",
+    "ender-collider-center-postfix-sources.json"
+  ],
+  "publication": "No commit or push. Final corrected code remains unverified."
+}

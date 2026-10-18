@@ -112,6 +112,9 @@ namespace Quantum.LSDF {
         air.HitCount = System.Math.Min(MaximumHits, hits);
         air.ControlsHorizontal = true;
         air.Phase = LSDFAirComboPhase.BlownAway;
+        // Keep the first ascending tick safe from a stale launch contact. Later
+        // ground contact is authoritative even if the solver has added a rebound.
+        air.RiseUntilTick = tick + 1;
         air.HorizontalVelocity = sign * FPMath.Max(FP._0, config.EnderSpeed);
         body.GravityScale = air.SavedGravityScale;
         body.Velocity = new FPVector2(air.HorizontalVelocity, FPMath.Max(FP._0, config.EnderUpSpeed));
@@ -137,14 +140,17 @@ namespace Quantum.LSDF {
       if (air.Phase == LSDFAirComboPhase.BlownAway) {
         body.GravityScale = air.SavedGravityScale;
         body.Velocity.X = air.HorizontalVelocity;
-        if (grounded && body.Velocity.Y <= FP._0) {
+        if (grounded && (body.Velocity.Y <= FP._0 || tick > air.RiseUntilTick)) {
           air.Phase = LSDFAirComboPhase.Recovering;
           air.RecoveryUntilTick = tick + System.Math.Max(1, System.Math.Min(600, config.EnderRecoveryTicks));
-          body.Velocity.X = FP._0;
+          body.Velocity = FPVector2.Zero;
         }
       } else if (air.Phase == LSDFAirComboPhase.Recovering) {
         body.Velocity.X = FP._0;
-        if (!grounded) { air.Phase = LSDFAirComboPhase.BlownAway; body.WakeUp(); }
+        // Restoring the flight-only collider center can briefly open a gap above the
+        // floor. Keep recovery ownership while gravity settles the normal collider;
+        // re-entering flight would reapply the offset and repeat the contact cycle.
+        if (!grounded) body.WakeUp();
         else if (tick >= air.RecoveryUntilTick) Cancel(ref air, ref body);
       }
     }

@@ -124,13 +124,26 @@ def git_status(root: Path):
 def hook_response(root: Path, event: dict):
     name = event.get("hook_event_name")
     if name == "SessionStart":
-        dirty = bool(git_status(root))
-        context = ("LSDF: read AGENTS.md, then Skill.md for the relevant workflow. "
+        try:
+            worktree = f"Working tree has existing changes: {bool(git_status(root))}. "
+        except (OSError, ValueError, subprocess.SubprocessError) as exc:
+            reason = str(exc).splitlines()[0][:300]
+            worktree = ("Working tree status: UNKNOWN. Git status unavailable: " + reason +
+                        ". Do not assume a clean tree or change Git trust settings automatically. ")
+        summary = "docs/ai/current-state.md"
+        context = (f"LSDF: read AGENTS.md, then {summary} before Skill.md and the relevant workflow. "
+                   "Read the linked recent task records and evidence; compare them with current source and Git state. "
+                   "Initial audits and old PASS results are historical, not proof for later edits. "
                    "Quantum 3: mutable match state belongs in Frame; assets are immutable. "
                    "Do not inspect DinV, GabrielAguiarProductions or Matthew Guz. "
-                   f"Working tree has existing changes: {dirty}. Preserve ownership. "
+                   + worktree + "Preserve ownership. "
                    "Run python tools/ai/quantum_guard.py check before handing off code changes. "
+                   "Validate once after implementation; do not automatically rerun failed checks. "
+                   f"Before handoff, update {summary} with recent work, unresolved issues, validation and next actions. "
                    "Hook.md describes limits; a static pass is not a determinism test.")
+        if not (root / summary).is_file():
+            context += (f" The {summary} summary is missing. Recover context from existing task records, "
+                        "evidence and source; mark unknowns instead of assuming completion.")
         return {"hookSpecificOutput": {"hookEventName": name, "additionalContext": context}}
     if name != "Stop":
         raise ValueError(f"Unsupported event: {name}")

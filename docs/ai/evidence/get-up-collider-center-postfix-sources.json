@@ -1,0 +1,60 @@
+{
+  "task": "get-up-collider-center",
+  "date": "2026-10-18",
+  "status": "MODIFIED AFTER VALIDATION; NOT REVALIDATED",
+  "changes_after_test": [
+    "Ender launch guards the first ascending tick; later ground contact may start recovery despite positive solver rebound velocity.",
+    "Entering recovery cancels vertical rebound.",
+    "Added rebound regression case and aligned the launch-contact fixture."
+  ],
+  "sources": [
+    {
+      "path": "Assets/QuantumUser/Resources/LSDF_GameConfig.asset",
+      "sha256": "a6f230b79ef1d18436d0057bac6b45b2d4c21f0a425088393556e89d670ebc14"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFJuggleSettings.cs",
+      "sha256": "e76ff35f342fe1e3d31198cd781a429f9b57bfc6394fb3148d7a4c2a221f4489"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFPlayerMotion.cs",
+      "sha256": "125b9988a77a4760206131e24dabd8a93b366b70006c0375fdcf1d027f44e18d"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFJuggle.cs",
+      "sha256": "0ace9990149e800eec0b4285f6ac41792f793c1f490f45c134bbf01da7eb2826"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFLoadout.cs",
+      "sha256": "47f50d149694df80f56b5bf125c2eca8f8befe65796b1e8c88c1c27089a4f981"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDF_PlayerSystem.cs",
+      "sha256": "de94ec22f7a45c50505a791cee9a6a4d4073054c69a6e2528183c9f84ce61d1e"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDF_IngameSystem.cs",
+      "sha256": "5881cafbe850b221eb1fa602e5d1aba1f50ff2e7ec77a6317c86db77f4d4568c"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDF_Animator_Window_Event/Move/RisingWindowEvent.cs",
+      "sha256": "18250f19d4ac410cf640d919c081b063725eca93ba1e2352aa71f17b043864d7"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFPlayerColliderTests.cs",
+      "sha256": "2d02ccf379098cb14b0e732088301c596a3088b7e0be3762a46f3d8ae1015dd8"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFComboEnderTests.cs",
+      "sha256": "f33f5111d8da6815b912858cd66cfb1cb8c9243726473ef74b21528d9d479fc1"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFOnlineComboEnderTests.cs",
+      "sha256": "7661b3ac9e8141e6ae96dee9c8ff56ac111c3ed7e772f795220fa8998c44e8af"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFOnlineSmokeTests.cs",
+      "sha256": "c9d402225c63665df79d1c1b845405aaf313b7b3e5c87518981e87b57c389e09"
+    }
+  ]
+}

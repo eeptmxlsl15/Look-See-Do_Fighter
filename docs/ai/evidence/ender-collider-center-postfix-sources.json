@@ -1,0 +1,52 @@
+{
+  "task": "ender-collider-center",
+  "date": "2026-10-18",
+  "status": "MODIFIED AFTER VALIDATION; NOT REVALIDATED",
+  "changes_after_test": [
+    "PlayerSystem: juggle before collider update",
+    "Collider center selected by terminal phase, without pre-transition ground gating",
+    "Ground-contact unit case follows the same transition order"
+  ],
+  "sources": [
+    {
+      "path": "Assets/QuantumUser/Resources/LSDF_GameConfig.asset",
+      "sha256": "7d808576cdd51c94a4473d7d63114189c9500bab8e81e0e998541e75ee51e4a2"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFJuggleSettings.cs",
+      "sha256": "9b607da7a63bcf586057a3a0ac30e7c47961b17a29199a4c605c145262dd8d35"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFPlayerMotion.cs",
+      "sha256": "5cc04c22d6abb0fb01327f95bf6c696ae15434bb573e540fde9ecf58133ac1fb"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFJuggle.cs",
+      "sha256": "2c48a6dd4c9a5aa3912fd394b1826c1e72adb3b3700a45c3d59312771147d889"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFLoadout.cs",
+      "sha256": "32f066e82bb21c8ea66a8b19cd537021f1f61686e21719e1dd62f25ef9d6c2d5"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFPlayerColliderTests.cs",
+      "sha256": "ad2151ec72518b52036c1b7d392eecdd73f8c24d723076c75c57ce455221de7f"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFComboEnderTests.cs",
+      "sha256": "2c1931aecde8bf80cc4bb91a4223544040a62e1aa0b04c738424e90cc2068f76"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFOnlineComboEnderTests.cs",
+      "sha256": "f5a3faff080ec552a08bcad0852205b8bd756b08440f4b51311594476eb26f35"
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFOnlineSmokeTests.cs",
+      "sha256": "90de2798798617d1409f95c212783dd3060d362821f26573a37961335bf130ab"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDF_PlayerSystem.cs",
+      "sha256": "de94ec22f7a45c50505a791cee9a6a4d4073054c69a6e2528183c9f84ce61d1e"
+    }
+  ]
+}

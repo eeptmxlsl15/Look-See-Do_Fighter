@@ -93,6 +93,36 @@ public class LSDFComboEnderTests {
   }
 
   [Test]
+  public void RecoveryDoesNotReapplyFlightWhenRestoringColliderTemporarilyLosesTheFloor() {
+    var air = new LSDF_AirCombo(); var body = Body(); var settings = new LSDFJuggleSettings(); FP y = 0;
+    LSDFJuggle.RegisterHit(ref air, ref body, ref y, 1, true, settings, 100, Delta);
+    body.Velocity.Y = FP._0;
+    LSDFJuggle.UpdateEnder(ref air, ref body, true, settings, 120);
+    int until = air.RecoveryUntilTick;
+    LSDFJuggle.UpdateEnder(ref air, ref body, false, settings, 121);
+    Assert.AreEqual(LSDFAirComboPhase.Recovering, air.Phase);
+    Assert.AreEqual(until, air.RecoveryUntilTick);
+    Assert.AreEqual(FP._0, body.Velocity.X); Assert.IsTrue(LSDFJuggle.BlocksHit(air));
+    LSDFJuggle.UpdateEnder(ref air, ref body, false, settings, until);
+    Assert.IsTrue(LSDFJuggle.BlocksHit(air));
+    LSDFJuggle.UpdateEnder(ref air, ref body, true, settings, until + 1);
+    Assert.AreEqual(default(LSDF_AirCombo), air); Assert.AreEqual(FP._0_75, body.GravityScale);
+  }
+
+  [Test]
+  public void LaterGroundContactStartsRecoveryDespiteAnUpwardSolverRebound() {
+    var air = new LSDF_AirCombo(); var body = Body(); var settings = new LSDFJuggleSettings(); FP y = 0;
+    LSDFJuggle.RegisterHit(ref air, ref body, ref y, 1, true, settings, 100, Delta);
+    LSDFJuggle.UpdateEnder(ref air, ref body, true, settings, 101);
+    Assert.AreEqual(LSDFAirComboPhase.BlownAway, air.Phase);
+    body.Velocity.Y = FP._0_10;
+    LSDFJuggle.UpdateEnder(ref air, ref body, true, settings, 102);
+    Assert.AreEqual(LSDFAirComboPhase.Recovering, air.Phase);
+    Assert.AreEqual(FPVector2.Zero, body.Velocity);
+    Assert.IsTrue(LSDFJuggle.BlocksHit(air));
+  }
+
+  [Test]
   public void AnotherLauncherDuringActiveComboCountsAsFollowupAndEnderKeepsContactHeight() {
     var air = new LSDF_AirCombo(); var body = Body(); var config = new LSDFJuggleSettings(); FP y = 0;
     LSDFJuggle.RegisterHit(ref air, ref body, ref y, 1, false, config, 100, Delta, starter: true);

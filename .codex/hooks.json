@@ -1,5 +1,5 @@
 {
-  "description": "LSDF session-start context only. Validation runs once at task completion; see Hook.md.",
+  "description": "LSDF session-start handoff via docs/ai/current-state.md. Validation runs once at task completion; see Hook.md.",
   "hooks": {
     "SessionStart": [
       {
@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python -c \"import runpy,subprocess,sys; root=subprocess.check_output(['git','rev-parse','--show-toplevel'],text=True).strip(); sys.argv=[root+'/tools/ai/quantum_guard.py','hook']; runpy.run_path(sys.argv[0],run_name='__main__')\"",
+            "command": "python -B -c \"from pathlib import Path; import runpy,sys; cwd=Path.cwd().resolve(); root=next(p for p in (cwd,*cwd.parents) if (p/'AGENTS.md').is_file() and (p/'tools/ai/quantum_guard.py').is_file()); sys.argv=[str(root/'tools/ai/quantum_guard.py'),'hook']; runpy.run_path(sys.argv[0],run_name='__main__')\"",
             "timeout": 20
           }
         ]

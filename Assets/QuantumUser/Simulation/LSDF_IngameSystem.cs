@@ -78,7 +78,7 @@ namespace Quantum.LSDF {
       if (f.Unsafe.TryGetPointer<LSDF_CommandBuffer>(entity, out var buffer)) LSDFInputBuffer.Clear(ref *buffer);
       BeginPose(f, entity, "Idle", true);
       LSDFRoundPolicy.FinishPose(ref *player);
-      // UpdateCollider only reads Entity/LSDF_Player; reset stance before the next physics tick.
+      // UpdateCollider resolves components from Entity; a complete movement filter is not required.
       var filter = new LSDF_PlayerSystem.Filter { Entity = entity, LSDF_Player = player };
       LSDFPlayerMotion.UpdateCollider(f, ref filter);
     }

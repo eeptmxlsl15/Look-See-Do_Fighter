@@ -451,7 +451,7 @@ public partial class LSDFOnlineSmokeTests {
   private static async Task VerifyReplay(QuantumReplayFile file, Dictionary<int, ulong> expected,
       int targetTick, int restoreSnapshotTick, string suffix, CancellationToken token, bool requirePendingBuffer = true,
       bool requireAirHover = false, bool requireAirEnder = false, bool requireAirArc = false,
-      bool requireAirNaturalFall = false) {
+      bool requireAirNaturalFall = false, bool requireGetUpCollider = false) {
     var serializer = new QuantumUnityJsonSerializer();
     QuantumRunner replay = null;
     var provider = file.CreateInputProvider();
@@ -488,10 +488,16 @@ public partial class LSDFOnlineSmokeTests {
             if (!hovering) mismatch = "Replay snapshot did not contain the active air-combo hover.";
           }
           if (requireAirEnder) {
-            bool terminal = false;
-            foreach (var air in callback.Frame.GetComponentIterator<LSDF_AirCombo>())
-              if (LSDFJuggle.BlocksHit(callback.Frame.Get<LSDF_AirCombo>(air.Entity))) terminal = true;
+            bool terminal = false, shiftedCollider = false;
+            foreach (var pair in callback.Frame.GetComponentIterator<LSDF_AirCombo>()) {
+              var air = callback.Frame.Get<LSDF_AirCombo>(pair.Entity);
+              if (LSDFJuggle.BlocksHit(air)) terminal = true;
+              if (air.Phase == LSDFAirComboPhase.BlownAway &&
+                  callback.Frame.Get<PhysicsCollider2D>(pair.Entity).Shape.LocalTransform.Position ==
+                    LSDFBalance.Config(callback.Frame).AirCombo.EnderColliderCenter) shiftedCollider = true;
+            }
             if (!terminal) mismatch = "Replay snapshot did not contain the active combo finisher.";
+            if (!shiftedCollider) mismatch = "Replay snapshot did not contain the flight collider center.";
           }
           if (requireAirArc) {
             bool arc = false;
@@ -501,6 +507,15 @@ public partial class LSDFOnlineSmokeTests {
                   phase == LSDFAirComboPhase.SlowFalling) arc = true;
             }
             if (!arc) mismatch = "Replay snapshot did not contain the active rehit arc.";
+          }
+          if (requireGetUpCollider) {
+            bool gettingUp = false;
+            foreach (var pair in callback.Frame.GetComponentIterator<LSDF_Player>()) {
+              if (LSDFPlayerMotion.IsGettingUp(callback.Frame, pair.Entity) &&
+                  callback.Frame.Get<PhysicsCollider2D>(pair.Entity).Shape.LocalTransform.Position ==
+                    LSDFBalance.Config(callback.Frame).AirCombo.GetUpColliderCenter) gettingUp = true;
+            }
+            if (!gettingUp) mismatch = "Replay snapshot did not contain the configured getting-up collider center.";
           }
           if (requireAirNaturalFall) {
             bool falling = false;

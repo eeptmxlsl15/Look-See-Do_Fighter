@@ -1,0 +1,822 @@
+{
+  "job_id": "56fa719d17704e89823469a8ec2d9cea",
+  "status": "failed",
+  "summary": {
+    "total": 100,
+    "passed": 99,
+    "failed": 1,
+    "skipped": 0,
+    "durationSeconds": 36.7057186,
+    "resultState": "Failed(Child)"
+  },
+  "groups": {
+    "LSDFComboEnderTests": 21,
+    "LSDFJuggleTests": 36,
+    "LSDFOnlineSmokeTests": 1,
+    "LSDFPlayerColliderTests": 23,
+    "LSDFRoundResultTests": 19
+  },
+  "results": [
+    {
+      "name": "LSDFComboEnderTests.AnotherLauncherDuringActiveComboCountsAsFollowupAndEnderKeepsContactHeight",
+      "state": "Passed",
+      "durationSeconds": 0.0214681,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(1)",
+      "state": "Passed",
+      "durationSeconds": 0.0006534,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(2)",
+      "state": "Passed",
+      "durationSeconds": 0.0000644,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(3)",
+      "state": "Passed",
+      "durationSeconds": 0.0000499,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(4)",
+      "state": "Passed",
+      "durationSeconds": 0.0000416,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(5)",
+      "state": "Passed",
+      "durationSeconds": 0.0000408,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.ExplicitFinisherEndsAtEveryOrdinalIncludingFirstGroundContact(6)",
+      "state": "Passed",
+      "durationSeconds": 0.0000424,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.FinisherIsCopiedToPayloadAndDefaultsToOff",
+      "state": "Passed",
+      "durationSeconds": 0.0006343,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.FlightAndGroundRecoveryBlockHitsUntilFullRecoveryThenResetNextCombo",
+      "state": "Passed",
+      "durationSeconds": 0.0011862,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.FurtherContactsCannotChangeCountDirectionOrTerminalTimers",
+      "state": "Passed",
+      "durationSeconds": 0.0003795,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.KnockawayPointsAwayFromActualAttacker(-2,0,1,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0005971,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.KnockawayPointsAwayFromActualAttacker(2,0,-1,1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000517,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.KnockawayPointsAwayFromActualAttacker(0,0,-1,-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000288,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.KnockawayPointsAwayFromActualAttacker(0,0,1,1)",
+      "state": "Passed",
+      "durationSeconds": 0.0000271,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.LauncherThenFiveFollowupsEndsComboAndRestoresGravity(-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0009727,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.LauncherThenFiveFollowupsEndsComboAndRestoresGravity(1)",
+      "state": "Passed",
+      "durationSeconds": 0.000155,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.OrdinaryAirPushUsesItsOwnSpeedAndStopsAfterConfiguredTicks",
+      "state": "Passed",
+      "durationSeconds": 0.0004392,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.RecoveryDoesNotReapplyFlightWhenRestoringColliderTemporarilyLosesTheFloor",
+      "state": "Passed",
+      "durationSeconds": 0.000408,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.WallMotionReleaseKeepsCountAndFifthWallContactStillEndsCombo",
+      "state": "Passed",
+      "durationSeconds": 0.0004041,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.ZeroOrNegativePushTimeDisablesOrdinaryPush(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0003988,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFComboEnderTests.ZeroOrNegativePushTimeDisablesOrdinaryPush(-5)",
+      "state": "Passed",
+      "durationSeconds": 0.0000603,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.CancelRestoresOriginalGravityAndClearsAllArcState(Rising)",
+      "state": "Passed",
+      "durationSeconds": 0.0008784,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.CancelRestoresOriginalGravityAndClearsAllArcState(Hovering)",
+      "state": "Passed",
+      "durationSeconds": 0.0000904,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.CancelRestoresOriginalGravityAndClearsAllArcState(RehitRising)",
+      "state": "Passed",
+      "durationSeconds": 0.0000627,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.CancelRestoresOriginalGravityAndClearsAllArcState(Returning)",
+      "state": "Passed",
+      "durationSeconds": 0.0001015,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.CancelRestoresOriginalGravityAndClearsAllArcState(SlowFalling)",
+      "state": "Passed",
+      "durationSeconds": 0.0001049,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.DifferentIncomingHeightsAndVelocitiesConvergeAtPeakAndHaveSameSlowFall",
+      "state": "Passed",
+      "durationSeconds": 0.0047767,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.GameConfigExposesArcTuningAndPreservesTheOriginalAssetIdentity",
+      "state": "Passed",
+      "durationSeconds": 0.0033646,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.InvalidTimingAndSpeedAreBoundedAndNoLiftStillReturnsAndFalls",
+      "state": "Passed",
+      "durationSeconds": 0.0003925,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.LandingRequiresGroundContactAfterArcMotion(Rising,True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0006133,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.LandingRequiresGroundContactAfterArcMotion(Hovering,True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000817,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.LandingRequiresGroundContactAfterArcMotion(RehitRising,True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000865,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.LandingRequiresGroundContactAfterArcMotion(Returning,True,False)",
+      "state": "Passed",
+      "durationSeconds": 0.000104,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.LandingRequiresGroundContactAfterArcMotion(SlowFalling,False,False)",
+      "state": "Passed",
+      "durationSeconds": 0.000067,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.LandingRequiresGroundContactAfterArcMotion(SlowFalling,True,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000645,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.LandingRequiresGroundContactAfterArcMotion(Falling,True,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000658,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.LandingRequiresGroundContactAfterArcMotion(Inactive,True,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000526,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.NonpositiveAccelerationRetainsConstantFallAndRepeatedTickDoesNotAddSpeed(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0007376,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.NonpositiveAccelerationRetainsConstantFallAndRepeatedTickDoesNotAddSpeed(-1)",
+      "state": "Passed",
+      "durationSeconds": 0.0002055,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.RehitBeginsMotionFromContactHeightWithoutTeleportOrSavedGravityLoss(Rising)",
+      "state": "Passed",
+      "durationSeconds": 0.0008357,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.RehitBeginsMotionFromContactHeightWithoutTeleportOrSavedGravityLoss(Hovering)",
+      "state": "Passed",
+      "durationSeconds": 0.0000807,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.RehitBeginsMotionFromContactHeightWithoutTeleportOrSavedGravityLoss(Returning)",
+      "state": "Passed",
+      "durationSeconds": 0.0000688,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.RehitBeginsMotionFromContactHeightWithoutTeleportOrSavedGravityLoss(SlowFalling)",
+      "state": "Passed",
+      "durationSeconds": 0.0000663,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.RehitCurvesToBaselineThenAcceleratesDownWithoutATeleport(False)",
+      "state": "Passed",
+      "durationSeconds": 0.001482,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.RehitCurvesToBaselineThenAcceleratesDownWithoutATeleport(True)",
+      "state": "Passed",
+      "durationSeconds": 0.0003512,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.RehitDuringNaturalFallStillStartsTheArcAndPreservesOriginalGravity",
+      "state": "Passed",
+      "durationSeconds": 0.0004676,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.RepeatedRehitsCapPeakAndDoNotMoveAnotherFighterOrMutateSharedSettings",
+      "state": "Passed",
+      "durationSeconds": 0.0004071,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.SmallLiftWithLargeRequestedSpeedDoesNotUndershootBeforeReturnEnds",
+      "state": "Passed",
+      "durationSeconds": 0.0002527,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.StoppingAfterAnyNonterminalHitUsesTheSameAcceleratingFallAndLands(1,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0008892,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.StoppingAfterAnyNonterminalHitUsesTheSameAcceleratingFallAndLands(2,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0001026,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.StoppingAfterAnyNonterminalHitUsesTheSameAcceleratingFallAndLands(3,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000932,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.StoppingAfterAnyNonterminalHitUsesTheSameAcceleratingFallAndLands(4,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000972,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.StoppingAfterAnyNonterminalHitUsesTheSameAcceleratingFallAndLands(1,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0001323,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.StoppingAfterAnyNonterminalHitUsesTheSameAcceleratingFallAndLands(2,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000889,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.StoppingAfterAnyNonterminalHitUsesTheSameAcceleratingFallAndLands(3,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000754,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.StoppingAfterAnyNonterminalHitUsesTheSameAcceleratingFallAndLands(4,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000762,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFJuggleTests.UntouchedLauncherKeepsItsHoldThenAcceleratesDownWithOriginalGravity",
+      "state": "Passed",
+      "durationSeconds": 0.0005504,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFOnlineSmokeTests.ClientsAgreeOnFifthHitFinisherAndTerminalFrameRestore",
+      "state": "Failed",
+      "durationSeconds": 48.1279619,
+      "message": "  System.AggregateException: One or more errors occurred. (ONLINE stage=air-combo five-hit limit and explicit finisher; client states=Joined/Joined) ---> System.InvalidOperationException: ONLINE stage=air-combo five-hit limit and explicit finisher; client states=Joined/Joined ---> System.InvalidOperationException: Incomplete ender: observer=0, episode=0, count=5/5, endTick=1012, recovery=0, recovered=False.\n  at LSDFOnlineSmokeTests.VerifyComboEnders (Quantum.QuantumRunner[] runners, Quantum.RuntimePlayer[] players, System.Threading.CancellationToken token) [0x00384] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineComboEnderTests.cs:151 \n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x008b1] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:316 \n   --- End of inner exception stack trace ---\n  at LSDFOnlineSmokeTests.RunOnline (System.Threading.CancellationToken cancellation, System.Boolean loadoutProbe, System.Boolean airComboProbe, System.Boolean comboEnderProbe) [0x018e2] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:418 ",
+      "stackTrace": "at LSDFOnlineSmokeTests+<RunScenario>d__10.MoveNext () [0x00151] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs:42\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@bd7f943e9647\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.ANewLaunchOrTerminalFlightTakesOwnershipFromAnOldGettingUpPose",
+      "state": "Passed",
+      "durationSeconds": 0.0107297,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.ConfigPreservesIdentityAndDefaultGetUpCenterWithoutResettingFlightTuning",
+      "state": "Passed",
+      "durationSeconds": 0.0029337,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.CrouchAndMissingSettingsRetainTheirOriginalCenters",
+      "state": "Passed",
+      "durationSeconds": 0.0005212,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.EveryOtherPhaseRestoresTheStandingCenter(Inactive)",
+      "state": "Passed",
+      "durationSeconds": 0.0005312,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.EveryOtherPhaseRestoresTheStandingCenter(Rising)",
+      "state": "Passed",
+      "durationSeconds": 0.0001029,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.EveryOtherPhaseRestoresTheStandingCenter(Hovering)",
+      "state": "Passed",
+      "durationSeconds": 0.0000723,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.EveryOtherPhaseRestoresTheStandingCenter(Falling)",
+      "state": "Passed",
+      "durationSeconds": 0.0000638,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.EveryOtherPhaseRestoresTheStandingCenter(Recovering)",
+      "state": "Passed",
+      "durationSeconds": 0.0000666,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.EveryOtherPhaseRestoresTheStandingCenter(RehitRising)",
+      "state": "Passed",
+      "durationSeconds": 0.0000614,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.EveryOtherPhaseRestoresTheStandingCenter(Returning)",
+      "state": "Passed",
+      "durationSeconds": 0.0000598,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.EveryOtherPhaseRestoresTheStandingCenter(SlowFalling)",
+      "state": "Passed",
+      "durationSeconds": 0.0000608,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.FlightChangesOnlyCenterEvenWhenBoxSizeAlreadyMatches",
+      "state": "Passed",
+      "durationSeconds": 0.0003347,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.GettingUpCenterIsRemovedOnKoOrRoundEnd(0,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0006038,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.GettingUpCenterIsRemovedOnKoOrRoundEnd(170,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0000696,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.GettingUpExitCanRestoreCrouchAndMissingSettingsUseTheNormalCenter",
+      "state": "Passed",
+      "durationSeconds": 0.0003657,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.GettingUpHasItsOwnCenterAndAnimationExitRestoresStandingWithoutAResize",
+      "state": "Passed",
+      "durationSeconds": 0.0003799,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.GroundContactOnlyUsesFlightCenterWhileStillAscending(1,True)",
+      "state": "Passed",
+      "durationSeconds": 0.0004478,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.GroundContactOnlyUsesFlightCenterWhileStillAscending(0,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000428,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.GroundContactOnlyUsesFlightCenterWhileStillAscending(-1,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0000392,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.KoAndRoundEndRestoreCenterWithoutWaitingForPhaseCancellation(0,False)",
+      "state": "Passed",
+      "durationSeconds": 0.0004072,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.KoAndRoundEndRestoreCenterWithoutWaitingForPhaseCancellation(170,True)",
+      "state": "Passed",
+      "durationSeconds": 0.000064,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.OffsetIsWorldAlignedAndDoesNotLeakToAnotherFighterOrMutateSettings",
+      "state": "Passed",
+      "durationSeconds": 0.0002418,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFPlayerColliderTests.TwoFightersCanGetUpAndFlyWithoutSharingColliderPositions",
+      "state": "Passed",
+      "durationSeconds": 0.0002765,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.DrawReplaysTheSameRoundWithoutAddingEitherScore",
+      "state": "Passed",
+      "durationSeconds": 0.0013941,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(0)",
+      "state": "Passed",
+      "durationSeconds": 0.0006441,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(170)",
+      "state": "Passed",
+      "durationSeconds": 0.0000483,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.EveryWinSequenceEndsAtThreeWinsWithinFiveDecisiveRounds",
+      "state": "Passed",
+      "durationSeconds": 0.0022137,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,False,\"ROUND WIN\")",
+      "state": "Passed",
+      "durationSeconds": 0.0005549,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,False,\"ROUND LOSE\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000654,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,True,\"YOU WIN\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000417,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,True,\"YOU LOSE\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000483,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(Draw,False,\"DRAW\")",
+      "state": "Passed",
+      "durationSeconds": 0.0000395,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,170,SecondWins)",
+      "state": "Passed",
+      "durationSeconds": 0.001096,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-12,1,SecondWins)",
+      "state": "Passed",
+      "durationSeconds": 0.0002122,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(170,0,FirstWins)",
+      "state": "Passed",
+      "durationSeconds": 0.0002105,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(1,-12,FirstWins)",
+      "state": "Passed",
+      "durationSeconds": 0.000224,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,0,Draw)",
+      "state": "Passed",
+      "durationSeconds": 0.0002065,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-1,-12,Draw)",
+      "state": "Passed",
+      "durationSeconds": 0.0002013,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.LivingFightersDoNotFinishAndNoWinnerExistsBeforeFinalization",
+      "state": "Passed",
+      "durationSeconds": 0.0002745,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.NextRoundResetsHealthAndCombatStateButKeepsScoreAndLoadouts",
+      "state": "Passed",
+      "durationSeconds": 0.0004744,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.ResultPosesUseTheExistingQuantumGraphAndFadingIsEnabled",
+      "state": "Passed",
+      "durationSeconds": 0.0446146,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    },
+    {
+      "name": "LSDFRoundResultTests.TerminalPoseCancelsComboDashAndCounterWindowsWithoutChangingLoadout",
+      "state": "Passed",
+      "durationSeconds": 0.0005395,
+      "message": null,
+      "stackTrace": null,
+      "evidence": []
+    }
+  ],
+  "source_note": "Run precedes the final ground-contact/rebound correction and its added unit case. No rerun."
+}

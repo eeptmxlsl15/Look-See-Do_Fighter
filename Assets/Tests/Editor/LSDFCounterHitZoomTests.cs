@@ -83,13 +83,17 @@ public class LSDFCounterHitZoomTests {
       var settings = new LSDFCounterHitZoomSettings.Entry { Enabled = true, ZoomInSeconds = 0, HoldSeconds = 1 };
       zoom.Begin(camera, settings, Vector3.right); zoom.Advance(new Vector3(0, 0, -1), .1f);
       binding.enabled = false;
+      // EditMode fixtures invoke the runtime lifecycle explicitly.
+      binding.SendMessage("OnDisable");
       Assert.IsFalse(zoom.IsPlaying); Assert.AreEqual(60, camera.fieldOfView);
       binding.enabled = true;
+      binding.SendMessage("OnEnable");
       Assert.IsFalse(zoom.IsPlaying);
       zoom.Begin(camera, settings, Vector3.up); zoom.Advance(new Vector3(0, 0, -1), .1f);
       binding.enabled = false;
+      binding.SendMessage("OnDisable");
       Assert.IsFalse(zoom.IsPlaying); Assert.AreEqual(60, camera.fieldOfView);
-    } finally { zoom.Reset(); Object.DestroyImmediate(go); }
+    } finally { binding.SendMessage("OnDisable"); zoom.Reset(); Object.DestroyImmediate(go); }
   }
 
   [Test]
@@ -97,9 +101,12 @@ public class LSDFCounterHitZoomTests {
     var source = AssetDatabase.LoadAssetAtPath<LSDFCounterHitZoomSettings>("Assets/QuantumUser/Resources/LSDF_CounterHitZoom.asset");
     Assert.IsNotNull(source); Assert.AreEqual(37, source.Attacks.Length);
     Assert.AreEqual(37, source.Attacks.Select(entry => entry.Attack.Guid).Distinct().Count());
-    Assert.IsTrue(source.Attacks.All(entry => !entry.Enabled && entry.Attack != null));
+    Assert.IsTrue(source.Attacks.All(entry => entry != null && entry.Attack != null));
+    bool originalSelection = source.Attacks[0].Enabled;
     var settings = Object.Instantiate(source);
     try {
+      settings.Enabled = true;
+      foreach (var entry in settings.Attacks) entry.Enabled = false;
       var a = settings.Attacks[0]; var b = settings.Attacks[1];
       Assert.IsFalse(settings.TryGet(a.Attack.Guid, out _));
       a.Enabled = true;
@@ -107,7 +114,7 @@ public class LSDFCounterHitZoomTests {
       Assert.IsFalse(settings.TryGet(b.Attack.Guid, out _));
       Assert.IsFalse(settings.TryGet(default, out _));
       settings.Enabled = false; Assert.IsFalse(settings.TryGet(a.Attack.Guid, out _));
-      Assert.IsFalse(source.Attacks[0].Enabled, "Tuning the detached test profile must not change the project asset.");
+      Assert.AreEqual(originalSelection, source.Attacks[0].Enabled, "Tuning the detached test profile must not change the user's selection.");
     } finally { Object.DestroyImmediate(settings); }
   }
 

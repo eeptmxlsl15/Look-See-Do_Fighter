@@ -8,6 +8,8 @@
 ## 시작하기
 
 이 파일이 있는 `Look-See-Do_Fighter`를 Codex 작업 폴더로 열고 [AGENTS.md](AGENTS.md)를 기준으로 작업한다.
+새 세션·재개·컨텍스트 초기화/압축 후에는 **AGENTS → [현재 작업 상태](docs/ai/current-state.md) → 관련 최근 기록/증거 → [Skill.md](Skill.md)** 순서로 읽는다.
+현재 작업 상태의 기준 커밋과 로컬 변경을 실제 Git 상태/소스와 대조한다. 작업 종료 시 요약을 갱신한다.
 상위 사용자 홈에서 시작한 세션에는 프로젝트 지침/스킬이 자동 적용됐다고 가정하지 않는다.
 
 작업 폴더: `C:\Users\Admin\Look-See-Do_Fighter`.
@@ -46,6 +48,8 @@ Look-See-Do_Fighter/
 │       └── tests/test_quantum_guard.py
 └── docs/
     └── ai/
+        ├── current-state.md          # 재개 시 먼저 읽는 최근 작업·미완료·검증·다음 작업 요약
+        ├── context-resume.md         # 인수인계 안내와 Git 오류 대응 보완 기록
         ├── architecture-audit.md     # 조사 범위·실제 구조·소스 근거
         ├── refactor-roadmap.md       # P0/P1/P2 및 단계별 완료 조건
         ├── refactoring-backlog.md    # 소스 근거·작업 ID·멀티플레이 완료 기준
@@ -63,14 +67,15 @@ Look-See-Do_Fighter/
 
 | 목적 | 파일 |
 |---|---|
-| 현재 문제 이해 | [architecture-audit.md](docs/ai/architecture-audit.md) |
-| 다음 리팩토링 선택 | [refactor-roadmap.md](docs/ai/refactor-roadmap.md) |
+| 최근 진행 상태·미완료·다음 작업 | [current-state.md](docs/ai/current-state.md), 여기서 연결한 작업 기록과 증거 |
+| 초기 구조와 당시 문제 이해 | [architecture-audit.md](docs/ai/architecture-audit.md) — 현재 소스와 대조 |
+| 초기 리팩토링 계획과 후속 기록 | [refactor-roadmap.md](docs/ai/refactor-roadmap.md) |
 | 상세 리팩토링 후보와 멀티 검증 | [refactoring-backlog.md](docs/ai/refactoring-backlog.md) |
 | 기능 개발·버그 수정·게임 완성 | [development-workflow.md](docs/ai/development-workflow.md) |
 | AI 작업 규칙 | [AGENTS.md](AGENTS.md), [Skill.md](Skill.md) |
 | 자동 검사 실행/활성화 | [Hook.md](Hook.md), [validation.md](docs/ai/validation.md) |
 | 포트폴리오 기록 | [evidence-template.md](docs/ai/evidence-template.md) |
-| 세팅 검증 상태 | [setup-verification.md](docs/ai/setup-verification.md) |
+| 세팅 검증 상태 | [인수인계 보완 기록](docs/ai/context-resume.md), [최초 세팅 기록](docs/ai/setup-verification.md) |
 | GitHub 게시와 승인 | [github-publishing.md](docs/ai/github-publishing.md) |
 
 ## 이번 구성의 핵심
@@ -83,6 +88,7 @@ Look-See-Do_Fighter/
 `pass`를 '결정론 보장'으로 표현하지 않는다. Quantum의 Frame 상태·불변 에셋·고정소수·직렬화 경계를 사람이 함께 검토한다.
 
 훅 설정은 프로젝트에 배치되어 있고 시작 안내만 등록되어 있다. Stop 자동 검증과 자동 이어가기는 해제했다.
+시작 안내는 현재 작업 상태를 읽고 종료 시 갱신하도록 지시한다. Git 조회가 실패해도 안내를 전달하고 변경 상태를 `UNKNOWN`으로 표시한다.
 로컬 Codex의 훅 신뢰 조건에 따라 시작 안내를 사용할 수 있으며,
 현재 앱 세션에서 실제 자동 호출됐는지는 별도로 확인해야 한다. 상세 조건은 Hook.md에 있다.
 

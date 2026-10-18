@@ -3,6 +3,9 @@
 이 파일은 사람이 읽는 색인이다. Codex가 탐색하는 실제 파일 이름은 대문자 `SKILL.md`이며 `.agents/skills/<name>/SKILL.md`에 있다.
 프로젝트 루트 또는 하위 경로에서 Codex를 시작한다. 상위 `C:/Users/Admin`에서 시작한 기존 세션은 이 프로젝트의 스킬을 자동 발견한다고 가정하지 않는다.
 
+새 세션이나 컨텍스트 초기화 뒤에는 [AGENTS.md](AGENTS.md) → [현재 작업 상태](docs/ai/current-state.md) →
+관련 최근 작업 기록/증거 → 아래 작업별 스킬 순서로 읽는다. 작업 종료 시 현재 작업 상태를 갱신한다.
+
 | 스킬 | 쓰는 작업 | 실제 위치 |
 |---|---|---|
 | `lsdf-game-development` | 기능 추가·버그 수정·밸런스·UI/연출·게임 완성 | [.agents/skills/lsdf-game-development/SKILL.md](.agents/skills/lsdf-game-development/SKILL.md) |

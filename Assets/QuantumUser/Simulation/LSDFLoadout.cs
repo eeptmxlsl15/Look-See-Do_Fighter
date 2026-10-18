@@ -4,7 +4,7 @@ namespace Quantum.LSDF {
     public const int DirectionCount = 7;
     public const int ButtonCount = 4;
     public const int SlotCount = DirectionCount * ButtonCount;
-    public const string ProtocolVersion = "lsdf-loadout-v10-natural-rehit-fall";
+    public const string ProtocolVersion = "lsdf-loadout-v12-get-up-collider-center";
     public const int SkillsPerSlot = 3;
 
     public static int Slot(CommandDirection direction, CommandButton button) {

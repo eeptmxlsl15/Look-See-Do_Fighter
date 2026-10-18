@@ -71,6 +71,30 @@ namespace Quantum.LSDF {
 
         public static void UpdateCollider(Frame f, ref LSDF_PlayerSystem.Filter filter)
         {
+            UpdateCollider(f, filter.Entity, IsGettingUp(f, filter.Entity));
+        }
+
+        public static bool IsGettingUp(Frame f, EntityRef entity)
+        {
+            if (!f.TryGet<AnimatorComponent>(entity, out var animator) || !animator.AnimatorGraph.Id.IsValid ||
+                animator.Layers.Equals(default(Quantum.Collections.QListPtr<LayerData>))) return false;
+            var graph = f.FindAsset<AnimatorGraph>(animator.AnimatorGraph);
+            var layers = f.ResolveList(animator.Layers);
+            return graph != null && layers.Count > 0 && graph.GetState(layers.GetPointer(0)->CurrentStateId)?.Name == "Rising";
+        }
+
+        // Entry/exit events may supply the new pose before the graph finishes its transition.
+        public static void UpdateCollider(Frame f, EntityRef entity, bool gettingUp)
+        {
+            if (!f.Unsafe.TryGetPointer<PhysicsCollider2D>(entity, out var collider) ||
+                !f.Unsafe.TryGetPointer<LSDF_Player>(entity, out var player)) return;
+            f.TryGet<LSDF_AirCombo>(entity, out var air);
+            UpdateCollider(ref *collider, *player, air, LSDFBalance.Config(f)?.AirCombo, gettingUp);
+        }
+
+        public static void UpdateCollider(ref PhysicsCollider2D collider, in LSDF_Player player,
+            in LSDF_AirCombo air, LSDFJuggleSettings settings, bool gettingUp = false)
+        {
             FPVector2 standingColliderExtents = new FPVector2(FP._0_20-FP._0_02, FP._0_33);
             FPVector2 sitColliderExtents = new FPVector2(FP._0_20 - FP._0_02, FP._0_25);
 
@@ -85,18 +109,23 @@ namespace Quantum.LSDF {
                 Rotation = FP._0
             };
 
-            if (!f.Unsafe.TryGetPointer<PhysicsCollider2D>(filter.Entity, out var collider)) return;
+            var currentExtents = collider.Shape.Box.Extents;
+            var currentCenter = collider.Shape.LocalTransform;
 
-            var currentExtents = collider->Shape.Box.Extents;
-            var currentCenter = collider->Shape.LocalTransform;
+            FPVector2 targetExtents = player.isSit ? sitColliderExtents : standingColliderExtents;
+            Transform2D targetCenter = player.isSit ? crouchingColliderCenter : standingColliderCenter;
+            // Juggle transitions first. Ground-contact fluctuations must not alternate
+            // the collider center while the phase still owns the terminal flight.
+            bool flying = air.Phase == LSDFAirComboPhase.BlownAway && !player.isRoundEnd && player.playerHp > 0;
+            if (flying && settings != null) targetCenter.Position = settings.EnderColliderCenter;
+            else if (gettingUp && !player.isAir && !player.isRoundEnd && player.playerHp > 0 &&
+                !LSDFJuggle.BlocksHit(air) && settings != null) targetCenter.Position = settings.GetUpColliderCenter;
 
-            FPVector2 targetExtents = filter.LSDF_Player->isSit ? sitColliderExtents : standingColliderExtents;
-            Transform2D targetCenter = filter.LSDF_Player->isSit ? crouchingColliderCenter : standingColliderCenter;
-
-            if (!currentExtents.Equals(targetExtents))
+            if (!currentExtents.Equals(targetExtents) || !currentCenter.Position.Equals(targetCenter.Position) ||
+                currentCenter.Rotation != targetCenter.Rotation)
             {
-                collider->Shape.Box.Extents = targetExtents;
-                collider->Shape.LocalTransform = targetCenter;
+                collider.Shape.Box.Extents = targetExtents;
+                collider.Shape.LocalTransform = targetCenter;
             }
         }
 

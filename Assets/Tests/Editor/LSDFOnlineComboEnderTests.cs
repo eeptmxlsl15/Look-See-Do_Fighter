@@ -31,6 +31,8 @@ public partial class LSDFOnlineSmokeTests {
       config.AirCombo = new LSDFJuggleSettings { LaunchHoldTicks = enableFinisher ? 90 : 120,
         SlowFallSpeed = enableFinisher ? FP._0_02 : FP._0_20,
         SlowFallAcceleration = enableFinisher ? FP._0 : FP._0_10,
+        EnderColliderCenter = enableFinisher ? new FPVector2(FP._0_02, -FP._0_05) : new FPVector2(FP._0, FP._0_01),
+        GetUpColliderCenter = enableFinisher ? new FPVector2(FP._0_02 + FP._0_01, FP._0_02) : new FPVector2(FP._0, FP._0_01),
         HitPushSpeed = FP._0, HitPushTicks = 0 };
       upper.Hit.ComboFinisher = false; fist.Hit.ComboFinisher = enableFinisher;
     }
@@ -40,7 +42,8 @@ public partial class LSDFOnlineSmokeTests {
   }
 
   private sealed class EnderObservation {
-    public int MaximumCount, EndTick, EndCount, RecoveryTicks, HpAtEnd;
+    public int MaximumCount, EndTick, EndCount, RecoveryTicks, HpAtEnd, ShiftedColliderTicks, RestoredColliderTicks;
+    public int GetUpStartTick, GetUpColliderTicks, StandingColliderTicks;
     public bool Recovered, StarterObserved;
   }
 
@@ -84,6 +87,19 @@ public partial class LSDFOnlineSmokeTests {
           var result = observed[observer, episode];
           var body = callback.Frame.Get<PhysicsBody2D>(entity);
           var player = callback.Frame.Get<LSDF_Player>(entity);
+          var center = callback.Frame.Get<PhysicsCollider2D>(entity).Shape.LocalTransform.Position;
+          bool gettingUp = LSDFPlayerMotion.IsGettingUp(callback.Frame, entity) && !player.isAir &&
+            !player.isRoundEnd && player.playerHp > 0;
+          if (result.EndTick > 0 && gettingUp) {
+            if (result.GetUpStartTick == 0) result.GetUpStartTick = callback.Frame.Number;
+            if (center != LSDFBalance.Config(callback.Frame).AirCombo.GetUpColliderCenter)
+              error = "Getting-up animation did not apply its own collider center.";
+            result.GetUpColliderTicks++;
+          } else if (result.GetUpStartTick > 0 && !player.isAir && !LSDFJuggle.BlocksHit(air) && !player.isSit) {
+            if (center != new FPVector2(FP._0, FP._0_01))
+              error = "Getting-up animation exit did not restore the standing collider center.";
+            result.StandingColliderTicks++;
+          }
           if (air.ComboActive && air.HitCount == 0 && !LSDFJuggle.BlocksHit(air)) result.StarterObserved = true;
           result.MaximumCount = Math.Max(result.MaximumCount, air.HitCount);
           if (LSDFJuggle.BlocksHit(air)) {
@@ -95,7 +111,18 @@ public partial class LSDFOnlineSmokeTests {
             if (air.HitCount != result.EndCount || player.playerHp != result.HpAtEnd)
               error = "Terminal combo accepted another hit.";
             if (body.GravityScale != FP._1 || !player.isAir) error = "Terminal flight lost gravity or airborne lock.";
-            if (air.Phase == LSDFAirComboPhase.Recovering) result.RecoveryTicks++;
+            if (air.Phase == LSDFAirComboPhase.BlownAway && callback.Frame.Number > result.EndTick &&
+                (!player.isGround || body.Velocity.Y > FP._0)) {
+              if (center != LSDFBalance.Config(callback.Frame).AirCombo.EnderColliderCenter)
+                error = "Ender flight did not apply the configured collider center.";
+              result.ShiftedColliderTicks++;
+            }
+            if (air.Phase == LSDFAirComboPhase.Recovering) {
+              result.RecoveryTicks++;
+              if (center != new FPVector2(FP._0, FP._0_01))
+                error = "Recovery retained the flight-only collider center.";
+              result.RestoredColliderTicks++;
+            }
           } else if (result.EndTick > 0 && player.isGround && !player.isAir && !air.ComboActive) result.Recovered = true;
         }
       }
@@ -119,9 +146,12 @@ public partial class LSDFOnlineSmokeTests {
     for (int observer = 0; observer < 2; observer++) for (int episode = 0; episode < 2; episode++) {
       var result = observed[observer, episode]; int expected = episode == 0 ? 5 : 1;
       if (result.EndTick == 0 || result.EndCount != expected || result.MaximumCount != expected ||
-          !result.StarterObserved || result.RecoveryTicks < 24 || !result.Recovered)
+          !result.StarterObserved || result.RecoveryTicks < 24 || !result.Recovered ||
+          result.ShiftedColliderTicks == 0 || result.RestoredColliderTicks == 0)
         throw new InvalidOperationException($"Incomplete ender: observer={observer}, episode={episode}, count={result.EndCount}/{result.MaximumCount}, endTick={result.EndTick}, recovery={result.RecoveryTicks}, recovered={result.Recovered}.");
-      TestContext.Out.WriteLine($"COMBO ENDER observer={observer}, episode={episode}, count={result.EndCount}, endTick={result.EndTick}, recovery={result.RecoveryTicks}.");
+      if (result.GetUpColliderTicks < 2 || result.StandingColliderTicks == 0)
+        throw new InvalidOperationException($"Incomplete get-up collider: observer={observer}, episode={episode}, getUp={result.GetUpColliderTicks}, standing={result.StandingColliderTicks}.");
+      TestContext.Out.WriteLine($"COMBO ENDER observer={observer}, episode={episode}, count={result.EndCount}, endTick={result.EndTick}, recovery={result.RecoveryTicks}, shiftedCollider={result.ShiftedColliderTicks}, restoredCollider={result.RestoredColliderTicks}, getUpStart={result.GetUpStartTick}, getUpCollider={result.GetUpColliderTicks}, standingCollider={result.StandingColliderTicks}.");
     }
     int comparisons = 0, target = 0;
     foreach (var sample in samples[0]) if (samples[1].TryGetValue(sample.Key, out var other)) {
@@ -131,10 +161,10 @@ public partial class LSDFOnlineSmokeTests {
     if (comparisons < 90) throw new InvalidOperationException("Insufficient combo-ender common verified frames.");
     var replay = runners[0].Game.GetRecordedReplay(includeChecksums: true, includeDb: false);
     if (replay == null) throw new InvalidOperationException("No combo-ender replay recorded.");
-    await VerifyReplay(replay, samples[0], target, observed[0, 0].EndTick, "ender-A", token,
+    await VerifyReplay(replay, samples[0], target, observed[0, 0].EndTick + 2, "ender-A", token,
       requirePendingBuffer: false, requireAirEnder: true);
-    await VerifyReplay(replay, samples[0], target, observed[0, 0].EndTick, "ender-B", token,
-      requirePendingBuffer: false, requireAirEnder: true);
-    TestContext.Out.WriteLine($"COMBO ENDER PASS: {comparisons} common verified checksums, starter excluded + five followups, first-followup finisher, two replays and terminal Frame restore.");
+    await VerifyReplay(replay, samples[0], target, observed[0, 0].GetUpStartTick + 2, "ender-B", token,
+      requirePendingBuffer: false, requireGetUpCollider: true);
+    TestContext.Out.WriteLine($"COMBO ENDER PASS: {comparisons} common verified checksums, starter excluded + five followups, first-followup finisher, flight/get-up/standing collider centers, two replays and Frame restore during flight and getting up.");
   }
 }

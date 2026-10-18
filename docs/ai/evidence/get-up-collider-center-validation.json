@@ -1,0 +1,72 @@
+{
+  "task": "get-up-collider-center",
+  "date": "2026-10-18",
+  "status": "IMPLEMENTED; MODIFIED AFTER VALIDATION; NOT REVALIDATED",
+  "test_job": "56fa719d17704e89823469a8ec2d9cea",
+  "checks": [
+    {
+      "name": "quantum_guard",
+      "status": "PASS before final correction",
+      "files_scanned": 93,
+      "new_findings": 0
+    },
+    {
+      "name": "diff_whitespace",
+      "status": "PASS before final correction",
+      "exit_code": 0
+    },
+    {
+      "name": "unity_compile",
+      "status": "PASS before final correction",
+      "errors": 0,
+      "warnings": 9,
+      "note": "Compiler/menu/test/vendor/MCP warnings; excluded asset source folders not read."
+    },
+    {
+      "name": "unit_regressions",
+      "status": "PASS before final correction",
+      "passed": 99,
+      "groups": {
+        "LSDFPlayerColliderTests": 23,
+        "LSDFJuggleTests": 36,
+        "LSDFComboEnderTests": 21,
+        "LSDFRoundResultTests": 19
+      }
+    },
+    {
+      "name": "actual_photon_flight_landing_getup_scenario",
+      "status": "FAIL",
+      "reason": "First observer/episode: 5/5 airborne followups, endTick=1012, recovery=0, recovered=False. Scenario did not complete landing/get-up observation."
+    },
+    {
+      "name": "verified_checksum_comparison_replay_restore",
+      "status": "NOT RUN",
+      "reason": "Failed before final comparison and flight/get-up replay stages."
+    },
+    {
+      "name": "final_ground_contact_correction",
+      "status": "NOT RUN",
+      "reason": "One-pass user policy; no recompile/test rerun."
+    }
+  ],
+  "correction": "Use a one-tick launch-contact guard and accept later ground contact even with upward solver velocity; zero rebound on recovery entry. Potential issue identified from the landing predicate; actual rebound velocity was not captured, and resolution is unconfirmed.",
+  "implementation": "Separate GetUpColliderCenter, Frame Animator Rising state plus deterministic window entry/exit, normal stance restoration, terminal/new air hit/KO/round priority. No new mutable asset state/QTN.",
+  "user_tuning_preserved": {
+    "flight_center_y_raw": 13107,
+    "fall_speed_raw": 19661,
+    "fall_acceleration_raw": 32768
+  },
+  "new_config": {
+    "GetUpColliderCenter": {
+      "X_raw": 0,
+      "Y_raw": 655
+    }
+  },
+  "timing": "Physical/system registration order unchanged. Rising event entry/exit now updates the collider center in the existing Animator callback stage.",
+  "publication": "No commit or push. Final corrected code is unverified.",
+  "evidence_files": [
+    "get-up-collider-center-sources.json",
+    "get-up-collider-center-tests.json",
+    "get-up-collider-center-postfix-sources.json"
+  ]
+}

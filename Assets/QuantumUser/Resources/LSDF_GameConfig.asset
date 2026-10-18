@@ -49,6 +49,16 @@ MonoBehaviour:
       RawValue: 262144
     EnderUpSpeed:
       RawValue: 98304
+    EnderColliderCenter:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 19661
+    GetUpColliderCenter:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 19661
     EnderRecoveryTicks: 24
   WalkSpeed:
     RawValue: 32768

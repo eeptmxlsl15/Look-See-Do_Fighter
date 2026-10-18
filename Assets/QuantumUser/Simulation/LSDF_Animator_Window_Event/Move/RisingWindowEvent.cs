@@ -22,6 +22,7 @@ public class RisingWindowEvent : AnimatorTimeWindowEventAsset
         Quantum.LSDF.LSDFJuggle.Cancel(f, entity);
         player->isAir = false;
         player->hitCount = 0;
+        Quantum.LSDF.LSDFPlayerMotion.UpdateCollider(f, entity, true);
         Debug.Log($"air 끝 rising 시작 프레임 : {f.Number}");
     }
     public override unsafe void Execute(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
@@ -32,6 +33,8 @@ public class RisingWindowEvent : AnimatorTimeWindowEventAsset
 
     public override unsafe void OnExit(Frame f, AnimatorComponent* animatorComponent, LayerData* layerData)
     {
+
+        Quantum.LSDF.LSDFPlayerMotion.UpdateCollider(f, animatorComponent->Self, false);
 
     }
 }

@@ -26,11 +26,11 @@ namespace Quantum.LSDF
         {
             Input neutralInput = default;
             Input* input = &neutralInput;
-            LSDFPlayerMotion.UpdateCollider(f, ref filter);
             var player = filter.LSDF_Player;
 
             filter.Transform->Rotation = FP._0;
             LSDFJuggle.Update(f, filter.Entity, player, filter.Body, filter.Transform);
+            LSDFPlayerMotion.UpdateCollider(f, ref filter);
 
             if (player->isRoundEnd || player->playerHp <= 0)
             {

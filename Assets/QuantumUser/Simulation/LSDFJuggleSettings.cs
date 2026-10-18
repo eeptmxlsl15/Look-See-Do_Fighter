@@ -28,6 +28,10 @@ namespace Quantum.LSDF {
     [InspectorName("공중 피격 밀림 시간 (틱)"), Min(0)] public int HitPushTicks = 6;
     [InspectorName("마무리 날리기 가로 속도")] public FP EnderSpeed = 4;
     [InspectorName("마무리 날리기 위쪽 속도")] public FP EnderUpSpeed = FP._1 + FP._0_50;
+    [InspectorName("날아갈 때 콜라이더 위치"), Tooltip("5타 또는 마무리 기술로 멀리 날아가는 동안만 적용되는 콜라이더 중심입니다. X는 오른쪽(+), Y는 위쪽(+)인 월드축 기준이며 착지·회복 시 원래 위치로 복구합니다. 캐릭터 위치와 콜라이더 크기는 바꾸지 않습니다.")]
+    public FPVector2 EnderColliderCenter = new FPVector2(FP._0, FP._0_01);
+    [InspectorName("일어날 때 콜라이더 위치"), Tooltip("누워 있다가 일어나는 애니메이션 동안만 적용되는 콜라이더 중심입니다. X는 오른쪽(+), Y는 위쪽(+)인 월드축 기준입니다. 기상이 끝나거나 중단되면 현재 자세의 중심으로 복구합니다. 콜라이더 크기는 유지합니다.")]
+    public FPVector2 GetUpColliderCenter = new FPVector2(FP._0, FP._0_01);
     [InspectorName("마무리 착지 후 회복 (틱)"), Min(1)] public int EnderRecoveryTicks = 24;
   }
 }

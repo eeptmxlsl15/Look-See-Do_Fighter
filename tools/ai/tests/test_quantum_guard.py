@@ -4,6 +4,7 @@ import base64
 import importlib.util
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -25,6 +26,10 @@ class GuardTests(unittest.TestCase):
         self.source = self.sim / "Fighter.cs"
         self.source.write_text("class Fighter { int health = 170; }\n", encoding="utf-8")
         self.baseline()
+        (self.root / "AGENTS.md").write_text("Fixture instructions\n", encoding="utf-8")
+        self.summary = self.root / "docs/ai/current-state.md"
+        self.summary.parent.mkdir(parents=True)
+        self.summary.write_text("Fixture handoff\n", encoding="utf-8")
 
     def tearDown(self):
         self.directory.cleanup()
@@ -88,6 +93,29 @@ class GuardTests(unittest.TestCase):
             result = guard.hook_response(self.root, {"hook_event_name": "SessionStart"})
         self.assertIn("existing changes: True", result["hookSpecificOutput"]["additionalContext"])
 
+    def test_session_start_preserves_handoff_when_git_is_unavailable(self):
+        failures = (ValueError("git status failed: fatal: detected dubious ownership\nDetails"),
+                    FileNotFoundError("git executable not found"),
+                    subprocess.TimeoutExpired("git status", 10))
+        for failure in failures:
+            with self.subTest(failure=type(failure).__name__):
+                with patch.object(guard, "git_status", side_effect=failure):
+                    response = guard.hook_response(self.root, {"hook_event_name": "SessionStart"})
+                context = response["hookSpecificOutput"]["additionalContext"]
+                self.assertIn("status: UNKNOWN", context)
+                self.assertNotIn("existing changes: False", context)
+                self.assertIn("docs/ai/current-state.md", context)
+                self.assertIn("Preserve ownership", context)
+                self.assertIn(str(failure).splitlines()[0], context)
+
+    def test_session_start_reports_missing_summary(self):
+        self.summary.unlink()
+        with patch.object(guard, "git_status", return_value=""):
+            response = guard.hook_response(self.root, {"hook_event_name": "SessionStart"})
+        context = response["hookSpecificOutput"]["additionalContext"]
+        self.assertIn("summary is missing", context)
+        self.assertIn("mark unknowns", context)
+
     def test_missing_baseline_is_error_not_pass(self):
         (self.root / guard.BASELINE).unlink()
         result = subprocess.run([sys.executable, str(SCRIPT), "check", "--root", str(self.root)],
@@ -109,31 +137,49 @@ class GuardTests(unittest.TestCase):
         after = {p.relative_to(self.root): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
         self.assertEqual(before, after)
 
+    def run_registered_command(self, command, cwd, source):
+        # Preserve exact quoting through PowerShell; do not nest another string.
+        if sys.platform == "win32":
+            encoded = base64.b64encode(command.encode("utf-16le")).decode("ascii")
+            invocation = ["powershell", "-NoProfile", "-NonInteractive", "-EncodedCommand", encoded]
+            use_shell = False
+        else:
+            invocation, use_shell = command, True
+        result = subprocess.run(invocation, shell=use_shell, cwd=cwd,
+                                input=json.dumps({"hook_event_name": "SessionStart", "source": source}),
+                                capture_output=True, text=True, timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        return json.loads(result.stdout)
+
     def test_registered_hook_commands_from_project_subdirectory(self):
         project = SCRIPT.parents[2]
         configuration = json.loads((project / ".codex/hooks.json").read_text(encoding="utf-8"))
-        for event in configuration["hooks"]:
-            command = configuration["hooks"][event][0]["hooks"][0]["command"]
-            # Pass the exact command as shell source, not as a second nested
-            # PowerShell string which would strip Python's argument quotes.
-            if sys.platform == "win32":
-                encoded = base64.b64encode(command.encode("utf-16le")).decode("ascii")
-                invocation = ["powershell", "-NoProfile", "-NonInteractive", "-EncodedCommand", encoded]
-                use_shell = False
-            else:
-                invocation, use_shell = command, True
-            result = subprocess.run(invocation, shell=use_shell,
-                                    cwd=project / "Assets/QuantumUser",
-                                    input=json.dumps({"hook_event_name": event, "source": "startup",
-                                                      "stop_hook_active": False}),
-                                    capture_output=True, text=True, timeout=30)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            response = json.loads(result.stdout)
-            if event == "SessionStart":
-                self.assertEqual(response["hookSpecificOutput"]["hookEventName"], event)
-            else:
-                self.assertTrue("systemMessage" in response or "decision" in response)
-                self.assertNotIn("unavailable", response.get("systemMessage", ""))
+        self.assertEqual(set(configuration["hooks"]), {"SessionStart"})
+        definition = configuration["hooks"]["SessionStart"][0]
+        command = definition["hooks"][0]["command"]
+        for source in ("startup", "resume", "clear", "compact", "fork"):
+            with self.subTest(source=source):
+                self.assertIsNotNone(re.fullmatch(definition["matcher"], source))
+                response = self.run_registered_command(command, project / "Assets/QuantumUser", source)
+                output = response["hookSpecificOutput"]
+                self.assertEqual(output["hookEventName"], "SessionStart")
+                self.assertIn("docs/ai/current-state.md", output["additionalContext"])
+
+    def test_registered_hook_finds_project_without_git_repository(self):
+        project = SCRIPT.parents[2]
+        configuration = json.loads((project / ".codex/hooks.json").read_text(encoding="utf-8"))
+        command = configuration["hooks"]["SessionStart"][0]["hooks"][0]["command"]
+        target = self.root / "tools/ai/quantum_guard.py"
+        target.write_bytes(SCRIPT.read_bytes())
+        before = {p.relative_to(self.root): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        for cwd in (self.root, self.sim):
+            with self.subTest(cwd=cwd):
+                response = self.run_registered_command(command, cwd, "compact")
+                context = response["hookSpecificOutput"]["additionalContext"]
+                self.assertIn("status: UNKNOWN", context)
+                self.assertIn("docs/ai/current-state.md", context)
+        after = {p.relative_to(self.root): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        self.assertEqual(before, after)
 
 
 if __name__ == "__main__":
