@@ -24,7 +24,7 @@ namespace Quantum.LSDF
             bool airHit = LSDFJuggle.OnHit(f, info.Entity, player, animator, hitbox, counter: false);
             if (airHit)
             {
-                AnimatorComponent.SetTrigger(f, animator, "Air");
+                LSDFHitReactions.EnterAir(f, info.Entity, animator);
             }
             else if (player->isWallHit == true)
             {
@@ -74,7 +74,7 @@ namespace Quantum.LSDF
                     }
                     //그게 아니면 공중모션
                     else
-                        AnimatorComponent.SetTrigger(f, animator, "Air");
+                        LSDFHitReactions.EnterAir(f, info.Entity, animator);
 
 
                     //player->isAir = true;
@@ -95,7 +95,7 @@ namespace Quantum.LSDF
                 {
                     // 필요시 좌우도 밀 수 있음
 
-                    AnimatorComponent.SetTrigger(f, animator, "Air");
+                    LSDFHitReactions.EnterAir(f, info.Entity, animator);
                 }
             }
             else if (hitbox->GuaranteeAttackType == GuaranteeType.Stun)
@@ -178,7 +178,7 @@ namespace Quantum.LSDF
             bool airHit = LSDFJuggle.OnHit(f, info.Entity, player, animator, hitbox, counter: true);
             if (airHit)
             {
-                AnimatorComponent.SetTrigger(f, animator, "Air");
+                LSDFHitReactions.EnterAir(f, info.Entity, animator);
             }
             else if (hitbox->CountType == CountAttackType.Normal)
             {
@@ -218,7 +218,7 @@ namespace Quantum.LSDF
             }
             else if (hitbox->CountType == CountAttackType.Air)
             {
-                AnimatorComponent.SetTrigger(f, animator, "Air");
+                LSDFHitReactions.EnterAir(f, info.Entity, animator);
             }
             player->isHit = true;
             player->DelayFrame = f.Number + hitbox->enemyCountTime;

@@ -1,0 +1,166 @@
+{
+  "task": "counter-air-interrupt-investigation",
+  "recorded_at": "2026-10-19T02:45:22+09:00",
+  "analysis_kind": "SOURCE_REVIEW_ONLY",
+  "runtime_reproduced": false,
+  "game_code_or_settings_modified": false,
+  "input_settings": {
+    "Enabled": 1,
+    "Direction": 0,
+    "Button": 1,
+    "Repeat": 1,
+    "InitialDelayTicks": 0,
+    "IntervalTicks": 1,
+    "PressTicks": 1,
+    "effective_period_ticks": 2
+  },
+  "graphs": [
+    {
+      "path": "Assets/QuantumUser/Animators/LSDF_PlayerAnimatorGraph.asset",
+      "sha256": "7fb98e65274f625cdb1b1d282ee933f4762c9b187470ce038d240e98bd3d7821",
+      "state_count": 96,
+      "allow_transition_interruption": false,
+      "any_state_order": 95,
+      "air_transition": {
+        "destination": "Air",
+        "duration_raw": "0",
+        "has_exit_time": "0",
+        "conditions": [
+          "Air"
+        ]
+      },
+      "conditional_source_model_cases": [
+        {
+          "current_state": "1_Jap",
+          "selected_next_attack_destination": "1_JapJap",
+          "next_attack_state_order": 13,
+          "any_state_order": 95,
+          "assumed_condition": "NextAttack transition already eligible in the same update as Air; overlap with actual counter window is not runtime-verified",
+          "air_rejected_by_existing_to_state": true
+        },
+        {
+          "current_state": "1_JapJap",
+          "selected_next_attack_destination": "1_JapJapTwo",
+          "next_attack_state_order": 51,
+          "any_state_order": 95,
+          "assumed_condition": "NextAttack transition already eligible in the same update as Air; overlap with actual counter window is not runtime-verified",
+          "air_rejected_by_existing_to_state": true
+        },
+        {
+          "current_state": "0_Jap",
+          "selected_next_attack_destination": "0_JapTwo",
+          "next_attack_state_order": 60,
+          "any_state_order": 95,
+          "assumed_condition": "NextAttack transition already eligible in the same update as Air; overlap with actual counter window is not runtime-verified",
+          "air_rejected_by_existing_to_state": true
+        }
+      ],
+      "nonzero_transitions": [
+        {
+          "from": "0_LeftUpper",
+          "destination": "Go To Idle",
+          "duration_raw": "16384",
+          "has_exit_time": "1",
+          "conditions": []
+        }
+      ]
+    },
+    {
+      "path": "Assets/QuantumUser/Animators/LSDF_EnemyAnimatorGraph.asset",
+      "sha256": "0ef41a207f66dcbfb4ffe45932c27dc09ee33f79ddac1f8dcf9db5cf30fe6eb5",
+      "state_count": 96,
+      "allow_transition_interruption": false,
+      "any_state_order": 95,
+      "air_transition": {
+        "destination": "Air",
+        "duration_raw": "0",
+        "has_exit_time": "0",
+        "conditions": [
+          "Air"
+        ]
+      },
+      "conditional_source_model_cases": [
+        {
+          "current_state": "1_Jap",
+          "selected_next_attack_destination": "1_JapJap",
+          "next_attack_state_order": 13,
+          "any_state_order": 95,
+          "assumed_condition": "NextAttack transition already eligible in the same update as Air; overlap with actual counter window is not runtime-verified",
+          "air_rejected_by_existing_to_state": true
+        },
+        {
+          "current_state": "1_JapJap",
+          "selected_next_attack_destination": "1_JapJapTwo",
+          "next_attack_state_order": 63,
+          "any_state_order": 95,
+          "assumed_condition": "NextAttack transition already eligible in the same update as Air; overlap with actual counter window is not runtime-verified",
+          "air_rejected_by_existing_to_state": true
+        },
+        {
+          "current_state": "0_Jap",
+          "selected_next_attack_destination": "0_JapTwo",
+          "next_attack_state_order": 68,
+          "any_state_order": 95,
+          "assumed_condition": "NextAttack transition already eligible in the same update as Air; overlap with actual counter window is not runtime-verified",
+          "air_rejected_by_existing_to_state": true
+        }
+      ],
+      "nonzero_transitions": []
+    }
+  ],
+  "source_snapshots": [
+    {
+      "path": "Assets/QuantumUser/View/LSDFPlayer2TestInputPlayback.cs",
+      "sha256": "2fcfadf4ddff525ab22373e02852187e4e012b615314244d0e663df0329c8a4d"
+    },
+    {
+      "path": "Assets/QuantumUser/View/LSDF_PlayerInput.cs",
+      "sha256": "b94364708703c3b1226462c979a4254cea8b728fecf4b571ccfa82ca1a9732e6"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFInputBuffer.cs",
+      "sha256": "87ee24ca47433331e591d1d1d46346a4d79f31c96021c775b799a9b5a5d23591"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFCommandProcessor.cs",
+      "sha256": "57070bfcd2d62e1a60488f0661674170ead0caf86676149c7da10ae912c7b9a6"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDF_PlayerSystem.Combat.cs",
+      "sha256": "36f1ac174d5c6f7d67c96bee87e20c8818701987ffd187d8d7463a4af8a9e358"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDFJuggle.cs",
+      "sha256": "0ace9990149e800eec0b4285f6ac41792f793c1f490f45c134bbf01da7eb2826"
+    },
+    {
+      "path": "Assets/QuantumUser/Simulation/LSDF_Animator_Window_Event/Attack/Lp/JapWindowEvent.cs",
+      "sha256": "6f1c5f161147fd93dfeebe429ebaea0429b5e98450ef0779aa0d879d4dafb99e"
+    },
+    {
+      "path": "Assets/Photon/QuantumAddons/Animator/Simulation/Core/AnimatorTransition.cs",
+      "sha256": "e48fe2387c58b7289ef5a8ff6696b7f034301bef28b59b5714fbcc2f8f5f315a"
+    },
+    {
+      "path": "Assets/Photon/QuantumAddons/Animator/Simulation/Core/AnimatorLayer.cs",
+      "sha256": "56fe593880eeb8268acb2fe868d4bb850095b32615a8ccd34ec993bf7220f97f"
+    },
+    {
+      "path": "Assets/Photon/QuantumAddons/Animator/Simulation/Systems/AnimatorTriggersSystem.cs",
+      "sha256": "6a4c088ec20001701f9aaa4cecaa2ae8c4fef0a57efd99153d38e60740299197"
+    },
+    {
+      "path": "Assets/Resources/LSDF_SystemConfig.asset",
+      "sha256": "3ed2d7125100787b16bdd5d9075e94e98fc59726da2e5182c472e413815a1b30"
+    },
+    {
+      "path": "Assets/QuantumUser/Resources/LSDF_Player2TestInput.asset",
+      "sha256": "1c80ed0cfa9c250325d35cf77e105d52c95267eeed2e79ae17efd02dea51b0bf"
+    }
+  ],
+  "limitations": [
+    "Conditional transition model is inferred from source, not execution of the Quantum Animator.",
+    "Exact user move, counter window and hit tick were not supplied or reproduced.",
+    "Automatic input ON/OFF runtime comparison and replay/rollback were not run."
+  ]
+}

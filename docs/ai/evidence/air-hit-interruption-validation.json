@@ -1,0 +1,115 @@
+{
+  "recorded_at": "2026-10-19T03:05:00+09:00",
+  "branch": "dev/Prototype",
+  "base_commit": "fa955c72c4c6b672e67911a97ab3f01920f22ee6",
+  "scope": "공중 피격 전환 경합 수정",
+  "validation_policy": "구현 완료 후 최종 한 차례. 실패 수정 후 재실행하지 않음.",
+  "policy_check": {
+    "status": "PASS",
+    "command": "python tools/ai/quantum_guard.py check",
+    "files_scanned": 94,
+    "new_findings": 0,
+    "limits": "정적 어휘 검사이며 결정론·컴파일·전투 검증이 아님"
+  },
+  "compilation": {
+    "status": "수정 후 미검증",
+    "first_attempt": "FAIL",
+    "errors": [
+      {
+        "type": "Error",
+        "message": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs(183,36): error CS0200: Property or indexer 'TriggerInfo2D.Entity' cannot be assigned to -- it is read only\n",
+        "file": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs",
+        "line": 183,
+        "stackTrace": null
+      },
+      {
+        "type": "Error",
+        "message": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs(183,55): error CS0200: Property or indexer 'TriggerInfo2D.Other' cannot be assigned to -- it is read only\n",
+        "file": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs",
+        "line": 183,
+        "stackTrace": null
+      },
+      {
+        "type": "Error",
+        "message": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs(217,20): error CS1503: Argument 1: cannot convert from 'Photon.Deterministic.FP' to 'int'\n",
+        "file": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs",
+        "line": 217,
+        "stackTrace": null
+      },
+      {
+        "type": "Error",
+        "message": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs(217,67): error CS1503: Argument 2: cannot convert from 'Photon.Deterministic.FP' to 'int'\n",
+        "file": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs",
+        "line": 217,
+        "stackTrace": null
+      }
+    ],
+    "warnings": [
+      "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs(110,68): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+      "Assets\\Tests\\Editor\\LSDFStructuralTests.cs(40,19): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+      "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs(31,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+      "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs(81,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n"
+    ],
+    "correction": "테스트에서 TriggerInfo2D의 읽기 전용 Entity/Other를 생성하려던 구문 제거. 기존 Juggle.OnHit/HitReactions.EnterAir 연산을 직접 호출하는 경계 fixture로 변경. FP Assert.Greater를 FP 비교식 Assert.IsTrue로 변경.",
+    "rerun": false
+  },
+  "regression": {
+    "status": "NOT RUN",
+    "reason": "최종 묶음의 Unity 컴파일이 테스트 소스에서 실패해 테스트 job을 시작하지 않음",
+    "planned_groups": [
+      "LSDFHitReactionTests",
+      "LSDFInputBufferTests",
+      "LSDFJuggleTests",
+      "LSDFComboEnderTests",
+      "LSDFTimedHitTests",
+      "LSDFSingleHitTests",
+      "LSDFPlayer2TestInputTests"
+    ],
+    "new_fixture_cases": 38,
+    "limits": "실제 그래프/Frame fixture 소스만 추가. 자동 입력 producer의 단일 press 비교이며 전체 연타 입력 스트림 매치 재현이 아님"
+  },
+  "determinism": {
+    "snapshot_restore": "NOT RUN",
+    "input_stream_replay": "NOT RUN",
+    "forced_network_rollback": "NOT RUN",
+    "cross_platform": "NOT RUN"
+  },
+  "diff_check": {
+    "status": "PASS",
+    "exit_code": 0,
+    "output": "",
+    "warnings": "warning: in the working copy of 'Assets/QuantumUser/Simulation/LSDFLoadout.cs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/ai/current-state.md', LF will be replaced by CRLF the next time Git touches it\n"
+  },
+  "sources": {
+    "Assets/QuantumUser/Simulation/LSDFHitReactions.cs": "342312b6d518b6690fe8729445c58a8b7ff5a1f3b6950973618216e6557599bf",
+    "Assets/QuantumUser/Simulation/LSDF_PlayerSystem.Combat.cs": "dbb30013c3e875d52ef1ea82fc752eeb7888b120a259095ae63e3fc35ad2a5dc",
+    "Assets/QuantumUser/Simulation/LSDFLoadout.cs": "f9a629df7d13291b336ccbaa995e51b1a10807ae1b24bda35f9d3f81db3a0ade",
+    "Assets/Tests/Editor/LSDFHitReactionTests.cs": "6a0fa84741301a81956a44ddb22ac8e0163b75441989a68230561e6a20d64231"
+  },
+  "unchanged": [
+    "2P 자동 입력 설정",
+    "SDK/Animator addon",
+    "Animator graph assets",
+    "system registration order",
+    "camera/health bar presentation"
+  ],
+  "publication": "User requested local commit only; no Push or PR.",
+  "document_links": {
+    "status": "PASS",
+    "checked": 35,
+    "missing": []
+  },
+  "new_source_meta": {
+    "Assets/QuantumUser/Simulation/LSDFHitReactions.cs": true,
+    "Assets/Tests/Editor/LSDFHitReactionTests.cs": true
+  },
+  "user_validation": {
+    "reported_at": "2026-10-19T03:09:00+09:00",
+    "status": "USER_REPORTED_COMPLETE",
+    "local_commit_requested": true,
+    "details_provided": false,
+    "automated_checks_rerun": false,
+    "record": "../user-validation-air-hit-interruption.md",
+    "limits": "User report does not replace historical automated failures or establish replay/rollback measurements."
+  }
+}
