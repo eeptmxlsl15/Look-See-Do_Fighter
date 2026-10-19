@@ -322,6 +322,8 @@ namespace Quantum.Menu {
     /// <param name="disconnectReason">Disconnect reason shown to users.</param>
     /// <returns>When done</returns>
     private async Task ProcessDisconnect(string disconnectReason) {
+      if (_isLeavingGameplay) return;
+      _isLeavingGameplay = true;
       var reconnectInformation = QuantumReconnectInformation.Load();
       if (IsReconnectionCheckEnabled && reconnectInformation != null && reconnectInformation.HasTimedOut == false) {
 

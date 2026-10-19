@@ -1,6 +1,6 @@
 # 현재 작업 상태
 
-갱신: 2026-10-19T03:09:00+09:00. 브랜치: `dev/Prototype`, 커밋 준비 기준 `fa955c72c4c6b672e67911a97ab3f01920f22ee6`.
+갱신: 2026-10-19T23:15:48+09:00. 브랜치: `dev/Prototype`, 게시 준비 기준 HEAD `baed7c0d7777721bebe5762e52b4e05283dc4e39`.
 현재 HEAD와 이 문서를 포함한 로컬 커밋은 `git log -1`로 확인한다.
 이 요약을 읽은 뒤 요청에 관련된 아래 기록/증거와 실제 Git 상태·소스를 대조한다. Git 조회 실패는 `UNKNOWN`이다.
 초기 감사와 과거 PASS는 해당 시점의 기록이며 현재 변경의 검증을 대신하지 않는다.
@@ -9,6 +9,8 @@
 
 | 작업 | 기록·근거 | 현재 알려진 상태 |
 |---|---|---|
+| 메인 복귀 사용자 테스트 완료·푸시 요청 (2026-10-19) | [사용자 확인·게시 범위](user-validation-match-return.md) | 사용자가 모든 테스트 완료와 푸시를 명시적으로 요청. C# 3개는 앞선 검증 해시와 일치. 자동 게임 검사 재실행 없이 관련 코드/테스트/기록만 게시 후보로 확정. origin·인증/권한·fetch 확인, 원격 작업 브랜치와 0/0, 열린 PR 없음. 대상은 origin/dev/Prototype이며 PR 생성은 요청받지 않음 |
+| 최종 승부 후 메인 메뉴 자동 복귀 (2026-10-19) | [구현 기록](match-return-to-main.md), [검증 근거](evidence/match-return-validation.json) | 자신의 Runner의 Verified MatchEnd와 기존 결과 표시 기한(기본 2초)을 확인한 뒤 연결/경기 씬 정리 완료 후 메인 표시. 중복 종료 방지·재진입 초기화. 메뉴 컴파일/정적 정책/기존 라운드 19개 PASS. 새 복귀 fixture 5개는 Unity 미임포트로 **NOT RUN**, 실제 온라인 복귀/씬 unload도 NOT RUN. 재실행 없음 |
 | 공중 피격 우선 전환 수정·사용자 확인 (2026-10-19) | [구현 기록](air-hit-interruption-fix.md), [검증 근거](evidence/air-hit-interruption-validation.json), [사용자 확인](user-validation-air-hit-interruption.md) | Frame Animator를 즉시 Air로 확정하고 공격 예약·소유 hitbox 정리. 사용자가 테스트 완료 후 로컬 커밋을 명시적으로 요청함. 게임 검사를 재실행하지 않고 커밋에 포함. 정적 정책 PASS, 이전 자동 컴파일 실패 후 보정·전투/복원 NOT RUN 이력 보존 |
 | 카운터 공중 피격 중 공격 지속 조사 (2026-10-19) | [원인 조사](counter-air-interrupt-investigation.md) | 소스상 공통 전환 결함 경로 확인. 일반/연타 전환이 Any State Air보다 먼저 선택되면 Air 트리거가 유실될 수 있음. 자동 입력은 일반 입력 경로이며 정확한 증상 프레임 재현은 NOT RUN. 로직 수정 없음 |
 | 사용자 테스트 완료·로컬 커밋 (2026-10-19) | [사용자 확인과 포함 범위](user-validation-2026-10-19.md) | 사용자가 현재 작업물을 모두 테스트했다고 확인하고 커밋을 요청함. 게임 검사를 다시 실행하지 않고 아래 누적 변경을 로컬 커밋 대상으로 확정. 이전 자동 결과는 역사적 기록으로 보존 |
@@ -20,6 +22,14 @@
 
 ## 보존할 변경과 검증 이력
 
+- 시작 Git 조회는 실행 계정의 소유권 오류로 UNKNOWN이었고, 승인된 정상 권한 읽기로 HEAD `baed7c0d`와 `dev/Prototype`을 확인했다.
+  Git 신뢰 설정은 변경하지 않았다. 기존 변경은 루트 `.csproj`/`.sln` 9개 및 미추적 LSDF.Tests/LSDF.View/LSDF.View.Editor/LSDF.View.Player `.csproj` 4개였다.
+  이번에는 메뉴 C# 2개, 새 `Assets/Tests/Editor/LSDFMatchReturnTests.cs`와 `.meta`, 미추적 구현 문서/evidence를 추가·수정했다.
+  기존 IDE 변경은 보존하며 staging/commit/push/PR은 하지 않는다. Simulation/QTN/프로토콜은 기존 v13을 유지한다.
+  새 복귀 테스트는 파일만 작성됐고 Unity에 아직 임포트되지 않았다. 이번 기존 라운드 19개 PASS를 새 기능 테스트 통과로 기록하지 않는다.
+  최종 diff 공백·관련 문서 링크 22개·새 파일 공백/메타 검사는 PASS다. 이후 코드/테스트 변경 없이 결과만 기록했다.
+  위 내용은 최초 구현 종료 시점이다. 이후 사용자 테스트 완료·푸시 요청에 따라 이번 기능 관련 후보만 staging/커밋·게시 준비한다.
+  원격 읽기는 정상 권한 환경에서 성공했으며 source hash 일치를 확인했다. 이전 자동 NOT RUN/실패 이력은 유지한다.
 - 기존 커밋 `fa955c72`는 `LSDFJuggle`/설정/이동/PlayerSystem/기상 이벤트/라운드/프로토콜,
   관련 테스트/Config, View/씬과 작업 재개 문서·훅을 포함했다. 당시 프로토콜은 `lsdf-loadout-v12-get-up-collider-center`였다.
   IDE 생성 파일은 기존 변경 그대로 작업 트리에 보존하며 커밋에서 제외했다.
@@ -42,6 +52,10 @@
   GitHub 인증/권한 조회는 도구 환경에서 실패했으며 원격 연결 없이 로컬 커밋만 진행한다. Push/PR은 요청받지 않았다.
 
 ## 다음 작업
+
+최종 승부 복귀는 사용자 테스트 완료 보고와 푸시 요청을 받았다. 게시 대상은 origin/dev/Prototype이며 PR 생성은 범위 밖이다.
+추후 자동 상세 증거가 별도로 필요하면 새 검증 요청에 따라 복귀 테스트 파일을 assets refresh로 임포트하고
+컴파일/5개 fixture와 실제 Photon 복귀 경로를 확인한다. 이번 게시 준비에서 게임 검사를 재실행하지 않는다.
 
 카메라 후속 요청 시 실제 플레이에서 강도·시간을 조절할 수 있다. 사용자 확인 뒤에도 자동 검사 상세 증거가 필요하면 별도 검증 요청에 따른다.
 공중 피격 수정은 사용자 테스트 완료 확인을 받았다. 자동 검사 상세 근거가 별도로 필요하면 새 검증 요청에 따라 수정된 fixture와 관련 회귀를 실행한다.

@@ -1,6 +1,7 @@
 namespace Quantum.Menu {
   using System.Collections;
   using System.Text;
+  using Quantum.LSDF;
 #if QUANTUM_ENABLE_TEXTMESHPRO
   using Text = TMPro.TMP_Text;
 #else 
@@ -67,6 +68,8 @@ namespace Quantum.Menu {
     /// The coroutine is started during Show() and updates the Usernames using this interval <see cref="UpdateUsernameRateInSeconds"/>.
     /// </summary>
     protected Coroutine _updateUsernamesCoroutine;
+    private bool _isLeavingGameplay;
+    private bool _matchReturnRequested;
 
     partial void AwakeUser();
     partial void InitUser();
@@ -99,6 +102,8 @@ namespace Quantum.Menu {
     /// </summary>
     public override void Show() {
       base.Show();
+      _isLeavingGameplay = false;
+      _matchReturnRequested = false;
       ShowUser();
 
       if (_menuCamera != null ) {
@@ -125,6 +130,7 @@ namespace Quantum.Menu {
     /// The screen hide method. Calls partial method <see cref="HideUser"/> to be implemented on the SDK side.
     /// </summary>
     public override void Hide() {
+      _isLeavingGameplay = true;
       base.Hide();
       HideUser();
 
@@ -142,8 +148,44 @@ namespace Quantum.Menu {
     /// Is called when the <see cref="_disconnectButton"/> is pressed using SendMessage() from the UI object.
     /// </summary>
     protected virtual async void OnDisconnectPressed() {
-      await Connection.DisconnectAsync(ConnectFailReason.UserRequest);
-      Controller.Show<QuantumMenuUIMain>();
+      if (_isLeavingGameplay || Connection == null || Controller == null) return;
+      _isLeavingGameplay = true;
+      _matchReturnRequested = true;
+      var connection = Connection;
+      var controller = Controller;
+      try {
+        await connection.DisconnectAsync(ConnectFailReason.UserRequest);
+        if (this != null && Connection == connection && Controller == controller) {
+          controller.Show<QuantumMenuUIMain>();
+        }
+      } catch (System.Exception exception) {
+        Debug.LogException(exception);
+        // Leave automatic return latched; the disconnect button can retry explicitly.
+        if (this != null) _isLeavingGameplay = false;
+      }
+    }
+
+    private void Update() {
+      if (!IsShowing || _isLeavingGameplay || _matchReturnRequested ||
+          !(Connection is QuantumMenuConnectionBehaviourSDK connection)) return;
+      // Use only this menu's runner and its confirmed result, never a predicted KO.
+      var confirmed = connection.Runner?.Game?.Frames.Verified;
+      if (confirmed == null || !LSDFRoster.TryPair(confirmed, out var first, out var second) ||
+          !confirmed.TryGet<LSDF_Player>(first, out var a) ||
+          !confirmed.TryGet<LSDF_Player>(second, out var b)) return;
+      CheckLSDFMatchEnd(a, b, confirmed.Number);
+    }
+
+    protected void CheckLSDFMatchEnd(in LSDF_Player first, in LSDF_Player second, int verifiedTick) {
+      if (!IsShowing || _isLeavingGameplay || _matchReturnRequested ||
+          LSDFRoundPolicy.Phase(true, first, second, verifiedTick) != LSDFRoundPhase.MatchEnd ||
+          verifiedTick < first.tickToEnableMove || verifiedTick < second.tickToEnableMove) return;
+      // Preserve the same result-display interval used between ordinary rounds.
+      OnDisconnectPressed();
+    }
+
+    private void OnDisable() {
+      _isLeavingGameplay = true;
     }
 
     /// <summary>

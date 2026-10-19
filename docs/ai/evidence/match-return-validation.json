@@ -1,0 +1,393 @@
+{
+  "recorded_at_utc": "2026-10-19 04:06:05 UTC",
+  "branch": "dev/Prototype",
+  "base_commit": "baed7c0d7777721bebe5762e52b4e05283dc4e39",
+  "scope": "최종 매치 결과 표시 후 메인 메뉴 자동 복귀",
+  "validation_policy": "구현 후 최종 한 차례. 실패 또는 미발견 검사는 자동 재실행하지 않음.",
+  "policy_check": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "c13119",
+      "wall_time_seconds": 1.3775818,
+      "exit_code": 0,
+      "original_token_count": 70,
+      "output": "{\r\n  \"status\": \"pass\",\r\n  \"scope\": \"Assets/QuantumUser/Simulation\",\r\n  \"files_scanned\": 94,\r\n  \"existing_findings\": 0,\r\n  \"new_findings\": [],\r\n  \"resolved_baseline_occurrences\": 0,\r\n  \"limits\": \"Lexical ratchet only; not compilation, rollback, checksum or gameplay proof.\"\r\n}\r\n"
+    }
+  },
+  "compilation_refresh": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"success\":true,\"message\":\"Refresh requested.\",\"error\":null,\"data\":{\"refresh_triggered\":false,\"compile_requested\":true,\"compile_started\":true,\"resulting_state\":\"compiling\",\"hint\":\"If Unity enters compilation/domain reload, poll the mcpforunity://editor/state resource until data.advice.ready_for_tools is true.\"},\"hint\":null}"
+        }
+      ],
+      "structuredContent": {
+        "result": {
+          "success": true,
+          "message": "Refresh requested.",
+          "error": null,
+          "data": {
+            "refresh_triggered": false,
+            "compile_requested": true,
+            "compile_started": true,
+            "resulting_state": "compiling",
+            "hint": "If Unity enters compilation/domain reload, poll the mcpforunity://editor/state resource until data.advice.ready_for_tools is true."
+          },
+          "hint": null
+        }
+      },
+      "isError": false
+    }
+  },
+  "console": {
+    "success": true,
+    "message": "Retrieved 9 log entries.",
+    "data": [
+      {
+        "type": "Warning",
+        "message": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenu.Common.cs(591,24): warning CS0114: 'QuantumMenuMppmJoinCommand.ExecuteAsync()' hides inherited member 'QuantumMppmCommand.ExecuteAsync()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.\n",
+        "file": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenu.Common.cs",
+        "line": 591,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenuConnectionBehaviourSDK.cs(79,41): warning CS0618: 'Frame.PlayerCount' is obsolete: 'Use MaxPlayerCount instead'\n",
+        "file": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenuConnectionBehaviourSDK.cs",
+        "line": 79,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenuConnectionBehaviourSDK.cs(80,31): warning CS0618: 'Frame.PlayerCount' is obsolete: 'Use MaxPlayerCount instead'\n",
+        "file": "Assets\\Photon\\QuantumMenu\\Runtime\\QuantumMenuConnectionBehaviourSDK.cs",
+        "line": 80,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs(110,68): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+        "file": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs",
+        "line": 110,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs(40,19): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+        "file": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs",
+        "line": 40,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs(31,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+        "file": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs",
+        "line": 31,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs(81,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+        "file": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs",
+        "line": 81,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Assets\\Matthew Guz\\Hits Effects FREE\\Scene Demo\\Script\\RotationEffect.cs(9,31): warning CS0108: 'ParticleRotationController.particleSystem' hides inherited member 'Component.particleSystem'. Use the new keyword if hiding was intended.\n",
+        "file": "Assets\\Matthew Guz\\Hits Effects FREE\\Scene Demo\\Script\\RotationEffect.cs",
+        "line": 9,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Assets\\GabrielAguiarProductions\\Scripts\\FPSShooterTut.cs(30,20): warning CS0168: The variable 'hit' is declared but never used\n",
+        "file": "Assets\\GabrielAguiarProductions\\Scripts\\FPSShooterTut.cs",
+        "line": 30,
+        "stackTrace": null
+      }
+    ]
+  },
+  "tests": {
+    "result": {
+      "success": true,
+      "message": "Test job status retrieved.",
+      "error": null,
+      "data": {
+        "job_id": "4d95cf0b1d1f481093b5cb54b5904220",
+        "status": "succeeded",
+        "mode": "EditMode",
+        "started_unix_ms": 1792382704671,
+        "finished_unix_ms": 1792382709982,
+        "last_update_unix_ms": 1792382709982,
+        "progress": {
+          "completed": 19,
+          "total": 19,
+          "current_test_full_name": null,
+          "current_test_started_unix_ms": null,
+          "last_finished_test_full_name": "LSDFRoundResultTests.TerminalPoseCancelsComboDashAndCounterWindowsWithoutChangingLoadout",
+          "last_finished_unix_ms": 1792382709802,
+          "stuck_suspected": false,
+          "editor_is_focused": false,
+          "run_in_background": false,
+          "focus_nudge_attempts": null,
+          "focus_nudge_limit": null,
+          "focus_nudge_status": null,
+          "blocked_reason": null,
+          "failures_so_far": [],
+          "failures_capped": false
+        },
+        "error": null,
+        "result": {
+          "mode": "EditMode",
+          "summary": {
+            "total": 19,
+            "passed": 19,
+            "failed": 0,
+            "skipped": 0,
+            "durationSeconds": 0.6430441,
+            "resultState": "Passed"
+          },
+          "results": [
+            {
+              "name": "DrawReplaysTheSameRoundWithoutAddingEitherScore",
+              "fullName": "LSDFRoundResultTests.DrawReplaysTheSameRoundWithoutAddingEitherScore",
+              "state": "Passed",
+              "durationSeconds": 0.0113414,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(0)",
+              "fullName": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(0)",
+              "state": "Passed",
+              "durationSeconds": 0.0018921,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(170)",
+              "fullName": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(170)",
+              "state": "Passed",
+              "durationSeconds": 0.0001033,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "EveryWinSequenceEndsAtThreeWinsWithinFiveDecisiveRounds",
+              "fullName": "LSDFRoundResultTests.EveryWinSequenceEndsAtThreeWinsWithinFiveDecisiveRounds",
+              "state": "Passed",
+              "durationSeconds": 0.0039596,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "FinalVictoryMessageIsReservedForMatchEnd(FirstWins,False,\"ROUND WIN\")",
+              "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,False,\"ROUND WIN\")",
+              "state": "Passed",
+              "durationSeconds": 0.0005682,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "FinalVictoryMessageIsReservedForMatchEnd(SecondWins,False,\"ROUND LOSE\")",
+              "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,False,\"ROUND LOSE\")",
+              "state": "Passed",
+              "durationSeconds": 0.000079,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "FinalVictoryMessageIsReservedForMatchEnd(FirstWins,True,\"YOU WIN\")",
+              "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,True,\"YOU WIN\")",
+              "state": "Passed",
+              "durationSeconds": 0.0000638,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "FinalVictoryMessageIsReservedForMatchEnd(SecondWins,True,\"YOU LOSE\")",
+              "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,True,\"YOU LOSE\")",
+              "state": "Passed",
+              "durationSeconds": 0.0000632,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "FinalVictoryMessageIsReservedForMatchEnd(Draw,False,\"DRAW\")",
+              "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(Draw,False,\"DRAW\")",
+              "state": "Passed",
+              "durationSeconds": 0.0000854,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "KoHasOnePersistentOutcomeAndMatchingPose(0,170,SecondWins)",
+              "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,170,SecondWins)",
+              "state": "Passed",
+              "durationSeconds": 0.0013677,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "KoHasOnePersistentOutcomeAndMatchingPose(-12,1,SecondWins)",
+              "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-12,1,SecondWins)",
+              "state": "Passed",
+              "durationSeconds": 0.0002772,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "KoHasOnePersistentOutcomeAndMatchingPose(170,0,FirstWins)",
+              "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(170,0,FirstWins)",
+              "state": "Passed",
+              "durationSeconds": 0.0002404,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "KoHasOnePersistentOutcomeAndMatchingPose(1,-12,FirstWins)",
+              "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(1,-12,FirstWins)",
+              "state": "Passed",
+              "durationSeconds": 0.0002292,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "KoHasOnePersistentOutcomeAndMatchingPose(0,0,Draw)",
+              "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,0,Draw)",
+              "state": "Passed",
+              "durationSeconds": 0.0002238,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "KoHasOnePersistentOutcomeAndMatchingPose(-1,-12,Draw)",
+              "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-1,-12,Draw)",
+              "state": "Passed",
+              "durationSeconds": 0.0002133,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "LivingFightersDoNotFinishAndNoWinnerExistsBeforeFinalization",
+              "fullName": "LSDFRoundResultTests.LivingFightersDoNotFinishAndNoWinnerExistsBeforeFinalization",
+              "state": "Passed",
+              "durationSeconds": 0.00019,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "NextRoundResetsHealthAndCombatStateButKeepsScoreAndLoadouts",
+              "fullName": "LSDFRoundResultTests.NextRoundResetsHealthAndCombatStateButKeepsScoreAndLoadouts",
+              "state": "Passed",
+              "durationSeconds": 0.0004041,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "ResultPosesUseTheExistingQuantumGraphAndFadingIsEnabled",
+              "fullName": "LSDFRoundResultTests.ResultPosesUseTheExistingQuantumGraphAndFadingIsEnabled",
+              "state": "Passed",
+              "durationSeconds": 0.0453926,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "TerminalPoseCancelsComboDashAndCounterWindowsWithoutChangingLoadout",
+              "fullName": "LSDFRoundResultTests.TerminalPoseCancelsComboDashAndCounterWindowsWithoutChangingLoadout",
+              "state": "Passed",
+              "durationSeconds": 0.0005991,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            }
+          ]
+        }
+      },
+      "hint": null
+    }
+  },
+  "new_match_return_tests": {
+    "status": "NOT RUN",
+    "planned_cases": 5,
+    "reason": "scripts 범위 refresh는 기존 메뉴 변경을 컴파일했으나 새 테스트 파일을 AssetDatabase에 임포트하지 않아 테스트 실행에 포함되지 않음.",
+    "diagnosis": {
+      "success": true,
+      "message": "Code executed successfully.",
+      "data": {
+        "result": {
+          "menuHasMatchReturn": true,
+          "testTypeImported": false,
+          "scriptImported": false
+        },
+        "compiler": "codedom"
+      }
+    },
+    "rerun": false
+  },
+  "limitations": [
+    "실제 Photon 온라인 매치 종료/씬 unload/메인 화면 육안 검증 NOT RUN",
+    "테스트에서 실제 네트워크 cleanup을 수행하지 않고 지연 완료 연결 대역을 사용하도록 작성함",
+    "입력 replay/강제 네트워크 rollback NOT RUN; Simulation/QTN/프로토콜 변경 없음",
+    "과거 공중 피격/콜라이더/카메라 검증의 실패와 미검증 이력은 이번 결과로 변경하지 않음"
+  ],
+  "initial_changes_preserved": [
+    "기존 루트 csproj/sln 수정",
+    "기존 미추적 LSDF.Tests/LSDF.View/LSDF.View.Editor/LSDF.View.Player csproj"
+  ],
+  "diff_check": {
+      "status": "PASS",
+      "command": "git diff --check",
+      "notes": "공백 오류 없음. current-state.md에 Git LF→CRLF 안내만 표시됨."
+    },
+    "document_links": {
+      "status": "PASS",
+      "checked": 22,
+      "missing": []
+    },
+    "new_file_whitespace": {
+      "status": "PASS",
+      "findings": []
+    },
+    "test_meta": {
+      "status": "PASS"
+    },
+    "source_sha256": {
+      "Assets/Photon/QuantumMenu/Runtime/QuantumMenuUIGameplay.cs": "b434f72671a6a160cbc1b9dd3c0aae87653fe4268518cc808eff1698a0ab629a",
+      "Assets/Photon/QuantumMenu/Runtime/QuantumMenu.Sdk.cs": "1e7335a86a807ee63b4de0e776fc7997ca28faaef1e1694fc1b343da7d709385",
+      "Assets/Tests/Editor/LSDFMatchReturnTests.cs": "f5994dbf95e2d5f54266a0458e061071e4b5f0e5b9e0f9bb9db8e4676e8a2705"
+    },
+    "final_worktree": "메뉴 2개/현재 상태 수정, 새 테스트·meta·구현 문서·evidence 미추적. 기존 IDE 파일 보존. staged 변경 없음.",
+  "publication": "최초 구현 종료 시 staging/commit/push/PR 없음. 후속 사용자 테스트 완료·푸시 요청으로 관련 후보의 게시 준비 진행.",
+  "user_validation": {
+    "reported_at": "2026-10-19T23:15:48+09:00",
+    "status": "USER_REPORTED_COMPLETE",
+    "push_requested": true,
+    "pr_requested": false,
+    "record": "../user-validation-match-return.md",
+    "source_hashes_match_previous_evidence": true,
+    "automated_game_checks_rerun": false,
+    "details_provided": false
+  }
+}
