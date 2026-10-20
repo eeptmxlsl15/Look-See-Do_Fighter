@@ -7532,12 +7532,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b80aef182cd6e428e218b26e0def34, type: 3}
   m_Name:
   m_EditorClassIdentifier: LSDF.View::LSDFSceneBindings
-  Updater: {fileID: 2000941245}
-  Player1Camera: {fileID: 1535058701}
-  Player2Camera: {fileID: 953246092}
   CounterHitZoom: {fileID: 11400000, guid: d8507e50b23f4825960ee9d4699e2967, type: 2}
   HitShakeDuration: 0.18
   HitShakeStrength: 0.015
+  Updater: {fileID: 2000941245}
+  Player1Camera: {fileID: 1535058701}
+  Player2Camera: {fileID: 953246092}
+  ActionFlashMaterial: {fileID: 2100000, guid: d7d931a1ac6b4ce59b01d0cbd17b76a3, type: 2}
+  ActionFlashStrength: 0.22
+  ActionFlashFadeIn: 0.035
+  ActionFlashFadeOut: 0.12
   Player1Hud:
     LeftHealth: {fileID: 354113924}
     RightHealth: {fileID: 69612071}
@@ -7618,6 +7622,62 @@ MonoBehaviour:
     Loop: 0
     Delay: 0
   ViewUpdater: {fileID: 2000941245}
+--- !u!1 &2001000000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2001000001}
+  - component: {fileID: 2001000002}
+  m_Layer: 0
+  m_Name: HitEffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2001000001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001000000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2001000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001000000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3923d5c2162a84ab94e9ac7af440bc, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: LSDF.View::Quantum.LSDF.LSDF_HitEffectView
+  Updater: {fileID: 2000941245}
+  UseFindUpdater: 0
+  HitParticle: {fileID: 3143381313781726589, guid: f33e5e4393db624449efc9e078701a88, type: 3}
+  GuardParticle: {fileID: 7740628778864649442, guid: 54023cb06031c32408c2be898e545b1f, type: 3}
+  ParringParticle: {fileID: 3143381313781726589, guid: f33e5e4393db624449efc9e078701a88, type: 3}
+  CounterParticle: {fileID: 8198086915551121673, guid: 82c85b8920da6e14e9b3d70437d8a8b8, type: 3}
+  HitOpacity: 0.5
+  GuardOpacity: 0.5
+  ParringOpacity: 0.5
+  CounterOpacity: 0.5
+  FallbackLifetime: 0.15
+  MaximumLifetime: 2
 --- !u!1 &2009296621
 GameObject:
   m_ObjectHideFlags: 0
@@ -8004,3 +8064,4 @@ SceneRoots:
   - {fileID: 24034942}
   - {fileID: 204433641}
   - {fileID: 1698039750}
+  - {fileID: 2001000001}

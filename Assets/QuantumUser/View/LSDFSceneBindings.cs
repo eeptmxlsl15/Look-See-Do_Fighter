@@ -17,6 +17,11 @@ public partial class LSDFSceneBindings : MonoBehaviour {
   }
   public QuantumEntityViewUpdater Updater;
   public GameObject Player1Camera, Player2Camera;
+  [Header("Action White Flash")]
+  public Material ActionFlashMaterial;
+  [Range(0, 1)] public float ActionFlashStrength = .22f;
+  [Min(0)] public float ActionFlashFadeIn = .035f;
+  [Min(0)] public float ActionFlashFadeOut = .12f;
   public Hud Player1Hud = new Hud(), Player2Hud = new Hud();
   private readonly Dictionary<PlayerRef, LSDF_ViewHandler> _fighters = new Dictionary<PlayerRef, LSDF_ViewHandler>();
   private QuantumGame _game;

@@ -1,0 +1,298 @@
+{
+  "task": "hit-effects-prefab-migration",
+  "date": "2026-10-20",
+  "branch": "dev/Prototype",
+  "head": "98143dd36e0c0fc4f24490a7625d7fec80594d21",
+  "status": "IMPLEMENTED; TEST ASSERT ALIAS CORRECTED AFTER COMPILE FAILURE; NOT REVALIDATED",
+  "prefab": "Assets/Assets Resources/Effect Prefabs/1010_0.prefab",
+  "effect_slots": [
+    "HitParticle",
+    "GuardParticle",
+    "ParringParticle",
+    "CounterParticle"
+  ],
+  "production_changed_after_validation": false,
+  "checks": {
+    "quantum_guard": {
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 94,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    },
+    "unity_compile": {
+      "status": "FAIL; test-only correction after validation NOT REVALIDATED",
+      "reason": "CS0104: NUnit.Framework.Assert and Quantum.Assert ambiguous in new LSDFHitEffectTests.cs",
+      "console_entries_observed": 30,
+      "entry_limit": 30,
+      "errors_observed": 26,
+      "warnings_observed": 4,
+      "console": {
+        "success": true,
+        "message": "Retrieved 30 log entries.",
+        "data": [
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(24,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 24,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(25,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 25,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(26,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 26,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(27,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 27,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(28,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 28,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(38,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 38,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(46,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 46,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(48,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 48,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(49,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 49,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(50,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 50,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(51,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 51,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(52,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 52,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(53,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 53,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(55,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 55,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(56,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 56,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(61,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 61,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(62,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 62,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(63,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 63,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(64,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 64,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(65,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 65,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(76,5): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 76,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs(110,68): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs",
+            "line": 110,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs(40,19): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs",
+            "line": 40,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs(31,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs",
+            "line": 31,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(82,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 82,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(109,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 109,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(115,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 115,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(119,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 119,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(120,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 120,
+            "stackTrace": null
+          },
+          {
+            "type": "Error",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(121,7): error CS0104: 'Assert' is an ambiguous reference between 'NUnit.Framework.Assert' and 'Quantum.Assert'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 121,
+            "stackTrace": null
+          }
+        ]
+      }
+    },
+    "regression": {
+      "status": "NOT RUN",
+      "planned_tests": 4,
+      "job_started": false,
+      "reason": "Compilation failed before a test job could start",
+      "coverage": "Scene/prefab wiring, real local runner and dispatcher presentation boundary; not actual combat or network rollback"
+    },
+    "diff": {
+      "status": "PASS",
+      "output": "warning: in the working copy of 'Assets/Photon/QuantumMenu/LSDF_Menu.unity', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/Scenes/LSDFGameplay.unity', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/ai/current-state.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/Photon/QuantumMenu/LSDF_Menu.unity', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/Scenes/LSDFGameplay.unity', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/ai/current-state.md', LF will be replaced by CRLF the next time Git touches it\n Assembly-CSharp.Player.csproj                 |  10 +-\n Assembly-CSharp.csproj                        |  22 +++--\n Assets/Photon/QuantumMenu/LSDF_Menu.unity     | 127 ++++++++++++++++++++++++--\n Assets/QuantumUser/View/LSDF_HitEffectView.cs |  67 +++++++++++---\n Assets/Scenes/LSDFGameplay.unity              |  53 +++++++++++\n Look-See-Do_Fighter.sln                       |  24 +++++\n Quantum.Menu.Player.csproj                    |   6 +-\n Quantum.Menu.csproj                           |   6 +-\n Quantum.Simulation.Player.csproj              |  27 +++++-\n Quantum.Simulation.csproj                     |  27 +++++-\n Quantum.Unity.Player.csproj                   |   2 +\n Quantum.Unity.csproj                          |   2 +\n docs/ai/current-state.md                      |  24 ++++-\n 13 files changed, 347 insertions(+), 50 deletions(-)\n M Assembly-CSharp.Player.csproj\n M Assembly-CSharp.csproj\n M Assets/Photon/QuantumMenu/LSDF_Menu.unity\n M Assets/QuantumUser/View/LSDF_HitEffectView.cs\n M Assets/Scenes/LSDFGameplay.unity\n M Look-See-Do_Fighter.sln\n M Quantum.Menu.Player.csproj\n M Quantum.Menu.csproj\n M Quantum.Simulation.Player.csproj\n M Quantum.Simulation.csproj\n M Quantum.Unity.Player.csproj\n M Quantum.Unity.csproj\n M docs/ai/current-state.md\n?? \"Assets/Assets Resources.meta\"\n?? \"Assets/Assets Resources/\"\n?? Assets/Tests/Editor/LSDFHitEffectTests.cs\n?? Assets/Tests/Editor/LSDFHitEffectTests.cs.meta\n?? LSDF.Tests.csproj\n?? LSDF.View.Editor.csproj\n?? LSDF.View.Player.csproj\n?? LSDF.View.csproj\n?? docs/ai/hit-effects-investigation.md\n?? docs/ai/hit-effects-prefab-migration.md\n"
+    },
+    "documents_meta_and_pre_correction_source_hashes": {
+      "status": "PASS",
+      "relative_links_checked": 27,
+      "meta_pairs_checked": 5,
+      "issues": [],
+      "source_sha256": {
+        "Assets/QuantumUser/View/LSDF_HitEffectView.cs": "5dc5be5eb29893cf65f366d249191e28dfc92137a1031fb94ccf88a6c402ca82",
+        "Assets/Scenes/LSDFGameplay.unity": "8db5e18ee6f78f3e51d6fd58089cc51cc0f579ba129931b59fba85f38f0970dc",
+        "Assets/Photon/QuantumMenu/LSDF_Menu.unity": "9f5da08b62f105d2a994e4e5917c9b24a93bc96add19420bfbd7aa7612a96d19",
+        "Assets/Assets Resources/Effect Prefabs/1010_0.prefab": "5c9241fb242742040af16cb7ba09ffd31fa295edd402453b7f7c1e86fd94a2e9",
+        "Assets/Tests/Editor/LSDFHitEffectTests.cs": "3d54b2726f588bf9a41222ce9666468db08b6be66adf93f01af3323267dbb9cb"
+      }
+    }
+  },
+  "corrections_after_validation": [
+    {
+      "path": "Assets/Tests/Editor/LSDFHitEffectTests.cs",
+      "change": "Add using Assert = NUnit.Framework.Assert; to disambiguate the test assertions",
+      "corrected_test_sha256": "3095bb9efb6c1070b60575618bf2de2d48a94fc94134f439f5d236408d3ffba6",
+      "production_modified": false,
+      "compile_rerun": false,
+      "tests_run": false,
+      "diff_or_document_checks_rerun": false
+    }
+  ],
+  "limitations": [
+    "Actual online combat and visual pixel/render verification NOT RUN",
+    "No replay or forced network rollback; Simulation/QTN/protocol unchanged",
+    "Prior task failures and user validation remain historical and unchanged",
+    "Only 30 console entries collected; complete error total not asserted"
+  ],
+  "preserved": [
+    "Existing csproj/sln changes and 4 untracked csproj files",
+    "Existing menu changes and user's 1010_0 preview instance",
+    "Assets/Assets Resources and meta; original sprite sheet/controller/clip GUIDs and speed",
+    "Previous investigation and current-state local changes"
+  ],
+  "publication": "No staging, commit, push, PR"
+}

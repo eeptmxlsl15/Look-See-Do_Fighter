@@ -1,0 +1,270 @@
+{
+  "task": "effect-opacity-action-flash",
+  "date": "2026-10-20",
+  "branch": "dev/Prototype",
+  "head": "98143dd36e0c0fc4f24490a7625d7fec80594d21",
+  "status": "IMPLEMENTED; 10/12 TESTS PASS; RUNTIME INITIALIZATION AND TEST/WHITESPACE CORRECTIONS AFTER VALIDATION NOT REVALIDATED",
+  "production_changed_after_validation": true,
+  "checks": {
+    "quantum_guard": {
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 94,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    },
+    "unity_compile": {
+      "status": "PASS before corrections; final corrected code NOT REVALIDATED",
+      "errors": 0,
+      "warnings": 8,
+      "console": {
+        "success": true,
+        "message": "Retrieved 8 log entries.",
+        "data": [
+          {
+            "type": "Warning",
+            "message": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs(110,68): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs",
+            "line": 110,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs(31,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs",
+            "line": 31,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs(40,19): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs",
+            "line": 40,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(81,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+            "line": 81,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs(81,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+            "file": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs",
+            "line": 81,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\Matthew Guz\\Hits Effects FREE\\Scene Demo\\Script\\RotationEffect.cs(9,31): warning CS0108: 'ParticleRotationController.particleSystem' hides inherited member 'Component.particleSystem'. Use the new keyword if hiding was intended.\n",
+            "file": "Assets\\Matthew Guz\\Hits Effects FREE\\Scene Demo\\Script\\RotationEffect.cs",
+            "line": 9,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "Assets\\GabrielAguiarProductions\\Scripts\\FPSShooterTut.cs(30,20): warning CS0168: The variable 'hit' is declared but never used\n",
+            "file": "Assets\\GabrielAguiarProductions\\Scripts\\FPSShooterTut.cs",
+            "line": 30,
+            "stackTrace": null
+          },
+          {
+            "type": "Warning",
+            "message": "<b><color=#cc7a00>MCP-FOR-UNITY</color></b>: [WebSocket] Unexpected receive error: WebSocket is not initialised",
+            "file": "./Library/PackageCache/com.coplaydev.unity-mcp@458db7488df9/Editor/Helpers/McpLog.cs",
+            "line": 45,
+            "stackTrace": null
+          }
+        ]
+      }
+    },
+    "regression": {
+      "job_id": "10870868b13b4a25852c662c4e5a4a54",
+      "status": "failed",
+      "started_unix_ms": 1792503567127,
+      "finished_unix_ms": 1792503589249,
+      "result": {
+        "mode": "EditMode",
+        "summary": {
+          "total": 12,
+          "passed": 10,
+          "failed": 2,
+          "skipped": 0,
+          "durationSeconds": 3.2431955,
+          "resultState": "Failed(Child)"
+        },
+        "results": [
+          {
+            "name": "InterruptionResetAndRewindDoNotLeaveAWhiteCharacter",
+            "fullName": "LSDFActionFlashTests.InterruptionResetAndRewindDoNotLeaveAWhiteCharacter",
+            "state": "Passed",
+            "durationSeconds": 0.0146856,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "ParryStartFlashesOnceAndASecondActivationCanFlashAgain",
+            "fullName": "LSDFActionFlashTests.ParryStartFlashesOnceAndASecondActivationCanFlashAgain",
+            "state": "Passed",
+            "durationSeconds": 0.0010163,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "PulseHasAQuickSmoothPeakAndReturnsToZero",
+            "fullName": "LSDFActionFlashTests.PulseHasAQuickSmoothPeakAndReturnsToZero",
+            "state": "Passed",
+            "durationSeconds": 0.0034143,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "RepeatedFramesDoNotRestartThePulse",
+            "fullName": "LSDFActionFlashTests.RepeatedFramesDoNotRestartThePulse",
+            "state": "Passed",
+            "durationSeconds": 0.0002508,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "SceneWiresSharedFlashMaterialAndTuningWithoutChangingChosenEffects",
+            "fullName": "LSDFActionFlashTests.SceneWiresSharedFlashMaterialAndTuningWithoutChangingChosenEffects",
+            "state": "Passed",
+            "durationSeconds": 0.5881817,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "TwoFightersShareAMaterialAndKeepIndependentOpacityAndOriginalColors",
+            "fullName": "LSDFActionFlashTests.TwoFightersShareAMaterialAndKeepIndependentOpacityAndOriginalColors",
+            "state": "Passed",
+            "durationSeconds": 0.0085419,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "WhiteFlashShaderImportsWithoutErrors",
+            "fullName": "LSDFActionFlashTests.WhiteFlashShaderImportsWithoutErrors",
+            "state": "Passed",
+            "durationSeconds": 0.0022955,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "WhiteOverlayBrightensOpaquePixelsAndKeepsTransparentPixelsClear",
+            "fullName": "LSDFActionFlashTests.WhiteOverlayBrightensOpaquePixelsAndKeepsTransparentPixelsClear",
+            "state": "Passed",
+            "durationSeconds": 0.0065791,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "GameplayWiresOneScenePresenterToTheRequestedPrefab",
+            "fullName": "LSDFHitEffectTests.GameplayWiresOneScenePresenterToTheRequestedPrefab",
+            "state": "Passed",
+            "durationSeconds": 0.0139822,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "MenuRetainsTheNewReferencesWithoutAnotherActivePresenter",
+            "fullName": "LSDFHitEffectTests.MenuRetainsTheNewReferencesWithoutAnotherActivePresenter",
+            "state": "Passed",
+            "durationSeconds": 0.4278463,
+            "message": null,
+            "stackTrace": "",
+            "output": ""
+          },
+          {
+            "name": "SceneActivationPresentsAndCleansPredictedEventsAcrossGames",
+            "fullName": "LSDFHitEffectTests.SceneActivationPresentsAndCleansPredictedEventsAcrossGames",
+            "state": "Failed",
+            "durationSeconds": 15.906041,
+            "message": "  System.AggregateException: One or more errors occurred. (All 4 heaps are already reserved) ---> System.InvalidOperationException: All 4 heaps are already reserved\r\n  at Quantum.Allocator.Heap+Group.Reserve () [0x0002f] in Quantum\\Quantum.Engine\\Allocator\\Heap.Group.cs:40 \r\n  at Quantum.Core.FrameContext.ReserveHeap () [0x00000] in Quantum\\Quantum.Engine\\Core\\FrameContext.cs:507 \r\n  at Quantum.Core.FrameBase..ctor (Quantum.Core.FrameContext context, System.Int32 playerCount, System.Int32 inputSize, System.Boolean enableHeapTrackerDuringInit) [0x00029] in Quantum\\Quantum.Engine\\Core\\FrameBase.cs:175 \r\n  at Quantum.Frame..ctor (Quantum.Core.FrameContext context, Quantum.SystemBase[] systemsAll, Quantum.SystemBase[] systemsRoots, Photon.Deterministic.DeterministicSessionConfig sessionConfig, Quantum.RuntimeConfig runtimeConfig, Quantum.SimulationConfig simulationConfig, Photon.Deterministic.FP deltaTime, System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:695 \r\n  at Quantum.QuantumGame.Photon.Deterministic.IDeterministicGame.CreateFrame (System.IDisposable context, System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:3397 \r\n  at Quantum.QuantumGame.CreateFrame (System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:3387 \r\n  at LSDFHitEffectTests.CheckFlashFrame (Quantum.QuantumGame game) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:258 \r\n  at LSDFHitEffectTests.RunPresentation () [0x001ca] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:97 \r\n  at LSDFHitEffectTests.RunPresentation () [0x0111c] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:215 \r\n   --- End of inner exception stack trace ---\r\n---> (Inner Exception #0) System.InvalidOperationException: All 4 heaps are already reserved\r\n  at Quantum.Allocator.Heap+Group.Reserve () [0x0002f] in Quantum\\Quantum.Engine\\Allocator\\Heap.Group.cs:40 \r\n  at Quantum.Core.FrameContext.ReserveHeap () [0x00000] in Quantum\\Quantum.Engine\\Core\\FrameContext.cs:507 \r\n  at Quantum.Core.FrameBase..ctor (Quantum.Core.FrameContext context, System.Int32 playerCount, System.Int32 inputSize, System.Boolean enableHeapTrackerDuringInit) [0x00029] in Quantum\\Quantum.Engine\\Core\\FrameBase.cs:175 \r\n  at Quantum.Frame..ctor (Quantum.Core.FrameContext context, Quantum.SystemBase[] systemsAll, Quantum.SystemBase[] systemsRoots, Photon.Deterministic.DeterministicSessionConfig sessionConfig, Quantum.RuntimeConfig runtimeConfig, Quantum.SimulationConfig simulationConfig, Photon.Deterministic.FP deltaTime, System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:695 \r\n  at Quantum.QuantumGame.Photon.Deterministic.IDeterministicGame.CreateFrame (System.IDisposable context, System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:3397 \r\n  at Quantum.QuantumGame.CreateFrame (System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:3387 \r\n  at LSDFHitEffectTests.CheckFlashFrame (Quantum.QuantumGame game) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:258 \r\n  at LSDFHitEffectTests.RunPresentation () [0x001ca] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:97 \r\n  at LSDFHitEffectTests.RunPresentation () [0x0111c] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:215 <---\r\n\r\n  Expected: null\r\n  But was:  \"System.AggregateException: One or more errors occurred. (All 4 heaps are already reserved) ---> System.InvalidOperationException: All 4 heaps are already reserved\r\n  at Quantum.Allocator.Heap+Group.Reserve () [0x0002f] in Quantum\\Quantum.Engine\\Allocator\\Heap.Group.cs:40 \r\n  at Quantum.Core.FrameContext.ReserveHeap () [0x00000] in Quantum\\Quantum.Engine\\Core\\FrameContext.cs:507 \r\n  at Quantum.Core.FrameBase..ctor (Quantum.Core.FrameContext context, System.Int32 playerCount, System.Int32 inputSize, System.Boolean enableHeapTrackerDuringInit) [0x00029] in Quantum\\Quantum.Engine\\Core\\FrameBase.cs:175 \r\n  at Quantum.Frame..ctor (Quantum.Core.FrameContext context, Quantum.SystemBase[] systemsAll, Quantum.SystemBase[] systemsRoots, Photon.Deterministic.DeterministicSessionConfig sessionConfig, Quantum.RuntimeConfig runtimeConfig, Quantum.SimulationConfig simulationConfig, Photon.Deterministic.FP deltaTime, System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:695 \r\n  at Quantum.QuantumGame.Photon.Deterministic.IDeterministicGame.CreateFrame (System.IDisposable context, System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:3397 \r\n  at Quantum.QuantumGame.CreateFrame (System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:3387 \r\n  at LSDFHitEffectTests.CheckFlashFrame (Quantum.QuantumGame game) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:258 \r\n  at LSDFHitEffectTests.RunPresentation () [0x001ca] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:97 \r\n  at LSDFHitEffectTests.RunPresentation () [0x0111c] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:215 \r\n   --- End of inner exception stack trace ---\r\n---> (Inner Exception #0) System.InvalidOperationException: All 4 heaps are already reserved\r\n  at Quantum.Allocator.Heap+Group.Reserve () [0x0002f] in Quantum\\Quantum.Engine\\Allocator\\Heap.Group.cs:40 \r\n  at Quantum.Core.FrameContext.ReserveHeap () [0x00000] in Quantum\\Quantum.Engine\\Core\\FrameContext.cs:507 \r\n  at Quantum.Core.FrameBase..ctor (Quantum.Core.FrameContext context, System.Int32 playerCount, System.Int32 inputSize, System.Boolean enableHeapTrackerDuringInit) [0x00029] in Quantum\\Quantum.Engine\\Core\\FrameBase.cs:175 \r\n  at Quantum.Frame..ctor (Quantum.Core.FrameContext context, Quantum.SystemBase[] systemsAll, Quantum.SystemBase[] systemsRoots, Photon.Deterministic.DeterministicSessionConfig sessionConfig, Quantum.RuntimeConfig runtimeConfig, Quantum.SimulationConfig simulationConfig, Photon.Deterministic.FP deltaTime, System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:695 \r\n  at Quantum.QuantumGame.Photon.Deterministic.IDeterministicGame.CreateFrame (System.IDisposable context, System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:3397 \r\n  at Quantum.QuantumGame.CreateFrame (System.Boolean enableHeapTrackerDuringInit) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Photon\\Quantum\\Simulation\\QuantumSimulationCore.cs:3387 \r\n  at LSDFHitEffectTests.CheckFlashFrame (Quantum.QuantumGame game) [0x00000] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:258 \r\n  at LSDFHitEffectTests.RunPresentation () [0x001ca] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:97 \r\n  at LSDFHitEffectTests.RunPresentation () [0x0111c] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:215 <---\r\n\"\r\n",
+            "stackTrace": "at LSDFHitEffectTests+<SceneActivationPresentsAndCleansPredictedEventsAcrossGames>d__5.MoveNext () [0x000b8] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:75\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@bd7f943e9647\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+            "output": ""
+          },
+          {
+            "name": "SpritePrefabKeepsItsAnimationAndRendersAboveBothFighters",
+            "fullName": "LSDFHitEffectTests.SpritePrefabKeepsItsAnimationAndRendersAboveBothFighters",
+            "state": "Failed",
+            "durationSeconds": 0.0957108,
+            "message": "  Expected: (1.00, 1.00, 1.00)\r\n  But was:  (0.70, 0.70, 0.70)\r\n",
+            "stackTrace": "at LSDFHitEffectTests.SpritePrefabKeepsItsAnimationAndRendersAboveBothFighters () [0x00086] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitEffectTests.cs:54\r\n",
+            "output": "UnityException: CreateImpl is not allowed to be called from a MonoBehaviour constructor (or instance field initializer), call it in Awake or Start instead. Called from MonoBehaviour 'LSDF_ViewHandler'.\nSee \"Script Serialization\" page in the Unity Manual for further details.\r\nUnityEngine.MaterialPropertyBlock..ctor () (at <4188a0f79dff4b4191dbeaff03bfe462>:0)\nLSDFActionFlash..ctor () (at Assets/QuantumUser/View/LSDFActionFlash.cs:21)\nLSDF_ViewHandler..ctor () (at Assets/QuantumUser/View/LSDF_ViewHandler.cs:8)\nUnityEditor.AssetDatabase:LoadAssetAtPath(String)\nLSDFHitEffectTests:SpritePrefabKeepsItsAnimationAndRendersAboveBothFighters() (at Assets/Tests/Editor/LSDFHitEffectTests.cs:52)\nSystem.Reflection.MethodBase:Invoke(Object, Object[])\nNUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object, Object[])\nNUnit.Framework.Internal.MethodWrapper:Invoke(Object, Object[])\nNUnit.Framework.Internal.Commands.TestMethodCommand:RunNonAsyncTestMethod(ITestExecutionContext)\nNUnit.Framework.Internal.Commands.TestMethodCommand:RunTestMethod(ITestExecutionContext)\nNUnit.Framework.Internal.Commands.TestMethodCommand:Execute(ITestExecutionContext)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions()\n\r\n"
+          }
+        ]
+      }
+    },
+    "diff": {
+      "status": "FAIL: five scene trailing whitespace lines; corrected without rerun",
+      "output": "warning: in the working copy of 'Assets/Photon/QuantumMenu/LSDF_Menu.unity', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/QuantumUser/View/LSDFSceneBindings.cs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/Scenes/LSDFGameplay.unity', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/ai/current-state.md', LF will be replaced by CRLF the next time Git touches it\nAssets/Scenes/LSDFGameplay.unity:7533: trailing whitespace.\n+  m_Name: \nAssets/Scenes/LSDFGameplay.unity:7589: trailing whitespace.\n+  m_Name: \nAssets/Scenes/LSDFGameplay.unity:7590: trailing whitespace.\n+  m_EditorClassIdentifier: \nAssets/Scenes/LSDFGameplay.unity:7667: trailing whitespace.\n+  m_Name: \nAssets/Scenes/LSDFGameplay.unity:7943: trailing whitespace.\n+    CommandSkills: \nwarning: in the working copy of 'Assets/Photon/QuantumMenu/LSDF_Menu.unity', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/QuantumUser/View/LSDFSceneBindings.cs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/Scenes/LSDFGameplay.unity', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/ai/current-state.md', LF will be replaced by CRLF the next time Git touches it\n Assembly-CSharp.Player.csproj                 | 10 ++-\n Assembly-CSharp.csproj                        | 22 ++++---\n Assets/Photon/QuantumMenu/LSDF_Menu.unity     | 73 ++++++++++++++++++---\n Assets/QuantumUser/View/LSDFSceneBindings.cs  |  5 ++\n Assets/QuantumUser/View/LSDF_HitEffectView.cs | 91 ++++++++++++++++++++++-----\n Assets/QuantumUser/View/LSDF_ViewHandler.cs   | 14 ++++-\n Assets/Scenes/LSDFGameplay.unity              | 75 +++++++++++++++++++---\n Look-See-Do_Fighter.sln                       | 24 +++++++\n Quantum.Menu.Player.csproj                    |  6 +-\n Quantum.Menu.csproj                           |  6 +-\n Quantum.Simulation.Player.csproj              | 27 ++++++--\n Quantum.Simulation.csproj                     | 27 ++++++--\n Quantum.Unity.Player.csproj                   |  2 +\n Quantum.Unity.csproj                          |  2 +\n docs/ai/current-state.md                      | 33 +++++++++-\n 15 files changed, 357 insertions(+), 60 deletions(-)\n M Assembly-CSharp.Player.csproj\n M Assembly-CSharp.csproj\n M Assets/Photon/QuantumMenu/LSDF_Menu.unity\n M Assets/QuantumUser/View/LSDFSceneBindings.cs\n M Assets/QuantumUser/View/LSDF_HitEffectView.cs\n M Assets/QuantumUser/View/LSDF_ViewHandler.cs\n M Assets/Scenes/LSDFGameplay.unity\n M Look-See-Do_Fighter.sln\n M Quantum.Menu.Player.csproj\n M Quantum.Menu.csproj\n M Quantum.Simulation.Player.csproj\n M Quantum.Simulation.csproj\n M Quantum.Unity.Player.csproj\n M Quantum.Unity.csproj\n M docs/ai/current-state.md\n?? \"Assets/Assets Resources.meta\"\n?? \"Assets/Assets Resources/\"\n?? Assets/QuantumUser/View/LSDFActionFlash.cs\n?? Assets/QuantumUser/View/LSDFActionFlash.cs.meta\n?? Assets/QuantumUser/View/Rendering.meta\n?? Assets/QuantumUser/View/Rendering/\n?? Assets/Tests/Editor/LSDFActionFlashTests.cs\n?? Assets/Tests/Editor/LSDFActionFlashTests.cs.meta\n?? Assets/Tests/Editor/LSDFHitEffectTests.cs\n?? Assets/Tests/Editor/LSDFHitEffectTests.cs.meta\n?? LSDF.Tests.csproj\n?? LSDF.View.Editor.csproj\n?? LSDF.View.Player.csproj\n?? LSDF.View.csproj\n?? docs/ai/effect-opacity-action-flash.md\n?? docs/ai/evidence/hit-effects-prefab-validation.json\n?? docs/ai/hit-effects-investigation.md\n?? docs/ai/hit-effects-prefab-migration.md\n"
+    },
+    "documents_meta_and_validation_source_hashes": {
+      "status": "PASS",
+      "relative_links_checked": 30,
+      "meta_pairs_checked": 9,
+      "issues": [],
+      "source_sha256": {
+        "Assets/QuantumUser/View/LSDF_HitEffectView.cs": "b60924358b4e163170970c8711b2590d657257e07c31fcdd5d24a5322539e79c",
+        "Assets/QuantumUser/View/LSDF_ViewHandler.cs": "9cd1ec41a71aecc0cbad596ace65ea2785bbe850630027a1e397c4667b17d97e",
+        "Assets/QuantumUser/View/LSDFSceneBindings.cs": "da9b018e361b7804035845fb60c494b6130e128211ea6d808f0bb403801d0727",
+        "Assets/QuantumUser/View/LSDFActionFlash.cs": "0e00cdd780b0ebd2bc48872030db8f9f00c47dfceb2bb4e8ebf993e87b69bdda",
+        "Assets/QuantumUser/View/Rendering/LSDFWhiteFlash.shader": "1cb2469ee2c361826cf0a9a1630f8a4abbde3b73a1e20341469ba16b36ae9f62",
+        "Assets/QuantumUser/View/Rendering/LSDFWhiteFlash.mat": "c416e3abb1a221bf5675b3764f4b744fb83781b335b32a4bbe4c90c68cb35ebe",
+        "Assets/Scenes/LSDFGameplay.unity": "9db38baf1704a7f055451300a09671de5505e4433a98f060c9dff32a1d130814",
+        "Assets/Tests/Editor/LSDFHitEffectTests.cs": "260f7f53c08479ea4cea25e4739b761d97da86cbf6f19fe931b7acba04a3dcc1",
+        "Assets/Tests/Editor/LSDFActionFlashTests.cs": "c0f9e3cc93aa38f69c3bbf2039b413e3ea25e6c3c515b4a7bb850f6802010220"
+      }
+    }
+  },
+  "observations": {
+    "white_flash_unit_shader_pixel_tests": "8/8 PASS before lazy MaterialPropertyBlock correction",
+    "scene_wiring_tests": "Gameplay and menu references PASS; user's Red/White/DarkRed selection preserved",
+    "real_graph_metadata": "Both actual graph classification assertions completed before detached Frame allocation failed",
+    "opacity_dispatcher_and_actual_frame_scenarios": "NOT RUN: integration aborted at CheckFlashFrame before effect event assertions",
+    "actual_online_combat_and_visual_tuning": "NOT RUN",
+    "replay_forced_network_rollback": "NOT RUN; presentation only; no Simulation/QTN/protocol change"
+  },
+  "corrections_after_validation": [
+    {
+      "path": "Assets/QuantumUser/View/LSDFActionFlash.cs",
+      "change": "Lazy-create MaterialPropertyBlock inside Apply on main thread; do not create native rendering objects from MonoBehaviour field initializer",
+      "runtime_change": true
+    },
+    {
+      "path": "Assets/Tests/Editor/LSDFHitEffectTests.cs",
+      "change": "Reserve HeapExtraCount=1 in fixture runner for the detached Frame, retaining all Frame assertions; replace fixed Vector3.one prefab scale assumption with nonzero authored scale checks and retain instance == authored scale assertion",
+      "runtime_change": false
+    },
+    {
+      "path": "Assets/Scenes/LSDFGameplay.unity",
+      "change": "Trim only the five reported empty-field trailing whitespace occurrences; no values or references changed",
+      "runtime_change": false
+    }
+  ],
+  "postfix_source_hashes_raw": "[\r\n    {\r\n        \"Path\":  \"C:\\\\Users\\\\Admin\\\\Look-See-Do_Fighter\\\\Assets\\\\QuantumUser\\\\View\\\\LSDFActionFlash.cs\",\r\n        \"Hash\":  \"FE6B137D1CB519B8D5685AA9D999B0C0DE99DAACA6B0A3E15E97AB88D2CFA3A2\"\r\n    },\r\n    {\r\n        \"Path\":  \"C:\\\\Users\\\\Admin\\\\Look-See-Do_Fighter\\\\Assets\\\\Tests\\\\Editor\\\\LSDFHitEffectTests.cs\",\r\n        \"Hash\":  \"67FA8175F48A849F95A9C9AF379845E39FA5C63D1FACF47046BE797AE61DEC3C\"\r\n    },\r\n    {\r\n        \"Path\":  \"C:\\\\Users\\\\Admin\\\\Look-See-Do_Fighter\\\\Assets\\\\Scenes\\\\LSDFGameplay.unity\",\r\n        \"Hash\":  \"DF63F0989D7947EE2B53B66CA77F05A568B1844D5E9DC15EE6FEB31DF115426D\"\r\n    }\r\n]\r\n2026-10-20T22:42:29.9769676+09:00\r\n",
+  "rerun": false,
+  "limitations": [
+    "GPU test verified an isolated white overlay and sprite alpha mask, not an online match screen",
+    "Frame observation and opacity dispatcher integration remains unverified after fixture correction",
+    "Runtime initialization correction and corrected tests were not recompiled or rerun by the agent",
+    "Excluded folders were not inspected; existing compiler warnings from them were only observed in console",
+    "Past task failures and user validation remain historical"
+  ],
+  "publication": "No staging, commit, push, PR",
+  "preserved": "Existing IDE csproj/sln and untracked csproj files, user's effect prefabs/animations and scene selections, prior notes/evidence"
+}
