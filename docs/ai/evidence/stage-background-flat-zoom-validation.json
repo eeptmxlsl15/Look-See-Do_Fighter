@@ -1,0 +1,248 @@
+{
+  "task": "flat-stage-background-zoom",
+  "date": "2026-10-22",
+  "branch": "dev/Prototype",
+  "head": "debf379c006e40a9a4e00884db3d27bfd111a4d9",
+  "status": "IMPLEMENTED; 11/13 TESTS PASS; PERSPECTIVE ASSERTION POINTS CORRECTED AFTER FAILURE; NOT REVALIDATED",
+  "changes": [
+    "Keep the reference-distance framing (0.8) and cache the reference frustum instead of refilling at the current zoom",
+    "Homothety about each camera projects the backdrops as a flat image on the fighter plane",
+    "Keep serialized image/size/offset/depth/ground/mirror fields; FillCameraView inspector label is Fit Reference View",
+    "Existing scene PNG assignment, scene file and user-modified Map file preserved"
+  ],
+  "checks": {
+    "quantum_guard": {
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 94,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    },
+    "diff": {
+      "status": "PASS",
+      "output": "warning: in the working copy of 'docs/ai/current-state.md', LF will be replaced by CRLF the next time Git touches it\nsimulation_diff_exit=0\r\n"
+    },
+    "documents_meta_and_validated_sources": {
+      "status": "PASS",
+      "relative_links": 41,
+      "meta_pairs": 3,
+      "issues": [],
+      "preserved_user_assets_sha256": {
+        "Assets/Scenes/LSDFGameplay.unity": "349fd54f08ec44ebd9a9f556a7bfe1a90df9fc6c6e43e9178e60029615675821",
+        "Assets/Resources/LSDF_Map.asset": "bc45b1138734f1238205bd30a05ae761c0cbdcac307a8bcfead3eada93878052"
+      },
+      "source_sha256": {
+        "Assets/QuantumUser/View/LSDFStageBackground.cs": "8f2f52d86fc481f19935ac6b8d257e243d01cdbf18921f0f5973da4d3104debd",
+        "Assets/QuantumUser/View/Editor/LSDFStageBackgroundEditor.cs": "fb4acbf663e4e4711048bc289c8786ed548bb91020b5ca044b66a8cc1520f179",
+        "Assets/Tests/Editor/LSDFStageBackgroundTests.cs": "9721f423ee745b6dc8fcda6c43e43eaa510aaf6f013049dda5c658eab0afa4c5"
+      }
+    },
+    "unity_compile": {
+      "status": "PASS before fixture-only correction; production sources unchanged afterwards",
+      "refresh": {
+        "success": true,
+        "message": "Refresh requested.",
+        "error": null,
+        "data": {
+          "refresh_triggered": false,
+          "compile_requested": true,
+          "compile_started": null,
+          "resulting_state": "idle",
+          "hint": "If Unity enters compilation/domain reload, poll the mcpforunity://editor/state resource until data.advice.ready_for_tools is true."
+        },
+        "hint": null
+      },
+      "console": {
+        "success": true,
+        "message": "Retrieved 0 log entries.",
+        "data": []
+      },
+      "loaded_type": {
+        "success": true,
+        "message": "Code executed successfully.",
+        "data": {
+          "result": {
+            "compiling": false,
+            "failed": false,
+            "flatProjectionFieldLoaded": true,
+            "refitMethodLoaded": true
+          },
+          "compiler": "codedom"
+        }
+      }
+    },
+    "regression": {
+      "status": "FAIL; fixture corrected after validation and NOT REVALIDATED",
+      "job_id": "1c093506e93a48c1b691f04653cc810a",
+      "result": {
+        "mode": "EditMode",
+        "summary": {
+          "total": 13,
+          "passed": 11,
+          "failed": 2,
+          "skipped": 0,
+          "durationSeconds": 0.7578321,
+          "resultState": "Failed(Child)"
+        },
+        "results": [
+          {
+            "name": "BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(0,False)",
+            "fullName": "LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(0,False)",
+            "state": "Failed",
+            "durationSeconds": 0.0329086,
+            "message": "  Background X must stay locked to the fighter plane.\r\n  Expected: 0.93463981151580811d +/- 0.0010000000474974513d\r\n  But was:  0.93734055757522583d\r\n",
+            "stackTrace": "at LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake (System.Int32 view, System.Boolean orthographic) [0x00248] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFStageBackgroundTests.cs:143\r\n",
+            "output": ""
+          },
+          {
+            "name": "BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(1,False)",
+            "fullName": "LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(1,False)",
+            "state": "Failed",
+            "durationSeconds": 0.0012054,
+            "message": "  Background X must stay locked to the fighter plane.\r\n  Expected: 0.04444059357047081d +/- 0.0010000000474974513d\r\n  But was:  0.047314014285802841d\r\n",
+            "stackTrace": "at LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake (System.Int32 view, System.Boolean orthographic) [0x00248] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFStageBackgroundTests.cs:143\r\n",
+            "output": ""
+          },
+          {
+            "name": "BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(0,True)",
+            "fullName": "LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(0,True)",
+            "state": "Passed",
+            "durationSeconds": 0.0047499,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(1,True)",
+            "fullName": "LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(1,True)",
+            "state": "Passed",
+            "durationSeconds": 0.0006943,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "CustomPivotAndOptionalMirrorKeepTheSameWorldLandmarks",
+            "fullName": "LSDFStageBackgroundTests.CustomPivotAndOptionalMirrorKeepTheSameWorldLandmarks",
+            "state": "Passed",
+            "durationSeconds": 0.0324603,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FollowZoomShakeAndViewSwitchDoNotChangeCameraOwnershipOrPose",
+            "fullName": "LSDFStageBackgroundTests.FollowZoomShakeAndViewSwitchDoNotChangeCameraOwnershipOrPose",
+            "state": "Passed",
+            "durationSeconds": 0.0029249,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ImageRemovalDisableAndReentryRestoreOnlyTheOriginalGroundVisual",
+            "fullName": "LSDFStageBackgroundTests.ImageRemovalDisableAndReentryRestoreOnlyTheOriginalGroundVisual",
+            "state": "Passed",
+            "durationSeconds": 0.0008698,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "MissingCamerasAndSeparateStagesCannotLeakPresentationState",
+            "fullName": "LSDFStageBackgroundTests.MissingCamerasAndSeparateStagesCannotLeakPresentationState",
+            "state": "Passed",
+            "durationSeconds": 0.0017347,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReferenceFramingCoversBothOpposingCamerasWithoutStretching(1.333333f)",
+            "fullName": "LSDFStageBackgroundTests.ReferenceFramingCoversBothOpposingCamerasWithoutStretching(1.333333f)",
+            "state": "Passed",
+            "durationSeconds": 0.0030581,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReferenceFramingCoversBothOpposingCamerasWithoutStretching(1.777778f)",
+            "fullName": "LSDFStageBackgroundTests.ReferenceFramingCoversBothOpposingCamerasWithoutStretching(1.777778f)",
+            "state": "Passed",
+            "durationSeconds": 0.0006806,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReferenceFramingCoversBothOpposingCamerasWithoutStretching(2.333333f)",
+            "fullName": "LSDFStageBackgroundTests.ReferenceFramingCoversBothOpposingCamerasWithoutStretching(2.333333f)",
+            "state": "Passed",
+            "durationSeconds": 0.0005937,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SceneWiresOneSharedImageSlotAndSeparateCameraLayers",
+            "fullName": "LSDFStageBackgroundTests.SceneWiresOneSharedImageSlotAndSeparateCameraLayers",
+            "state": "Passed",
+            "durationSeconds": 0.3114529,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "UnlitImageRendersFromBothSidesWithTheExpectedHorizontalMirror",
+            "fullName": "LSDFStageBackgroundTests.UnlitImageRendersFromBothSidesWithTheExpectedHorizontalMirror",
+            "state": "Passed",
+            "durationSeconds": 0.0225647,
+            "message": null,
+            "stackTrace": null,
+            "output": "View 0: left=RGBA(1.000, 0.000, 0.000, 1.000), right=RGBA(0.000, 0.000, 1.000, 1.000)\r\nView 1: left=RGBA(0.000, 0.000, 1.000, 1.000), right=RGBA(1.000, 0.000, 0.000, 1.000)\r\n"
+          }
+        ]
+      }
+    },
+    "actual_user_png_or_network_gameplay": {
+      "status": "NOT RUN",
+      "reason": "Synthetic GPU rendering and preview-scene wiring are not actual gameplay or visual alignment proof; no replay/forced network rollback"
+    }
+  },
+  "failure_analysis": {
+    "measured_volume_metadata": {
+      "success": true,
+      "message": "Code executed successfully.",
+      "data": {
+        "result": {
+          "path": "Assets/Sprites/Background/목재 로봇 폐기장 아레나.png",
+          "boundsCenter": "(0.000000, 0.000000, 0.000000)",
+          "boundsSize": "(19.330000, 8.140000, 0.200000)",
+          "verticesAreXY": "UnityEngine.Vector2"
+        },
+        "compiler": "codedom"
+      }
+    },
+    "issue": "Landmarks used bounds.min and bounds.max including the SpriteRenderer bounding volume's Z thickness. Sprite vertices are XY; bounding-volume front/back corners are not image points.",
+    "correction": "Use bounds.min/max X and Y with bounds.center.z; keep the same strict XY and relative zoom assertions and tolerances.",
+    "changed_file": "Assets/Tests/Editor/LSDFStageBackgroundTests.cs",
+    "corrected_test_sha256": "9cab3b044796d92b0e35f0724f265219bd8c04a0810e6a63ae7b0ad5a42718d2",
+    "production_changed_after_validation": false,
+    "tests_rerun": false,
+    "compile_rerun": false
+  },
+  "preserved_final_sha256": {
+    "Assets/Scenes/LSDFGameplay.unity": "349fd54f08ec44ebd9a9f556a7bfe1a90df9fc6c6e43e9178e60029615675821",
+    "Assets/Resources/LSDF_Map.asset": "bc45b1138734f1238205bd30a05ae761c0cbdcac307a8bcfead3eada93878052"
+  },
+  "preserved": [
+    "Existing IDE and user Map/scene edits",
+    "User deletion of two old background PNGs and meta files",
+    "User's new background PNG/meta and prior untracked stage source, tests and documentation"
+  ],
+  "publication": "No staging, commit, push or PR",
+  "note": "All implementation checks performed in one final bundle. Result documentation was added afterwards; no repeated automatic validation."
+}

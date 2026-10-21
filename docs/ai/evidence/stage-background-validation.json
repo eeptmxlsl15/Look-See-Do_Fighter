@@ -1,0 +1,115 @@
+{
+  "task": "opposing-camera-stage-background",
+  "date": "2026-10-21",
+  "branch": "dev/Prototype",
+  "head": "debf379c006e40a9a4e00884db3d27bfd111a4d9",
+  "status": "IMPLEMENTED; UNITY COMPILE CONFIRMATION UNAVAILABLE; TARGETED TESTS NOT RUN",
+  "changes": [
+    "New LSDFStageBackground and custom inspector",
+    "Shared empty sprite slot in LSDFGameplay, two world-space renderers on existing layers 6 and 7",
+    "Only camera change: Player2 mask excludes layer 6",
+    "No Simulation/QTN/SDK or camera follow/zoom/shake code change",
+    "User PNG and importer settings untouched"
+  ],
+  "checks": {
+    "quantum_guard": {
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 94,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    },
+    "unity_refresh": {
+      "result": {
+        "success": false,
+        "message": "Refresh triggered but timed out after 60s waiting for editor readiness.",
+        "error": null,
+        "data": {
+          "timeout": true,
+          "wait_seconds": 60
+        },
+        "hint": null
+      }
+    },
+    "compile_console": {
+      "status": "NOT RUN; tool connection failed",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"success\":false,\"message\":null,\"error\":\"Unity session not available; please retry\",\"data\":{\"reason\":\"no_unity_session\",\"retry_after_ms\":250},\"hint\":\"retry\"}"
+          }
+        ],
+        "structuredContent": {
+          "success": false,
+          "message": null,
+          "error": "Unity session not available; please retry",
+          "data": {
+            "reason": "no_unity_session",
+            "retry_after_ms": 250
+          },
+          "hint": "retry"
+        },
+        "isError": false
+      }
+    },
+    "compile_completion_state": {
+      "status": "UNAVAILABLE",
+      "result": "{\"server\":\"unityMCP\",\"uri\":\"mcpforunity://editor/state\",\"contents\":[{\"uri\":\"mcpforunity://editor/state\",\"mimeType\":\"text/plain\",\"text\":\"{\\\"success\\\":false,\\\"message\\\":null,\\\"error\\\":\\\"Unity session not available; please retry\\\",\\\"data\\\":{\\\"reason\\\":\\\"no_unity_session\\\",\\\"retry_after_ms\\\":250},\\\"hint\\\":\\\"retry\\\"}\"}]}"
+    },
+    "editor_connection": {
+      "status": "DISCONNECTED",
+      "instances": "{\"server\":\"unityMCP\",\"uri\":\"mcpforunity://instances\",\"contents\":[{\"uri\":\"mcpforunity://instances\",\"mimeType\":\"text/plain\",\"text\":\"{\\\"success\\\": true, \\\"transport\\\": \\\"http\\\", \\\"instance_count\\\": 0, \\\"instances\\\": []}\"}]}",
+      "process_observation": "Editor process 30344 running and responding; Player2 process left unchanged"
+    },
+    "regression": {
+      "status": "NOT RUN",
+      "planned_tests": 9,
+      "job_started": false,
+      "reason": "Unity session not available after compilation request; no repeat refresh or validation loop",
+      "fixture": "LSDFStageBackgroundTests",
+      "coverage": "Projection geometry for both cameras at 4:3/16:9/21:9; non-centred pivot/mirror; representative follow/zoom/shake poses, camera toggling and orthographic coverage; ground restore/reentry and root isolation; scene wiring; synthetic GPU pixels"
+    },
+    "scene_editor_reload": {
+      "status": "NOT RUN",
+      "reason": "Do not use new component types before compile is confirmed. Scene file is ready on disk; reopen LSDFGameplay when Unity is ready."
+    },
+    "diff": {
+      "status": "PASS",
+      "result": "warning: in the working copy of 'Assets/Scenes/LSDFGameplay.unity', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/ai/current-state.md', LF will be replaced by CRLF the next time Git touches it\nsimulation_diff_exit=0\r\n"
+    },
+    "documents_meta_source": {
+      "status": "PASS",
+      "relative_links": 30,
+      "meta_pairs": 3,
+      "issues": [],
+      "source_sha256": {
+        "Assets/QuantumUser/View/LSDFStageBackground.cs": "64aa7283c5e2b7735dbb694e8eaa39ef404388fab3318737ee3f9b30f3fa2423",
+        "Assets/QuantumUser/View/Editor/LSDFStageBackgroundEditor.cs": "0cfd8236e91a68dd88be563bb0c3050bdab72ff25ebfa0ef06371b80d97d6a28",
+        "Assets/Tests/Editor/LSDFStageBackgroundTests.cs": "9092c1b7c649bd932134b5da9077993a3ea4386e4352257946b67568595bf411",
+        "Assets/QuantumUser/View/LSDFStageBackground.cs.meta": "cc671e0baf63ec83dc633620a5f49433e118deb961be6eed2d4757fed8db2a03",
+        "Assets/QuantumUser/View/Editor/LSDFStageBackgroundEditor.cs.meta": "107537e3e475ce65ce505aa055935e3a97d2e6eceeeeb1f584999d2d15d20fc9",
+        "Assets/Tests/Editor/LSDFStageBackgroundTests.cs.meta": "7191fb29d090ef52218d00b1f9819faa2db9498e3d997464e1f77bd216306c39",
+        "Assets/Scenes/LSDFGameplay.unity": "1dc524202a9b230543587552ec5da028425314380282b67e1ab2c5c28cb1e0b7"
+      }
+    },
+    "actual_user_png_visual": {
+      "status": "NOT RUN",
+      "reason": "User will assign their PNG; BackgroundSprite intentionally null."
+    },
+    "photon_online_or_rollback": {
+      "status": "NOT RUN",
+      "reason": "Presentation-only implementation; not claimed as game determinism verification."
+    }
+  },
+  "preserved": [
+    "Existing IDE generated changes and 4 untracked csproj files",
+    "User deletion of two background PNG files and their meta files",
+    "User's untracked background PNG and its meta",
+    "Prior current-state local publication summary and historical failed/unrun evidence"
+  ],
+  "publication": "No staging, commit, push or PR",
+  "documentation_note": "Result documentation appended after the single validation pass; checks were not repeated."
+}

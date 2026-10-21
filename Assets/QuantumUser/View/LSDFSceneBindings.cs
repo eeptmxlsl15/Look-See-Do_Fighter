@@ -17,6 +17,9 @@ public partial class LSDFSceneBindings : MonoBehaviour {
   }
   public QuantumEntityViewUpdater Updater;
   public GameObject Player1Camera, Player2Camera;
+  [Header("Camera Follow")]
+  [Tooltip("World-space camera height for both player views. Increase to give more space above the fighters.")]
+  public float CameraHeight = 0f;
   [Header("Action White Flash")]
   public Material ActionFlashMaterial;
   [Range(0, 1)] public float ActionFlashStrength = .22f;
@@ -75,7 +78,7 @@ public partial class LSDFSceneBindings : MonoBehaviour {
     var center = (a.transform.position + b.transform.position) * .5f;
     float distance = Vector3.Distance(a.transform.position, b.transform.position);
     float z = -.8f * flip - Mathf.Max(0, distance - 1) * flip;
-    UpdateCameraFollow(cameraObject, new Vector3(center.x, 0, z), a.EntityRef, b.EntityRef);
+    UpdateCameraFollow(cameraObject, new Vector3(center.x, CameraHeight, z), a.EntityRef, b.EntityRef);
   }
   private void OnDisable() {
     StopCounterHitZoom();

@@ -8730,6 +8730,10 @@ MonoBehaviour:
   GuardParticle: {fileID: 3143381313781726589, guid: f33e5e4393db624449efc9e078701a88, type: 3}
   ParringParticle: {fileID: 3143381313781726589, guid: f33e5e4393db624449efc9e078701a88, type: 3}
   CounterParticle: {fileID: 3143381313781726589, guid: f33e5e4393db624449efc9e078701a88, type: 3}
+  HitOpacity: 1
+  GuardOpacity: 1
+  ParringOpacity: 1
+  CounterOpacity: 1
   FallbackLifetime: 0.15
   MaximumLifetime: 2
 --- !u!114 &1079664174

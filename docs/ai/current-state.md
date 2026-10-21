@@ -1,22 +1,71 @@
 # 현재 작업 상태
 
-갱신: 2026-10-20T23:13:33+09:00. 브랜치: `dev/Prototype`, 이번 게시 준비 기준 HEAD `98143dd36e0c0fc4f24490a7625d7fec80594d21`.
+갱신: 2026-10-22T03:00:26+09:00. 브랜치: `dev/Prototype`, 현재 HEAD `debf379c006e40a9a4e00884db3d27bfd111a4d9` (`Assets`).
 현재 HEAD와 이 문서를 포함한 로컬 커밋은 `git log -1`로 확인한다.
 이 요약을 읽은 뒤 요청에 관련된 아래 기록/증거와 실제 Git 상태·소스를 대조한다. Git 조회 실패는 `UNKNOWN`이다.
 초기 감사와 과거 PASS는 해당 시점의 기록이며 현재 변경의 검증을 대신하지 않는다.
 
 ## 최근 작업
 
-최신 요청: 사용자가 이펙트 작업의 테스트를 직접 완료했으며 재질문 없이 푸시하라고 명시했다.
-[사용자 확인·게시 범위](user-validation-effects-2026-10-20.md)에 따라 관련 View/씬/프리팹·의존성/테스트/문서를 커밋·푸시한다.
-대상은 기존 origin/dev/Prototype이며 PR 생성은 요청받지 않았다. 기존 자동 실패/보정 후 미검증 이력은 보존하고 게임 테스트를 재실행하지 않는다.
-게시 준비에서는 사용자 설정을 보존하고 Unity YAML의 추가 줄 끝 공백만 정리했다. 정확한 커밋과 게시 결과는 실행 후 갱신한다.
-필요한 PNG 1개는 구조/픽셀 시트 육안 검토를 별도로 완료했다. IDE 생성 파일과 사용하지 않는 시트/GIF는 로컬에 보존한다.
-게시 준비 검사: 정적 정책 94개/신규 0과 staged 공백 PASS, Simulation diff 없음.
-preflight는 46개 파일/46개 blob을 검사해 필수 PNG 1개의 BINARY_NOT_SCANNED로 종료 코드 1이었다.
-알려진 텍스트 비밀 패턴/불필요 경로 적중은 없고 PNG는 위 별도 검토 근거로 포함한다. 검사기 결과 자체는 PASS로 바꾸지 않는다.
+최신 요청: [배경·카메라 사용자 테스트 완료와 푸시 승인](user-validation-stage-camera-2026-10-22.md).
+사용자가 지금까지의 작업을 모두 테스트했다고 확인하고 푸시를 요청했다. 게임 자동 검사는 재실행하지 않는다.
+배경/평면 줌/높이 설정과 사용자 씬·Map·메뉴, 배경 PNG 및 새 적 동작 PNG/clip/controller를 게시 후보로 포함한다.
+IDE 생성 파일은 보존·제외한다. 이전 자동 FAIL/NOT RUN/수정 후 미검증은 유지한다.
+게시 준비에서 씬이 실제로 없는 `_export.png`를 가리키는 것을 발견해 남아 있는 원본 PNG로 참조 3곳만 복구했다.
+정적 참조 확인 3곳과 PNG 73개의 구조/메타 짝은 PASS, 복구 후 실제 게임은 NOT RUN이다. 사용자 높이 0.09와 배경 위치·배율은 보존한다.
+origin/권한/fetch 확인 완료, 작업 브랜치와 0/0, 열린 PR 없음. 명시적 승인에 따라 로컬 후보 준비 후 푸시한다. PR 생성은 범위 밖이다.
+새 사용자 확인 기록과 에셋 근거 JSON을 이번 게시 후보에 명시적으로 포함했다.
+게시 최종 한 차례 정적 정책 94개/신규 0, staged 공백, 문서 링크 51개·새 에셋 메타 짝 76개/동작 참조 PASS.
+preflight는 staged 항목 174개/blob 173개/미게시 커밋 0개를 검사해 PNG의 LARGE 1개/BINARY 72개로 종료 1(BLOCKED)이다.
+텍스트 비밀 패턴/불필요 경로 적중 없음. 해당 73개는 별도 구조·메타·표본 육안 검토를 기록한 사용자 게임 에셋으로 포함하며 검사기 자체를 PASS로 바꾸지 않는다.
+게임 검사와 preflight를 재실행하지 않았다. 결과 문서만 갱신해 최종 후보를 커밋·푸시한다.
 
-게시 결과: `98143dd36e0c0fc4f24490a7625d7fec80594d21` (Return to main menu after match result)을
+최신 구현: [카메라 높이 인스펙터 설정·검증](camera-height-inspector.md).
+`LSDFGameplay → EntityViewUpdater → LSDFSceneBindings → Camera Follow → Camera Height`로 양쪽 카메라의 월드 Y를 조절한다.
+기본 0 유지, 양수면 카메라가 올라가며 기존 보간/거리 줌/피격 연출을 거친다. 제품 수정은 해당 View 필드와 목표 Y뿐이다.
+최종 한 차례 컴파일/콘솔(오류·경고 0), 기존 카메라 회귀 8개, 정적 94개/신규 0, 문서 링크 34개는 PASS.
+Inspector 기본 0 및 0.1/-0.1/0.2 적용·JSON 왕복은 통과했으나 뒤이은 프리뷰 카메라 참조 확인에서 프로브 FAIL.
+전체 컴포넌트 JSON 덮어쓰기 전 참조를 따로 관측하지 않아 원인은 미확정이며 원본 씬에는 두 참조가 있다. 실제 게임 구도는 NOT RUN.
+공백 검사는 후속 Git 조회 실패와 합쳐져 개별 종료 코드 미확보로 UNKNOWN. 정상 권한으로 diff 읽기만 수행했고 검사 재실행은 하지 않았다.
+사용자 씬/Map은 선행 기록 이후 변경된 시작 해시와 최종 해시가 일치한다. 이번 작업에서 씬·Map·이미지·배경 소스/테스트를 저장/수정하지 않았다.
+기존 IDE/씬/Map/PNG 추가·삭제/배경 코드·테스트·문서와 이전 실패 이력을 보존한다. 새 카메라 기록은 미추적, View/요약은 미커밋이다.
+커밋·푸시 없음. 이전 배경 원근 2개 보정 후 미검증 상태도 유지한다.
+
+최신 구현: [평면 배경 줌 동기화](stage-background-flat-zoom.md), [검증 근거](evidence/stage-background-flat-zoom-validation.json).
+매 프레임 화면 채우기로 배경 축소가 상쇄되는 문제와
+캐릭터/배경 깊이 차이를 수정했다. 초기 거리 0.8의 구도는 유지하고 배경이 캐릭터 평면과 같은 화면 좌표/줌 비율을 갖도록 투영한다.
+사용자가 PNG를 연결하고 Map/씬을 수정한 상태를 확인했다. 두 파일·이미지·설정 값은 보존하며 View/Inspector/관련 fixture만 수정한다.
+최종 한 차례 컴파일/콘솔(오류·경고 0), 정적 94개/신규 0, 관련 공백/문서 링크 41개·메타 짝 3개는 PASS다.
+13개 중 11 PASS / 2 FAIL / 0 SKIP이다. 직교 줌 양쪽/기준 비율/반전 GPU/수명·씬 연결은 PASS.
+원근 두 검사는 실제 그림이 아닌 두께 0.2 경계 박스의 앞뒤 Z 면을 비교한 측정점 문제를 보정했고 **수정 후 미검증**이다.
+제품 View/Inspector는 검사 후 변경하지 않았다. 테스트/검사를 다시 실행하지 않았다. 실제 PNG 게임 화면·Photon/rollback은 NOT RUN이다.
+씬과 사용자 Map의 최종 해시가 시작 해시와 일치해 이미지 연결·설정 보존을 확인했다.
+현재 새 View/Inspector/테스트와 메타·배경 문서/두 증거는 미추적이다. 기존 IDE/Map/씬·PNG 삭제/추가와 이전 기록을 보존하고 커밋·푸시하지 않았다.
+Unity 연결은 회복되어 메뉴 씬 편집 모드에서 검사를 수행했다. 이전 준비 TIMEOUT/NOT RUN 이력은 아래에 유지한다.
+
+최신 구현: [양쪽 카메라용 긴 도트 배경](stage-background.md), [검증 근거](evidence/stage-background-validation.json).
+사용자가 PNG를 직접 연결하도록 게임 씬의 `StageBackground → Background Sprite` 슬롯을 비워 두고
+두 뷰의 배경 배치/비율 유지·화면 채우기/2P 반전·레이어 격리를 구현했다. 기존 카메라 연출·Simulation은 변경하지 않았다.
+현재 소스와 Git을 대조해 ee3628ba 이후 사용자 에셋 커밋 debf379c를 확인했다. 배경 두 PNG/메타 삭제와 새 사용자 PNG/메타 추가,
+기존 IDE 변경 및 이전 요약 변경을 보존한다. 새 View/Editor/테스트 3개와 메타·작업 기록/증거는 미추적이며 씬/이 문서는 미커밋이다.
+최종 한 차례 정적 정책 94개/신규 0, diff 공백, 문서 링크 30개/메타 짝 3개는 PASS다.
+Unity refresh는 60초 준비 대기 TIMEOUT, 후속 상태/콘솔은 `no_unity_session`으로 실패했다.
+컴파일 결과 확인 불가, 새 9개 fixture/에디터 씬 재로드/실제 PNG 화면은 NOT RUN이다. 테스트 job을 시작하지 않았고 재실행도 하지 않았다.
+에디터와 Player 2 프로세스는 실행 중인 채 보존했다. 최종 연결 목록도 0개여서 다른 인스턴스/도구로 게임 검증을 우회하지 않았다.
+디스크의 게임 씬은 연결 슬롯을 포함하며 Unity가 준비되면 다시 열어 PNG를 연결한다. 커밋/푸시는 요청받지 않았다.
+
+최신 게시 결과: `ee3628bae82cb4044a33d3a94492ee2d4daa98ef` (Restore hit effects and add opacity and action flashes)을
+기존 `origin/dev/Prototype`에 푸시 완료했다. `git ls-remote`가 같은 SHA를 반환했다. PR은 생성하지 않았다.
+[사용자 확인·게시 범위](user-validation-effects-2026-10-20.md): 사용자가 테스트 완료와 재질문 없는 푸시를 명시했다.
+관련 View/씬/세 프리팹·필요 의존성/테스트/문서 46개만 커밋했다. 사용자 불투명도 0.5와 프리팹 크기/색/속도를 보존했다.
+검토 tree `eefafd8c5566894c3e9c81c5e357ef6f5b4cb028`와 커밋 tree가 일치했다. 정적 정책 94개/신규 0과 staged 공백 PASS, Simulation diff 없음.
+preflight는 46개 파일/46개 blob/미게시 커밋 0개를 검사해 필수 PNG 1개의 BINARY_NOT_SCANNED로 종료 코드 1이었다.
+알려진 텍스트 비밀 패턴/불필요 경로 적중은 없으며 PNG의 구조/스프라이트 육안 별도 검토 근거로 포함했다. 검사기 자체를 PASS로 바꾸지 않았다.
+게임 자동 검사는 재실행하지 않았다. 이전 자동 FAIL/NOT RUN/수정 후 미검증과 사용자 완료 보고를 구분한다.
+루트 IDE 변경 9개/미추적 csproj 4개, 사용하지 않는 스프라이트 11개/GIF 및 각각의 메타는 로컬에 보존했다.
+이 게시 결과 요약은 푸시 후 로컬에만 갱신했다. 현재 이 문서 변경은 미커밋이며 새 게임 변경은 없다.
+
+이전 게시 결과: `98143dd36e0c0fc4f24490a7625d7fec80594d21` (Return to main menu after match result)을
 기존 `origin/dev/Prototype`에 푸시 완료했다. `git ls-remote`의 원격 SHA가 일치했다. PR은 생성하지 않았다.
 게시 후보 8개 파일/8개 blob의 preflight는 발견 사항 0, staged 공백 검사는 PASS였으며
 검토한 tree `c90356339f446f6c510135271c94249b512b387b`와 커밋 tree가 일치했다.
@@ -24,7 +73,9 @@ preflight는 46개 파일/46개 blob을 검사해 필수 PNG 1개의 BINARY_NOT_
 
 | 작업 | 기록·근거 | 현재 알려진 상태 |
 |---|---|---|
-| 이펙트 사용자 테스트 완료·푸시 요청 (2026-10-20) | [사용자 확인·게시 범위](user-validation-effects-2026-10-20.md) | 사용자 테스트 완료 보고와 현재 dev/Prototype 푸시 승인 수신. 원격/권한/fetch 확인, 0/0, 열린 PR 없음. 게임 자동 검사 재실행 없이 관련 파일만 게시 준비. 이전 FAIL/NOT RUN은 보존 |
+| 평면 배경 줌 동기화 (2026-10-22) | [구현·결과](stage-background-flat-zoom.md), [근거](evidence/stage-background-flat-zoom-validation.json) | 기준 거리 0.8의 구도를 유지하고 캐릭터 평면과 같은 줌/이동 비율로 투영. 사용자 씬/Map/이미지 연결 보존. 컴파일/정적/공백·문서·메타 PASS. 13개 중 11 PASS / 2 FAIL 후 테스트 측정점 보정만 수행, 원근 2개 수정 후 미검증. 재실행 없음 |
+| 양쪽 카메라용 긴 도트 배경 (2026-10-21) | [연결·구현 방법](stage-background.md), [근거](evidence/stage-background-validation.json) | 단일 Sprite 슬롯과 1P/2P 배경·원본 비율/화면 채우기·반전 옵션 구현. 정적/공백/문서·메타 PASS. Unity 준비 TIMEOUT 뒤 MCP 세션 소실로 컴파일 확인·9개 표현 검사/실제 PNG 화면 NOT RUN. 이미지 슬롯 비워 둠 |
+| 이펙트 사용자 테스트 완료·푸시 (2026-10-20) | [사용자 확인·게시 범위](user-validation-effects-2026-10-20.md) | 사용자 테스트 완료 보고를 근거로 46개 파일을 ee3628ba에 커밋하고 origin/dev/Prototype 푸시 완료·원격 SHA 일치. 게임 자동 검사 재실행 없음. 정적/공백 PASS, PNG 자동 미검사 1개는 별도 검토. 이전 FAIL/NOT RUN은 보존 |
 | 효과 불투명도·호밍/패링 흰색 표시 (2026-10-20) | [구현 기록](effect-opacity-action-flash.md), [검증 근거](evidence/effect-opacity-action-flash-validation.json) | 네 종류 알파와 0.035초 상승/0.12초 복원 구현. 사용자 Red/White/DarkRed 선택 보존. 최초 컴파일/정책/문서·메타 PASS, 12개 중 10 PASS / 2 FAIL. 흰색 GPU·셰이더 포함 8개 PASS. 네이티브 블록 초기화·fixture heap/크기 가정·씬 공백 보정 후 **수정 후 미검증**. 알파/Frame 통합·실제 대전 NOT RUN. 재실행 없음 |
 | 새 효과 프리팹·경기 씬 연결 (2026-10-20) | [구현 기록](hit-effects-prefab-migration.md), [검증 근거](evidence/hit-effects-prefab-validation.json) | 지정 폴더의 1010_0을 네 효과에 연결. 씬 View와 경기 updater 명시, 기존 메뉴 담당 비활성화. 양쪽 카메라 방향·한 주기/취소·확정 후 정리 구현. 정책/수정 전 diff·문서·메타 PASS. 컴파일은 새 테스트 Assert 충돌 후 별칭 수정으로 **수정 후 미검증**, 4개 회귀·실제 플레이 NOT RUN. 재실행 없음 |
 | 히트 이펙트 미표시 원인 조사 (2026-10-20) | [조사·관측 근거](hit-effects-investigation.md) | 10/16 리팩토링에서 이벤트 구독을 Start→OnActivate로 변경했으나 수신 객체는 메뉴 루트 EffectManager에만 남아 경기 updater/Map과 미연결. 소스·씬·커밋 이력의 불일치 확인. 편집 모드 객체 조회와 콘솔 읽기만 수행, 실제 대전 재현 NOT RUN. 코드/씬 수정 없음 |
@@ -91,7 +142,22 @@ preflight는 46개 파일/46개 blob을 검사해 필수 PNG 1개의 BINARY_NOT_
 
 ## 다음 작업
 
-효과 알파/호밍·패링 흰색 표시는 사용자 테스트 완료 보고를 받았고 현재 푸시 요청을 진행한다.
+배경·카메라의 현재 작업물은 사용자 테스트 완료/푸시 요청을 받았다. 게시 준비 결과와 최종 커밋·원격 SHA를 이번 기록에 남긴다.
+누락된 내보내기 PNG 참조를 원본으로 복구한 뒤 실제 게임은 다시 실행하지 않았다. 기존 자동 실패와 구분한다.
+
+카메라 높이: 편집 모드에서 `Camera Height`를 0.1부터 조절하고 씬을 저장한다. 실제 대전 구도는 아직 미확인이다.
+프리뷰 참조 프로브 FAIL/공백 검사 UNKNOWN은 상세 기록에 보존한다. 별도 검증 요청 시 원래 참조를 건드리지 않는 방식으로 확인한다.
+이 후속 항목은 자동 재검증·게시 승인이 아니다.
+
+평면 배경: 현재 연결한 이미지와 설정으로 카메라가 물러나면 맵도 같이 축소하도록 구현했다. `Fit Reference View`는 초기 구도만 맞춘다.
+원근 1P/2P 자동 좌표 검사는 측정점 보정 후 미검증이다. 별도 검증 요청 때 수정된 13개 fixture와 실제 PNG 양쪽 줌 화면을 확인한다.
+이미지 끝이 드러나면 Minimum Height로 기준 크기를 늘릴 수 있다. 현재 상태는 자동 재검증/게시 승인이 아니다.
+
+긴 도트 배경: Unity가 준비되면 `LSDFGameplay`를 다시 열고 `StageBackground → Background Sprite`에 사용자의 PNG 스프라이트를 연결한다.
+Import는 Sprite/Single/Point/Compression None, 높이는 Offset Y/Minimum Height로 맞춘다. 코드/씬은 구현했지만 MCP 연결 소실로 컴파일과 9개 fixture는 NOT RUN이다.
+별도 자동 검증 요청이 있을 때 연결된 에디터에서 컴파일/새 fixture·실제 양쪽 시점을 확인한다. 자동 재검증이나 게시를 진행하지 않는다.
+
+효과 알파/호밍·패링 흰색 표시는 사용자 테스트 완료 보고를 받아 origin/dev/Prototype에 푸시 완료했다.
 초기화/테스트 보정 후 자동 검사는 미실행이다. 별도 자동 증거 요청 시 컴파일/12개 fixture와 실제 대전 양쪽 시점을 확인한다.
 이번에는 게임 검사를 재실행하지 않으며 기존 자동 온라인 육안/rollback NOT RUN은 보존한다.
 

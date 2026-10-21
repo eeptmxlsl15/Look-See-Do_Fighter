@@ -1,0 +1,2201 @@
+{
+  "task": "stage-camera-user-validated-publication",
+  "checks": "PNG signature/chunk CRC/IDAT decompression/noninterlaced scanline layout/meta pairs; not gameplay or a secret-information guarantee",
+  "png_count": 73,
+  "total_png_bytes": 2593884,
+  "background_guid": "52f731fa27a04924483e7eb333936d74",
+  "scene_background_references": 3,
+  "records": [
+    {
+      "path": "Assets/Sprites/Background/목재 로봇 폐기장 아레나.png",
+      "bytes": 2391961,
+      "width": 1933,
+      "height": 814,
+      "bit_depth": 8,
+      "color_type": 2,
+      "interlace": 0,
+      "sha256": "f9cdc85d20336c83087438adfab76898d4c6da7ebf0045339309a202f2bfd7bc",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "caBX",
+          "bytes": 21881
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2370011
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 4721200,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_01.png",
+      "bytes": 2787,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "fcfd99dc5c3ceee573b2273810ba37fc14ae9a936172f8d024b5125a55b08a46",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2717
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_02.png",
+      "bytes": 2965,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "4b222492dd99010995644ad2463e1a0e4a137f435d7bab7892e549bb9ab7f6cd",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2895
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_03.png",
+      "bytes": 2928,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "dad4578c00747c1c73da2c121f87963f760b54c43c2217f3c1ac8481284f0d49",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2858
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_04.png",
+      "bytes": 2989,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "a8455fe22ff0d81b0c2715d09a9991b337f671d4e1479490aefc0c89a9241ecf",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2919
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_05.png",
+      "bytes": 3007,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "2fc64a2751a164ab69bb4c1fef930e856770f1cdcbc6ecb7e3dbdd3fa5e0a963",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2937
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_06.png",
+      "bytes": 3071,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "0446abf6f4c14864eb3ad6177e5d4ddca5c19dc2693191a880ab60f9fa0c86ba",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 3001
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_07.png",
+      "bytes": 3018,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "62637080f253bf04ac3f1e80ce6fe2c175f6c92934c310909cd6e6e2eb5c48af",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2948
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_08.png",
+      "bytes": 3189,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "1202f96cfdf51fabd54b06f6b6cc252fc24a1de70ac6f16bb331aa4cc35a61d6",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 3119
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_09.png",
+      "bytes": 2927,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "6794a449a9419248c792268c04e275da97788732c49ab123177daea83564f22f",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2857
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_10.png",
+      "bytes": 2870,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "30f046569218a3e65d53c12059a816784c6c462956e0bdf2f25a12ab69aaac5f",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2800
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_11.png",
+      "bytes": 2855,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "426cecfeddcd46554e184ee9287a705f3de0da60564f8a0a8405f39511b9b99f",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2785
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_12.png",
+      "bytes": 2716,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "f4eaac971cf4720833a442abeac2ab958b795fd2e6010df0c7494503a9974b77",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2646
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_13.png",
+      "bytes": 2954,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "4286be72a96a631cfc34fc40972dbab7446b0c1e664e3ef791e4d86c97f1d2d3",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2884
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_14.png",
+      "bytes": 2724,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "4604ea7947e3cab83c5cd1f88886348876a16d64069174d8082e3ac82694bef7",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2654
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_15.png",
+      "bytes": 2637,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "15e3457c400372fdae85cc48e5798919674d1dd1625540992f4203106fbe7844",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2567
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_16.png",
+      "bytes": 2780,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "8bfdc5b3269f25bdf30c0883e66c77fce5e5c28a557fed977daf127a4b6e5a41",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2710
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_17.png",
+      "bytes": 3018,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "619e69aec53b4d942016cb19d1bddece2023b6a9f4789602f9701f2f27ffd1c1",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2948
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_18.png",
+      "bytes": 2953,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "2fb2a23b60b23ed9d930dc51f571ba65b4467a23407bbd48eb54960456e375b9",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2883
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_19.png",
+      "bytes": 3038,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "6699e2e6e792b7efad0519e24f50df7ce3b8034141d4870c6b03eee303857600",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2968
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_20.png",
+      "bytes": 3020,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "41b081092556848e7e1265f61e9c25ef6dbf39126f0b8e186285e3e2ced1d894",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2950
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_21.png",
+      "bytes": 3006,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "96d1abe7e9b5324fb4c24df26dc0bdd6b1f23f2692061adf661bd283c702c775",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2936
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_22.png",
+      "bytes": 3016,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "3743b2f89a726d0a748eda26700d54b74720937e1a94b898fb58f3021ad323c9",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2946
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_23.png",
+      "bytes": 2845,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "ea18f1aa78bcb7563ae0a353992759b00041c87c842e7e85f549ba6ee417a6a1",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2775
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_24.png",
+      "bytes": 2834,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "c504f7afafbeec5778034955e453d308b303303621a5dba04e22defa518cc4c0",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2764
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_25.png",
+      "bytes": 2767,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "eb39607ecc3cc79a9f6267cccb6bfed5306cfc6b8c7f641b77a39e277840762d",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2697
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_26.png",
+      "bytes": 2703,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "bb1075b37f8a69ff5a6530f55e210250fc9ab8d77cf640dde3aac8fec95e4c9b",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2633
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_27.png",
+      "bytes": 2836,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "1fa439288bfd0216a44b1840d862352a258eea259b0cf40fa41a339a0986858d",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2766
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_28.png",
+      "bytes": 2893,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "376ce9ac26550f756cdf524d2e8f9e9a3d8dfc0b32dde2131163fc81b76d53bf",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2823
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_29.png",
+      "bytes": 2945,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "29c8f623f97dd5e3d867ec0b14fcd3f604fc5d0b478025621ebc48774efe2d4e",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2875
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_30.png",
+      "bytes": 2799,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "3399922b9ca11e137d470521f74a6cc41c762e780e01003328e826144e6fe456",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2729
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_31.png",
+      "bytes": 2455,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "1eb134b4bb8819adcbe5220a1e5205753ab1b630216b35aecb113c4d5f1f25d6",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2385
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_32.png",
+      "bytes": 2451,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "6cd3966e3dd7337b0ddef607419792649d6faadc8c9855e42c3d422911c38958",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2381
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_33.png",
+      "bytes": 2563,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "dc4c2fd0d7581e737fdcd7eca1b322bed67b394c5808ed388a2c4a8c8f3ada0c",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2493
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_34.png",
+      "bytes": 2688,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "9d7cdf004b8e5cd928e8262e6772ce450a0c82a34139dd5e5548f27b16c7f3c6",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2618
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_35.png",
+      "bytes": 2720,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "d1b9de710b1b5d86e859999698044f9489927f8f9ba6099011b11502af9294ce",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2650
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_36.png",
+      "bytes": 2740,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "0e14c019a5b5fe28d04ebc9bd31cd1f5de29ce68bad63b97975fd76d63770606",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2670
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/JumpUpper_Enemy/Look-See-Do_Bot_export_스티브 승룡권 (17) {{35}}_37.png",
+      "bytes": 2701,
+      "width": 57,
+      "height": 98,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "2bcaf48fa5581fbab55e16865679053b5b4cd1beade1b29bc3d0a03e908d4884",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2631
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 22442,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_01.png",
+      "bytes": 2844,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "3f2cec0f4a67d98855b3614d1956d648079bab649e85c3fa2262438b4953724b",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2774
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_02.png",
+      "bytes": 2679,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "0119723bb48bc9a0d45e2c5307367841685e2174309bf5ce305fb11127eb45de",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2609
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_03.png",
+      "bytes": 2607,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "cb4b9fb6841f68376d9990dd862732a28e73bf9e81f5fdcdf9826f33a3f589de",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2537
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_04.png",
+      "bytes": 2532,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "cd10253b7bcb293b0ca72c121d72962c3cc42e6dba01f596a78c2cd6293b2901",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2462
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_05.png",
+      "bytes": 2574,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "392bb472f60f8a4b81b3194ea80d32af2359a05ab01516206716236ff649c32b",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2504
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_06.png",
+      "bytes": 2752,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "e94e9537e016514e0ad93f3acf0d82b56fb4d83e0de63eb4a1f1067145ed4ba3",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2682
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_07.png",
+      "bytes": 2526,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "4fa1c94ece5ffb642619c6ad58b71b5e9a72ba89689813ec4fde5d678a1943d9",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2456
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_08.png",
+      "bytes": 2655,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "0d146efda616cd8ee161c771e5b5485cb3f230d2287fc0706e8e7f7a6649270a",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2585
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_09.png",
+      "bytes": 2752,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "67f458a49641cefad813c06cb7fcba3d88bfa23919d42e911fab10fcd5f4b4ba",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2682
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_10.png",
+      "bytes": 2750,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "d9fcd8b71c63f8925ad201e9c050a2f7cadf3a71af60c19fa57fb303fe1eccf3",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2680
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_11.png",
+      "bytes": 2778,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "04f44e8de9b443762c46b971ccaf209820196a4162e148bd2601bf2fa43a05d6",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2708
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_12.png",
+      "bytes": 2859,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "423487d0d72aa0d0a65014c1ccef58aef47cfb321cc53469295ea02c94e98dcf",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2789
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_13.png",
+      "bytes": 2870,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "c4ee2fff0ed02dd55f30def7288595bbd381967725d9581274a5f69592018ecd",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2800
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_14.png",
+      "bytes": 2824,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "c93085419b1b8b32438da3f05add20462704a21ae1cebd2d31ccb54d1bee7658",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2754
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_15.png",
+      "bytes": 2957,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "87f804a6389c28f2d889f5fae576488bfc178e9708b59065723f4656bacf4d70",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2887
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_16.png",
+      "bytes": 2842,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "85773aaaf6adda6796a5724d36ca19ae13417d330c66ab319d0b2d41573c52a5",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2772
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_17.png",
+      "bytes": 2815,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "9dcbbee34bac53e64a2bfeb6648e54a4f67141a0a8e63f32b750ffa7ef811483",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2745
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_18.png",
+      "bytes": 2663,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "f80bfa68df17f70c60b4c4179af89771ed44d8d3dc8c6bc9435fbd2f9c97e52a",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2593
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_19.png",
+      "bytes": 2709,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "ad3185bcd2190312bf8b67df46d4774017449d99bdd3de42dedb79ba0fea46a2",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2639
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_20.png",
+      "bytes": 2916,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "376620d01511ed1d0e23c768b2cd90e3b41ce672bdc5bf8308d23d2a0dd1a302",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2846
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_21.png",
+      "bytes": 2911,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "37c83c69ca548b178b30c4bc999ef3db9661fdb26e7f9744320d0f6656937973",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2841
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_22.png",
+      "bytes": 2921,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "d04c34adae0f012c557f1709c6a9faf2842e1aa825691e70527d1c2a7f7ee3ff",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2851
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_23.png",
+      "bytes": 2891,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "9db60a2baa09270f0cf6a10ab0a99fc1c6a763f6a9bedc9b6ee234c35ca0f06b",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2821
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_24.png",
+      "bytes": 2886,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "5419ffff2c455ace4348e8933aaf5738cc42e9496d72e715cca42ece8c014319",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2816
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_25.png",
+      "bytes": 2889,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "6ec6a33b6a4d8d5b05fe9b4231c58bedede8762ca7e6dfd4077e8749d049f154",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2819
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_26.png",
+      "bytes": 2800,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "a2df114af777271bf63f0a22d4d4032a0877bee46510879a7ff85e897bdeb09f",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2730
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_27.png",
+      "bytes": 2791,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "ead6828c20c596005f99e3de24756c6cccf6e8f34b1f5b5ed316e130820df1e5",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2721
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_28.png",
+      "bytes": 2729,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "080192577a7ba86e71a335de896f1e810af9f67209e1ae1d835dbd3a39318c75",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2659
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_29.png",
+      "bytes": 2540,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "be79c55e18449fbe6877dde6af47fc26deb3eb3b255b1df603aba80934a169bf",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2470
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_30.png",
+      "bytes": 2515,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "ddadfdf77c5c10110debf0f3648c78e0007900bcdc82fbc0c13a3db226ffcd42",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2445
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_31.png",
+      "bytes": 2783,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "a77d004b562faaf44ab05cb9521952762b713350f1b70d3bd6d40415c1dcb784",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2713
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_32.png",
+      "bytes": 2711,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "118679db34c504e47d3e7117f540907ec877d77828ed351a41e5522d87a218e7",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2641
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_33.png",
+      "bytes": 2689,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "1080feb336e9db40d3b912816ef7293e61869e51eb188589089545efb3a7d20f",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2619
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_34.png",
+      "bytes": 2711,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "e7363ca60ae4b75c2ea609594a30a8c55532055ee0eaf82b6f8c26c09096efbd",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2641
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    },
+    {
+      "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/Look-See-Do_Bot_export_KazumiHoming_Enemy_35.png",
+      "bytes": 2844,
+      "width": 58,
+      "height": 64,
+      "bit_depth": 8,
+      "color_type": 6,
+      "interlace": 0,
+      "sha256": "3f2cec0f4a67d98855b3614d1956d648079bab649e85c3fa2262438b4953724b",
+      "chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "sRGB",
+          "bytes": 1
+        },
+        {
+          "type": "IDAT",
+          "bytes": 2774
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "decoded_bytes": 14912,
+      "appended_bytes": 0
+    }
+  ],
+  "issues": []
+}

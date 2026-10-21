@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e142b393ea5213a40868b005b6476721
+guid: 084b31b74dc80ce4cb78278b26932c7f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4323178714323028180
-    second: street_art_wall_-_camden_-_london_export_0
+      213: 5162805823412982774
+    second: "Look-See-Do_Bot_export_\uC2A4\uD2F0\uBE0C \uC2B9\uB8E1\uAD8C (17) {{35}}_09_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,61 +96,48 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: street_art_wall_-_camden_-_london_export_0
+      name: "Look-See-Do_Bot_export_\uC2A4\uD2F0\uBE0C \uC2B9\uB8E1\uAD8C (17) {{35}}_09_0"
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2
         y: 0
-        width: 619
-        height: 104
+        width: 44
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c27fe305ddbf004c0800000000000000
-      internalID: -4323178714323028180
+      spriteID: 6f359dcea88f5a740800000000000000
+      internalID: 5162805823412982774
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     outline: []
-    customData: 
+    customData:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
-    indices: 
+    indices:
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      street_art_wall_-_camden_-_london_export_0: -4323178714323028180
-  mipmapLimitGroupName: 
+      "Look-See-Do_Bot_export_\uC2A4\uD2F0\uBE0C \uC2B9\uB8E1\uAD8C (17) {{35}}_09_0": 5162805823412982774
+  mipmapLimitGroupName:
   pSDRemoveMatte: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:
