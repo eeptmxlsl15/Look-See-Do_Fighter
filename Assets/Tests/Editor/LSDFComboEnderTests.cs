@@ -43,14 +43,55 @@ public class LSDFComboEnderTests {
   }
 
   [Test]
-  public void OrdinaryAirPushUsesItsOwnSpeedAndStopsAfterConfiguredTicks() {
+  public void OrdinaryAirPushUsesItsOwnDistanceAndStopsAfterConfiguredTicks() {
     var air = new LSDF_AirCombo(); var body = Body(); FP y = 0;
-    var config = new LSDFJuggleSettings { HitPushSpeed = FP._0_10, HitPushTicks = 3 };
+    var config = new LSDFJuggleSettings { HitPushDistance = FP._0_05, HitPushTicks = 3 };
     LSDFJuggle.RegisterHit(ref air, ref body, ref y, -1, false, config, 100, Delta);
-    Assert.AreEqual(-FP._0_10, body.Velocity.X);
-    LSDFJuggle.Step(ref air, ref body, 0, 102, Delta); Assert.AreEqual(-FP._0_10, body.Velocity.X);
+    FP expected = -config.HitPushDistance / (config.HitPushTicks * Delta);
+    Assert.AreEqual(expected, body.Velocity.X);
+    LSDFJuggle.Step(ref air, ref body, 0, 102, Delta); Assert.AreEqual(expected, body.Velocity.X);
     LSDFJuggle.Step(ref air, ref body, 0, 103, Delta); Assert.AreEqual(FP._0, body.Velocity.X);
     Assert.IsFalse(LSDFJuggle.BlocksHit(air));
+  }
+
+  [TestCase(-1, 3, false)] [TestCase(1, 3, false)]
+  [TestCase(-1, 6, true)] [TestCase(1, 6, true)]
+  [TestCase(-1, 12, true)] [TestCase(1, 12, true)]
+  public void EveryNonterminalHitMovesTheConfiguredDistanceWithDragAndRestartsAwayFromTheAttacker(int direction, int ticks, bool drag) {
+    var air = new LSDF_AirCombo(); var body = Body(); FP y = 0, x = 0;
+    body.Drag = drag ? FP._0_50 : FP._0;
+    var config = new LSDFJuggleSettings { HitPushDistance = FP._0_05, HitPushTicks = ticks };
+    var untouched = new LSDF_AirCombo(); var untouchedBody = Body();
+    for (int hit = 0; hit < 5; ++hit) {
+      FP before = x;
+      int sign = hit % 2 == 0 ? direction : -direction;
+      int start = 100 + hit * 30;
+      Assert.IsFalse(LSDFJuggle.RegisterHit(ref air, ref body, ref y, sign, false, config, start, Delta, starter: hit == 0));
+      FP originalY = y;
+      for (int elapsed = 1; elapsed <= ticks; ++elapsed) {
+        body.Velocity.X *= FP._1 - body.Drag * Delta;
+        x += body.Velocity.X * Delta;
+        LSDFJuggle.Step(ref air, ref body, y, start + elapsed, Delta, config);
+      }
+      Assert.That(FPMath.Abs(x - before - sign * config.HitPushDistance).RawValue, Is.LessThanOrEqualTo(ticks * 2));
+      Assert.AreEqual(FP._0, body.Velocity.X);
+      Assert.AreEqual(originalY, y, "A hit must not teleport either axis.");
+      Assert.AreEqual(hit, air.HitCount);
+    }
+    Assert.AreEqual(default(LSDF_AirCombo), untouched); Assert.AreEqual(FPVector2.Zero, untouchedBody.Velocity);
+    Assert.AreEqual(FP._0_05, config.HitPushDistance);
+    Assert.IsTrue(LSDFJuggle.RegisterHit(ref air, ref body, ref y, direction, false, config, 300, Delta));
+    Assert.AreEqual(direction * config.EnderSpeed, body.Velocity.X);
+  }
+
+  [TestCase(0)] [TestCase(-1)]
+  public void ZeroOrNegativePushDistanceDisablesOrdinaryPushWithoutDisablingTheAirReaction(int sign) {
+    var air = new LSDF_AirCombo(); var body = Body(); FP y = 0;
+    LSDFJuggle.RegisterHit(ref air, ref body, ref y, 1, false,
+      new LSDFJuggleSettings { HitPushDistance = sign * FP._0_05 }, 100, Delta);
+    Assert.AreEqual(FP._0, body.Velocity.X);
+    Assert.AreEqual(1, air.HitCount); Assert.IsTrue(air.ComboActive);
+    Assert.IsTrue(body.Velocity.Y > FP._0);
   }
 
   [TestCase(0)] [TestCase(-5)]

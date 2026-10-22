@@ -1,0 +1,322 @@
+{
+  "timestamp": "2026-10-22T15:28:53.909Z",
+  "branch": "dev/Prototype",
+  "base": "b571a8f15e617788a0c86fe6507e992146f1800c",
+  "scope": "Publication validation: background 29 cases and current two-client air-combo scenario, each executed once",
+  "reused_evidence": "air-hit-push-distance-validation.json (99 passed, compilation and static guard; unchanged implementation)",
+  "test_job": {
+    "job_id": "3748cce4900646e7b669ce3a5e939397",
+    "status": "succeeded",
+    "mode": "EditMode",
+    "started_unix_ms": 1792682594485,
+    "finished_unix_ms": 1792682659474,
+    "last_update_unix_ms": 1792682659474,
+    "progress": {
+      "completed": 30,
+      "total": 30,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "LSDFStageBackgroundTests.WideZoomAddsWholeRepeatsInsideThreeStripsWithoutStretchingTheImage(1,True)",
+      "last_finished_unix_ms": 1792682659280,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": false,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "EditMode",
+      "summary": {
+        "total": 30,
+        "passed": 30,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 48.2627489,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "AirComboClientsAgreeOnHoverRehitsLandingAndFrameRestore",
+          "fullName": "LSDFOnlineSmokeTests.AirComboClientsAgreeOnHoverRehitsLandingAndFrameRestore",
+          "state": "Passed",
+          "durationSeconds": 59.123076,
+          "message": null,
+          "stackTrace": null,
+          "output": "AIR COMBO observer=0, episode=0, defender=1, naturalFall=669, acceleration=True, rehit=0, rehitAcceleration=False, hoverTicks=120, peakRaw=19674.\nAIR COMBO observer=0, episode=1, defender=0, naturalFall=1149, acceleration=True, rehit=0, rehitAcceleration=False, hoverTicks=120, peakRaw=19674.\nAIR COMBO observer=0, episode=2, defender=1, naturalFall=1629, acceleration=True, rehit=1637, rehitAcceleration=True, hoverTicks=120, peakRaw=19674.\nAIR COMBO observer=0, episode=3, defender=0, naturalFall=2109, acceleration=True, rehit=2117, rehitAcceleration=True, hoverTicks=120, peakRaw=19674.\nAIR COMBO observer=1, episode=0, defender=1, naturalFall=669, acceleration=True, rehit=0, rehitAcceleration=False, hoverTicks=120, peakRaw=19674.\nAIR COMBO observer=1, episode=1, defender=0, naturalFall=1149, acceleration=True, rehit=0, rehitAcceleration=False, hoverTicks=120, peakRaw=19674.\nAIR COMBO observer=1, episode=2, defender=1, naturalFall=1629, acceleration=True, rehit=1637, rehitAcceleration=True, hoverTicks=120, peakRaw=19674.\nAIR COMBO observer=1, episode=3, defender=0, naturalFall=2109, acceleration=True, rehit=2117, rehitAcceleration=True, hoverTicks=120, peakRaw=19674.\nAIR COMBO PASS: both defenders naturally fall without followups and accelerate after the curved rehit return, 136 matching verified checksums, two recorded replays and Frame restore during natural and accelerating rehit fall."
+        },
+        {
+          "name": "AuthoredDuplicatesAreAdoptedWithoutCreatingOrDeletingSceneObjects",
+          "fullName": "LSDFStageBackgroundTests.AuthoredDuplicatesAreAdoptedWithoutCreatingOrDeletingSceneObjects",
+          "state": "Passed",
+          "durationSeconds": 0.0219435,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(0,False)",
+          "fullName": "LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(0,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0075944,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(1,False)",
+          "fullName": "LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(1,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0009935,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(0,True)",
+          "fullName": "LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(0,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0006753,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(1,True)",
+          "fullName": "LSDFStageBackgroundTests.BackgroundLandmarksAndFightersShareTheSameZoomPanAndShake(1,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0006993,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CrossingOneTileBoundaryMovesOnlyTheOffscreenTile(0)",
+          "fullName": "LSDFStageBackgroundTests.CrossingOneTileBoundaryMovesOnlyTheOffscreenTile(0)",
+          "state": "Passed",
+          "durationSeconds": 0.0192564,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CrossingOneTileBoundaryMovesOnlyTheOffscreenTile(1)",
+          "fullName": "LSDFStageBackgroundTests.CrossingOneTileBoundaryMovesOnlyTheOffscreenTile(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0009047,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CustomPivotAndOptionalMirrorKeepTheSameWorldLandmarks",
+          "fullName": "LSDFStageBackgroundTests.CustomPivotAndOptionalMirrorKeepTheSameWorldLandmarks",
+          "state": "Passed",
+          "durationSeconds": 0.001919,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FollowZoomShakeAndViewSwitchDoNotChangeCameraOwnershipOrPose",
+          "fullName": "LSDFStageBackgroundTests.FollowZoomShakeAndViewSwitchDoNotChangeCameraOwnershipOrPose",
+          "state": "Passed",
+          "durationSeconds": 0.0024224,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ImageRemovalDisableAndReentryRestoreOnlyTheOriginalGroundVisual",
+          "fullName": "LSDFStageBackgroundTests.ImageRemovalDisableAndReentryRestoreOnlyTheOriginalGroundVisual",
+          "state": "Passed",
+          "durationSeconds": 0.0007512,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "MissingCamerasAndSeparateStagesCannotLeakPresentationState",
+          "fullName": "LSDFStageBackgroundTests.MissingCamerasAndSeparateStagesCannotLeakPresentationState",
+          "state": "Passed",
+          "durationSeconds": 0.0011987,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReferenceFramingCoversBothOpposingCamerasWithoutStretching(1.333333f)",
+          "fullName": "LSDFStageBackgroundTests.ReferenceFramingCoversBothOpposingCamerasWithoutStretching(1.333333f)",
+          "state": "Passed",
+          "durationSeconds": 0.0028119,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReferenceFramingCoversBothOpposingCamerasWithoutStretching(1.777778f)",
+          "fullName": "LSDFStageBackgroundTests.ReferenceFramingCoversBothOpposingCamerasWithoutStretching(1.777778f)",
+          "state": "Passed",
+          "durationSeconds": 0.0006115,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReferenceFramingCoversBothOpposingCamerasWithoutStretching(2.333333f)",
+          "fullName": "LSDFStageBackgroundTests.ReferenceFramingCoversBothOpposingCamerasWithoutStretching(2.333333f)",
+          "state": "Passed",
+          "durationSeconds": 0.0005608,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RepeatingSeamsRenderInTheCorrectOrderFromBothCameras(0,0.8f)",
+          "fullName": "LSDFStageBackgroundTests.RepeatingSeamsRenderInTheCorrectOrderFromBothCameras(0,0.8f)",
+          "state": "Passed",
+          "durationSeconds": 0.0401333,
+          "message": null,
+          "stackTrace": null,
+          "output": "View 0, distance 0.8: left=RGBA(0.000, 0.000, 1.000, 1.000), right=RGBA(1.000, 0.000, 0.000, 1.000)\r\n"
+        },
+        {
+          "name": "RepeatingSeamsRenderInTheCorrectOrderFromBothCameras(1,0.8f)",
+          "fullName": "LSDFStageBackgroundTests.RepeatingSeamsRenderInTheCorrectOrderFromBothCameras(1,0.8f)",
+          "state": "Passed",
+          "durationSeconds": 0.0184563,
+          "message": null,
+          "stackTrace": null,
+          "output": "View 1, distance 0.8: left=RGBA(1.000, 0.000, 0.000, 1.000), right=RGBA(0.000, 0.000, 1.000, 1.000)\r\n"
+        },
+        {
+          "name": "RepeatingSeamsRenderInTheCorrectOrderFromBothCameras(0,8.8f)",
+          "fullName": "LSDFStageBackgroundTests.RepeatingSeamsRenderInTheCorrectOrderFromBothCameras(0,8.8f)",
+          "state": "Passed",
+          "durationSeconds": 0.0078166,
+          "message": null,
+          "stackTrace": null,
+          "output": "View 0, distance 8.8: left=RGBA(0.000, 0.000, 1.000, 1.000), right=RGBA(1.000, 0.000, 0.000, 1.000)\r\n"
+        },
+        {
+          "name": "RepeatingSeamsRenderInTheCorrectOrderFromBothCameras(1,8.8f)",
+          "fullName": "LSDFStageBackgroundTests.RepeatingSeamsRenderInTheCorrectOrderFromBothCameras(1,8.8f)",
+          "state": "Passed",
+          "durationSeconds": 0.0195336,
+          "message": null,
+          "stackTrace": null,
+          "output": "View 1, distance 8.8: left=RGBA(1.000, 0.000, 0.000, 1.000), right=RGBA(0.000, 0.000, 1.000, 1.000)\r\n"
+        },
+        {
+          "name": "RepeatingTilesRestoreGroundDisableAndReenterWithoutLeakingOwnedObjects",
+          "fullName": "LSDFStageBackgroundTests.RepeatingTilesRestoreGroundDisableAndReenterWithoutLeakingOwnedObjects",
+          "state": "Passed",
+          "durationSeconds": 0.0029189,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SceneWiresOneSharedImageSlotAndSeparateCameraLayers",
+          "fullName": "LSDFStageBackgroundTests.SceneWiresOneSharedImageSlotAndSeparateCameraLayers",
+          "state": "Passed",
+          "durationSeconds": 0.1313524,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ThreeTilesCoverContinuousPanReverseAndLargeJumpsWithoutGrowingThePool(0,False)",
+          "fullName": "LSDFStageBackgroundTests.ThreeTilesCoverContinuousPanReverseAndLargeJumpsWithoutGrowingThePool(0,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0023106,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ThreeTilesCoverContinuousPanReverseAndLargeJumpsWithoutGrowingThePool(1,False)",
+          "fullName": "LSDFStageBackgroundTests.ThreeTilesCoverContinuousPanReverseAndLargeJumpsWithoutGrowingThePool(1,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0010735,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ThreeTilesCoverContinuousPanReverseAndLargeJumpsWithoutGrowingThePool(0,True)",
+          "fullName": "LSDFStageBackgroundTests.ThreeTilesCoverContinuousPanReverseAndLargeJumpsWithoutGrowingThePool(0,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0010019,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ThreeTilesCoverContinuousPanReverseAndLargeJumpsWithoutGrowingThePool(1,True)",
+          "fullName": "LSDFStageBackgroundTests.ThreeTilesCoverContinuousPanReverseAndLargeJumpsWithoutGrowingThePool(1,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0009297,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "UnlitImageRendersFromBothSidesWithTheExpectedHorizontalMirror",
+          "fullName": "LSDFStageBackgroundTests.UnlitImageRendersFromBothSidesWithTheExpectedHorizontalMirror",
+          "state": "Passed",
+          "durationSeconds": 0.0165533,
+          "message": null,
+          "stackTrace": null,
+          "output": "View 0: left=RGBA(1.000, 0.000, 0.000, 1.000), right=RGBA(0.000, 0.000, 1.000, 1.000)\r\nView 1: left=RGBA(0.000, 0.000, 1.000, 1.000), right=RGBA(1.000, 0.000, 0.000, 1.000)\r\n"
+        },
+        {
+          "name": "WideZoomAddsWholeRepeatsInsideThreeStripsWithoutStretchingTheImage(0,False)",
+          "fullName": "LSDFStageBackgroundTests.WideZoomAddsWholeRepeatsInsideThreeStripsWithoutStretchingTheImage(0,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0039217,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "WideZoomAddsWholeRepeatsInsideThreeStripsWithoutStretchingTheImage(1,False)",
+          "fullName": "LSDFStageBackgroundTests.WideZoomAddsWholeRepeatsInsideThreeStripsWithoutStretchingTheImage(1,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0011684,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "WideZoomAddsWholeRepeatsInsideThreeStripsWithoutStretchingTheImage(0,True)",
+          "fullName": "LSDFStageBackgroundTests.WideZoomAddsWholeRepeatsInsideThreeStripsWithoutStretchingTheImage(0,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0010478,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "WideZoomAddsWholeRepeatsInsideThreeStripsWithoutStretchingTheImage(1,True)",
+          "fullName": "LSDFStageBackgroundTests.WideZoomAddsWholeRepeatsInsideThreeStripsWithoutStretchingTheImage(1,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0010581,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        }
+      ]
+    }
+  },
+  "limits": [
+    "No forced network packet-delay rollback injection",
+    "No human review of in-game art seam or game feel",
+    "Historical AirHitInterruptsNativeGraphsAndSurvivesFrameRestore fixture correction was not rerun",
+    "KazumiHoming empty attack events remain unresolved"
+  ]
+}

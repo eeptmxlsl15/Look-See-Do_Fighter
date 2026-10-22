@@ -80,7 +80,7 @@ namespace Quantum.LSDF {
       bool starter = launches && !player->isAir && !previous.ComboActive;
       bool ended = RegisterHit(ref *air, ref *body, ref y, direction, hit->ComboFinisher,
         settings, frame.Number, frame.DeltaTime, starter);
-      player->forceBack = ended ? FPMath.Max(FP._0, settings.EnderSpeed) : FPMath.Max(FP._0, settings.HitPushSpeed);
+      player->forceBack = FPMath.Abs(air->HorizontalVelocity);
       if (wall && !ended) { Cancel(ref *air, ref *body, preserveCombo: true); return false; }
       player->isAir = true;
       player->isSit = player->isAttack = player->isStun = player->isCombo = player->isCantMove = false;
@@ -124,8 +124,12 @@ namespace Quantum.LSDF {
       Begin(ref air, ref body, ref positionY, config, tick, deltaTime);
       air.HitCount = hits;
       air.ControlsHorizontal = true;
-      air.HorizontalVelocity = sign * FPMath.Max(FP._0, config.HitPushSpeed);
-      air.PushUntilTick = tick + System.Math.Max(0, System.Math.Min(600, config.HitPushTicks));
+      int pushTicks = System.Math.Max(0, System.Math.Min(600, config.HitPushTicks));
+      FP distance = FPMath.Max(FP._0, config.HitPushDistance);
+      // Snapshot the pre-drag velocity in Frame state; each physics tick covers distance/pushTicks.
+      air.HorizontalVelocity = pushTicks > 0 && deltaTime > FP._0
+        ? sign * distance / (pushTicks * deltaTime * DragFactor(body, deltaTime)) : FP._0;
+      air.PushUntilTick = tick + pushTicks;
       ApplyHorizontal(ref air, ref body, tick);
       return false;
     }

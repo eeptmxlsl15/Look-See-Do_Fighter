@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-10-22T23:42:29+09:00",
+  "branch": "dev/Prototype",
+  "head": "b571a8f15e617788a0c86fe6507e992146f1800c",
+  "scope": "Horizontal background presentation only; Quantum simulation/colliders unchanged",
+  "quantum_guard": {
+    "status": "PASS",
+    "files_scanned": 94,
+    "new_findings": 0,
+    "limits": "Lexical policy check, not determinism proof"
+  },
+  "code_diff_whitespace": {
+    "status": "PASS",
+    "runs": 1
+  },
+  "managed_compile": {
+    "status": "PASS",
+    "runs_per_assembly": 1,
+    "results": [
+      {
+        "assembly": "LSDF.View",
+        "sourceCount": 20,
+        "exitCode": 0,
+        "status": "PASS",
+        "output": "C:\\Users\\Admin\\Look-See-Do_Fighter\\tmp\\infinite-stage-background\\LSDF.View.dll"
+      },
+      {
+        "assembly": "LSDF.View.Editor",
+        "sourceCount": 1,
+        "exitCode": 0,
+        "status": "PASS",
+        "output": "C:\\Users\\Admin\\Look-See-Do_Fighter\\tmp\\infinite-stage-background\\LSDF.View.Editor.dll"
+      },
+      {
+        "assembly": "LSDF.Tests",
+        "sourceCount": 1,
+        "exitCode": 0,
+        "status": "PASS",
+        "output": "C:\\Users\\Admin\\Look-See-Do_Fighter\\tmp\\infinite-stage-background\\LSDF.Tests.dll"
+      }
+    ],
+    "limits": "Roslyn compile against installed Unity and previously compiled unchanged dependencies; no Unity native execution"
+  },
+  "unity_refresh": {
+    "status": "FAIL",
+    "reason": "no_unity_session",
+    "runs": 1
+  },
+  "unity_console": {
+    "status": "NOT RUN",
+    "tool_error": "no_unity_session",
+    "read_attempts": 1
+  },
+  "unity_final_compile": {
+    "status": "NOT RUN",
+    "reason": "Current editor log and ScriptAssemblies predate final source edits"
+  },
+  "unity_tests": {
+    "status": "NOT RUN",
+    "planned_source_case_count": 29,
+    "job_id": null,
+    "reason": "Zero connected Unity instances; no test job started"
+  },
+  "actual_game_art_seams_network_rollback": {
+    "status": "NOT RUN"
+  },
+  "scene_user_changes_preserved": {
+    "status": "PASS",
+    "start_sha256": "322e43706087eb30fcb9de3a7997a844de23e6e838e8613a832b2599395de0db",
+    "end_sha256": "0992bcb2ae332c3d7b68464c197f0e19bb8754559eacfa67bc5a0f39348fb3ca",
+    "sha256_after_removing_only_five_added_fields": "322e43706087eb30fcb9de3a7997a844de23e6e838e8613a832b2599395de0db",
+    "added_fields": [
+      "  RepeatHorizontally: 1",
+      "  Player1LeftBackdrop: {fileID: 955306877}",
+      "  Player1RightBackdrop: {fileID: 543184132}",
+      "  Player2LeftBackdrop: {fileID: 682345977}",
+      "  Player2RightBackdrop: {fileID: 1495885912}"
+    ]
+  },
+  "quantum_map_preserved": {
+    "status": "PASS",
+    "sha256": "b18bcc38fab7b51c5e59b82e56a6279cd657b8e3fb02514622d44ad95480d49f"
+  },
+  "source_sha256": {
+    "Assets/QuantumUser/View/LSDFStageBackground.cs": "7e012c67c365d0b2a8637b251023e88e776b2ce3af4fd92eef061f9789c8bcee",
+    "Assets/QuantumUser/View/Editor/LSDFStageBackgroundEditor.cs": "e392f005d80eeddd6253dc1083f8015434d5073e5f62eaed03496571f993138a",
+    "Assets/Tests/Editor/LSDFStageBackgroundTests.cs": "3a7e75392200835f1f50b7ec66d0da0df6783a18796036ee1df96ca9ae1a3ec7"
+  },
+  "png_sha256": "f282d6ab030010578c0c555a13fd11fd56760ccf26f76f48be47d1055558e9e0",
+  "png_import_change": "spriteMeshType 1 -> 0 (Full Rect); PNG pixels were not edited",
+  "commit_push_pr": "NOT REQUESTED / NOT RUN",
+  "documentation_links": {
+    "status": "PASS",
+    "count": 6,
+    "missing": []
+  },
+  "documentation_trailing_spaces": {
+    "status": "PASS"
+  }
+}

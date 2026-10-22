@@ -24,7 +24,18 @@ public class LSDFHitReactionTests {
     Assert.IsNull(error, error);
   }
 
-  private static async Task RunCases() {
+  [UnityTest]
+  public IEnumerator AirPushMovesAwayForBothFightersAndSurvivesFrameRestore() {
+    yield return new EnterPlayMode();
+    string error = null;
+    var task = RunCases(pushOnly: true);
+    while (!task.IsCompleted) yield return null;
+    if (task.IsFaulted) error = task.Exception.ToString();
+    yield return new ExitPlayMode();
+    Assert.IsNull(error, error);
+  }
+
+  private static async Task RunCases(bool pushOnly = false) {
     QuantumRunnerUnityFactory.Init();
     var menu = AssetDatabase.LoadAssetAtPath<Quantum.Menu.QuantumMenuConfig>(
       "Assets/QuantumUser/Resources/LSDF_MenuConfig.asset");
@@ -54,6 +65,16 @@ public class LSDFHitReactionTests {
       Assert.IsNotNull(runner.Game.Frames.Verified, "Local Quantum runner did not initialize.");
       byte[] initial = runner.Game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit);
       frame = runner.Game.CreateFrame();
+      if (pushOnly) {
+        foreach (string graphName in new[] { "LSDF_PlayerAnimatorGraph", "LSDF_EnemyAnimatorGraph" })
+          for (int defenderIndex = 0; defenderIndex < 2; ++defenderIndex)
+            foreach (bool counter in new[] { false, true }) {
+              frame.Deserialize(initial);
+              RunPushCase(frame, graphName, defenderIndex, counter);
+              TestContext.Progress.WriteLine($"AIR PUSH FRAME PASS: {graphName}/defender={defenderIndex}/counter={counter}");
+            }
+        return;
+      }
       foreach (string graphName in new[] { "LSDF_PlayerAnimatorGraph", "LSDF_EnemyAnimatorGraph" }) {
         foreach (string attack in new[] { "0_Jap", "1_Jap", "1_JapJap" }) {
           foreach (bool counter in new[] { true, false }) {
@@ -94,6 +115,50 @@ public class LSDFHitReactionTests {
     }
     TestContext.Progress.WriteLine($"AIR HIT/DAMAGE CASES: {passed} passed, {failures.Count} failed.");
     Assert.IsEmpty(failures, string.Join("\n", failures));
+  }
+
+  private static unsafe void RunPushCase(Frame frame, string graphName, int defenderIndex, bool counter) {
+    var loaded = AssetDatabase.LoadAssetAtPath<AnimatorGraph>("Assets/QuantumUser/Animators/" + graphName + ".asset");
+    var graph = frame.FindAsset<AnimatorGraph>(loaded.Guid);
+    var defender = Fighter(frame, graph, (PlayerRef)defenderIndex, defenderIndex == 0 ? FP._0 : FP._2);
+    var attacker = Fighter(frame, graph, (PlayerRef)(1 - defenderIndex), defenderIndex == 0 ? FP._2 : FP._0);
+    var settings = LSDFBalance.Config(frame).AirCombo;
+    var originalDistance = settings.HitPushDistance;
+    var originalAttacker = frame.Get<Transform2D>(attacker);
+    frame.Unsafe.GetPointer<PhysicsBody2D>(defender)->Drag = FP._0_50;
+    Hit(frame, defender, attacker, counter); // Ground starter keeps its existing zero-follow-up contract.
+    Hit(frame, defender, attacker, counter);
+    Assert.AreEqual(1, frame.Get<LSDF_AirCombo>(defender).HitCount);
+    int direction = defenderIndex == 0 ? -1 : 1;
+    Assert.IsTrue(direction * frame.Get<PhysicsBody2D>(defender).Velocity.X > FP._0);
+    Assert.AreEqual(FPMath.Abs(frame.Get<LSDF_AirCombo>(defender).HorizontalVelocity), frame.Get<LSDF_Player>(defender).forceBack);
+    FP startX = frame.Get<Transform2D>(defender).Position.X;
+    StepPush(frame, defender, 1, 2);
+    byte[] midway = frame.Serialize(DeterministicFrameSerializeMode.Blit);
+    StepPush(frame, defender, 3, settings.HitPushTicks);
+    FP actualX = frame.Get<Transform2D>(defender).Position.X;
+    Assert.That(FPMath.Abs(actualX - startX - direction * originalDistance).RawValue, Is.LessThanOrEqualTo(settings.HitPushTicks * 2));
+    Assert.AreEqual(FP._0, frame.Get<PhysicsBody2D>(defender).Velocity.X);
+    ulong expected = frame.CalculateChecksum();
+    frame.Deserialize(midway);
+    StepPush(frame, defender, 3, settings.HitPushTicks);
+    Assert.AreEqual(expected, frame.CalculateChecksum(), "Restoring a mid-push Frame must reproduce the same complete state.");
+    Assert.AreEqual(actualX, frame.Get<Transform2D>(defender).Position.X);
+    Assert.AreEqual(originalAttacker, frame.Get<Transform2D>(attacker));
+    Assert.IsFalse(frame.Has<LSDF_AirCombo>(attacker));
+    Assert.AreEqual(originalDistance, settings.HitPushDistance);
+  }
+
+  private static unsafe void StepPush(Frame frame, EntityRef defender, int first, int last) {
+    for (int elapsed = first; elapsed <= last; ++elapsed) {
+      var body = frame.Unsafe.GetPointer<PhysicsBody2D>(defender);
+      var transform = frame.Unsafe.GetPointer<Transform2D>(defender);
+      var air = frame.Unsafe.GetPointer<LSDF_AirCombo>(defender);
+      body->Velocity.X *= FP._1 - body->Drag * frame.DeltaTime;
+      transform->Position.X += body->Velocity.X * frame.DeltaTime;
+      LSDFJuggle.Step(ref *air, ref *body, transform->Position.Y, frame.Number + elapsed, frame.DeltaTime,
+        LSDFBalance.Config(frame).AirCombo);
+    }
   }
 
   private static unsafe void RunDamageCase(Frame frame, string graphName, int defenderIndex, bool counterStarter) {

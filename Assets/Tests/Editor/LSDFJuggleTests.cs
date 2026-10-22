@@ -248,5 +248,9 @@ public class LSDFJuggleTests {
     Assert.IsTrue(config.AirCombo.RehitLift > FP._0); Assert.IsTrue(config.AirCombo.SlowFallSpeed > FP._0);
     Assert.IsTrue(config.AirCombo.SlowFallAcceleration > FP._0);
     Assert.AreEqual(6, new LSDFJuggleSettings().RehitReturnTicks);
+    Assert.AreEqual(FP._0_05, config.AirCombo.HitPushDistance);
+    var serialized = new SerializedObject(config);
+    Assert.IsNotNull(serialized.FindProperty("AirCombo.HitPushDistance"));
+    Assert.IsNotNull(serialized.FindProperty("AirCombo.HitPushTicks"));
   }
 }

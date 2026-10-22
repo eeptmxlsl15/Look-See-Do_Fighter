@@ -33,7 +33,7 @@ public partial class LSDFOnlineSmokeTests {
         SlowFallAcceleration = enableFinisher ? FP._0 : FP._0_10,
         EnderColliderCenter = enableFinisher ? new FPVector2(FP._0_02, -FP._0_05) : new FPVector2(FP._0, FP._0_01),
         GetUpColliderCenter = enableFinisher ? new FPVector2(FP._0_02 + FP._0_01, FP._0_02) : new FPVector2(FP._0, FP._0_01),
-        HitPushSpeed = FP._0, HitPushTicks = 0 };
+        HitPushDistance = FP._0, HitPushTicks = 0 };
       upper.Hit.ComboFinisher = false; fist.Hit.ComboFinisher = enableFinisher;
     }
     public void Dispose() {

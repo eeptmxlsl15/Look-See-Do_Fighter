@@ -42,6 +42,8 @@ MonoBehaviour:
     RehitHoldTicks: 30
     MaximumHeight:
       RawValue: 22938
+    HitPushDistance:
+      RawValue: 3277
     HitPushSpeed:
       RawValue: 6554
     HitPushTicks: 6

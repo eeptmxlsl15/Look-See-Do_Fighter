@@ -23,9 +23,14 @@ namespace Quantum.LSDF {
     [HideInInspector] public int RehitHoldTicks = 12;
     [InspectorName("최대 공중 높이"), Tooltip("첫 상승과 기준 높이 + 추가 상승 높이의 상한입니다. 시동기 피격 위치 기준입니다.")]
     public FP MaximumHeight = FP._0_33 + FP._0_02;
-    [InspectorName("공중 피격 밀림 속도"), Tooltip("낮출수록 공중 피격 때 덜 밀립니다. 마무리 날리기에는 적용하지 않습니다.")]
+    [Header("공중 피격 밀림")]
+    [InspectorName("공중 피격 1회 밀림 거리"), Tooltip("시동기와 일반 공중 피격마다 공격자 반대 방향으로 밀릴 월드 거리입니다. 밀림 시간에 나눠 이동하며 0이면 끕니다. 마무리 날리기에는 적용하지 않습니다.")]
+    public FP HitPushDistance = FP._0_05;
+    // Retain the legacy serialized speed without interpreting its value as a distance.
+    [HideInInspector]
     public FP HitPushSpeed = FP._0_20;
-    [InspectorName("공중 피격 밀림 시간 (틱)"), Min(0)] public int HitPushTicks = 6;
+    [InspectorName("공중 피격 밀림 시간 (틱)"), Tooltip("밀림 거리를 이동하는 시간입니다. 60Hz에서 6틱은 약 0.1초입니다. 0이면 끕니다. 후속 피격 시 새 방향과 거리로 다시 시작합니다."), Min(0)]
+    public int HitPushTicks = 6;
     [InspectorName("마무리 날리기 가로 속도")] public FP EnderSpeed = 4;
     [InspectorName("마무리 날리기 위쪽 속도")] public FP EnderUpSpeed = FP._1 + FP._0_50;
     [InspectorName("날아갈 때 콜라이더 위치"), Tooltip("5타 또는 마무리 기술로 멀리 날아가는 동안만 적용되는 콜라이더 중심입니다. X는 오른쪽(+), Y는 위쪽(+)인 월드축 기준이며 착지·회복 시 원래 위치로 복구합니다. 캐릭터 위치와 콜라이더 크기는 바꾸지 않습니다.")]
