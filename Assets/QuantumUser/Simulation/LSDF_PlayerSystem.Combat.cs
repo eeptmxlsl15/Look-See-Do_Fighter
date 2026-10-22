@@ -133,29 +133,8 @@ namespace Quantum.LSDF
             player->DelayFrame = f.Number + hitbox->enemyHitTime;
 
 
-            LSDFPlayerHealth.ApplyNormalHit(ref *player, hitbox->attackDamage);
-            if (player->hitCount == 0)
-            {
-
-                Debug.Log($"현재 체력 : {player->playerHp}/170");
-            }
-            else if (player->hitCount == 2)
-            {
-
-                Debug.Log($"히트 카운트 2 / 데미지 {hitbox->attackDamage *FP._0_75}");
-            }
-            else if (player->hitCount == 4)
-            {
-
-                Debug.Log($"히트 카운트 4 / 데미지 {hitbox->attackDamage * FP._0_50}");
-            }
-            else if (player->hitCount > 4)
-            {
-
-                Debug.Log($"히트 카운트 4 이상  / 데미지 {hitbox->attackDamage * FP._0_33}");
-            }
-
-
+            LSDFPlayerHealth.ApplyHit(f, info.Entity, ref *player, hitbox->attackDamage, counter: false);
+            Debug.Log($"HP: {player->playerHp}/{LSDFBalance.MaximumHealth(f)}");
 
         }
 
@@ -223,7 +202,7 @@ namespace Quantum.LSDF
             player->isHit = true;
             player->DelayFrame = f.Number + hitbox->enemyCountTime;
 
-            LSDFPlayerHealth.ApplyCounterHit(ref *player, hitbox->attackDamage);//여기서 데미지 보정
+            LSDFPlayerHealth.ApplyHit(f, info.Entity, ref *player, hitbox->attackDamage, counter: true);//여기서 데미지 보정
 
             Debug.Log($"현재 체력 : {player->playerHp}/170");
 

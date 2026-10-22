@@ -1,24 +1,70 @@
 # 현재 작업 상태
 
-갱신: 2026-10-22T03:00:26+09:00. 브랜치: `dev/Prototype`, 현재 HEAD `debf379c006e40a9a4e00884db3d27bfd111a4d9` (`Assets`).
+갱신: 2026-10-22T17:11:00+09:00. 브랜치: `dev/Prototype`, 현재 HEAD `97b6acb020a672193d44053edc955d109e8759b7` (`Add flat stage background and inspector camera height`).
 현재 HEAD와 이 문서를 포함한 로컬 커밋은 `git log -1`로 확인한다.
 이 요약을 읽은 뒤 요청에 관련된 아래 기록/증거와 실제 Git 상태·소스를 대조한다. Git 조회 실패는 `UNKNOWN`이다.
 초기 감사와 과거 PASS는 해당 시점의 기록이며 현재 변경의 검증을 대신하지 않는다.
 
 ## 최근 작업
 
-최신 요청: [배경·카메라 사용자 테스트 완료와 푸시 승인](user-validation-stage-camera-2026-10-22.md).
+최신 요청: [공중 피해·사용자 재베이크 테스트 완료와 로컬 커밋](user-validation-air-combo-2026-10-22.md).
+사용자가 현재 작업을 모두 테스트했다고 확인하고 커밋만 요청했다. 자동 게임 검사는 재실행하지 않는다.
+피해 C# 3개/테스트 2개는 기존 구현·보정 후 해시와 같다. 사용자 수정 clip/Controller/양쪽 그래프와 중복 Rk 폴더 삭제 75개도 관련 후보로 포함한다.
+IDE 수정 9개/미추적 csproj 4개는 보존·제외한다. 자동 FAIL/NOT RUN/수정 후 미검증 이력은 그대로 유지한다.
+현재 사용자 재베이크는 Rp clip 참조와 60 FPS를 반영했으나 KazumiHoming clip/그래프 공격 이벤트는 비어 있다. 이 상태를 보존하며 후속 항목으로 기록한다.
+로컬 후보 90개(수정/추가 15·기존 삭제 75)만 명시적으로 staging했다. staged 공백/문서 링크 63개/JSON 2개 PASS.
+preflight는 두 그래프의 2 MiB 초과로 종료 1/BLOCKED이고 다른 발견은 없다. 두 UTF-8 YAML 전체 비밀 패턴 0/의미 diff 별도 검토를 기록해 포함한다.
+사용자 직접 테스트 완료와 로컬 커밋 명시 요청을 근거로 커밋한다. 게임 검사/preflight/공백 재실행은 하지 않으며 Push/PR은 수행하지 않는다.
+자세한 후보 검토와 최종 결과는 위 사용자 확인 기록에 연결한다.
+
+최신 사용 안내: 설치 소스에서 전체 메뉴 `Tools → Quantum Animator → Bake all Graph Assets`와
+[그래프 Inspector](../../Assets/Photon/QuantumAddons/Animator/View/Editor/AnimatorGraphAssetEditor.cs)의 `Bake Animator Graph` 버튼을 확인했다.
+EnemyAnimator의 0_KazumiHoming Motion을 현재 Rp_Enemy 클립에 연결한 뒤 기존 LSDF_EnemyAnimatorGraph를 다시 굽는 순서를 안내한다.
+현재 새 클립은 12 FPS/약 2.9167초이고 m_Events가 비어 있다. 재베이크 전 Kazumi Homing Window Event의 시작/끝 이벤트 쌍과 기존 기술 시간을 맞춰야 한다.
+[설치 Baker](../../Assets/Photon/QuantumAddons/Animator/View/Editor/AnimatorGraphBaker.cs)는 Controller의 clip/events를 다시 수집한다.
+이번 요청은 사용법 안내이며 실제 연결·재베이크·코드 변경·게임 재검증은 수행하지 않았다. 앞선 피해 변경과 미검증 상태는 그대로 보존한다.
+이번 문서 최종 한 차례 상대 링크 41개/끝 공백 PASS. 게임 검사는 NOT RUN이며 재실행하지 않았다.
+
+최신 구현: [공중 콤보 후속타 피해 70/50/30%](air-combo-damage-scaling.md),
+[검증 근거](evidence/air-combo-damage-scaling-validation.json).
+시동기 제외 실제 LSDF_AirCombo.HitCount로 일반/카운터 피해를 계산하도록 연결했고 1타 70%/2타 50%/3~5타 30%를 정수 버림으로 적용한다.
+지상 카운터 120%·시동기 100%/5후속타 제한·궤적·시스템 순서는 유지한다. 매칭 프로토콜은 v14-air-combo-damage다.
+제품 C# 3개와 기존 테스트 2개를 수정했다. QTN/Generated/SDK/에셋 수정 없음.
+최종 한 차례 정적 94개/신규 0, Unity 컴파일 오류 0/기존 경고 5개, 체력·공중·마무리·라운드 109개, 문서 링크 46개/JSON/공백 PASS.
+전체 job 110개 중 109 PASS/1 FAIL/0 SKIP. Frame/그래프 통합 1개 안의 내부 46개 사례가 구 entry count 예상 1/관측 2에서 실패했다.
+Air 이벤트 RawValue 1092와 SDK의 LastTime <= Time 경계가 관련됨을 소스로 확인했다. 피해는 해당 구 카운트와 분리되어 있다.
+실패 뒤 fixture만 시간 보존/진행·구 카운트 1/3과 피해 독립성 검사로 보정했고 **수정 후 미검증**이다. 제품 코드는 검사 후 변경하지 않았다.
+신규 5타 통합 완료/전체 replay/강제 온라인 rollback은 NOT RUN. 검사를 재실행하지 않았고 과거 FAIL/NOT RUN 이력은 유지한다.
+KazumiHoming 참조 누락·기존 IDE 9개/미추적 csproj 4개·Rk_Enemy 삭제 75개·선행 조사 문서와 요약 변경을 보존한다.
+새 구현 문서/검증 JSON은 미추적이며 staging/커밋/게시하지 않는다. 이전 자동 실패/미실행 상태도 유지한다.
+
+최신 조사: [상대 KazumiHoming 표시·공중 콤보 피해 누락](homing-air-damage-investigation-2026-10-22.md),
+[관측 근거](evidence/homing-air-damage-investigation-2026-10-22.json).
+게임 코드/에셋/씬 수정 없음. 상대 Controller Motion과 Quantum 그래프 Clips[84]가 삭제된 Rk_Enemy 클립 GUID를 참조해 null임을 Unity에서 확인했다.
+남아 있는 Rp_Enemy 클립은 다른 GUID이며 Sprite 35개 모두 유효하다. 현재 12 FPS 클립과 기존 60 FPS 베이크의 시간 차이도 후속 수정 시 고려한다.
+피해 함수는 legacy hitCount 1/3에서 0을 반환한다. 실제 후속타는 LSDF_AirCombo.HitCount에 쌓이지만 피해는 LSDF_Player.hitCount를 읽으며,
+최근 Air 재진입 생략으로 후자가 1에 머물 수 있다. 실제 함수에 count=1/HP 170을 주고 기본 피해 20을 네 번 적용해 HP 170 유지를 확인했다.
+읽기 전용 프로브 PASS(결함 확인), 콘솔 오류 0/기존 경고 1. 강제 컴파일/실제 사용자 3~4타 재현/replay/rollback은 NOT RUN이다.
+최종 한 차례 문서 상대 링크 48개/JSON 파싱/끝 공백/current-state diff 공백 PASS. 결과만 기록하고 재검사하지 않았다.
+기존 IDE 9개·미추적 csproj 4개·Rk_Enemy의 KazumiHoming 폴더 추적 파일 삭제 75개와 기존 게시 결과 요약을 보존한다.
+새 조사 문서/JSON은 미추적이며 current-state는 기존 변경 위에 추가했다. staging/커밋/게시 없음. 이전 자동 검증 이력은 유지한다.
+
+최신 게시 결과: [배경·카메라 사용자 테스트 완료와 푸시 승인](user-validation-stage-camera-2026-10-22.md)을 근거로
+`97b6acb020a672193d44053edc955d109e8759b7`을 기존 `origin/dev/Prototype`에 푸시 완료했다.
+`git ls-remote`가 같은 SHA를 반환했고 원격과 0/0이다. 검토 tree와 커밋 tree `b2c07176f1b603c92845ac9bb0332c3dc2eb1a1b`가 일치한다.
+176개 경로 변경을 포함했고 PR은 만들지 않았다. 게시 후 이 결과 요약만 로컬에 갱신한다.
 사용자가 지금까지의 작업을 모두 테스트했다고 확인하고 푸시를 요청했다. 게임 자동 검사는 재실행하지 않는다.
 배경/평면 줌/높이 설정과 사용자 씬·Map·메뉴, 배경 PNG 및 새 적 동작 PNG/clip/controller를 게시 후보로 포함한다.
 IDE 생성 파일은 보존·제외한다. 이전 자동 FAIL/NOT RUN/수정 후 미검증은 유지한다.
 게시 준비에서 씬이 실제로 없는 `_export.png`를 가리키는 것을 발견해 남아 있는 원본 PNG로 참조 3곳만 복구했다.
 정적 참조 확인 3곳과 PNG 73개의 구조/메타 짝은 PASS, 복구 후 실제 게임은 NOT RUN이다. 사용자 높이 0.09와 배경 위치·배율은 보존한다.
-origin/권한/fetch 확인 완료, 작업 브랜치와 0/0, 열린 PR 없음. 명시적 승인에 따라 로컬 후보 준비 후 푸시한다. PR 생성은 범위 밖이다.
+origin/권한/fetch 확인 완료, 게시 전 작업 브랜치와 0/0, 열린 PR 없음. 사용자의 명시적 승인에 따라 푸시했다.
 새 사용자 확인 기록과 에셋 근거 JSON을 이번 게시 후보에 명시적으로 포함했다.
 게시 최종 한 차례 정적 정책 94개/신규 0, staged 공백, 문서 링크 51개·새 에셋 메타 짝 76개/동작 참조 PASS.
 preflight는 staged 항목 174개/blob 173개/미게시 커밋 0개를 검사해 PNG의 LARGE 1개/BINARY 72개로 종료 1(BLOCKED)이다.
 텍스트 비밀 패턴/불필요 경로 적중 없음. 해당 73개는 별도 구조·메타·표본 육안 검토를 기록한 사용자 게임 에셋으로 포함하며 검사기 자체를 PASS로 바꾸지 않는다.
-게임 검사와 preflight를 재실행하지 않았다. 결과 문서만 갱신해 최종 후보를 커밋·푸시한다.
+게임 검사와 preflight를 재실행하지 않았다. 결과 문서를 수동 검토해 포함했고 검증 후 제품 코드/에셋 추가 변경은 없었다.
+기존 IDE 수정 9개와 미추적 csproj 4개는 로컬에 그대로 남겼다. 이 게시 결과 요약 변경도 미커밋이다.
 
 최신 구현: [카메라 높이 인스펙터 설정·검증](camera-height-inspector.md).
 `LSDFGameplay → EntityViewUpdater → LSDFSceneBindings → Camera Follow → Camera Height`로 양쪽 카메라의 월드 Y를 조절한다.
@@ -142,7 +188,12 @@ preflight는 46개 파일/46개 blob/미게시 커밋 0개를 검사해 필수 P
 
 ## 다음 작업
 
-배경·카메라의 현재 작업물은 사용자 테스트 완료/푸시 요청을 받았다. 게시 준비 결과와 최종 커밋·원격 SHA를 이번 기록에 남긴다.
+공중 피해는 실제 타수 기준 70/50/30% 구현 후 사용자 테스트 완료 확인과 로컬 커밋 요청을 받았다.
+Frame 통합 fixture 보정 후 미검증이다. 별도 검증 요청 때 전 타수 HP·두 피격자·Frame 복원/새 콤보 완료를 확인한다.
+KazumiHoming 참조·60 FPS는 사용자가 수정·재베이크했다. 현재 clip/그래프의 공격 이벤트는 비어 있으므로 후속 기술 판정 작업 시 시작/끝 이벤트 연결을 확인한다.
+실제 대전의 정확한 기존 3~4타 프레임은 미재현이다. 다음 후보는 자동 수정·재검증·게시 승인이 아니다.
+
+배경·카메라의 현재 작업물은 사용자 테스트 완료 보고를 근거로 97b6acb0에 커밋·푸시했고 원격 SHA를 확인했다.
 누락된 내보내기 PNG 참조를 원본으로 복구한 뒤 실제 게임은 다시 실행하지 않았다. 기존 자동 실패와 구분한다.
 
 카메라 높이: 편집 모드에서 `Camera Height`를 0.1부터 조절하고 씬을 저장한다. 실제 대전 구도는 아직 미확인이다.

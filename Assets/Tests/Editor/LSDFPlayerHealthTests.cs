@@ -5,20 +5,28 @@ using Quantum.LSDF;
 
 public class LSDFPlayerHealthTests {
   [TestCase(7, 0, 7)]
-  [TestCase(7, 1, 0)]
-  [TestCase(7, 2, 5)]
-  [TestCase(7, 3, 0)]
-  [TestCase(7, 4, 3)]
+  [TestCase(7, 1, 4)]
+  [TestCase(7, 2, 3)]
+  [TestCase(7, 3, 2)]
+  [TestCase(7, 4, 2)]
   [TestCase(7, 5, 2)]
-  [TestCase(3, 5, 0)] // FP._0_33 is raw 21845: three times it stays below one.
+  [TestCase(3, 5, 0)]
   [TestCase(6, 5, 1)]
   [TestCase(12, 6, 3)]
   [TestCase(15, 7, 4)]
-  [TestCase(17, 2, 12)]
-  [TestCase(17, 4, 8)]
-  [TestCase(7, -1, 0)]
-  public void NormalDamageKeepsLegacyComboBoundaries(int damage, int hitCount, int expected) {
-    Assert.AreEqual(expected, LSDFPlayerHealth.NormalHitDamage(damage, hitCount));
+  [TestCase(17, 2, 8)]
+  [TestCase(17, 4, 5)]
+  [TestCase(7, -1, 7)]
+  [TestCase(20, 1, 14)]
+  [TestCase(20, 2, 10)]
+  [TestCase(20, 3, 6)]
+  [TestCase(20, 4, 6)]
+  [TestCase(20, 5, 6)]
+  [TestCase(10, 1, 7)]
+  [TestCase(10, 3, 3)]
+  [TestCase(int.MaxValue, 1, 1503238552)]
+  public void AirDamageUsesActualFollowupOrdinalAndTruncatesIntegerPercentages(int damage, int ordinal, int expected) {
+    Assert.AreEqual(expected, LSDFPlayerHealth.NormalHitDamage(damage, ordinal));
   }
 
   [TestCase(-5, false, 0, false)]
@@ -53,7 +61,7 @@ public class LSDFPlayerHealthTests {
   }
 
   [Test]
-  public void CounterBypassesComboScalingAndDoesNotTouchOtherPlayers() {
+  public void GroundCounterKeepsItsMultiplierAndGroundHitIgnoresLegacyEntryCount() {
     var a = new LSDF_Player { playerHp = LSDFPlayerHealth.Maximum, hitCount = 5, isHealing = true };
     var b = new LSDF_Player { playerHp = LSDFPlayerHealth.Maximum, hitCount = 2 };
     LSDFPlayerHealth.ApplyCounterHit(ref a, 7);
@@ -62,7 +70,7 @@ public class LSDFPlayerHealthTests {
     Assert.IsTrue(a.isHealing);
     Assert.AreEqual(170, b.playerHp);
     LSDFPlayerHealth.ApplyNormalHit(ref b, 7);
-    Assert.AreEqual(165, b.playerHp);
+    Assert.AreEqual(163, b.playerHp);
     Assert.AreEqual(162, a.playerHp);
   }
 }

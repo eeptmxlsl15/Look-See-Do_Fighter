@@ -1,0 +1,123 @@
+{
+  "recorded_at": "2026-10-22T12:39:41+09:00",
+  "branch": "dev/Prototype",
+  "base_commit": "97b6acb020a672193d44053edc955d109e8759b7",
+  "scope": "kazumiHoming 상대 표시와 공중 콤보 피해 누락 원인 조사",
+  "changes": "게임 코드/에셋/씬 변경 없음. 조사 문서와 current-state만 갱신.",
+  "documentation_validation": {
+    "recorded_at": "2026-10-22T12:43:26+09:00",
+    "status": "PASS",
+    "links_checked": 48,
+    "missing_links": 0,
+    "trailing_whitespace": 0,
+    "evidence_json_parse": "PASS",
+    "tracked_document_diff_check_exit": 0,
+    "rerun": false
+  },
+  "validation_policy": "조사 후 읽기 전용 Unity 프로브와 콘솔을 한 차례 실행. 문서/공백 검사는 기록 작성 후 한 차례. 재실행 없음.",
+  "editor": {
+    "project": "C:/Users/Admin/Look-See-Do_Fighter",
+    "instance": "Look-See-Do_Fighter@6dde71c3460465f4",
+    "active_scene": "Assets/Photon/QuantumMenu/LSDF_Menu.unity",
+    "is_playing": false,
+    "scene_dirty": false
+  },
+  "unity_read_only_probe": {
+    "success": true,
+    "message": "Code executed successfully.",
+    "data": {
+      "result": {
+        "oldGuidPath": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rk_Enemy/KazumiHoming_Enemy/KazumiHoming_Enemy.anim",
+        "oldClipMissing": true,
+        "controllerStates": [
+          {
+            "name": "0_KazumiHoming",
+            "motionMissing": true,
+            "motionPath": ""
+          }
+        ],
+        "newClip": {
+          "path": "Assets/Sprites/Character/Enemy/Attack_Enemy/Rp_Enemy/KazumiHoming_Enemy/KazumiHoming_Enemy.anim",
+          "exists": true,
+          "guid": "765337c05fdbc284bb3d5b81e3d4fe2a",
+          "frameRate": 12,
+          "length": 2.91666651,
+          "spriteKeys": 35,
+          "missingSprites": 0
+        },
+        "graphNullClipIndices": [
+          84
+        ],
+        "damageByLegacyCount": [
+          {
+            "hitCount": 0,
+            "baseDamage": 20,
+            "appliedDamage": 20
+          },
+          {
+            "hitCount": 1,
+            "baseDamage": 20,
+            "appliedDamage": 0
+          },
+          {
+            "hitCount": 2,
+            "baseDamage": 20,
+            "appliedDamage": 15
+          },
+          {
+            "hitCount": 3,
+            "baseDamage": 20,
+            "appliedDamage": 0
+          },
+          {
+            "hitCount": 4,
+            "baseDamage": 20,
+            "appliedDamage": 10
+          },
+          {
+            "hitCount": 5,
+            "baseDamage": 20,
+            "appliedDamage": 6
+          },
+          {
+            "hitCount": 6,
+            "baseDamage": 20,
+            "appliedDamage": 6
+          }
+        ],
+        "hpAfterFourHitsWithLegacyCountOne": [
+          170,
+          170,
+          170,
+          170
+        ]
+      },
+      "compiler": "codedom"
+    }
+  },
+  "console": {
+    "success": true,
+    "message": "Retrieved 1 log entries.",
+    "data": [
+      {
+        "type": "Warning",
+        "message": "This project uses Input Manager, which is marked for deprecation. To manage input in your project, use the <a href=\"https://docs.unity3d.com/Packages/com.unity.inputsystem@latest\">Input System package</a> instead.\n",
+        "file": "",
+        "line": 0,
+        "stackTrace": null
+      }
+    ]
+  },
+  "interpretation": {
+    "homing": "EnemyAnimator 0_KazumiHoming의 Motion과 LSDF_EnemyAnimatorGraph.Clips[84]가 null. 삭제된 Rk_Enemy 클립 GUID f6d404bbc077a6047b1bf4ba5172e860 참조. 현재 Rp_Enemy 클립 GUID 765337c05fdbc284bb3d5b81e3d4fe2a는 존재하고 35 sprite key 전부 유효.",
+    "damage": "NormalHitDamage는 legacy hitCount 1/3에서 0 반환. 실제 후속타 수는 LSDF_AirCombo.HitCount에서 증가하나 피해는 LSDF_Player.hitCount를 사용. Air 재진입 생략으로 legacy count가 1에 머물 수 있음. 프로브는 직접 count=1 상태를 만들어 20 피해 네 번 후 HP 170 유지 확인.",
+    "timing_caveat": "남은 새 clip은 12 FPS/2.9166665초, 베이크된 graph는 60 FPS/35 frames/FP length 38229 (약 0.5833초). 재연결 시 기존 기술 시간과 표시 시간을 맞춰야 함."
+  },
+  "limitations": [
+    "사용자 증상의 실제 3~4타 프레임/입력 스트림은 재현하지 않음.",
+    "피해 프로브는 실제 컴파일된 피해 함수의 로컬 구조체 연산이며 물리 접촉/전체 매치 검증 아님.",
+    "전체 컴파일을 요청하지 않았음. 콘솔 조회는 현재 오류 0/기존 경고 1 관측만 의미.",
+    "전체 입력 replay/온라인 rollback/교차 플랫폼 결정론 NOT RUN.",
+    "정적 정책 검사는 코드 변경이 없어 NOT RUN."
+  ]
+}

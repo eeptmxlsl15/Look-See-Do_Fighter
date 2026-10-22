@@ -1,0 +1,423 @@
+{
+  "recorded_at": "2026-10-22T13:32:37+09:00",
+  "scope": "공중 후속타 1타 70%, 2타 50%, 3~5타 30% 피해",
+  "base_commit": "97b6acb020a672193d44053edc955d109e8759b7",
+  "branch": "dev/Prototype",
+  "final_status": "구현 완료. 테스트 fixture 보정 후 미검증.",
+  "validation_policy": "구현 완료 후 최종 한 차례. 테스트 job 완료 대기 1회. 실패 후 자동 재검증 없음.",
+  "policy": {
+    "command": "python tools/ai/quantum_guard.py check",
+    "exit_code": 0,
+    "result": {
+      "status": "pass",
+      "scope": "Assets/QuantumUser/Simulation",
+      "files_scanned": 94,
+      "existing_findings": 0,
+      "new_findings": [],
+      "resolved_baseline_occurrences": 0,
+      "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+    }
+  },
+  "compilation": {
+    "status": "PASS at validation",
+    "errors": 0,
+    "warnings": 5,
+    "refresh": {
+      "result": {
+        "success": true,
+        "message": "Refresh requested.",
+        "error": null,
+        "data": {
+          "refresh_triggered": false,
+          "compile_requested": true,
+          "compile_started": null,
+          "resulting_state": "idle",
+          "hint": "If Unity enters compilation/domain reload, poll the mcpforunity://editor/state resource until data.advice.ready_for_tools is true."
+        },
+        "hint": null
+      }
+    },
+    "console": {
+      "success": true,
+      "message": "Retrieved 5 log entries.",
+      "data": [
+        {
+          "type": "Warning",
+          "message": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs(31,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+          "file": "Assets\\Tests\\Editor\\LSDFHitReactionTests.cs",
+          "line": 31,
+          "stackTrace": null
+        },
+        {
+          "type": "Warning",
+          "message": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs(110,68): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+          "file": "Assets\\Tests\\Editor\\LSDFMenuLoadoutTests.cs",
+          "line": 110,
+          "stackTrace": null
+        },
+        {
+          "type": "Warning",
+          "message": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs(40,19): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+          "file": "Assets\\Tests\\Editor\\LSDFStructuralTests.cs",
+          "line": 40,
+          "stackTrace": null
+        },
+        {
+          "type": "Warning",
+          "message": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs(83,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+          "file": "Assets\\Tests\\Editor\\LSDFHitEffectTests.cs",
+          "line": 83,
+          "stackTrace": null
+        },
+        {
+          "type": "Warning",
+          "message": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs(81,63): warning CS0618: 'QuantumMenuConfig.AvailableScenes' is obsolete: 'Use QuantumMenuSceneInfo assets inside a Resources folders instead.'\n",
+          "file": "Assets\\Tests\\Editor\\LSDFOnlineSmokeTests.cs",
+          "line": 81,
+          "stackTrace": null
+        }
+      ]
+    },
+    "postfix_test_compilation": "NOT RUN"
+  },
+  "regression": {
+    "status": "FAIL",
+    "job_id": "be083f39f32b4b939f46877fd69b37e6",
+    "summary": {
+      "total": 110,
+      "passed": 109,
+      "failed": 1,
+      "skipped": 0,
+      "durationSeconds": 5.7548434,
+      "resultState": "Failed(Child)"
+    },
+    "groups": {
+      "LSDFComboEnderTests": {
+        "total": 22,
+        "passed": 22,
+        "failed": 0,
+        "skipped": 0
+      },
+      "LSDFHitReactionTests": {
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "LSDFJuggleTests": {
+        "total": 36,
+        "passed": 36,
+        "failed": 0,
+        "skipped": 0
+      },
+      "LSDFPlayerHealthTests": {
+        "total": 32,
+        "passed": 32,
+        "failed": 0,
+        "skipped": 0
+      },
+      "LSDFRoundResultTests": {
+        "total": 19,
+        "passed": 19,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "failed_test": {
+      "name": "LSDFHitReactionTests.AirHitInterruptsNativeGraphsAndSurvivesFrameRestore",
+      "message_excerpt": "  System.AggregateException: One or more errors occurred. (  LSDF_PlayerAnimatorGraph/0_Jap/counter=True/input=0:   Air entry was replayed on rehit.\r\n  Expected: 1\r\n  But was:  2\r\n\nLSDF_PlayerAnimatorGraph/0_Jap/counter=True/input=1:   Air entry was replayed on rehit.\r\n  Expected: 1\r\n  But was:  2\r\n\nLSDF_PlayerAnimatorGraph/0_Jap/counter=True/input=2:   Air entry was replayed on rehit.\r\n  Expected: 1\r\n  But was:  2\r\n\nLSDF_PlayerAnimatorGraph/0_Jap/counter=False/input=0:   Air entry was replayed on rehit.\r\n  Expected: 1\r\n  But was:  2\r\n\nLSDF_PlayerAnimatorGraph/0_Jap/counter=False/input=1:   Air entry was replayed on rehit.\r\n  Expected: 1\r\n  But was:  2\r\n\nLSDF_PlayerAnimatorGraph/0_Jap/counter=False/input=2:   Air entry was replayed on rehit.\r\n  Expected: 1\r\n  But was:  2\r\n\nLSDF_PlayerAnimatorGraph/1_Jap/counter=True/input=0:   Air entry was replayed on rehit.\r\n  Expected: 1\r\n  But was:  2\r\n\nLSDF_PlayerAnimatorGraph/1_Jap/counter=True/input=1:   Air entry was replayed on rehit.\r\n  Expec",
+      "stack_trace": "at LSDFHitReactionTests+<AirHitInterruptsNativeGraphsAndSurvivesFrameRestore>d__0.MoveNext () [0x000b8] in C:\\Users\\Admin\\Look-See-Do_Fighter\\Assets\\Tests\\Editor\\LSDFHitReactionTests.cs:24\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@bd7f943e9647\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "unique_internal_failure_count": 46,
+      "case_failures": {
+        "LSDF_PlayerAnimatorGraph/0_Jap/counter=True/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/0_Jap/counter=True/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/0_Jap/counter=True/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/0_Jap/counter=False/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/0_Jap/counter=False/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/0_Jap/counter=False/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_Jap/counter=True/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_Jap/counter=True/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_Jap/counter=True/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_Jap/counter=False/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_Jap/counter=False/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_Jap/counter=False/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_JapJap/counter=True/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_JapJap/counter=True/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_JapJap/counter=True/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_JapJap/counter=False/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_JapJap/counter=False/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/1_JapJap/counter=False/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/active fade": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/damage/defender=0/counterStarter=False": {
+          "assertion": "Damage must not depend on replaying Air entry.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/damage/defender=0/counterStarter=True": {
+          "assertion": "Damage must not depend on replaying Air entry.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/damage/defender=1/counterStarter=False": {
+          "assertion": "Damage must not depend on replaying Air entry.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_PlayerAnimatorGraph/damage/defender=1/counterStarter=True": {
+          "assertion": "Damage must not depend on replaying Air entry.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/0_Jap/counter=True/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/0_Jap/counter=True/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/0_Jap/counter=True/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/0_Jap/counter=False/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/0_Jap/counter=False/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/0_Jap/counter=False/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_Jap/counter=True/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_Jap/counter=True/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_Jap/counter=True/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_Jap/counter=False/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_Jap/counter=False/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_Jap/counter=False/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_JapJap/counter=True/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_JapJap/counter=True/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_JapJap/counter=True/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_JapJap/counter=False/input=0": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_JapJap/counter=False/input=1": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/1_JapJap/counter=False/input=2": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/active fade": {
+          "assertion": "Air entry was replayed on rehit.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/damage/defender=0/counterStarter=False": {
+          "assertion": "Damage must not depend on replaying Air entry.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/damage/defender=0/counterStarter=True": {
+          "assertion": "Damage must not depend on replaying Air entry.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/damage/defender=1/counterStarter=False": {
+          "assertion": "Damage must not depend on replaying Air entry.",
+          "expected": 1,
+          "actual": 2
+        },
+        "LSDF_EnemyAnimatorGraph/damage/defender=1/counterStarter=True": {
+          "assertion": "Damage must not depend on replaying Air entry.",
+          "expected": 1,
+          "actual": 2
+        }
+      }
+    },
+    "limits": "8개 신규 피해 시나리오는 첫 후속타 HP 확인 다음 구 entry count 불변 Assert에서 중단. 후속 2~5/최종 체크섬/새 콤보 검사는 도달하지 못했으므로 통과로 기록하지 않음.",
+    "postfix": {
+      "files": [
+        "Assets/Tests/Editor/LSDFHitReactionTests.cs"
+      ],
+      "reason": "실제 그래프 Air 이벤트 시작 RawValue=1092와 60Hz DeltaTime 경계, AnimatorEvent.Evaluate의 LastTime <= Time 조건으로 첫 두 평가에서 OnEnter가 다시 호출될 수 있음. 고정 entry count=1 가정이 실패.",
+      "correction": "구 카운트 불변 Assert 대신 재피격 직후 Air 시간 보존/다음 평가 후 시간 진행을 검사. 피해 시나리오는 구 hitCount 1/3을 직접 설정해 피해 독립성을 검사하도록 보정.",
+      "new_sha256": "6551809b5f6af82ef894e0675e0464d97ae3f3d4a478bee7b237427b5e96058f",
+      "validation_status": "수정 후 미검증",
+      "product_code_changed_after_validation": false,
+      "rerun": false
+    }
+  },
+  "documentation": {
+    "links_checked": 46,
+    "missing": [],
+    "whitespace": [],
+    "evidence_json": "PASS",
+    "sources": {
+      "Assets/Tests/Editor/LSDFPlayerHealthTests.cs": "ad7bb5cb892d5d84f94bbea7c0a615c6cb3cae835b04f93b90f00cdf7d807bd9",
+      "Assets/QuantumUser/Simulation/LSDF_PlayerSystem.Combat.cs": "ef05ec6ca44902c16dca6a0a460fe1951add57ddd675b422650afe7d8f3a92e9",
+      "Assets/QuantumUser/Simulation/LSDFLoadout.cs": "e8f1cdf7e92dcce432bcda363c97b4c362141bc98f18cf118fd2f6c16f595a19",
+      "Assets/QuantumUser/Simulation/LSDFPlayerHealth.cs": "3de72b3e442e27a0d5f6833d82e33177a764258a43008b79290e02a61473c8e9",
+      "Assets/Tests/Editor/LSDFHitReactionTests.cs": "5d47c9fef0d74620edc1ff700d98b99af92e4459429766f336e78e81c00e536a"
+    },
+    "exit_code": 0
+  },
+  "diff_whitespace": {
+    "status": "PASS at validation before fixture postfix",
+    "exit_code": 0,
+    "output": "warning: in the working copy of 'Assets/QuantumUser/Simulation/LSDFLoadout.cs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/QuantumUser/Simulation/LSDFPlayerHealth.cs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/QuantumUser/Simulation/LSDF_PlayerSystem.Combat.cs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/Tests/Editor/LSDFHitReactionTests.cs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Assets/Tests/Editor/LSDFPlayerHealthTests.cs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/ai/current-state.md', LF will be replaced by CRLF the next time Git touches it\n",
+    "postfix": "NOT RUN"
+  },
+  "determinism": {
+    "frame_restore": "기존 38개 중단 사례는 체크섬 비교 이후 entry-count Assert에서 실패. 전체 fixture FAIL이며 신규 5타 완료 뒤 복원 비교는 NOT RUN.",
+    "input_replay": "NOT RUN",
+    "forced_network_rollback": "NOT RUN",
+    "cross_platform": "NOT RUN"
+  },
+  "codegen": "NOT REQUIRED — QTN/Generated 변경 없음",
+  "final_scene": {
+    "success": true,
+    "message": "Retrieved active scene information.",
+    "data": {
+      "name": "LSDF_Menu",
+      "path": "Assets/Photon/QuantumMenu/LSDF_Menu.unity",
+      "buildIndex": 0,
+      "isDirty": false,
+      "isLoaded": true,
+      "rootCount": 5
+    }
+  },
+  "preserved": {
+    "deleted_kazumi_assets": 75,
+    "ide_modified": 9,
+    "ide_untracked": 4,
+    "previous_investigation_documents": true
+  },
+  "publication": "staging/commit/push/PR 없음"
+}

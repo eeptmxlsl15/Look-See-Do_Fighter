@@ -45,6 +45,7 @@ public class LSDFHitReactionTests {
         GameParameters = QuantumRunnerUnityFactory.CreateGameParameters,
         GameMode = DeterministicGameMode.Local,
         PlayerCount = 2,
+        HeapExtraCount = 1,
         RunnerId = "LSDF-air-interruption-regression"
       });
       runner.IsSessionUpdateDisabled = true;
@@ -74,14 +75,72 @@ public class LSDFHitReactionTests {
           ++passed;
           TestContext.Progress.WriteLine("AIR INTERRUPT PASS: " + graphName + "/active fade");
         } catch (Exception ex) { failures.Add(graphName + "/active fade: " + ex.Message); }
+        for (int defenderIndex = 0; defenderIndex < 2; ++defenderIndex) {
+          foreach (bool counterStarter in new[] { false, true }) {
+            string label = graphName + "/damage/defender=" + defenderIndex + "/counterStarter=" + counterStarter;
+            try {
+              frame.Deserialize(initial);
+              RunDamageCase(frame, graphName, defenderIndex, counterStarter);
+              ++passed;
+              TestContext.Progress.WriteLine("AIR DAMAGE PASS: " + label);
+            } catch (Exception ex) { failures.Add(label + ": " + ex.Message); }
+          }
+        }
       }
     } finally {
       frame?.Free();
       if (runner != null) await runner.ShutdownAsync();
       simulation.AutoLoadSceneFromMap = previousSceneMode;
     }
-    TestContext.Progress.WriteLine($"AIR INTERRUPT CASES: {passed} passed, {failures.Count} failed.");
+    TestContext.Progress.WriteLine($"AIR HIT/DAMAGE CASES: {passed} passed, {failures.Count} failed.");
     Assert.IsEmpty(failures, string.Join("\n", failures));
+  }
+
+  private static unsafe void RunDamageCase(Frame frame, string graphName, int defenderIndex, bool counterStarter) {
+    var loaded = AssetDatabase.LoadAssetAtPath<AnimatorGraph>(
+      "Assets/QuantumUser/Animators/" + graphName + ".asset");
+    var graph = frame.FindAsset<AnimatorGraph>(loaded.Guid);
+    var defender = Fighter(frame, graph, (PlayerRef)defenderIndex, defenderIndex == 0 ? FP._0 : FP._2);
+    var attacker = Fighter(frame, graph, (PlayerRef)(1 - defenderIndex), defenderIndex == 0 ? FP._2 : FP._0);
+    Hit(frame, defender, attacker, counterStarter, damage: 20);
+    Step(frame, defender, graph);
+    int starterHp = counterStarter ? 146 : 150;
+    Assert.AreEqual(starterHp, frame.Get<LSDF_Player>(defender).playerHp, "Ground starter damage changed.");
+    Assert.AreEqual(0, frame.Get<LSDF_AirCombo>(defender).HitCount, "Starter must not consume a follow-up.");
+    byte[] beforeFollowups = frame.Serialize(DeterministicFrameSerializeMode.Blit);
+    ulong expectedChecksum = 0;
+    for (int replay = 0; replay < 2; ++replay) {
+      if (replay != 0) frame.Deserialize(beforeFollowups);
+      int expectedHp = starterHp;
+      for (int ordinal = 1; ordinal <= 5; ++ordinal) {
+        // Legacy entry counts can change at an inclusive native event boundary;
+        // force both former zero-damage gaps to prove that neither controls HP.
+        frame.Unsafe.GetPointer<LSDF_Player>(defender)->hitCount = ordinal % 2 == 0 ? 3 : 1;
+        // Even the counter dispatch path must use the active combo's percentage.
+        Hit(frame, defender, attacker, ordinal == 2, damage: 20);
+        Step(frame, defender, graph);
+        expectedHp -= ordinal == 1 ? 14 : ordinal == 2 ? 10 : 6;
+        var player = frame.Get<LSDF_Player>(defender);
+        Assert.AreEqual(expectedHp, player.playerHp, "Wrong HP after airborne follow-up " + ordinal);
+        Assert.AreEqual(ordinal, frame.Get<LSDF_AirCombo>(defender).HitCount);
+        Assert.AreEqual(170, frame.Get<LSDF_Player>(attacker).playerHp, "Damage leaked to the other fighter.");
+      }
+      Assert.IsTrue(LSDFJuggle.BlocksHit(frame, defender), "Fifth follow-up must still end the combo.");
+      ulong checksum = frame.CalculateChecksum();
+      if (replay == 0) expectedChecksum = checksum;
+      else Assert.AreEqual(expectedChecksum, checksum, "Damage differs after Frame restore/resimulation.");
+    }
+    // Landing/cancel starts a new combo; a first-follow-up finisher still deals 70%.
+    LSDFJuggle.Cancel(frame, defender);
+    frame.Unsafe.GetPointer<LSDF_Player>(defender)->isAir = false;
+    int hpBeforeNewCombo = frame.Get<LSDF_Player>(defender).playerHp;
+    Hit(frame, defender, attacker, false, damage: 20);
+    Assert.AreEqual(hpBeforeNewCombo - 20, frame.Get<LSDF_Player>(defender).playerHp);
+    Assert.AreEqual(0, frame.Get<LSDF_AirCombo>(defender).HitCount);
+    Hit(frame, defender, attacker, false, damage: 20, finisher: true);
+    Assert.AreEqual(hpBeforeNewCombo - 34, frame.Get<LSDF_Player>(defender).playerHp);
+    Assert.AreEqual(1, frame.Get<LSDF_AirCombo>(defender).HitCount);
+    Assert.IsTrue(LSDFJuggle.BlocksHit(frame, defender));
   }
 
   private static unsafe void RunCase(Frame frame, string graphName, string attackName,
@@ -134,11 +193,10 @@ public class LSDFHitReactionTests {
     player = frame.Unsafe.GetPointer<LSDF_Player>(defender);
     layer = frame.ResolveList(animator->Layers).GetPointer(0);
     FP previousTime = layer->Time;
-    int entryCount = player->hitCount;
     Hit(frame, defender, attacker, false);
     Assert.AreEqual(previousTime, layer->Time, "Air rehit must not restart its entry window.");
     Step(frame, defender, graph);
-    Assert.AreEqual(entryCount, player->hitCount, "Air entry was replayed on rehit.");
+    Assert.IsTrue(layer->Time > previousTime, "Air must advance from its previous time after rehit.");
     Assert.IsTrue(frame.Get<LSDF_AirCombo>(defender).ComboActive);
     Assert.AreEqual(1, frame.Get<LSDF_AirCombo>(defender).HitCount);
 
@@ -174,11 +232,12 @@ public class LSDFHitReactionTests {
     return entity;
   }
 
-  private static unsafe void Hit(Frame frame, EntityRef defender, EntityRef attacker, bool counter) {
+  private static unsafe void Hit(Frame frame, EntityRef defender, EntityRef attacker, bool counter,
+      int damage = 10, bool finisher = false) {
     var hit = new LSDF_HitboxInfo {
       AttackerEntity = attacker, CountType = CountAttackType.Air,
       launcher = true, AttackType = HitboxAttackType.Mid,
-      attackDamage = 10, enemyCountTime = 30, enemyHitTime = 30
+      attackDamage = damage, enemyCountTime = 30, enemyHitTime = 30, ComboFinisher = finisher
     };
     var player = frame.Unsafe.GetPointer<LSDF_Player>(defender);
     var animator = frame.Unsafe.GetPointer<AnimatorComponent>(defender);
@@ -188,6 +247,7 @@ public class LSDFHitReactionTests {
     Assert.IsTrue(LSDFJuggle.OnHit(frame, defender, player, animator, &hit, counter));
     Assert.IsTrue(LSDFHitReactions.EnterAir(frame, defender, animator));
     player->isHit = true;
+    LSDFPlayerHealth.ApplyHit(frame, defender, ref *player, hit.attackDamage, counter);
   }
 
   private static unsafe void HitAndStep(Frame frame, EntityRef defender, EntityRef attacker, bool counter) {
@@ -215,7 +275,7 @@ public class LSDFHitReactionTests {
     Assert.IsTrue(player.isAir && player.isHit);
     Assert.IsFalse(LSDFInputBuffer.CanExecute(player, frame.Number));
     Assert.IsFalse(player.isAttack || player.canCounter || player.BufferedNextAttack);
-    Assert.AreEqual(1, player.hitCount, "Air's time-zero event must run exactly once.");
+    Assert.AreEqual(1, player.hitCount, "Air's first evaluated entry window must run.");
     Assert.IsTrue(frame.Get<PhysicsBody2D>(defender).Velocity.Y > FP._0);
     Assert.IsFalse(commands.HasPending || commands.Dispatching);
     Assert.AreEqual(heldButtons, commands.PreviousAttackButtons, "Held-button history must survive cancellation.");
