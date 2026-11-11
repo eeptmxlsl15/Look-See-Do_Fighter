@@ -14,6 +14,9 @@ public partial class LSDFSceneBindings : MonoBehaviour {
     public GameObject RoundRoot;
     public Image[] LeftWins = new Image[3];
     public Image[] RightWins = new Image[3];
+    public Image LeftHealthBackground, RightHealthBackground;
+    public Image[] LeftWinBackgrounds = new Image[3], RightWinBackgrounds = new Image[3];
+    public Image Announcement;
   }
   public QuantumEntityViewUpdater Updater;
   public GameObject Player1Camera, Player2Camera;

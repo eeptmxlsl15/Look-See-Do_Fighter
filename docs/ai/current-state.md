@@ -1,11 +1,79 @@
 # 현재 작업 상태
 
-갱신: 2026-10-23T00:34:02+09:00. 브랜치: `dev/Prototype`, 현재 HEAD `b571a8f15e617788a0c86fe6507e992146f1800c` (`Apply air combo damage scaling and refresh animator graphs`).
+## 최신 인계 — 사용자 원고 16장 PowerPoint 제작
+
+갱신: 2026-10-23T04:53:51+09:00. 기준 브랜치 dev/Prototype, HEAD b40aea428812a98bb9d516e32434d5db5329fd51.
+[제작·최종 검사 기록](evidence/2026-10-23-portfolio-16-slides.md). 제공 원고 16개 주제의 PPTX/PDF와 캡처 삽입 안내를 output/portfolio에 작성했다.
+맑은 고딕 단일 패밀리·16:9·고정 헤더·편집 가능한 표/도식을 적용했다. 원문 전체는 각 장 노트에 보존했다. 개인 GitHub URL 없음.
+3·8·11·12장의 그림 자리 표시자는 실제 캡처를 넣을 수 있다. 현재 PDF에는 회색 영역이 남으며, 삽입 후 PDF 재출력 방법은 안내에 기록했다.
+렌더 검토·수정 후 최종 산출물 검사 한 차례 12항목 PASS: 16장·노트 원문·고정 좌표·글꼴/한글·네이티브 표/이미지 영역·경계·검증 한계 표시. PowerPoint 전 장 및 PDF 16페이지 렌더를 검토했다.
+게임 컴파일·CodeGen·guard·테스트·Photon/rollback은 NOT RUN(프레젠테이션 작업). 게임 코드·씬·설정·아트·원천 문서는 수정하지 않았으며, 과거 FAIL/NOT RUN·KazumiHoming 빈 이벤트 등은 유지한다.
+기존 로컬 UI/테스트/PNG·렌더 설정·IDE·이전 포트폴리오/output/tmp/pptstyle을 보존했다. 이번 Git 조회는 성공했으며 기존 HEAD를 유지한다.
+새 출력·안내·제작 스크립트/렌더/검사 JSON·이 기록은 로컬 미추적이다. staging/commit/push/PR 없음. 기존 인계 본문 바이트를 유지하며 이 요약만 앞에 추가한다.
+다음은 사용자 캡처 삽입과 최종 PDF 내보내기이며 게임 검사·게시를 자동 실행할 승인이 아니다.
+
+## 최신 인계 — 포트폴리오 원천 자료 분석
+
+갱신: 2026-10-23T03:52:26+09:00. 기준 브랜치 dev/Prototype, HEAD b40aea428812a98bb9d516e32434d5db5329fd51.
+[포트폴리오 원천 자료](../PORTFOLIO_SOURCE.md)를 신규 작성했다. 원본 Markdown 81개와 관련 소스·기존 JSON을 대조해 구현·계획·검증 한계·사람/AI 기여를 통합했다.
+게임 코드·씬·설정·에셋과 분석 원문은 보존했다. 인계 지침에 따른 이 요약만 기존 문서에 덧붙인다. 이전 본문 바이트를 유지한다.
+최종 문서 검사 한 차례: relative_links: PASS / format: PASS / original_files_before_handoff: PASS. 링크 281개, 원본 123개 파일 해시 대조. 게임 컴파일·테스트·guard·CodeGen은 NOT RUN(문서 작업), 재실행 없음.
+최종 Git 변경 범위 조회는 종료 코드 128로 실패해 UNKNOWN이다. 상세 stderr를 수집하지 못해 원인은 미확정이며 검사를 재실행하지 않았다. 앞선 문서 링크·형식·원본 해시 PASS와 구분한다.
+기존 로컬 UI/테스트/PNG·렌더 설정·IDE·포트폴리오/output/tmp/pptstyle 변경과 모든 과거 FAIL/NOT RUN·KazumiHoming 빈 이벤트를 보존한다.
+새 자료는 미추적이며 staging/commit/push/PR 없음. 다음은 이 자료를 바탕으로 한 포트폴리오 편집이며 새 검사·게시 승인이 아니다.
+
+## 문서 작업 이전 인계 기록
+
+갱신: 2026-10-23T01:30:07+09:00. 브랜치: `dev/Prototype`, 현재 HEAD `b40aea428812a98bb9d516e32434d5db5329fd51` (`Add looping stage backgrounds and configurable air hit push`).
 현재 HEAD와 이 문서를 포함한 로컬 커밋은 `git log -1`로 확인한다.
 이 요약을 읽은 뒤 요청에 관련된 아래 기록/증거와 실제 Git 상태·소스를 대조한다. Git 조회 실패는 `UNKNOWN`이다.
 초기 감사와 과거 PASS는 해당 시점의 기록이며 현재 변경의 검증을 대신하지 않는다.
 
 ## 최근 작업
+
+최신 UI 수정: [1P 체력 Sprite만 좌우 반전](health-bar-sprite-flip.md), [검증 근거](evidence/health-bar-sprite-flip-validation.json).
+사용자가 줄어드는 방향은 유지하고 1P Sprite 색상만 뒤집도록 명확히 했다. 왼쪽 fillOrigin=1/오른쪽=0을 유지한다.
+새 BaseMeshEffect로 채움 Sprite atlas UV의 X만 반사한다. Transform/정점 위치·HP fillAmount·fillOrigin·배경/오른쪽 체력바를 바꾸지 않는다.
+기존 양쪽 HUD 왼쪽(내 HP) 표시 레이어에 적용하고 Inspector의 `1P (왼쪽) 체력 이미지 좌우 반전`은 기본 켬이다.
+현재 열린 두 HUD에 Undo로 효과를 연결했고 fillOrigin=1/Scale=(1,1,1), 오른쪽 효과 없음 확인. 씬은 자동 저장하지 않았다.
+새 View/mesh fixture와 메타 2짝, 기존 partial/Inspector/UI fixture·안내/JSON 수정·추가. Simulation/QTN/SDK/PNG/atlas 메타 변경 없음.
+최종 한 차례 컴파일 오류 0/기존 경고 7, 정적 94개 신규 0, 관련 파일 9개 공백·문서 링크 4개·메타 2짝 PASS.
+job `d5f083112dbd4142b7d048876cba6c8b` 28/28 PASS: 실제 Image 정점/UV mesh 6·기존 이미지 UI 18·흔들림/씬 참조 4.
+GPU 픽셀색/실제 대전·Photon·강제 rollback, native Inspector Undo 클릭 자동 검사는 NOT RUN이다. 검사 후 제품 변경/검사 반복 없음.
+사용자 UI PNG/메타 6개·이전 UI/씬/IDE·포트폴리오·output/tmp/pptstyle을 보존했다. 새 코드/메타/안내/JSON은 미추적이며 staging/commit/push/PR 없음.
+다음은 사용자 화면 확인과 씬 저장이다. 이전 크기 맞춤 22 PASS·UI 39 PASS는 당시 기록이며 과거 실패/미검증·KazumiHoming 빈 이벤트는 유지한다.
+
+최신 UI 수정: [체력 배경/채움 원본 비율 맞춤](health-bar-image-fit.md), [검증 근거](evidence/health-bar-image-fit-validation.json).
+사용자가 연결한 배경 529×105와 채움 436×40을 이전 코드가 같은 800×70 영역에 늘려 채움이 테두리를 덮었다.
+기존 새 partial에서 배경 원본 비율·채움 상대 크기를 맞추고 공통 너비/채움 배율/위치 보정·자동 맞춤 해제를 Inspector에 추가했다.
+HP fillAmount/fillOrigin·기존 흔들림 부모와 원본 PNG/슬라이스/메타를 보존했다. Simulation/QTN/SDK/프로토콜 변경 없음.
+실제 열린 두 HUD에 Undo를 기록해 배경 800×158.79/채움 659.36×60.49로 적용했다. 사용자 미저장 씬이므로 자동 저장하지 않았다.
+한 차례 최종 컴파일 오류 0/기존 경고 7, 정적 94개 신규 0, 관련 코드 공백·문서 링크 10개/메타 3짝 PASS.
+job `b06566b9bba24c0aa27974e9fcd963dd`: UI 18(새 반전/크기 2 포함)+기존 흔들림/씬 연결 4 = 22/22 PASS. 검사 후 제품 변경/재검사 없음.
+사용자가 재저장한 씬 공백은 정규화하지 않았다. 기존 UI·씬/IDE·새 사용자 UI PNG/메타 4개·포트폴리오/임시 파일을 보존했다.
+새 안내/검증 JSON은 미추적이며 staging/commit/push/PR 없음. 실제 대전/Photon/강제 rollback은 NOT RUN이다.
+다음은 사용자의 미리보기 확인과 씬 저장·채움 크기/위치 조절이며 자동 재검증/게시 승인이 아니다. 이전 UI 39 PASS와 기존 실패/미해결 이력은 당시 근거로 유지한다.
+
+최신 구현: [게임플레이 UI 이미지 Inspector 연결](gameplay-ui-images.md), [검증 근거](evidence/gameplay-ui-images-validation.json).
+`QuantumEntityViewUpdater → LSDFSceneBindings` Inspector 상단에 체력 배경/선택 채움·승리 배경/빨간 획득 마크·Fight·Round1~5·RoundWin/Lose와 선택 Draw 슬롯을 추가했다.
+양쪽 HUD에 공통 적용하며 기존 체력/승리 배경을 재사용하고 중앙 알림 Image를 1개씩 씬에 연결했다. 원본 비율·표시 크기 조절과 미리보기/Undo를 제공한다.
+이미지 미할당 체력/아이콘은 기존 그림을 유지하고 중앙 알림은 메시지별 텍스트로 대체한다. 승리 배경은 항상 3칸, 빨간 마크만 승리 수에 맞춰 표시한다.
+HP predicted·흔들림/승리/알림 verified, 로컬 좌/우 승패·마지막 60틱 Fight·전투 중 숨김·HUD 교체/해제 정리를 유지했다.
+Simulation/QTN/Generated/SDK/시스템 순서·승패/피해/프로토콜 변경 없음. 기존 View 2개/Editor asmdef/경기 씬 수정, 새 partial/Inspector/fixture와 메타 3짝·사용 안내/JSON 추가.
+최종 한 차례 Unity 컴파일 오류 0/기존 경고 7, 정적 94개/신규 0, 관련 diff·새 파일 12개 공백/문서 링크 7개·메타 3짝 PASS.
+job `dd4e620b64e7426e80e0e63d8cabeac9` 39/39 PASS: 새 UI 16·기존 라운드 결과 19·흔들림/씬 연결 4. 검사 후 제품 파일 변경·반복 검사 없음.
+최초 읽기용 MCP scratch snippet의 return 누락 실패는 씬 원문 조사로 이어갔으며 프로젝트 컴파일/게임 테스트 결과와 구분한다.
+에디터는 미저장 씬이 없음을 확인한 뒤 LSDFGameplay를 열고 QuantumEntityViewUpdater를 선택했다. 자동 저장하지 않았다.
+사용자 아트 파일/경로는 지정되지 않아 실제 Sprite 슬롯은 미할당이다. 실제 아트 화면 품질·Inspector 클릭/Undo 자동 UI·Photon/강제 rollback은 NOT RUN이다.
+기존 IDE 9개/csproj 4개·포트폴리오 문서/자료·output/tmp/pptstyle을 보존했다. 새 코드/메타/안내/증거와 `tmp/gameplay-ui/`는 미추적이며 커밋·Push·PR 없음.
+다음은 사용자 Sprite 드래그·적용 버튼·씬 저장과 실제 화면 조정이다. 이전 공백/통합 fixture 실패 후 미검증·KazumiHoming 빈 이벤트 등은 유지한다.
+
+최종 게시 완료: 사용자 직접 테스트 완료 확인을 근거로 준비된 게임/씬/PNG/메타/작업 기록 24개를 `b40aea42`에 커밋하고 `origin/dev/Prototype`으로 Push했다.
+검토 후보와 커밋 tree `aae374d96de67ff019d14dabb2160b56a7dd7be6` 일치, 원격 SHA `b40aea428812a98bb9d516e32434d5db5329fd51`와 ahead/behind 0/0 확인.
+게임/공백/정적 검사는 이번 후속 요청에서 재실행하지 않았다. 기존 99+30 PASS와 자동 공백 FAIL→서식 보정 후 미검증·PNG 별도 검토 및 과거 미해결 항목은 그대로다.
+PR은 요청받지 않아 생성하지 않았다. IDE 9개·미추적 csproj 4개·포트폴리오/제작 기록 2개·output/tmp/pptstyle은 로컬에 보존했다.
+이 최종 결과 요약 갱신만 Push 이후 로컬 변경이다. 아래 중단·게시 준비 기록은 이전 단계의 이력이며 완료 상태를 대체하지 않는다.
+다음은 사용자 후속 요청 대응이며 새 검사/게시를 자동 시작하지 않는다.
 
 사용자 후속 확인: “내가 테스트는 다 했으니까 푸시만 하라고 빨리”. 사용자가 현재 후보를 직접 테스트했다고 확인하고 즉시 게시를 다시 지시했다.
 아래 자동 중단 기록은 과거 이력으로 보존하며 최신 사용자 지시에 따라 준비된 24개 경로를 커밋·Push한다. 게임·공백 검사는 재실행하지 않는다.

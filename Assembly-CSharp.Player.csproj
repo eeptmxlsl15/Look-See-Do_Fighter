@@ -66,8 +66,6 @@
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\Legacy\SkillDatabase.cs" />
     <Compile Include="Assets\Scripts\GameUI.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillSetPanelUI.cs" />
-    <Compile Include="Assets\QuantumUser\View\LSDF_PlayerInput.cs" />
-    <Compile Include="Assets\Scripts\SfxManager.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Plugins\Pixelplacement\iTween\iTween.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\SpawnShield.cs" />
     <Compile Include="Assets\Matthew Guz\Hits Effects FREE\Scene Demo\Script\RotationEffect.cs" />
@@ -78,7 +76,6 @@
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillScrollToggle.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\SlashTest.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\FirstPersonControllerScript.cs" />
-    <Compile Include="Assets\QuantumUser\View\LSDF_IngameUI.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillSelectionManager.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillButton.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\PowerUpTest.cs" />
@@ -88,12 +85,9 @@
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\Legacy\SkillSaveManager.cs" />
     <Compile Include="Assets\Scripts\SignalPlayHitEffect.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\Flamethrower.cs" />
-    <Compile Include="Assets\QuantumUser\View\LSDF_HitEffectView.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\GroundSlash.cs" />
-    <Compile Include="Assets\Scripts\LSDF_AudioSource.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\SpawnShieldRipples.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\CameraShake.cs" />
-    <Compile Include="Assets\QuantumUser\View\LSDF_ViewHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon\Quantum\Assemblies\Quantum.Deterministic.xml" />
@@ -1133,6 +1127,10 @@
     <ProjectReference Include="Photon.Realtime.Player.csproj">
       <Project>{1AE0810E-768A-4636-7954-77EF531E6F31}</Project>
       <Name>Photon.Realtime.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="LSDF.View.Player.csproj">
+      <Project>{9E636E9F-C9D1-4141-8850-7F9493BDF247}</Project>
+      <Name>LSDF.View.Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

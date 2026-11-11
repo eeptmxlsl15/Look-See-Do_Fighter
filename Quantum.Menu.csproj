@@ -67,22 +67,26 @@
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuPartyCodeGenerator.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUIController.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUILoading.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\Runtime\LSDFConnectionDiagnostics.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenu.Sdk.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuMachineId.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUISkillSelect.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuFpsAvgCounter.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\Runtime\LSDFLoadoutSelection.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUIParty.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuScreenPluginTooltip.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenu.Common.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuScreenPluginVersion.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\Runtime\LSDFLocalLoadout.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuConnectionBehaviour.LSDF.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUISettings.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUIScenes.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUIMain.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuScreenPlugin.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuConfig.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuScreenPluginPing.cs" />
-    <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuConnectionBehaviourSDK.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuUIGameplay.cs" />
+    <Compile Include="Assets\Photon\QuantumMenu\Runtime\QuantumMenuConnectionBehaviourSDK.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon\QuantumMenu\Runtime\Quantum.Menu.asmdef" />

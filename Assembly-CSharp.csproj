@@ -66,8 +66,6 @@
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\Legacy\SkillDatabase.cs" />
     <Compile Include="Assets\Scripts\GameUI.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillSetPanelUI.cs" />
-    <Compile Include="Assets\QuantumUser\View\LSDF_PlayerInput.cs" />
-    <Compile Include="Assets\Scripts\SfxManager.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Plugins\Pixelplacement\iTween\iTween.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\SpawnShield.cs" />
     <Compile Include="Assets\Matthew Guz\Hits Effects FREE\Scene Demo\Script\RotationEffect.cs" />
@@ -78,7 +76,6 @@
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillScrollToggle.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\SlashTest.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\FirstPersonControllerScript.cs" />
-    <Compile Include="Assets\QuantumUser\View\LSDF_IngameUI.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillSelectionManager.cs" />
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\SkillButton.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\PowerUpTest.cs" />
@@ -88,12 +85,9 @@
     <Compile Include="Assets\Photon\QuantumMenu\UnityUI\Scripts\Legacy\SkillSaveManager.cs" />
     <Compile Include="Assets\Scripts\SignalPlayHitEffect.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\Flamethrower.cs" />
-    <Compile Include="Assets\QuantumUser\View\LSDF_HitEffectView.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\GroundSlash.cs" />
-    <Compile Include="Assets\Scripts\LSDF_AudioSource.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\SpawnShieldRipples.cs" />
     <Compile Include="Assets\GabrielAguiarProductions\Scripts\CameraShake.cs" />
-    <Compile Include="Assets\QuantumUser\View\LSDF_ViewHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon\Quantum\Assemblies\Quantum.Deterministic.xml" />
@@ -1352,10 +1346,6 @@
       <HintPath>Library\ScriptAssemblies\ParrelSync.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.2D.Psdimporter.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="MCPForUnity.Runtime">
       <HintPath>Library\ScriptAssemblies\MCPForUnity.Runtime.dll</HintPath>
       <Private>False</Private>
@@ -1394,6 +1384,10 @@
     </Reference>
     <Reference Include="Unity.2D.IK.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Psdimporter.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
@@ -1534,6 +1528,10 @@
       <Project>{A4652533-7C38-5BF7-F9FD-7CE0E56E1E9D}</Project>
       <Name>Photon.Realtime</Name>
     </ProjectReference>
+    <ProjectReference Include="LSDF.View.Editor.csproj">
+      <Project>{17735540-D639-6AB6-329E-97BD235D77C0}</Project>
+      <Name>LSDF.View.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Quantum.Unity.Editor.csproj">
       <Project>{5BE774E8-6E97-C05C-109A-51F2240277C3}</Project>
       <Name>Quantum.Unity.Editor</Name>
@@ -1541,6 +1539,10 @@
     <ProjectReference Include="Quantum.Menu.Editor.csproj">
       <Project>{3708B4FE-5947-A249-DC64-C125CD2F9761}</Project>
       <Name>Quantum.Menu.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="LSDF.View.csproj">
+      <Project>{A3A4741F-851C-537B-95EE-ECF77F31B29B}</Project>
+      <Name>LSDF.View</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

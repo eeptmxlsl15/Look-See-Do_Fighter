@@ -23,18 +23,21 @@ public class LSDF_IngameUI : QuantumEntityViewComponent {
   }
   public override void OnUpdateView() {
     if (_bindings == null || !_bindings.Accept(Game) || !_bindings.ClaimHud(this) || !LSDFSceneBindings.TryLocal(Game, out var local)) {
-      ResetHealthShake(); return;
+      ResetPresentation(); return;
     }
     var frame = PredictedFrame;
     if (frame == null || !LSDFRoster.TryFind(frame, local, out myPlayerEntity) ||
         !LSDFRoster.TryFind(frame, local == (PlayerRef)0 ? (PlayerRef)1 : (PlayerRef)0, out opponentEntity)) {
-      ResetHealthShake(); return;
+      ResetPresentation(); return;
     }
     if (!frame.TryGet<LSDF_Player>(myPlayerEntity, out var mine) || !frame.TryGet<LSDF_Player>(opponentEntity, out var other)) {
-      ResetHealthShake(); return;
+      ResetPresentation(); return;
     }
-    _hud = _bindings.LocalHud(local);
-    if (_hud == null) { ResetHealthShake(); return; }
+    var nextHud = _bindings.LocalHud(local);
+    if (_hud != nextHud) ResetPresentation();
+    _hud = nextHud;
+    if (_hud == null) { ResetPresentation(); return; }
+    LSDFGameplayUIRenderer.ApplyImages(_hud, _bindings.GameplayUIImages);
     TimerText = _hud.Timer; RoundMessageRoot = _hud.RoundRoot; RoundText = _hud.Round; FightText = _hud.Fight;
     LeftRoundWins = _hud.LeftWins; RightRoundWins = _hud.RightWins;
     int maximum = LSDFBalance.MaximumHealth(frame);
@@ -48,24 +51,8 @@ public class LSDF_IngameUI : QuantumEntityViewComponent {
     _rightShake.Observe(rightRoot, opponentEntity, other, confirmed.Number);
     _leftShake.Advance(Time.unscaledDeltaTime, HealthShakeDuration, HealthShakeStrength);
     _rightShake.Advance(Time.unscaledDeltaTime, HealthShakeDuration, HealthShakeStrength);
-    SetWins(LeftRoundWins, other.loseRound); SetWins(RightRoundWins, mine.loseRound);
-    var phase = LSDFRoundPolicy.Phase(true, mine, other, confirmed.Number);
-    if (phase == LSDFRoundPhase.RoundEnd || phase == LSDFRoundPhase.MatchEnd) {
-      ShowResult(LSDFRoundPolicy.Outcome(mine, other), phase == LSDFRoundPhase.MatchEnd);
-    } else if (phase == LSDFRoundPhase.Intro) {
-      int remaining = Mathf.Max(mine.tickToEnableMove, other.tickToEnableMove) - confirmed.Number;
-      ShowRoundIntro(LSDFRoundPolicy.RoundNumber(mine, other));
-      if (remaining <= 60 && RoundMessageRoot != null && FightText != null) {
-        if (RoundText != null) RoundText.gameObject.SetActive(false);
-        FightText.text = "FIGHT"; FightText.gameObject.SetActive(true);
-      }
-    } else if (RoundMessageRoot != null) {
-      RoundMessageRoot.SetActive(false);
-    }
-  }
-  private static void SetWins(Image[] images, int wins) {
-    if (images == null) return;
-    for (int i = 0; i < images.Length; i++) if (images[i] != null) images[i].gameObject.SetActive(i < wins);
+    LSDFGameplayUIRenderer.SetWins(_hud, other.loseRound, mine.loseRound);
+    LSDFGameplayUIRenderer.RenderRound(_hud, _bindings.GameplayUIImages, mine, other, confirmed.Number);
   }
   public static string ResultMessage(LSDFRoundOutcome outcome, bool matchOver) {
     if (outcome == LSDFRoundOutcome.Draw) return "DRAW";
@@ -73,19 +60,12 @@ public class LSDF_IngameUI : QuantumEntityViewComponent {
     return outcome == LSDFRoundOutcome.FirstWins ? (matchOver ? "YOU WIN" : "ROUND WIN") :
       (matchOver ? "YOU LOSE" : "ROUND LOSE");
   }
-  private void ShowResult(LSDFRoundOutcome outcome, bool matchOver) {
-    if (RoundMessageRoot == null || FightText == null) return;
-    if (RoundText != null) RoundText.gameObject.SetActive(false);
-    FightText.text = ResultMessage(outcome, matchOver);
-    FightText.gameObject.SetActive(true); RoundMessageRoot.SetActive(true);
-  }
   public void ShowRoundIntro(int roundNumber) {
-    if (RoundMessageRoot == null || RoundText == null || FightText == null) return;
-    RoundMessageRoot.SetActive(true);
-    RoundText.text = $"Round {roundNumber}"; RoundText.gameObject.SetActive(true); FightText.gameObject.SetActive(false);
+    var hud = _hud ?? new LSDFSceneBindings.Hud { RoundRoot = RoundMessageRoot, Round = RoundText, Fight = FightText };
+    LSDFGameplayUIRenderer.ShowRound(hud, _bindings != null ? _bindings.GameplayUIImages : null, roundNumber);
   }
   public override void OnDeactivate() {
-    ResetHealthShake();
+    ResetPresentation();
     if (_bindings != null) {
       if (_bindings.OwnsHud(this) && RoundMessageRoot != null) RoundMessageRoot.SetActive(false);
       _bindings.Release(this);
@@ -97,6 +77,10 @@ public class LSDF_IngameUI : QuantumEntityViewComponent {
   private void OnEnable() { if (IsActive && PredictedFrame != null) OnActivate(PredictedFrame); }
   private void OnDisable() { OnDeactivate(); }
   private void ResetHealthShake() { _leftShake.Reset(); _rightShake.Reset(); }
+  private void ResetPresentation() {
+    ResetHealthShake();
+    if (_bindings != null && _bindings.OwnsHud(this)) LSDFGameplayUIRenderer.Hide(_hud);
+  }
 }
 
 /// <summary>Per-bar presentation state, driven only by new verified samples. Never writes to Quantum.</summary>

@@ -1,0 +1,38 @@
+{
+  "status": "BLOCKED_CORRECTED_NOT_REVALIDATED",
+  "committed": false,
+  "pushed": false,
+  "push_authorization": "Already explicitly granted by user; do not ask again",
+  "manifest": [
+    "Assets/QuantumUser/Resources/LSDF_GameConfig.asset",
+    "Assets/QuantumUser/Simulation/LSDFJuggle.cs",
+    "Assets/QuantumUser/Simulation/LSDFJuggleSettings.cs",
+    "Assets/QuantumUser/Simulation/LSDFLoadout.cs",
+    "Assets/QuantumUser/View/Editor/LSDFStageBackgroundEditor.cs",
+    "Assets/QuantumUser/View/LSDFStageBackground.cs",
+    "Assets/Scenes/LSDFGameplay.unity",
+    "Assets/Tests/Editor/LSDFComboEnderTests.cs",
+    "Assets/Tests/Editor/LSDFHitReactionTests.cs",
+    "Assets/Tests/Editor/LSDFJuggleTests.cs",
+    "Assets/Tests/Editor/LSDFOnlineComboEnderTests.cs",
+    "Assets/Tests/Editor/LSDFStageBackgroundTests.cs",
+    "Assets/Sprites/Background/산속 목재소 격투장 풍경_25_export.png",
+    "Assets/Sprites/Background/산속 목재소 격투장 풍경_25_export.png.meta",
+    "Assets/Sprites/Background/산속 목재소 격투장 풍경_50_export.png",
+    "Assets/Sprites/Background/산속 목재소 격투장 풍경_50_export.png.meta",
+    "docs/ai/air-hit-push-distance.md",
+    "docs/ai/evidence/air-hit-push-distance-validation.json",
+    "docs/ai/infinite-stage-background.md",
+    "docs/ai/evidence/infinite-stage-background-validation.json",
+    "docs/ai/current-state.md",
+    "docs/ai/evidence/2026-10-23-push-validation.json",
+    "docs/ai/evidence/2026-10-23-publication-review.json",
+    "docs/ai/push-infinite-stage-and-air-hit-2026-10-23.md"
+  ],
+  "git_identity_and_status": "7b76c6ce1a23ad096ee4d57535f1fea37f1d5332\nb571a8f15e617788a0c86fe6507e992146f1800c\n M Assembly-CSharp.Player.csproj\n M Assembly-CSharp.csproj\nM  Assets/QuantumUser/Resources/LSDF_GameConfig.asset\nM  Assets/QuantumUser/Simulation/LSDFJuggle.cs\nM  Assets/QuantumUser/Simulation/LSDFJuggleSettings.cs\nM  Assets/QuantumUser/Simulation/LSDFLoadout.cs\nM  Assets/QuantumUser/View/Editor/LSDFStageBackgroundEditor.cs\nM  Assets/QuantumUser/View/LSDFStageBackground.cs\nM  Assets/Scenes/LSDFGameplay.unity\nA  \"Assets/Sprites/Background/산속 목재소 격투장 풍경_25_export.png\"\nA  \"Assets/Sprites/Background/산속 목재소 격투장 풍경_25_export.png.meta\"\nA  \"Assets/Sprites/Background/산속 목재소 격투장 풍경_50_export.png\"\nA  \"Assets/Sprites/Background/산속 목재소 격투장 풍경_50_export.png.meta\"\nM  Assets/Tests/Editor/LSDFComboEnderTests.cs\nM  Assets/Tests/Editor/LSDFHitReactionTests.cs\nM  Assets/Tests/Editor/LSDFJuggleTests.cs\nM  Assets/Tests/Editor/LSDFOnlineComboEnderTests.cs\nM  Assets/Tests/Editor/LSDFStageBackgroundTests.cs\n M Look-See-Do_Fighter.sln\n M Quantum.Menu.Player.csproj\n M Quantum.Menu.csproj\n M Quantum.Simulation.Player.csproj\n M Quantum.Simulation.csproj\n M Quantum.Unity.Player.csproj\n M Quantum.Unity.csproj\nA  docs/ai/air-hit-push-distance.md\nM  docs/ai/current-state.md\nA  docs/ai/evidence/2026-10-23-publication-review.json\nA  docs/ai/evidence/2026-10-23-push-validation.json\nA  docs/ai/evidence/air-hit-push-distance-validation.json\nA  docs/ai/evidence/infinite-stage-background-validation.json\nA  docs/ai/infinite-stage-background.md\nA  docs/ai/push-infinite-stage-and-air-hit-2026-10-23.md\n?? LSDF.Tests.csproj\n?? LSDF.View.Editor.csproj\n?? LSDF.View.Player.csproj\n?? LSDF.View.csproj\n?? docs/ai/evidence/2026-10-22-portfolio-astra-redesign.md\n?? docs/ai/evidence/2026-10-22-portfolio-presentation.md\n?? output/\n?? pptstyle.md\n?? tmp/\n",
+  "tests": {
+    "reused_passed": 99,
+    "new_passed": 30
+  },
+  "next": "Only after a new user revalidation request: run corrected candidate whitespace check once, reuse unchanged game evidence, then commit and push origin dev/Prototype."
+}

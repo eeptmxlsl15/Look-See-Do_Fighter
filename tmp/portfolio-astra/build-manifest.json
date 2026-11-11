@@ -1,0 +1,23 @@
+﻿{
+    "slides":  14,
+    "standardHeaders":  [
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7,
+                            8,
+                            9,
+                            10,
+                            11,
+                            12,
+                            13
+                        ],
+    "pptx":  "C:\\Users\\Admin\\Look-See-Do_Fighter\\output\\portfolio\\김석진_LSDF_포트폴리오_Astra_v2.pptx",
+    "pdf":  "C:\\Users\\Admin\\Look-See-Do_Fighter\\output\\portfolio\\김석진_LSDF_포트폴리오_Astra_v2.pdf",
+    "font":  "Malgun Gothic",
+    "widthInches":  13.333333,
+    "heightInches":  7.5,
+    "method":  "PowerPoint COM; native text and diagrams; embedded fonts"
+}

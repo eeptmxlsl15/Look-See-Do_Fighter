@@ -1,0 +1,461 @@
+{
+  "timestamp": "2026-10-23T00:55:32+09:00",
+  "branch": "dev/Prototype",
+  "base": "b40aea428812a98bb9d516e32434d5db5329fd51",
+  "status": "PASS_WITH_STATED_LIMITS",
+  "scope": "Gameplay HUD image slots, shared Inspector and verified round presentation; no Simulation/QTN/SDK changes",
+  "unity_compile": {
+    "status": "PASS",
+    "refresh_requests": 1,
+    "console_reads": 1,
+    "errors": 0,
+    "warnings": 7,
+    "note": "Existing obsolete-menu API and external asset warnings; excluded source folders were not inspected."
+  },
+  "quantum_guard": {
+    "status": "pass",
+    "scope": "Assets/QuantumUser/Simulation",
+    "files_scanned": 94,
+    "existing_findings": 0,
+    "new_findings": [],
+    "resolved_baseline_occurrences": 0,
+    "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+  },
+  "changed_diff_whitespace": {
+    "status": "PASS",
+    "runs": 1,
+    "exit_code": 0
+  },
+  "source_meta_document_review": {
+    "text_files": 12,
+    "new_metas": 3,
+    "links": 7,
+    "findings": [],
+    "sha256": {
+      "Assets/QuantumUser/View/LSDF_IngameUI.cs": "4611ab4202fa320984a2fb88643c16a93910142d8ec23c35b82cb38e8f306505",
+      "Assets/QuantumUser/View/LSDFSceneBindings.cs": "83d9a075d9fa56e89b17323cf270c12434e5ec143116ed1a62c299658f48c4af",
+      "Assets/QuantumUser/View/LSDFSceneBindings.GameplayUI.cs": "9b3cb2d6b206b5a996622e5c8281e81be140758a324d4a62fb49f85c9fba8197",
+      "Assets/QuantumUser/View/LSDFSceneBindings.GameplayUI.cs.meta": "bb1bd4722da8e62e11a926624d43cbf846882e13874a44f15578c4600e82a5ca",
+      "Assets/QuantumUser/View/Editor/LSDFSceneBindingsEditor.cs": "fb22232b2ba05e5d91e68c666f4205207a76f6477b5ac9608a0df11e13d873e9",
+      "Assets/QuantumUser/View/Editor/LSDFSceneBindingsEditor.cs.meta": "8bc279a9882efb1265905dd3a2e6810290103b0804e2da5745f13b835c469f87",
+      "Assets/QuantumUser/View/Editor/LSDF.View.Editor.asmdef": "b0a97994677608797694257d2ab4bac921186eb42de7454df4d527990a0cd548",
+      "Assets/Tests/Editor/LSDFGameplayUIImageTests.cs": "764c735f1950a673da3763cdc4bd908f494f5b807b59491765639f8410208a4b",
+      "Assets/Tests/Editor/LSDFGameplayUIImageTests.cs.meta": "efe438e10ed6604c042c960a93d6a20ea186a0d7fff2d34db1ffefe2d7666a60",
+      "Assets/Scenes/LSDFGameplay.unity": "9e89561f18c21d19c24245bf5163de136a79e4ba8f7cc8ab8df31b9e5708a68a",
+      "docs/ai/gameplay-ui-images.md": "2a38f45b330278f30112b74b73337a710c0814d5d1a59b45df3fae9a56157fa8",
+      "docs/ai/evidence/gameplay-ui-images-validation.json": "6e5ca31c80969da264802d71c63c3fda9df2c663d86f9b028a100c419daaddb2"
+    },
+    "scene_local_ids_unique": true,
+    "status": "PASS"
+  },
+  "test_job": {
+    "job_id": "dd4e620b64e7426e80e0e63d8cabeac9",
+    "status": "succeeded",
+    "mode": "EditMode",
+    "started_unix_ms": 1792684476480,
+    "finished_unix_ms": 1792684482638,
+    "last_update_unix_ms": 1792684482638,
+    "progress": {
+      "completed": 39,
+      "total": 39,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)",
+      "last_finished_unix_ms": 1792684482388,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": false,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "EditMode",
+      "summary": {
+        "total": 39,
+        "passed": 39,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 1.1121749,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "BothHudLayoutsShareArtWithoutChangingHealthRatioOrFillDirection",
+          "fullName": "LSDFGameplayUIImageTests.BothHudLayoutsShareArtWithoutChangingHealthRatioOrFillDirection",
+          "state": "Passed",
+          "durationSeconds": 0.0648307,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(1)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0054297,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(2)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(2)",
+          "state": "Passed",
+          "durationSeconds": 0.0024293,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(3)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(3)",
+          "state": "Passed",
+          "durationSeconds": 0.002516,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(4)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(4)",
+          "state": "Passed",
+          "durationSeconds": 0.0024752,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(5)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(5)",
+          "state": "Passed",
+          "durationSeconds": 0.0021801,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DrawNeverUsesWinOrLoseAndNoOutcomeHidesTheMessage",
+          "fullName": "LSDFGameplayUIImageTests.DrawNeverUsesWinOrLoseAndNoOutcomeHidesTheMessage",
+          "state": "Passed",
+          "durationSeconds": 0.0026994,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EmptyArtSlotsPreserveTheAuthoredHealthAndIconGraphics",
+          "fullName": "LSDFGameplayUIImageTests.EmptyArtSlotsPreserveTheAuthoredHealthAndIconGraphics",
+          "state": "Passed",
+          "durationSeconds": 0.0021095,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "GameplaySceneConnectsBothHudLayersAndOneAnnouncementEach",
+          "fullName": "LSDFGameplayUIImageTests.GameplaySceneConnectsBothHudLayersAndOneAnnouncementEach",
+          "state": "Passed",
+          "durationSeconds": 0.091,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PartialImageSetsFallBackPerMessageWithoutLeavingAStaleSprite",
+          "fullName": "LSDFGameplayUIImageTests.PartialImageSetsFallBackPerMessageWithoutLeavingAStaleSprite",
+          "state": "Passed",
+          "durationSeconds": 0.003269,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReentryReusesOneImageAndRespectsAspectSizingAndMissingReferences",
+          "fullName": "LSDFGameplayUIImageTests.ReentryReusesOneImageAndRespectsAspectSizingAndMissingReferences",
+          "state": "Passed",
+          "durationSeconds": 0.0040038,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(True,False)",
+          "fullName": "LSDFGameplayUIImageTests.ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(True,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0050992,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(False,False)",
+          "fullName": "LSDFGameplayUIImageTests.ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(False,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0041635,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(True,True)",
+          "fullName": "LSDFGameplayUIImageTests.ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(True,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0040765,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(False,True)",
+          "fullName": "LSDFGameplayUIImageTests.ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(False,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0042236,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "WinsKeepAllThreeBackgroundsAndResetOnlyTheColoredOverlays",
+          "fullName": "LSDFGameplayUIImageTests.WinsKeepAllThreeBackgroundsAndResetOnlyTheColoredOverlays",
+          "state": "Passed",
+          "durationSeconds": 0.0023274,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DrawReplaysTheSameRoundWithoutAddingEitherScore",
+          "fullName": "LSDFRoundResultTests.DrawReplaysTheSameRoundWithoutAddingEitherScore",
+          "state": "Passed",
+          "durationSeconds": 0.0008874,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(0)",
+          "fullName": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(0)",
+          "state": "Passed",
+          "durationSeconds": 0.0024138,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(170)",
+          "fullName": "LSDFRoundResultTests.EndedFighterIgnoresDamageHealingAndFreshOrBufferedCommands(170)",
+          "state": "Passed",
+          "durationSeconds": 0.0000779,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EveryWinSequenceEndsAtThreeWinsWithinFiveDecisiveRounds",
+          "fullName": "LSDFRoundResultTests.EveryWinSequenceEndsAtThreeWinsWithinFiveDecisiveRounds",
+          "state": "Passed",
+          "durationSeconds": 0.0045723,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FinalVictoryMessageIsReservedForMatchEnd(FirstWins,False,\"ROUND WIN\")",
+          "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,False,\"ROUND WIN\")",
+          "state": "Passed",
+          "durationSeconds": 0.0004231,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FinalVictoryMessageIsReservedForMatchEnd(SecondWins,False,\"ROUND LOSE\")",
+          "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,False,\"ROUND LOSE\")",
+          "state": "Passed",
+          "durationSeconds": 0.0001358,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FinalVictoryMessageIsReservedForMatchEnd(FirstWins,True,\"YOU WIN\")",
+          "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(FirstWins,True,\"YOU WIN\")",
+          "state": "Passed",
+          "durationSeconds": 0.000067,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FinalVictoryMessageIsReservedForMatchEnd(SecondWins,True,\"YOU LOSE\")",
+          "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(SecondWins,True,\"YOU LOSE\")",
+          "state": "Passed",
+          "durationSeconds": 0.0000998,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FinalVictoryMessageIsReservedForMatchEnd(Draw,False,\"DRAW\")",
+          "fullName": "LSDFRoundResultTests.FinalVictoryMessageIsReservedForMatchEnd(Draw,False,\"DRAW\")",
+          "state": "Passed",
+          "durationSeconds": 0.0000729,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "KoHasOnePersistentOutcomeAndMatchingPose(0,170,SecondWins)",
+          "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,170,SecondWins)",
+          "state": "Passed",
+          "durationSeconds": 0.0009477,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "KoHasOnePersistentOutcomeAndMatchingPose(-12,1,SecondWins)",
+          "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-12,1,SecondWins)",
+          "state": "Passed",
+          "durationSeconds": 0.000367,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "KoHasOnePersistentOutcomeAndMatchingPose(170,0,FirstWins)",
+          "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(170,0,FirstWins)",
+          "state": "Passed",
+          "durationSeconds": 0.0003915,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "KoHasOnePersistentOutcomeAndMatchingPose(1,-12,FirstWins)",
+          "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(1,-12,FirstWins)",
+          "state": "Passed",
+          "durationSeconds": 0.00028,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "KoHasOnePersistentOutcomeAndMatchingPose(0,0,Draw)",
+          "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(0,0,Draw)",
+          "state": "Passed",
+          "durationSeconds": 0.0002864,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "KoHasOnePersistentOutcomeAndMatchingPose(-1,-12,Draw)",
+          "fullName": "LSDFRoundResultTests.KoHasOnePersistentOutcomeAndMatchingPose(-1,-12,Draw)",
+          "state": "Passed",
+          "durationSeconds": 0.0003133,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "LivingFightersDoNotFinishAndNoWinnerExistsBeforeFinalization",
+          "fullName": "LSDFRoundResultTests.LivingFightersDoNotFinishAndNoWinnerExistsBeforeFinalization",
+          "state": "Passed",
+          "durationSeconds": 0.0003392,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "NextRoundResetsHealthAndCombatStateButKeepsScoreAndLoadouts",
+          "fullName": "LSDFRoundResultTests.NextRoundResetsHealthAndCombatStateButKeepsScoreAndLoadouts",
+          "state": "Passed",
+          "durationSeconds": 0.000626,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResultPosesUseTheExistingQuantumGraphAndFadingIsEnabled",
+          "fullName": "LSDFRoundResultTests.ResultPosesUseTheExistingQuantumGraphAndFadingIsEnabled",
+          "state": "Passed",
+          "durationSeconds": 0.023723,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "TerminalPoseCancelsComboDashAndCounterWindowsWithoutChangingLoadout",
+          "fullName": "LSDFRoundResultTests.TerminalPoseCancelsComboDashAndCounterWindowsWithoutChangingLoadout",
+          "state": "Passed",
+          "durationSeconds": 0.0006887,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "GameplaySceneHasExplicitUpdaterBindings",
+          "fullName": "LSDFStructuralTests.GameplaySceneHasExplicitUpdaterBindings",
+          "state": "Passed",
+          "durationSeconds": 0.0144751,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "HealthShakeHandlesZeroDamageHitsGuardRecoveryAndHudRebinding",
+          "fullName": "LSDFStructuralTests.HealthShakeHandlesZeroDamageHitsGuardRecoveryAndHudRebinding",
+          "state": "Passed",
+          "durationSeconds": 0.0017974,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(False)",
+          "fullName": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(False)",
+          "state": "Passed",
+          "durationSeconds": 0.0012336,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)",
+          "fullName": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)",
+          "state": "Passed",
+          "durationSeconds": 0.0002237,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        }
+      ]
+    }
+  },
+  "test_groups": {
+    "LSDFGameplayUIImageTests": 16,
+    "LSDFRoundResultTests": 19,
+    "LSDFStructuralTests": 4
+  },
+  "actual_user_art_assigned": false,
+  "editor_handoff": "Opened LSDFGameplay after confirming no loaded scene was dirty; selected QuantumEntityViewUpdater / LSDFSceneBindings. No automatic scene save.",
+  "limits": [
+    "No visual evaluation with actual supplied art: no file/path supplied and slots deliberately unassigned",
+    "No Photon two-client gameplay, forced rollback or cross-platform determinism test for this View-only task",
+    "Custom Inspector Undo/preview was source reviewed and compiled; no automated native Inspector click/Undo test"
+  ],
+  "prior_readonly_tool_query": {
+    "status": "FAILED",
+    "tool": "Unity execute_code scene inspection",
+    "reason": "Scratch CodeDom snippet omitted a return value; no project source compile or game test ran",
+    "followup": "Read existing scene source references directly. No repeated test or scratch compile; later editor selection was a separate handoff action."
+  },
+  "product_source_after_validation": "UNCHANGED",
+  "commit_push_pr": "NOT REQUESTED / NOT RUN"
+}

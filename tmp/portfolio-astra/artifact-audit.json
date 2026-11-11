@@ -1,0 +1,597 @@
+{
+  "scope": "portfolio artifacts only; historical game checks were not rerun",
+  "font_policy": {
+    "basis": "user_request",
+    "families": [
+      "Malgun Gothic"
+    ]
+  },
+  "output_sha256": {
+    "C:\\Users\\Admin\\Look-See-Do_Fighter\\output\\portfolio\\김석진_LSDF_포트폴리오_Astra_v2.pptx": "da27fac306178c5f1347656cff5bfe9021090affce4cb0d88b7281d42d1be489",
+    "C:\\Users\\Admin\\Look-See-Do_Fighter\\output\\portfolio\\김석진_LSDF_포트폴리오_Astra_v2.pdf": "48c76699488c5acff5eeaeb65170e8b2f95415045bae91859e1ce3e4eae8dd7d"
+  },
+  "zip_integrity": true,
+  "pptx_size_emu": {
+    "cx": "12192000",
+    "cy": "6858000"
+  },
+  "embedded_fonts": 2,
+  "slide_count": 14,
+  "text_fonts": [
+    "Malgun Gothic"
+  ],
+  "single_font_pass": true,
+  "native_tables": 0,
+  "native_text_shapes": 246,
+  "original_art_pictures": 2,
+  "header_geometry": {
+    "standard-chapter": [
+      {
+        "slide": 2,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 3,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 4,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 5,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 6,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 7,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 8,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 9,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 10,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 11,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 12,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      },
+      {
+        "slide": 13,
+        "x": "685800",
+        "y": "365760",
+        "cx": "10817352",
+        "cy": "228600"
+      }
+    ],
+    "standard-title": [
+      {
+        "slide": 2,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 3,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 4,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 5,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 6,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 7,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 8,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 9,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 10,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 11,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 12,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      },
+      {
+        "slide": 13,
+        "x": "685800",
+        "y": "749807",
+        "cx": "10817352",
+        "cy": "502920"
+      }
+    ],
+    "standard-subtitle": [
+      {
+        "slide": 2,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 3,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 4,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 5,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 6,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 7,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 8,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 9,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 10,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 11,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 12,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      },
+      {
+        "slide": 13,
+        "x": "685800",
+        "y": "1353311",
+        "cx": "10817352",
+        "cy": "329184"
+      }
+    ]
+  },
+  "fixed_headers_pass": true,
+  "github_text_absent": true,
+  "placeholder_text_absent": true,
+  "editable_diagram_shapes": 246,
+  "native_chart_explanation": "Damage bars are native editable PowerPoint shapes with explicit values, not raster images or an Excel chart.",
+  "historical_status_not_overstated": true,
+  "expected_14_slides_pass": true,
+  "notes_source_paths_checked": "Relevant source documents were read during authoring; per-slide citations are in speaker notes.",
+  "text_fit_suspects": [],
+  "off_slide_text": [],
+  "pdf_pages": [
+    {
+      "page": 1,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 76,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.121
+    },
+    {
+      "page": 2,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 113,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 2.155
+    },
+    {
+      "page": 3,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 217,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 3.063
+    },
+    {
+      "page": 4,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 145,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.937
+    },
+    {
+      "page": 5,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 147,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 2.124
+    },
+    {
+      "page": 6,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 136,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.69
+    },
+    {
+      "page": 7,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 130,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.797
+    },
+    {
+      "page": 8,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 134,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.692
+    },
+    {
+      "page": 9,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 108,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.585
+    },
+    {
+      "page": 10,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 143,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 2.227
+    },
+    {
+      "page": 11,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 88,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.226
+    },
+    {
+      "page": 12,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 165,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.466
+    },
+    {
+      "page": 13,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 167,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.999
+    },
+    {
+      "page": 14,
+      "size_pt": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "font_names": [
+        "BCDEEE+MalgunGothic",
+        "BCDFEE+MalgunGothic",
+        "BCDGEE+MalgunGothicBold",
+        "BCDHEE+MalgunGothicBold"
+      ],
+      "font_extensions": [
+        "ttf"
+      ],
+      "korean_characters": 91,
+      "replacement_glyphs": 0,
+      "ppt_pdf_mean_abs_pixel_difference_0_255": 1.631
+    }
+  ],
+  "pdf_page_count": 14,
+  "pdf_fonts_embedded_pass": true,
+  "pdf_font_names_pass": true,
+  "pdf_korean_pass": true
+}

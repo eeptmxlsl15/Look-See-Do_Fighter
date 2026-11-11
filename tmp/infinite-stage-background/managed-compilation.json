@@ -1,0 +1,23 @@
+﻿[
+    {
+        "assembly":  "LSDF.View",
+        "sourceCount":  20,
+        "exitCode":  0,
+        "status":  "PASS",
+        "output":  "C:\\Users\\Admin\\Look-See-Do_Fighter\\tmp\\infinite-stage-background\\LSDF.View.dll"
+    },
+    {
+        "assembly":  "LSDF.View.Editor",
+        "sourceCount":  1,
+        "exitCode":  0,
+        "status":  "PASS",
+        "output":  "C:\\Users\\Admin\\Look-See-Do_Fighter\\tmp\\infinite-stage-background\\LSDF.View.Editor.dll"
+    },
+    {
+        "assembly":  "LSDF.Tests",
+        "sourceCount":  1,
+        "exitCode":  0,
+        "status":  "PASS",
+        "output":  "C:\\Users\\Admin\\Look-See-Do_Fighter\\tmp\\infinite-stage-background\\LSDF.Tests.dll"
+    }
+]

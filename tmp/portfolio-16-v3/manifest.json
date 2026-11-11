@@ -1,0 +1,25 @@
+﻿{
+    "slides":  16,
+    "pptx":  "C:\\Users\\Admin\\Look-See-Do_Fighter\\output\\portfolio\\김석진_LSDF_AI_Native_포트폴리오_16장_v3.pptx",
+    "pdf":  "C:\\Users\\Admin\\Look-See-Do_Fighter\\output\\portfolio\\김석진_LSDF_AI_Native_포트폴리오_16장_v3.pdf",
+    "sourceParagraphs":  16,
+    "nativeTables":  [
+                         6,
+                         9,
+                         13,
+                         14,
+                         15
+                     ],
+    "captureSlides":  [
+                          3,
+                          8,
+                          11,
+                          12
+                      ],
+    "method":  "Microsoft PowerPoint COM",
+    "font":  "Malgun Gothic",
+    "dimensionsInches":  [
+                             13.333,
+                             7.5
+                         ]
+}

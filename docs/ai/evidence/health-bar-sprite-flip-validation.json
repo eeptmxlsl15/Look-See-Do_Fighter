@@ -1,0 +1,354 @@
+{
+  "timestamp": "2026-10-23T01:30:07+09:00",
+  "branch": "dev/Prototype",
+  "base": "b40aea428812a98bb9d516e32434d5db5329fd51",
+  "status": "PASS",
+  "scope": "Left/1P fill Sprite UV reflection only; geometry, fill origin and HP crop preserved",
+  "unity_compile": {
+    "status": "PASS",
+    "errors": 0,
+    "existing_warnings": 7,
+    "refreshes": 1,
+    "console_reads": 1
+  },
+  "quantum_guard": {
+    "status": "pass",
+    "scope": "Assets/QuantumUser/Simulation",
+    "files_scanned": 94,
+    "existing_findings": 0,
+    "new_findings": [],
+    "resolved_baseline_occurrences": 0,
+    "limits": "Lexical ratchet only; not compilation, rollback, checksum or gameplay proof."
+  },
+  "source_review": {
+    "files": 9,
+    "links": 4,
+    "meta_pairs": 2,
+    "sha256": {
+      "Assets/QuantumUser/View/LSDFUIImageHorizontalFlip.cs": "24b3efc8c334fd995dc79742307d3f689b6a0f231db9c439513a2dbdf752a5f9",
+      "Assets/QuantumUser/View/LSDFUIImageHorizontalFlip.cs.meta": "8733efe89c549791c6b7f2bee974fb59833335bfd50ec047122654ca9ec5faac",
+      "Assets/QuantumUser/View/LSDFSceneBindings.GameplayUI.cs": "ba7d02eed9f036b584bca74bb779c0e91ddf58f79fd8f9d88479fd103f4b53a1",
+      "Assets/QuantumUser/View/Editor/LSDFSceneBindingsEditor.cs": "8087110b5a257dece8f5a9c4b30cc0288f093fbe429e9c8d8085273898c5fe34",
+      "Assets/Tests/Editor/LSDFHealthSpriteFlipTests.cs": "1c61de6922836b7f85e8ce97f64ca7167be4665b92033296bad636c67b79b1cc",
+      "Assets/Tests/Editor/LSDFHealthSpriteFlipTests.cs.meta": "906995b0ffbf0d5f75088c5254ceddd7e8d659556d7f5fc647a498e91762e79f",
+      "Assets/Tests/Editor/LSDFGameplayUIImageTests.cs": "d9ffe2fe52eb6d7947d85a908f1a18d4627a22e1a6afd981c3006aa6414f7915",
+      "docs/ai/health-bar-sprite-flip.md": "f7ddab01d511a8c74fafbb04443a632d0f8d077b57f09e8d2a44ea844b21b18d",
+      "docs/ai/evidence/health-bar-sprite-flip-validation.json": "bf4127aa244d6e8bf1c44af9233918fd18191b38d407cba0447a9720bae7b344"
+    },
+    "findings": [],
+    "status": "PASS"
+  },
+  "test_job": {
+    "job_id": "d5f083112dbd4142b7d048876cba6c8b",
+    "status": "succeeded",
+    "mode": "EditMode",
+    "started_unix_ms": 1792686598841,
+    "finished_unix_ms": 1792686605160,
+    "last_update_unix_ms": 1792686605160,
+    "progress": {
+      "completed": 28,
+      "total": 28,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)",
+      "last_finished_unix_ms": 1792686604925,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": false,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "EditMode",
+      "summary": {
+        "total": 28,
+        "passed": 28,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 0.9067499,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "BothHudLayoutsShareArtWithoutChangingHealthRatioOrFillDirection",
+          "fullName": "LSDFGameplayUIImageTests.BothHudLayoutsShareArtWithoutChangingHealthRatioOrFillDirection",
+          "state": "Passed",
+          "durationSeconds": 0.0332895,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(1)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0045467,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(2)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(2)",
+          "state": "Passed",
+          "durationSeconds": 0.0022048,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(3)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(3)",
+          "state": "Passed",
+          "durationSeconds": 0.0020362,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(4)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(4)",
+          "state": "Passed",
+          "durationSeconds": 0.0018457,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(5)",
+          "fullName": "LSDFGameplayUIImageTests.ConfirmedIntroSelectsEachRoundThenFightAndHidesAtUnlock(5)",
+          "state": "Passed",
+          "durationSeconds": 0.0018287,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DifferentSpriteSizesFitInsideTheFrameWithoutChangingHealthOrShakeParents(False)",
+          "fullName": "LSDFGameplayUIImageTests.DifferentSpriteSizesFitInsideTheFrameWithoutChangingHealthOrShakeParents(False)",
+          "state": "Passed",
+          "durationSeconds": 0.007928,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DifferentSpriteSizesFitInsideTheFrameWithoutChangingHealthOrShakeParents(True)",
+          "fullName": "LSDFGameplayUIImageTests.DifferentSpriteSizesFitInsideTheFrameWithoutChangingHealthOrShakeParents(True)",
+          "state": "Passed",
+          "durationSeconds": 0.0028442,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DrawNeverUsesWinOrLoseAndNoOutcomeHidesTheMessage",
+          "fullName": "LSDFGameplayUIImageTests.DrawNeverUsesWinOrLoseAndNoOutcomeHidesTheMessage",
+          "state": "Passed",
+          "durationSeconds": 0.0036538,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EmptyArtSlotsPreserveTheAuthoredHealthAndIconGraphics",
+          "fullName": "LSDFGameplayUIImageTests.EmptyArtSlotsPreserveTheAuthoredHealthAndIconGraphics",
+          "state": "Passed",
+          "durationSeconds": 0.0027314,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "GameplaySceneConnectsBothHudLayersAndOneAnnouncementEach",
+          "fullName": "LSDFGameplayUIImageTests.GameplaySceneConnectsBothHudLayersAndOneAnnouncementEach",
+          "state": "Passed",
+          "durationSeconds": 0.053149,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PartialImageSetsFallBackPerMessageWithoutLeavingAStaleSprite",
+          "fullName": "LSDFGameplayUIImageTests.PartialImageSetsFallBackPerMessageWithoutLeavingAStaleSprite",
+          "state": "Passed",
+          "durationSeconds": 0.0031637,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReentryReusesOneImageAndRespectsAspectSizingAndMissingReferences",
+          "fullName": "LSDFGameplayUIImageTests.ReentryReusesOneImageAndRespectsAspectSizingAndMissingReferences",
+          "state": "Passed",
+          "durationSeconds": 0.0039357,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(True,False)",
+          "fullName": "LSDFGameplayUIImageTests.ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(True,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0071832,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(False,False)",
+          "fullName": "LSDFGameplayUIImageTests.ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(False,False)",
+          "state": "Passed",
+          "durationSeconds": 0.0057539,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(True,True)",
+          "fullName": "LSDFGameplayUIImageTests.ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(True,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0041971,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(False,True)",
+          "fullName": "LSDFGameplayUIImageTests.ResultsAreLocalToEitherPlayerAndAlsoUseImagesAtMatchEnd(False,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0046789,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "WinsKeepAllThreeBackgroundsAndResetOnlyTheColoredOverlays",
+          "fullName": "LSDFGameplayUIImageTests.WinsKeepAllThreeBackgroundsAndResetOnlyTheColoredOverlays",
+          "state": "Passed",
+          "durationSeconds": 0.0022868,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(0,1.0f)",
+          "fullName": "LSDFHealthSpriteFlipTests.SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(0,1.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0059482,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(1,1.0f)",
+          "fullName": "LSDFHealthSpriteFlipTests.SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(1,1.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0008538,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(0,0.5f)",
+          "fullName": "LSDFHealthSpriteFlipTests.SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(0,0.5f)",
+          "state": "Passed",
+          "durationSeconds": 0.0006106,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(1,0.5f)",
+          "fullName": "LSDFHealthSpriteFlipTests.SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(1,0.5f)",
+          "state": "Passed",
+          "durationSeconds": 0.0005445,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(0,0.1f)",
+          "fullName": "LSDFHealthSpriteFlipTests.SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(0,0.1f)",
+          "state": "Passed",
+          "durationSeconds": 0.000447,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(1,0.1f)",
+          "fullName": "LSDFHealthSpriteFlipTests.SpriteUvMirrorsWithinItsAtlasRectWithoutChangingFilledGeometry(1,0.1f)",
+          "state": "Passed",
+          "durationSeconds": 0.0005155,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "GameplaySceneHasExplicitUpdaterBindings",
+          "fullName": "LSDFStructuralTests.GameplaySceneHasExplicitUpdaterBindings",
+          "state": "Passed",
+          "durationSeconds": 0.0130879,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "HealthShakeHandlesZeroDamageHitsGuardRecoveryAndHudRebinding",
+          "fullName": "LSDFStructuralTests.HealthShakeHandlesZeroDamageHitsGuardRecoveryAndHudRebinding",
+          "state": "Passed",
+          "durationSeconds": 0.0015798,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(False)",
+          "fullName": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(False)",
+          "state": "Passed",
+          "durationSeconds": 0.0014199,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)",
+          "fullName": "LSDFStructuralTests.OnlyTheDamagedHealthBarShakesAndRepeatedVerifiedFramesDoNotRetrigger(True)",
+          "state": "Passed",
+          "durationSeconds": 0.0002222,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        }
+      ]
+    }
+  },
+  "live_application": {
+    "both_hud_layouts": true,
+    "left_flip": true,
+    "left_fill_origin": 1,
+    "right_flip_component": false,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "scene_saved": false,
+    "undo_recorded": true
+  },
+  "simulation_changed": false,
+  "actual_png_or_atlas_modified": false,
+  "source_after_validation": "UNCHANGED",
+  "limits": [
+    "Tests inspect actual Image-generated vertices and UVs; no GPU color readback or manual in-game/Photon test",
+    "Native Inspector Undo clicks were not automated",
+    "Scene component additions are currently unsaved; runtime/Inspector apply also creates/reuses the effect"
+  ],
+  "commit_push_pr": "NOT REQUESTED / NOT RUN"
+}
